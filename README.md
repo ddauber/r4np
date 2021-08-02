@@ -1,0 +1,27 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# r4np
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The `r4np` package is the companion for the book [R For Non-Programmers:
+A Guide for Social
+Scientists](https://github.com/ddauber/R-for-Non-Programmers "R For Non-Programmers")
+
+## Installation
+
+You can install the released version of r4np from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("r4np")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("ddauber/r4np")
+```
