@@ -2,8 +2,7 @@ Package: r4np
 Type: Package
 Title: R for Non-Programmers Companion
 Version: 0.1.0
-Author: Daniel Dauber
-Maintainer: The package maintainer d.dauber@warwick.ac.uk
+Author: Daniel Dauber, d.dauber@warwick.ac.uk
 Description: This package is the official companion to 'R For Non-Programmers'.
     It includes datasets and functions that are helplful to follow along with the book,
     which can be found here https://github.com/ddauber/R-for-Non-Programmers.
