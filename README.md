@@ -12,7 +12,7 @@ Scientists](https://github.com/ddauber/R-for-Non-Programmers "R For Non-Programm
 
 ## Installation
 
-You can install the released version of r4np from
+You can install the released version of `r4np` from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
