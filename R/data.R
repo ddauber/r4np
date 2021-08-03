@@ -24,3 +24,33 @@
 #' }
 #' @source \url{https://www.imdb.com}
 "imdb_top_250"
+
+#' World Value Survey (ExtracT)
+#'
+#' A dataset containing details about the top 250 movies
+#' ranked on IMDb.
+#'
+#' @format A tibble with 250 rows and 16 variables:
+#' \describe{
+#'   \item{title}{price, in US dollars}
+#'   \item{rank}{the overall rank on IMDb}
+#'   \item{year}{year the movie was published}
+#'   \item{runtime_min}{runtime of the movie in minutes}
+#'   \item{imdb_rating}{rating from imdb, ranges from 1-10}
+#'   \item{metascore}{metascore which is based on critics' ratings}
+#'   \item{synopsis}{a short summary of the movie}
+#'   \item{director}{the director of the movie}
+#'   \item{star_01}{the actor/actress listed first for this movie}
+#'   \item{star_02}{the actor/actress listed second for this movie}
+#'   \item{star_03}{the actor/actress listed third for this movie}
+#'   \item{star_04}{the actor/actress listed fourth for this movie}
+#'   \item{votes}{number of viewer votes for this movie}
+#'   \item{gross_in_m}{the income generated from this movie in million dollars}
+#'   \item{genre}{genres the movie is categorised in}
+#'   \item{genre_01}{the first genre listed for this movie}
+#' }
+#' @source \url{https://www.imdb.com}
+"wvs"
+
+
+
