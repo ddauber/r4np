@@ -15,3 +15,6 @@ BugReports: https://github.com/ddauber/r4np/issues
 Depends: 
     R (>= 2.10)
 RoxygenNote: 7.1.1
+Imports:
+    base,
+    utils

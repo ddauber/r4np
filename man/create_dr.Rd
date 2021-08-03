@@ -6,9 +6,6 @@
 \usage{
 create_dr()
 }
-\value{
-
-}
 \description{
 Automatically create folders for a project
 }

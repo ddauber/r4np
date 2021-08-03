@@ -6,9 +6,6 @@
 \usage{
 install_r4np()
 }
-\value{
-
-}
 \description{
 Install all R packages relevant for the book.
 }
@@ -23,7 +20,7 @@ This package installs the following R packages all at once:
  \item{correlation: }{A package with advanced functionality to perform correlations.}
  \item{rcompanion: }{A package with additional functions, such as for effect sizes.}
  \item{effectsize: }{A package that helps to compute and interpret effect sizes.}
- \item{car: }{NOT SURE}
+ \item{car: }{A package to help interpret regression results}
  \item{FSA: }{NOT SURE}
  \item{jtools: }{A package which helps to retrieve nicely formatted output from regressions.}
  }
