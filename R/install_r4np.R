@@ -15,7 +15,8 @@
 ##'  \item{FSA: }{NOT SURE}
 ##'  \item{jtools: }{A package which helps to retrieve nicely formatted output from regressions.}
 ##'  }
-#'
+#' @examples
+#' install_r4np
 #' @export
 install_r4np <- function() {
   utils::install.packages(c(

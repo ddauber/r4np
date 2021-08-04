@@ -25,3 +25,6 @@ This package installs the following R packages all at once:
  \item{jtools: }{A package which helps to retrieve nicely formatted output from regressions.}
  }
 }
+\examples{
+install_r4np
+}
