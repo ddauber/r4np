@@ -4,9 +4,9 @@ Title: R for Non-Programmers Companion
 Version: 0.2.1
 Authors@R: person("Daniel", "Dauber", email = "d.dauber@warwick.ac.uk",
   role = c("aut", "cre"))
-Description: This package is the official companion to 'R For Non-Programmers'.
+Description: The official companion to 'R For Non-Programmers'.
     It includes datasets and functions that are helplful to follow along with the book,
-    which can be found here https://github.com/ddauber/R-for-Non-Programmers.
+    which can be found here <https://github.com/ddauber/R-for-Non-Programmers>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
