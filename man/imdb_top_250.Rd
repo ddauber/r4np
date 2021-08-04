@@ -7,26 +7,26 @@
 \format{
 A tibble with 250 rows and 16 variables:
 \describe{
-  \item{title}{price, in US dollars}
-  \item{rank}{the overall rank on IMDb}
-  \item{year}{year the movie was published}
-  \item{runtime_min}{runtime of the movie in minutes}
-  \item{imdb_rating}{rating from imdb, ranges from 1-10}
-  \item{metascore}{metascore which is based on critics' ratings}
-  \item{synopsis}{a short summary of the movie}
-  \item{director}{the director of the movie}
-  \item{star_01}{the actor/actress listed first for this movie}
-  \item{star_02}{the actor/actress listed second for this movie}
-  \item{star_03}{the actor/actress listed third for this movie}
-  \item{star_04}{the actor/actress listed fourth for this movie}
-  \item{votes}{number of viewer votes for this movie}
-  \item{gross_in_m}{the income generated from this movie in million dollars}
-  \item{genre}{genres the movie is categorised in}
-  \item{genre_01}{the first genre listed for this movie}
+  \item{title}{\emph{Movie title}}
+  \item{rank}{\emph{Overall rank on IMDb}}
+  \item{year}{\emph{Year the movie was published}}
+  \item{runtime_min}{\emph{Runtime of the movie in minutes}}
+  \item{imdb_rating}{\emph{Rating from imdb, ranges from 1-10}}
+  \item{metascore}{\emph{Metascore which is based on critics' ratings}}
+  \item{synopsis}{\emph{A short summary of the movie}}
+  \item{director}{\emph{Director of the movie}}
+  \item{star_01}{\emph{Actor/actress listed first for this movie}}
+  \item{star_02}{\emph{Actor/actress listed second for this movie}}
+  \item{star_03}{\emph{Actor/actress listed third for this movie}}
+  \item{star_04}{\emph{Actor/actress listed fourth for this movie}}
+  \item{votes}{\emph{Number of viewer votes for this movie}}
+  \item{gross_in_m}{\emph{Income generated from this movie in million dollars}}
+  \item{genre}{\emph{Genres the movie is categorised in}}
+  \item{genre_01}{\emph{First genre listed for this movie}}
 }
 }
 \source{
-\url{https://www.imdb.com}
+IMDb (\url{https://www.imdb.com})
 }
 \usage{
 imdb_top_250

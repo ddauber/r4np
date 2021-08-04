@@ -5,52 +5,76 @@
 #'
 #' @format A tibble with 250 rows and 16 variables:
 #' \describe{
-#'   \item{title}{price, in US dollars}
-#'   \item{rank}{the overall rank on IMDb}
-#'   \item{year}{year the movie was published}
-#'   \item{runtime_min}{runtime of the movie in minutes}
-#'   \item{imdb_rating}{rating from imdb, ranges from 1-10}
-#'   \item{metascore}{metascore which is based on critics' ratings}
-#'   \item{synopsis}{a short summary of the movie}
-#'   \item{director}{the director of the movie}
-#'   \item{star_01}{the actor/actress listed first for this movie}
-#'   \item{star_02}{the actor/actress listed second for this movie}
-#'   \item{star_03}{the actor/actress listed third for this movie}
-#'   \item{star_04}{the actor/actress listed fourth for this movie}
-#'   \item{votes}{number of viewer votes for this movie}
-#'   \item{gross_in_m}{the income generated from this movie in million dollars}
-#'   \item{genre}{genres the movie is categorised in}
-#'   \item{genre_01}{the first genre listed for this movie}
+#'   \item{title}{\emph{Movie title}}
+#'   \item{rank}{\emph{Overall rank on IMDb}}
+#'   \item{year}{\emph{Year the movie was published}}
+#'   \item{runtime_min}{\emph{Runtime of the movie in minutes}}
+#'   \item{imdb_rating}{\emph{Rating from imdb, ranges from 1-10}}
+#'   \item{metascore}{\emph{Metascore which is based on critics' ratings}}
+#'   \item{synopsis}{\emph{A short summary of the movie}}
+#'   \item{director}{\emph{Director of the movie}}
+#'   \item{star_01}{\emph{Actor/actress listed first for this movie}}
+#'   \item{star_02}{\emph{Actor/actress listed second for this movie}}
+#'   \item{star_03}{\emph{Actor/actress listed third for this movie}}
+#'   \item{star_04}{\emph{Actor/actress listed fourth for this movie}}
+#'   \item{votes}{\emph{Number of viewer votes for this movie}}
+#'   \item{gross_in_m}{\emph{Income generated from this movie in million dollars}}
+#'   \item{genre}{\emph{Genres the movie is categorised in}}
+#'   \item{genre_01}{\emph{First genre listed for this movie}}
 #' }
-#' @source \url{https://www.imdb.com}
+#' @source IMDb (\url{https://www.imdb.com})
 "imdb_top_250"
 
-#' World Value Survey (ExtracT)
+#' World Value Survey (Extract)
 #'
-#' A dataset containing details about the top 250 movies
-#' ranked on IMDb.
+#' A dataset which contains selected data from the World Value Survey.
+#' This data was obtained in October 2020.
 #'
-#' @format A tibble with 250 rows and 16 variables:
+#' @format A tibble with 69578 rows and 9 variables:
 #' \describe{
-#'   \item{title}{price, in US dollars}
-#'   \item{rank}{the overall rank on IMDb}
-#'   \item{year}{year the movie was published}
-#'   \item{runtime_min}{runtime of the movie in minutes}
-#'   \item{imdb_rating}{rating from imdb, ranges from 1-10}
-#'   \item{metascore}{metascore which is based on critics' ratings}
-#'   \item{synopsis}{a short summary of the movie}
-#'   \item{director}{the director of the movie}
-#'   \item{star_01}{the actor/actress listed first for this movie}
-#'   \item{star_02}{the actor/actress listed second for this movie}
-#'   \item{star_03}{the actor/actress listed third for this movie}
-#'   \item{star_04}{the actor/actress listed fourth for this movie}
-#'   \item{votes}{number of viewer votes for this movie}
-#'   \item{gross_in_m}{the income generated from this movie in million dollars}
-#'   \item{genre}{genres the movie is categorised in}
-#'   \item{genre_01}{the first genre listed for this movie}
+#' \item{Participant ID}{\emph{Unique identifier for each participant}}
+#' \item{Country Code}{\emph{3-letter country code}}
+#' \item{Country name}{\emph{Country name, partially abbreviated}}
+#' \item{Gender}{\emph{Gender of participant}}
+#' \item{YearOfBirth}{\emph{Year of birth of participant}}
+#' \item{Age}{\emph{Age of participant at the time of data collection}}
+#' \item{relationship_status}{\emph{Relationship status of participants}}
+#' \item{Freedom.of.Choice}{Item: \emph{Some people feel they have completely
+#' free choice and control over their lives, while other people feel that
+#' what they do has no real effect on what happens to them. Indicate how much
+#' freedom of choice and control you feel you have over the way your life
+#' turns out | 1 ("no choice at all") to 10 ("a great deal of choice").}}
+#' \item{Satisfaction-with-life}{Item: \emph{All things considered, how satisfied
+#' are you with your life as a whole these days? | 1 (“completely dissatisfied”)
+#' to 10 (“completely satisfied”)}}
 #' }
-#' @source \url{https://www.imdb.com}
+#' @source World Value Survey (\url{https://www.worldvaluessurvey.org})
 "wvs"
 
-
+#' Global Education Profiler (random sample)
+#'
+#' A dataset containing information about students' \emph{social integration (si)} at
+#' their Higher Education Institutions and their \emph{communication skills (cs)} development.
+#'
+#' @format A tibble with 300 rows and 15 variables:
+#' \describe{
+#'   \item{age}{\emph{Age of participant}}
+#'   \item{gender}{\emph{Gender of participant}}
+#'   \item{level_of_study}{\emph{Degree level at the time of the research project}}
+#'   \item{si_socialise_with_people_exp}{\emph{Extent to which participants have opportunities to socialise with people from diverse cultural backgrounds}}
+#'   \item{si_supportive_friends_exp}{\emph{Extent to which participants have supportive friends with a diverse cultural background}}
+#'   \item{si_joined_activitiy_group_exp}{\emph{Extent to which participants join activity groups with people from diverse cultural backgrounds}}
+#'   \item{si_time_socialising_exp}{\emph{Extent to which participants spend time to socialise with culturally others}}
+#'   \item{si_accommodation_meet_people_exp}{\emph{Extent to which participants meet people from diverse cultural backgrounds in their accommodation}}
+#'   \item{si_take_part_events_exp}{\emph{Extent to which participants take part in events attended by students from diverse cultural backgrounds}}
+#'   \item{cs_learn_different_styles_exp}{\emph{Extent to which participants learn about other students communication styles}}
+#'   \item{cs_speak_different_context_exp}{\emph{Extent to which participants learn to speak in different contexts}}
+#'   \item{cs_improve_less_fluent_exp}{\emph{Extent to which participants improve their skills to communicate with less fluent speakers}}
+#'   \item{cs_awareness_own_style_exp}{\emph{Extent to which participants are aware of their own communication style}}
+#'   \item{cs_work_globally_exp}{\emph{Extent to which participants feel they develop communication skills relevant for working globally}}
+#'   \item{cs_find_clarification_exp}{\emph{Extent to which participants are able to clarify what others mean}}
+#' }
+#'
+#' @source Global Education Profiler (\url{https://warwick.ac.uk/gep})
+"gep"
 
