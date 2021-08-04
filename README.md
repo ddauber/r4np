@@ -4,6 +4,9 @@
 # r4np
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/ddauber/r4np/workflows/R-CMD-check/badge.svg)](https://github.com/ddauber/r4np/actions)
+
 <!-- badges: end -->
 
 The `r4np` package is the companion for the book [R For Non-Programmers:
