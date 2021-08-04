@@ -1,7 +1,6 @@
-
-#' Install all R packages relevant for the book.
+#' Install R packages relevant for the book 'R for Non-Programmers: A Guide for Social Scientists'.
 #'
-#' @details This package installs the following R packages all at once:
+#' @details Installs the following R packages at once:
 ##' \itemize{
 ##'  \item{tidyverse: }{A package to install the core tidyverse packages.}
 ##'  \item{janitor: }{A package to help clean data, e.g. colum names, etc.}
@@ -16,7 +15,10 @@
 ##'  \item{jtools: }{A package which helps to retrieve nicely formatted output from regressions.}
 ##'  }
 #' @examples
-#' install_r4np
+#' \dontrun{
+#' # Run this line of code to install all relevant packages
+#' install_r4np()
+#' }
 #' @export
 install_r4np <- function() {
   utils::install.packages(c(

@@ -10,6 +10,6 @@ create_dr()
 Automatically create folders for a project
 }
 \details{
-This function allows to automatically generate a project
+Automatically generate a project
     folder structure in the working directory of your R session.
 }

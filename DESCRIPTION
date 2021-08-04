@@ -17,4 +17,5 @@ Depends:
 RoxygenNote: 7.1.1
 Imports:
     base,
-    utils
+    utils,
+    dplyr

@@ -2,15 +2,15 @@
 % Please edit documentation in R/install_r4np.R
 \name{install_r4np}
 \alias{install_r4np}
-\title{Install all R packages relevant for the book.}
+\title{Install R packages relevant for the book 'R for Non-Programmers: A Guide for Social Scientists'.}
 \usage{
 install_r4np()
 }
 \description{
-Install all R packages relevant for the book.
+Install R packages relevant for the book 'R for Non-Programmers: A Guide for Social Scientists'.
 }
 \details{
-This package installs the following R packages all at once:
+Installs the following R packages at once:
 \itemize{
  \item{tidyverse: }{A package to install the core tidyverse packages.}
  \item{janitor: }{A package to help clean data, e.g. colum names, etc.}
@@ -26,5 +26,8 @@ This package installs the following R packages all at once:
  }
 }
 \examples{
-install_r4np
+\dontrun{
+# Run this line of code to install all relevant packages
+install_r4np()
+}
 }

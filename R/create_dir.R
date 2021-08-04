@@ -1,8 +1,7 @@
 #' Automatically create folders for a project
 #'
-#' @details This function allows to automatically generate a project
+#' @details Automatically generate a project
 #'     folder structure in the working directory of your R session.
-#'
 #' @export
 create_dr <- function() {
   base::dir.create("00_raw_data")

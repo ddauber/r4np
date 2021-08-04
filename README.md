@@ -15,14 +15,7 @@ Scientists](https://github.com/ddauber/R-for-Non-Programmers "R For Non-Programm
 
 ## Installation
 
-You can install the released version of `r4np` from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("r4np")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+Install this package straight from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
