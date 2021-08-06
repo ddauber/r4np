@@ -1,6 +1,6 @@
 citHeader("To cite r4np in publications, please use:")
 
-citEntry(entry = "book",
+citEntry(entry = "Book",
          author = "Daniel Dauber",
          title = "R for Non-Programmers: A Guide for Social Scientists",
          publisher = "Bookdown.org",
