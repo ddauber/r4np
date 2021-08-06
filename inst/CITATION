@@ -1,10 +1,10 @@
 citHeader("To cite r4np in publications, please use:")
 
 citEntry(entry = "Book",
-  author = "Dauber, Daniel",
-  title = "R For Non-Programmers: A Guide For Social Scientists",
-  publisher = "Bookdown.org",
-  year = "2021",
-  url = "https://danieldauber.com",
-  textVersion = "Dauber, D. (2021). R For Non-Programmers: A Guide for Social Scientists. Bookdown.org, https://danieldauber.com"
+         author = personList(as.person("Daniel Dauber")),
+         title = "R For Non-Programmers: A Guide For Social Scientists",
+         publisher = "Bookdown.org",
+         year = "2021",
+         url = "https://danieldauber.com",
+         textVersion = "Dauber, D. (2021). R For Non-Programmers: A Guide for Social Scientists. Bookdown.org, https://danieldauber.com"
 )
