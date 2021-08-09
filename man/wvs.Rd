@@ -5,10 +5,9 @@
 \alias{wvs}
 \title{World Value Survey (Extract)}
 \format{
-A tibble with 69578 rows and 9 variables:
+A data frame with 69578 rows and 8 variables:
 \describe{
 \item{Participant ID}{\emph{Unique identifier for each participant}}
-\item{Country Code}{\emph{3-letter country code}}
 \item{Country name}{\emph{Country name, partially abbreviated}}
 \item{Gender}{\emph{Gender of participant}}
 \item{YearOfBirth}{\emph{Year of birth of participant}}

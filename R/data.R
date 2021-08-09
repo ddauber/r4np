@@ -3,7 +3,7 @@
 #' A dataset containing details about the top 250 movies
 #' ranked on IMDb.
 #'
-#' @format A tibble with 250 rows and 16 variables:
+#' @format A data frame with 250 rows and 16 variables:
 #' \describe{
 #'   \item{title}{\emph{Movie title}}
 #'   \item{rank}{\emph{Overall rank on IMDb}}
@@ -30,10 +30,9 @@
 #' A dataset which contains selected data from the World Value Survey.
 #' This data was obtained in October 2020.
 #'
-#' @format A tibble with 69578 rows and 9 variables:
+#' @format A data frame with 69578 rows and 8 variables:
 #' \describe{
 #' \item{Participant ID}{\emph{Unique identifier for each participant}}
-#' \item{Country Code}{\emph{3-letter country code}}
 #' \item{Country name}{\emph{Country name, partially abbreviated}}
 #' \item{Gender}{\emph{Gender of participant}}
 #' \item{YearOfBirth}{\emph{Year of birth of participant}}
@@ -56,7 +55,7 @@
 #' A dataset containing information about students' \emph{social integration (si)} at
 #' their Higher Education Institutions and their \emph{communication skills (cs)} development.
 #'
-#' @format A tibble with 300 rows and 15 variables:
+#' @format A data frame with 300 rows and 15 variables:
 #' \describe{
 #'   \item{age}{\emph{Age of participant}}
 #'   \item{gender}{\emph{Gender of participant}}

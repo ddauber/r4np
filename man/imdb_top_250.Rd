@@ -5,7 +5,7 @@
 \alias{imdb_top_250}
 \title{Top 250 movies ranked on IMDb}
 \format{
-A tibble with 250 rows and 16 variables:
+A data frame with 250 rows and 16 variables:
 \describe{
   \item{title}{\emph{Movie title}}
   \item{rank}{\emph{Overall rank on IMDb}}

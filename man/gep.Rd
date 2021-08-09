@@ -5,7 +5,7 @@
 \alias{gep}
 \title{Global Education Profiler (random sample)}
 \format{
-A tibble with 300 rows and 15 variables:
+A data frame with 300 rows and 15 variables:
 \describe{
   \item{age}{\emph{Age of participant}}
   \item{gender}{\emph{Gender of participant}}
