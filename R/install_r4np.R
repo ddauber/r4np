@@ -7,9 +7,15 @@
 ##'                   ormat data.frame column names; provide quick
 ##'                   counts of variable combinations (i.e., frequency
 ##'                   tables and crosstabs); and isolate duplicate records.}
-##'  \item{naniar: }{'naniar' provides data structures and functions that
+##'  \item{naniar: }{Provides data structures and functions that
 ##'                  facilitate the plotting of missing values and examination
 ##'                  of imputations.}
+##'  \item{mice: }{Multiple imputation using Fully Conditional Specification (FCS)
+##'               implemented by the MICE algorithm as described in Van Buuren and
+##'               Groothuis-Oudshoorn (2011)}
+##'  \item{mi: }{Provides functions for data manipulation, imputing missing values
+##'              in an approximate Bayesian framework, diagnostics of the models used
+##'              to generate the imputations, etc.}
 ##'  \item{psych: }{A general purpose toolbox for personality, psychometric theory
 ##'                 and experimental psychology.}
 ##'  \item{skimr: }{A simple to use summary function that can be used with pipes
@@ -23,6 +29,8 @@
 ##'                      standardized parameters for a wide variety of models,
 ##'                      allowing computation of and conversion between indices such as Cohen's d,
 ##'                      r, odds, etc.}
+##'  \item{lavaan: }{Fit a variety of latent variable models, including confirmatory factor analysis,
+##'                  structural equation modeling and latent growth curve models.}
 ##'  \item{car: }{Interpret regression results}
 ##'  \item{FSA: }{NOT SURE}
 ##'  \item{jtools: }{This is a collection of tools that the author (Jacob) has written for
@@ -37,12 +45,15 @@
 #' @export
 install_r4np <- function() {
   utils::install.packages(c(
+    "broom",
     "tidyverse",
     "janitor",
     "naniar",
-
+    "mice",
+    "mi",
     "psych",
     "skimr",
+    "lavaan",
     "correlation",
     "rcompanion",
     "effectsize",

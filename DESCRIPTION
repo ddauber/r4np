@@ -1,7 +1,7 @@
 Package: r4np
 Type: Package
 Title: R for Non-Programmers Companion
-Version: 0.2.3
+Version: 0.2.4
 Authors@R: person("Daniel", "Dauber", email = "d.dauber@warwick.ac.uk",
   role = c("aut", "cre"))
 Description: The official companion to 'R For Non-Programmers'.

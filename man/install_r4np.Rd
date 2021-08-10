@@ -17,9 +17,15 @@ Installs the following R packages at once:
                   ormat data.frame column names; provide quick
                   counts of variable combinations (i.e., frequency
                   tables and crosstabs); and isolate duplicate records.}
- \item{naniar: }{'naniar' provides data structures and functions that
+ \item{naniar: }{Provides data structures and functions that
                  facilitate the plotting of missing values and examination
                  of imputations.}
+ \item{mice: }{Multiple imputation using Fully Conditional Specification (FCS)
+              implemented by the MICE algorithm as described in Van Buuren and
+              Groothuis-Oudshoorn (2011)}
+ \item{mi: }{Provides functions for data manipulation, imputing missing values
+             in an approximate Bayesian framework, diagnostics of the models used
+             to generate the imputations, etc.}
  \item{psych: }{A general purpose toolbox for personality, psychometric theory
                 and experimental psychology.}
  \item{skimr: }{A simple to use summary function that can be used with pipes
