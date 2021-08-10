@@ -25,7 +25,7 @@
 #' @source IMDb (\url{https://www.imdb.com})
 "imdb_top_250"
 
-#' World Value Survey (Extract)
+#' World Value Survey \emph{(Extract)}
 #'
 #' A dataset which contains selected data from the World Value Survey.
 #' This data was obtained in October 2020.
@@ -49,10 +49,11 @@
 #' @source World Value Survey (\url{https://www.worldvaluessurvey.org})
 "wvs"
 
-#' Global Education Profiler (random sample)
+#' Global Education Profiler \emph{(random sample)}
 #'
-#' A dataset containing information about students' \emph{social integration (si)} at
+#' A dataset containing information about students' \emph{social integration (si)} experience at
 #' their Higher Education Institutions and their \emph{communication skills (cs)} development.
+#' For \emph{cs}, scores of 'actualy experience' and 'importance to me' are available.
 #'
 #' @format A data frame with 300 rows and 15 variables:
 #' \describe{
@@ -61,16 +62,13 @@
 #'   \item{level_of_study}{\emph{Degree level at the time of the research project}}
 #'   \item{si_socialise_with_people_exp}{\emph{Extent to which participants have opportunities to socialise with people from diverse cultural backgrounds}}
 #'   \item{si_supportive_friends_exp}{\emph{Extent to which participants have supportive friends with a diverse cultural background}}
-#'   \item{si_joined_activitiy_group_exp}{\emph{Extent to which participants join activity groups with people from diverse cultural backgrounds}}
-#'   \item{si_time_socialising_exp}{\emph{Extent to which participants spend time to socialise with culturally others}}
-#'   \item{si_accommodation_meet_people_exp}{\emph{Extent to which participants meet people from diverse cultural backgrounds in their accommodation}}
-#'   \item{si_take_part_events_exp}{\emph{Extent to which participants take part in events attended by students from diverse cultural backgrounds}}
-#'   \item{cs_learn_different_styles_exp}{\emph{Extent to which participants learn about other students communication styles}}
-#'   \item{cs_speak_different_context_exp}{\emph{Extent to which participants learn to speak in different contexts}}
-#'   \item{cs_improve_less_fluent_exp}{\emph{Extent to which participants improve their skills to communicate with less fluent speakers}}
-#'   \item{cs_awareness_own_style_exp}{\emph{Extent to which participants are aware of their own communication style}}
-#'   \item{cs_work_globally_exp}{\emph{Extent to which participants feel they develop communication skills relevant for working globally}}
-#'   \item{cs_find_clarification_exp}{\emph{Extent to which participants are able to clarify what others mean}}
+#'   \item{si_time_socialising_exp}{\emph{Extent to which participants take time to socialise with people from diverse cultural backgrounds}}
+#'   \item{cs_explain_ideas_imp}{\emph{TEXT HERE (importance)}}
+#'   \item{cs_find_clarification_imp}{\emph{Extent to which participants are able to clarify what others mean (importance)}}
+#'   \item{cs_learn_different_styles_imp}{\emph{Extent to which participants learn about other students communication styles (importance)}}
+#'   \item{cs_explain_ideas_exp}{\emph{TEXT HERE (experience)}}
+#'   \item{cs_find_clarification_exp}{\emph{Extent to which participants are able to clarify what others mean (experience)}}
+#'   \item{cs_learn_different_styles_exp}{\emph{Extent to which participants learn about other students communication styles (experience)}}
 #' }
 #'
 #' @source Global Education Profiler (\url{https://warwick.ac.uk/gep})

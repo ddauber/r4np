@@ -3,7 +3,7 @@
 \docType{data}
 \name{wvs}
 \alias{wvs}
-\title{World Value Survey (Extract)}
+\title{World Value Survey \emph{(Extract)}}
 \format{
 A data frame with 69578 rows and 7 variables:
 \describe{

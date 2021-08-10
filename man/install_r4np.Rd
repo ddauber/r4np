@@ -39,6 +39,8 @@ Installs the following R packages at once:
                      standardized parameters for a wide variety of models,
                      allowing computation of and conversion between indices such as Cohen's d,
                      r, odds, etc.}
+ \item{lavaan: }{Fit a variety of latent variable models, including confirmatory factor analysis,
+                 structural equation modeling and latent growth curve models.}
  \item{car: }{Interpret regression results}
  \item{FSA: }{NOT SURE}
  \item{jtools: }{This is a collection of tools that the author (Jacob) has written for
