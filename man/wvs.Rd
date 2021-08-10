@@ -5,12 +5,11 @@
 \alias{wvs}
 \title{World Value Survey (Extract)}
 \format{
-A data frame with 69578 rows and 8 variables:
+A data frame with 69578 rows and 7 variables:
 \describe{
 \item{Participant ID}{\emph{Unique identifier for each participant}}
 \item{Country name}{\emph{Country name, partially abbreviated}}
 \item{Gender}{\emph{Gender of participant}}
-\item{YearOfBirth}{\emph{Year of birth of participant}}
 \item{Age}{\emph{Age of participant at the time of data collection}}
 \item{relationship_status}{\emph{Relationship status of participants}}
 \item{Freedom.of.Choice}{Item: \emph{Some people feel they have completely
