@@ -13,10 +13,10 @@ A data frame with 300 rows and 15 variables:
   \item{si_socialise_with_people_exp}{\emph{Extent to which participants have opportunities to socialise with people from diverse cultural backgrounds}}
   \item{si_supportive_friends_exp}{\emph{Extent to which participants have supportive friends with a diverse cultural background}}
   \item{si_time_socialising_exp}{\emph{Extent to which participants take time to socialise with people from diverse cultural backgrounds}}
-  \item{cs_explain_ideas_imp}{\emph{TEXT HERE (importance)}}
+  \item{cs_explain_ideas_imp}{\emph{Extent to which participants perceive improving in explaining ideas to others (importance)}}
   \item{cs_find_clarification_imp}{\emph{Extent to which participants are able to clarify what others mean (importance)}}
   \item{cs_learn_different_styles_imp}{\emph{Extent to which participants learn about other students communication styles (importance)}}
-  \item{cs_explain_ideas_exp}{\emph{TEXT HERE (experience)}}
+  \item{cs_explain_ideas_exp}{\emph{Extent to which participants perceive improving in explaining ideas to others (experience)}}
   \item{cs_find_clarification_exp}{\emph{Extent to which participants are able to clarify what others mean (experience)}}
   \item{cs_learn_different_styles_exp}{\emph{Extent to which participants learn about other students communication styles (experience)}}
 }
@@ -30,6 +30,8 @@ gep
 \description{
 A dataset containing information about students' \emph{social integration (si)} experience at
 their Higher Education Institutions and their \emph{communication skills (cs)} development.
-For \emph{cs}, scores of 'actualy experience' and 'importance to me' are available.
+For \emph{cs}, scores of 'actualy experience' and 'importance to me' are available. This
+dataset only contains a random sample of 300 observations out of well over 12,000 students
+as of August 2021.
 }
 \keyword{datasets}
