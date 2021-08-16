@@ -3,7 +3,7 @@
 \docType{data}
 \name{simpson}
 \alias{simpson}
-\title{Global Education Profiler \emph{(random sample)}}
+\title{Simpsons Paradox: A demonstration dataset \emph{(random sample)}}
 \format{
 A data frame with 300 rows and 3 variables:
 \describe{

@@ -76,7 +76,7 @@
 #' @source Global Education Profiler (\url{https://warwick.ac.uk/gep})
 "gep"
 
-#' Global Education Profiler \emph{(random sample)}
+#' Simpsons Paradox: A demonstration dataset \emph{(random sample)}
 #'
 #' A dataset containing information about students' \emph{social integration (si)} experience at
 #' their Higher Education Institutions and their \emph{communication skills (cs)} development.
