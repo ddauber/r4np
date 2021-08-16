@@ -91,5 +91,5 @@
 #'   \item{group}{\emph{Group a participant belongs to, i.e. Teacher, Student, or Parent}}
 #' }
 #'
-#' @source Dataset created with '\emph{correlation}' package and function \emph{simulate_simpson()}.
+#' @source Dataset created with '\emph{correlation}' package and function \emph{simulate_simpson()}
 "simpson"

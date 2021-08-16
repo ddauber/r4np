@@ -13,7 +13,7 @@ A data frame with 300 rows and 3 variables:
 }
 }
 \source{
-Dataset created with '\emph{correlation}' package and function \emph{simulate_simpson()}.
+Dataset created with '\emph{correlation}' package and function \emph{simulate_simpson()}
 }
 \usage{
 simpson
