@@ -3,7 +3,7 @@
 \docType{data}
 \name{simpson}
 \alias{simpson}
-\title{Simpsons Paradox: A demonstration dataset \emph{(random sample)}}
+\title{Simpson's Paradox: A demonstration dataset \emph{(random sample)}}
 \format{
 A data frame with 300 rows and 3 variables:
 \describe{
@@ -13,16 +13,12 @@ A data frame with 300 rows and 3 variables:
 }
 }
 \source{
-Dataset created with '\emph{correlation}' package and function \emph{simulate_simpson()}
+Dataset created with \emph{correlation::simulate_simpson()}
 }
 \usage{
 simpson
 }
 \description{
-A dataset containing information about students' \emph{social integration (si)} experience at
-their Higher Education Institutions and their \emph{communication skills (cs)} development.
-For \emph{cs}, scores of 'actualy experience' and 'importance to me' are available. This
-dataset only contains a random sample of 300 observations out of well over 12,000 students
-as of August 2021.
+A dataset to demonstrate the Simpson's Paradox.
 }
 \keyword{datasets}

@@ -76,13 +76,9 @@
 #' @source Global Education Profiler (\url{https://warwick.ac.uk/gep})
 "gep"
 
-#' Simpsons Paradox: A demonstration dataset \emph{(random sample)}
+#' Simpson's Paradox: A demonstration dataset \emph{(random sample)}
 #'
-#' A dataset containing information about students' \emph{social integration (si)} experience at
-#' their Higher Education Institutions and their \emph{communication skills (cs)} development.
-#' For \emph{cs}, scores of 'actualy experience' and 'importance to me' are available. This
-#' dataset only contains a random sample of 300 observations out of well over 12,000 students
-#' as of August 2021.
+#' A dataset to demonstrate the Simpson's Paradox.
 #'
 #' @format A data frame with 300 rows and 3 variables:
 #' \describe{
@@ -91,5 +87,5 @@
 #'   \item{group}{\emph{Group a participant belongs to, i.e. Teacher, Student, or Parent}}
 #' }
 #'
-#' @source Dataset created with '\emph{correlation}' package and function \emph{simulate_simpson()}
+#' @source Dataset created with \emph{correlation::simulate_simpson()}
 "simpson"
