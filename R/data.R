@@ -25,6 +25,23 @@
 #' @source IMDb (\url{https://www.imdb.com})
 "imdb_top_250"
 
+#' Top 250 movies ranked on IMDb \emph{(Directors with >2 movies)}
+#'
+#' A subset of the \emph{imdb_top_250} dataset. It only contains movies of directors
+#' who had more than two movies in this data frame Where directors had more than two
+#' movies ranked on IMDb Top 250, a random sample of two movies was chosen.
+#'
+#' @format A data frame with 250 rows and 16 variables:
+#' \describe{
+#'   \item{director}{\emph{Director of the movie}}
+#'   \item{imdb_rating}{\emph{Rating from imdb, ranges from 1-10}}
+#'   \item{year}{\emph{Year the movie was published}}
+#'   \item{title}{\emph{Movie title}}
+#'   \item{movie}{\emph{Grouping ID, i.e. 1 = first movie, 2 = second movie}}
+#' }
+#' @source IMDb (\url{https://www.imdb.com})
+"dir_mov"
+
 #' World Value Survey \emph{(Extract)}
 #'
 #' A dataset which contains selected data from the World Value Survey.
