@@ -134,6 +134,14 @@
 #'   \item{vaccines_used}{Short name of vaccine used}
 #'   \item{first_vaccine_date}{Date of first vaccine}
 #'   \item{number_vaccines_types_used}{# of different types of vaccines adminstered}
+#'   \item{masks}{Index of mask measures implemented (0-100)}
+#'   \item{travel}{Index of travel measures implemented (0-100)}
+#'   \item{gatherings}{Index of gathering measures implemented (0-100)}
+#'   \item{schools}{Index of school measures implemented (0-100)}
+#'   \item{businesses}{Index of business measures implemented (0-100)}
+#'   \item{movements}{Index of movement measures implemented (0-100)}
+#'   \item{global_index}{Global index of overall measures implemented (0-100)}
+#'   \item{measures_in_place}{Lists all measures in place according to WHO taxanomy}
 #' }
 #'
 #' @source World Health Organisation datasets: \url{https://covid19.who.int/info/}

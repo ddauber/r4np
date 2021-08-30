@@ -48,7 +48,7 @@ phsm <- phsm %>%
   rename("date_reported" = "date_start")
 
 ## join with rest of dataset
-covid2 <- left_join(covid, phsm, by = c("iso3", "who_region", "date_reported"))
+covid <- left_join(covid, phsm, by = c("iso3", "who_region", "date_reported"))
 
 # FINAL CLEAN UPS ----
 ## Inspect long country names
