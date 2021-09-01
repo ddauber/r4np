@@ -9,6 +9,7 @@ library(tidyverse)
 covid_raw <- read_csv("data-raw/covid_raw.csv")
 vaccination_data_raw <- read_csv("data-raw/vaccination-data_raw.csv")
 phsm_severity_data_raw <- read_csv("data-raw/phsm-severity-data_raw.csv")
+who_population <- read.csv("data-raw/who_population.csv")
 
 # COVID CASES ----
 ## change all <chr> to <fct>
@@ -81,5 +82,31 @@ covid <- covid %>%
          ) %>%
   as_tibble()
 
+## add population data
+pop_data <- who_population %>%
+  mutate(population = stringr::str_replace_all(Value, ",", ""),
+         population = as.numeric(population)*1000,
+         iso3 = as_factor(SpatialDimValueCode),
+         region = as_factor(ParentLocation)) %>%
+  select(iso3, region, population) %>%
+  arrange(population)
+
+## combine with original dataset
+covid <- left_join(covid, pop_data, by = "iso3")
+
+# ADD TEMPERATURE DATA FOR UK
+#
+# # SELECT ONLY VARIABLES OF INTEREST
+#
+# covid <- covid %>%
+#   select(date_reported,
+#          country,
+#          new_cases:iso3,
+#          masks:movements,
+#          region,
+#          population,
+#          fully_vaccinated,
+#          )
+
 # Add cleaned data to package
-usethis::use_data(covid, overwrite = TRUE)
+# usethis::use_data(covid, overwrite = TRUE)

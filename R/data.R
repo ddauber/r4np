@@ -142,6 +142,8 @@
 #'   \item{movements}{Index of movement measures implemented (0-100)}
 #'   \item{global_index}{Global index of overall measures implemented (0-100)}
 #'   \item{measures_in_place}{Lists all measures in place according to WHO taxanomy}
+#'   \item{region}{Region a country is located in (WHO classification)}
+#'   \item{population}{Population of a country as of 2016}
 #' }
 #'
 #' @source World Health Organisation datasets: \url{https://covid19.who.int/info/}
