@@ -94,19 +94,21 @@ pop_data <- who_population %>%
 ## combine with original dataset
 covid <- left_join(covid, pop_data, by = "iso3")
 
-# ADD TEMPERATURE DATA FOR UK
-#
-# # SELECT ONLY VARIABLES OF INTEREST
-#
-# covid <- covid %>%
-#   select(date_reported,
-#          country,
-#          new_cases:iso3,
-#          masks:movements,
-#          region,
-#          population,
-#          fully_vaccinated,
-#          )
+# SELECT ONLY VARIABLES OF INTEREST
+
+covid <- covid %>%
+  select(date_reported,
+         iso3,
+         country,
+         new_cases,
+         cumulative_cases,
+         cumulative_deaths,
+         fully_vaccinated,
+         masks:global_index,
+         measures_in_place,
+         region,
+         population
+         )
 
 # Add cleaned data to package
-# usethis::use_data(covid, overwrite = TRUE)
+usethis::use_data(covid, overwrite = TRUE)

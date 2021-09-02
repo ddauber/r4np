@@ -8,25 +8,12 @@
 A data frame with 300 rows and 3 variables:
 \describe{
   \item{date_reported}{Date when cases, deaths, PHSM, etc. were reported}
-  \item{country_code}{Two-digit country code}
+  \item{iso3}{ISO three-digit country identifier}
   \item{country}{Name of country}
-  \item{who_region}{WHO region}
   \item{new_cases}{# of new COVID cases}
   \item{cumulative_cases}{Total number of COVID cases}
-  \item{new_deaths}{# of new deaths due to COVID}
   \item{cumulative_deaths}{Total number of deaths due to COVID}
-  \item{iso3}{ISO three-digit country identifier}
-  \item{data_source}{Source of data}
-  \item{date_updated}{Date when data was last updated}
-  \item{total_vaccinations}{Total number of vaccinations administered}
-  \item{vaccinated_1plus_dose}{Total number of people with one or more vaccinations}
-  \item{total_vaccinations_per100}{Total number of vaccinations administered per 100 population}
-  \item{vaccinated_1plus_dose_per100}{Total number of people with one or more vaccinations per 100 population}
   \item{fully_vaccinated}{Total number of fully vaccinated people}
-  \item{fully_vaccinated_per100}{Total number of fully vaccinated people per 100 population}
-  \item{vaccines_used}{Short name of vaccine used}
-  \item{first_vaccine_date}{Date of first vaccine}
-  \item{number_vaccines_types_used}{# of different types of vaccines adminstered}
   \item{masks}{Index of mask measures implemented (0-100)}
   \item{travel}{Index of travel measures implemented (0-100)}
   \item{gatherings}{Index of gathering measures implemented (0-100)}
@@ -35,6 +22,8 @@ A data frame with 300 rows and 3 variables:
   \item{movements}{Index of movement measures implemented (0-100)}
   \item{global_index}{Global index of overall measures implemented (0-100)}
   \item{measures_in_place}{Lists all measures in place according to WHO taxanomy}
+  \item{region}{Region a country is located in (WHO classification)}
+  \item{population}{Population of a country as of 2016}
 }
 }
 \source{
