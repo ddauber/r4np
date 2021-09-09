@@ -107,7 +107,7 @@
 #' @source Dataset created with \emph{correlation::simulate_simpson()}
 "simpson"
 
-#' COVID-19 DATA: \emph{(Country level data as of 27 August 2021)}
+#' COVID-19 DATA
 #'
 #' A dataset which contains COVID cases and deaths, vaccination information and public
 #' health social measures (PHSM) for each country covered by the WHO.

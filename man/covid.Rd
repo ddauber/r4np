@@ -3,7 +3,7 @@
 \docType{data}
 \name{covid}
 \alias{covid}
-\title{COVID-19 DATA: \emph{(Country level data as of 27 August 2021)}}
+\title{COVID-19 DATA}
 \format{
 A data frame with 300 rows and 3 variables:
 \describe{
