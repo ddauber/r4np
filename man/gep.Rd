@@ -3,7 +3,8 @@
 \docType{data}
 \name{gep}
 \alias{gep}
-\title{Global Education Profiler \emph{(random sample)}}
+\title{------------------------------------------------------------------------------
+Global Education Profiler \emph{(random sample)}}
 \format{
 A data frame with 300 rows and 15 variables:
 \describe{

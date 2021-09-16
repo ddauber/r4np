@@ -25,6 +25,8 @@
 #' @source IMDb (\url{https://www.imdb.com})
 "imdb_top_250"
 
+#' ------------------------------------------------------------------------------
+
 #' Top 250 movies ranked on IMDb \emph{(Directors with >2 movies)}
 #'
 #' A subset of the \emph{imdb_top_250} dataset. It only contains movies of directors
@@ -41,6 +43,8 @@
 #' }
 #' @source IMDb (\url{https://www.imdb.com})
 "dir_mov"
+
+#' ------------------------------------------------------------------------------
 
 #' World Value Survey \emph{(Extract)}
 #'
@@ -65,6 +69,8 @@
 #' }
 #' @source World Value Survey (\url{https://www.worldvaluessurvey.org})
 "wvs"
+
+#' ------------------------------------------------------------------------------
 
 #' Global Education Profiler \emph{(random sample)}
 #'
@@ -92,6 +98,8 @@
 #'
 #' @source Global Education Profiler (\url{https://warwick.ac.uk/gep})
 "gep"
+
+#' ------------------------------------------------------------------------------
 
 #' Simpson's Paradox: A demonstration dataset \emph{(random sample)}
 #'
@@ -135,3 +143,24 @@
 #'
 #' @source World Health Organisation datasets: \url{https://covid19.who.int/info/}
 "covid"
+
+#' ------------------------------------------------------------------------------
+#' COVID-19 DATA
+#'
+#' A dataset which contains COVID cases and deaths, vaccination information and public
+#' health social measures (PHSM) for each country covered by the WHO.
+#'
+#' @format A data frame with 300 rows and 3 variables:
+#' \describe{
+#'   \item{test}{Defines whether a test was performed before or after training}
+#'   \item{communication}{Level of confidence in communication with people from diverse cultural backgrounds}
+#'   \item{teamwork}{Level of confidence in working with people from diverse cultural backgrounds}
+#'   \item{leadership}{Level of confidence in leading people from diverse cultural backgrounds}
+#'   \item{communication2}{Factorised 'communication' with levels "yes and "no"}
+#'   \item{teamwork2}{Factorised 'teamwork' with levels "yes and "no"}
+#'   \item{leadership2}{Factorised 'leadership' with levels "yes and "no"}
+#'   \item{communication3}{Factorised 'communication' with levels "high", "medium", and "low"}
+#'   \item{teamwork3}{Factorised 'teamwork' with levels "high", "medium", and "low"}
+#'   \item{leadership3}{Factorised 'leadership' with levels "high", "medium", and "low"}
+#' }
+"ic_training"

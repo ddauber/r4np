@@ -3,7 +3,8 @@
 \docType{data}
 \name{dir_mov}
 \alias{dir_mov}
-\title{Top 250 movies ranked on IMDb \emph{(Directors with >2 movies)}}
+\title{------------------------------------------------------------------------------
+Top 250 movies ranked on IMDb \emph{(Directors with >2 movies)}}
 \format{
 A data frame with 250 rows and 16 variables:
 \describe{
