@@ -143,6 +143,12 @@ ic_training <- ic_training %>%
   rename(test = training) %>%
   select(name, test, communication:leadership3)
 
+# rename factor levels for 'test'
+ic_training <- ic_training %>%
+  mutate(test = recode_factor(test,
+                              "pre-training" = "pre_training",
+                              "post-training" = "post_training")
+         )
 
 glimpse(ic_training)
 
