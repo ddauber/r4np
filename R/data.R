@@ -145,6 +145,7 @@
 "covid"
 
 #' ------------------------------------------------------------------------------
+
 #' IC Training Data
 #'
 #' A dataset which contains real-world pre- and post-training test scores for
@@ -167,3 +168,27 @@
 #'
 #' @source Research at the University of Warwick (2018)
 "ic_training"
+
+#' ------------------------------------------------------------------------------
+
+#' World Value Survey (Waves)
+#'
+#' A dataset excerpt from the World Value Survey including 4 countries over 7 waves of data
+#' collection.
+#'
+#' @format A data frame with 39,962 rows and 4 variables:
+#' \describe{
+#'   \item{wave}{Random names created with `randomName` package}
+#'   \item{country}{Defines whether a test was performed before or after training}
+#'   \item{satisfaction}{Item: \emph{All things considered, how satisfied
+#'         are you with your life as a whole these days? | 1 (“completely dissatisfied”)
+#'         to 10 (“completely satisfied”)}}
+#'   \item{freedom_of_choice}{Item: \emph{Some people feel they have completely
+#'         free choice and control over their lives, while other people feel that
+#'         what they do has no real effect on what happens to them. Indicate how much
+#'         freedom of choice and control you feel you have over the way your life
+#'         turns out | 1 ("no choice at all") to 10 ("a great deal of choice").}}
+#' }
+#'
+#' @source World Value Survey (\url{https://www.worldvaluessurvey.org})
+"wvs_waves"
