@@ -4,10 +4,11 @@
 \name{ic_training}
 \alias{ic_training}
 \title{------------------------------------------------------------------------------
-COVID-19 DATA}
+IC Training Data}
 \format{
-A data frame with 300 rows and 3 variables:
+A data frame with 96 rows and 11 variables:
 \describe{
+  \item{name}{Random names created with `randomName` package}
   \item{test}{Defines whether a test was performed before or after training}
   \item{communication}{Level of confidence in communication with people from diverse cultural backgrounds}
   \item{teamwork}{Level of confidence in working with people from diverse cultural backgrounds}
@@ -20,11 +21,14 @@ A data frame with 300 rows and 3 variables:
   \item{leadership3}{Factorised 'leadership' with levels "high", "medium", and "low"}
 }
 }
+\source{
+Research at the University of Warwick (2018)
+}
 \usage{
 ic_training
 }
 \description{
-A dataset which contains COVID cases and deaths, vaccination information and public
-health social measures (PHSM) for each country covered by the WHO.
+A dataset which contains real-world pre- and post-training test scores for
+Intercultural Communication trainees. Participants names were replaced with random names.
 }
 \keyword{datasets}

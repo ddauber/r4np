@@ -6,7 +6,7 @@
 \title{------------------------------------------------------------------------------
 Global Education Profiler \emph{(random sample)}}
 \format{
-A data frame with 300 rows and 15 variables:
+A data frame with 300 rows and 12 variables:
 \describe{
   \item{age}{\emph{Age of participant}}
   \item{gender}{\emph{Gender of participant}}

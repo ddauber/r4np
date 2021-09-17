@@ -33,7 +33,7 @@
 #' who had more than two movies in this data frame Where directors had more than two
 #' movies ranked on IMDb Top 250, a random sample of two movies was chosen.
 #'
-#' @format A data frame with 250 rows and 16 variables:
+#' @format A data frame with 86 rows and 5 variables:
 #' \describe{
 #'   \item{director}{\emph{Director of the movie}}
 #'   \item{imdb_rating}{\emph{Rating from imdb, ranges from 1-10}}
@@ -80,7 +80,7 @@
 #' dataset only contains a random sample of 300 observations out of well over 12,000 students
 #' as of August 2021.
 #'
-#' @format A data frame with 300 rows and 15 variables:
+#' @format A data frame with 300 rows and 12 variables:
 #' \describe{
 #'   \item{age}{\emph{Age of participant}}
 #'   \item{gender}{\emph{Gender of participant}}
@@ -120,7 +120,7 @@
 #' A dataset which contains COVID cases and deaths, vaccination information and public
 #' health social measures (PHSM) for each country covered by the WHO.
 #'
-#' @format A data frame with 300 rows and 3 variables:
+#' @format A data frame with 142674 rows and 17 variables:
 #' \describe{
 #'   \item{date_reported}{Date when cases, deaths, PHSM, etc. were reported}
 #'   \item{iso3}{ISO three-digit country identifier}
@@ -145,13 +145,14 @@
 "covid"
 
 #' ------------------------------------------------------------------------------
-#' COVID-19 DATA
+#' IC Training Data
 #'
-#' A dataset which contains COVID cases and deaths, vaccination information and public
-#' health social measures (PHSM) for each country covered by the WHO.
+#' A dataset which contains real-world pre- and post-training test scores for
+#' Intercultural Communication trainees. Participants names were replaced with random names.
 #'
-#' @format A data frame with 300 rows and 3 variables:
+#' @format A data frame with 96 rows and 11 variables:
 #' \describe{
+#'   \item{name}{Random names created with `randomName` package}
 #'   \item{test}{Defines whether a test was performed before or after training}
 #'   \item{communication}{Level of confidence in communication with people from diverse cultural backgrounds}
 #'   \item{teamwork}{Level of confidence in working with people from diverse cultural backgrounds}
@@ -163,4 +164,6 @@
 #'   \item{teamwork3}{Factorised 'teamwork' with levels "high", "medium", and "low"}
 #'   \item{leadership3}{Factorised 'leadership' with levels "high", "medium", and "low"}
 #' }
+#'
+#' @source Research at the University of Warwick (2018)
 "ic_training"

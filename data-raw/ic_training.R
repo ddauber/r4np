@@ -1,16 +1,72 @@
 # Create dataset for paired comparison of categorical variables
 
+# # Anonymise data and create IDs
+#
+# ic_training <- ic_training_raw %>%
+#   mutate(name = paste(first_name, last_name, sep=" "))
+#
+# filter <- ic_training %>%
+#   group_by(name) %>%
+#   summarise(n = n()) %>%
+#   filter(n == 1)
+#
+# ic_training <- anti_join(ic_training, filter, by = "name")
+#
+# ic_training <- ic_training %>%
+#   filter(test_phase != "post-training 2")
+#
+# # Select variables of interest
+# ic_training <- ic_training %>%
+#   select(name, test_phase:cl_adjusting_communication)
+#
+# # Replace real names with made up names
+# ## check unique names
+#
+# filter2 <- ic_training %>%
+#   na.omit() %>%
+#   group_by(name) %>%
+#   summarise(n = n()) %>%
+#   filter(n == 1)
+#
+# ic_training <- anti_join(ic_training, filter2, by = "name")
+#
+# # remove NA
+# ic_training <- ic_training %>%
+#   na.omit()
+#
+# # generate random names
+# # random_names <- randomNames::randomNames(48, ethnicity = c(1,2,3,4,5,6))
+# new_names <- tibble(new_names = random_names)
+#
+# # Assign random names
+# real_names <- ic_training %>% distinct(name)
+#
+# name_lookup <- cbind(real_names, new_names)
+#
+# # Add new names column
+#
+# ic_training <- left_join(ic_training, name_lookup, by = "name")
+#
+# # Remove real names and rename column
+# ic_training <- ic_training %>%
+#   select(-name) %>%
+#   rename(name = new_names) %>%
+#   relocate(name)
+#
+# # write csv file to disk
+# write_csv(ic_training, "data-raw/ic_training.csv")
+
 # Import original data
 ic_training <- read_csv("data-raw/ic_training.csv")
 
 # Select columns of interest
 ic_training <- ic_training %>%
-  select(rowname, test_phase, starts_with("c"))
+  select(name, test_phase, starts_with("c"))
 
 # Create scores for each category
 ic_training <- ic_training %>%
   na.omit() %>%
-  rowwise(rowname) %>%
+  rowwise(name) %>%
   mutate(communication = mean(c_across(starts_with("cc"))),
          teamwork = mean(c_across(starts_with("ct"))),
          leadership = mean(c_across(starts_with("cl")))
@@ -85,10 +141,10 @@ glimpse(ic_training)
 
 ic_training <- ic_training %>%
   rename(test = training) %>%
-  select(test, communication:leadership3)
+  select(name, test, communication:leadership3)
 
 
 glimpse(ic_training)
 
 # Set as new dataset
-usethis::use_data(ic_training)
+usethis::use_data(ic_training, overwrite = TRUE)

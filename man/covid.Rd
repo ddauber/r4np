@@ -5,7 +5,7 @@
 \alias{covid}
 \title{COVID-19 DATA}
 \format{
-A data frame with 300 rows and 3 variables:
+A data frame with 142674 rows and 17 variables:
 \describe{
   \item{date_reported}{Date when cases, deaths, PHSM, etc. were reported}
   \item{iso3}{ISO three-digit country identifier}

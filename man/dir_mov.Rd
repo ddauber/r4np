@@ -6,7 +6,7 @@
 \title{------------------------------------------------------------------------------
 Top 250 movies ranked on IMDb \emph{(Directors with >2 movies)}}
 \format{
-A data frame with 250 rows and 16 variables:
+A data frame with 86 rows and 5 variables:
 \describe{
   \item{director}{\emph{Director of the movie}}
   \item{imdb_rating}{\emph{Rating from imdb, ranges from 1-10}}
