@@ -48,8 +48,11 @@
 # multiple countries with multiple measures over time
 
 df_select <- wvs_waves %>%
-    mutate(wave = as_factor(wave),
-           country = as_factor(country))
+    mutate(country = as_factor(country))
+
+# recode factor levels for 'wave'
+df_select <- df_select %>%
+  mutate(wave = as_factor(paste("w", wave, sep = "")))
 
 df_select %>%
   ungroup() %>%
@@ -61,7 +64,7 @@ df_select %>%
 # According to this plot it might be worth removing the USA from this dataset to keep dataset smaller
 # Not much has changed in the USA
 
-df_select <- wvs_waves %>%
+df_select <- df_select %>%
   filter(country != "USA")
 
 # compute it
@@ -73,6 +76,7 @@ df_select %>%
 
 effectsize::interpret_eta_squared(0.073)
 
+wvs_waves <- df_select
 
 # Add to package
 usethis::use_data(wvs_waves, overwrite = TRUE)
