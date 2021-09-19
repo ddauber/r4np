@@ -1,3 +1,8 @@
+# CREATE wvs_wave data set
+
+# Load required packages
+library(tidyverse)
+
 # # Decide which variables to use
 #
 # glimpse(WVS_TimeSeries_1981_2020_v2_0.)
@@ -76,7 +81,31 @@ df_select %>%
 
 effectsize::interpret_eta_squared(0.073)
 
-wvs_waves <- df_select
+# Add IDs for participants
+
+df_select %>%
+  group_by(country, wave) %>%
+  sample_n(100) %>%
+  summarise(obs = n()) %>%
+  print(n = Inf)
+
+# Create equally large sub-samples of datasets
+df_select_sub <- df_select %>%
+  group_by(country, wave) %>%
+  sample_n(100) %>%
+  ungroup()
+
+row_id_arg <- rep(1:100, times  = 7) %>% as_tibble()
+row_id_jpn <- rep(101:200, times  = 7) %>% as_tibble()
+row_id_mex <- rep(201:300, times  = 7) %>% as_tibble()
+
+row_ids <- rbind(row_id_arg, row_id_jpn, row_id_mex)
+
+df_select_sub <- df_select_sub %>% mutate(id = as_factor(row_ids$value)) %>% relocate(id)
+
+
+# rename dataset for storing
+wvs_waves <- df_select_sub
 
 # Add to package
 usethis::use_data(wvs_waves, overwrite = TRUE)

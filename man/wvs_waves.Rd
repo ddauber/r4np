@@ -8,6 +8,7 @@ World Value Survey (Waves)}
 \format{
 A data frame with 39,962 rows and 4 variables:
 \describe{
+  \item{id}{Unique ID for each participant}
   \item{wave}{Random names created with `randomName` package}
   \item{country}{Defines whether a test was performed before or after training}
   \item{satisfaction}{Item: \emph{All things considered, how satisfied
