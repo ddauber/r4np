@@ -25,7 +25,7 @@
 #' @source IMDb (\url{https://www.imdb.com})
 "imdb_top_250"
 
-#' ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 #' Top 250 movies ranked on IMDb \emph{(Directors with >2 movies)}
 #'
@@ -44,7 +44,7 @@
 #' @source IMDb (\url{https://www.imdb.com})
 "dir_mov"
 
-#' ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 #' World Value Survey \emph{(Extract)}
 #'
@@ -70,7 +70,31 @@
 #' @source World Value Survey (\url{https://www.worldvaluessurvey.org})
 "wvs"
 
-#' ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+#' World Value Survey \emph{(Extract)}
+#'
+#' A cleaned version of the \emph{wvs} dataset.
+#'
+#' @format A data frame with 69578 rows and 6 variables:
+#' \describe{
+#' \item{country}{\emph{Country name, partially abbreviated}}
+#' \item{gender}{\emph{Gender of participant}}
+#' \item{age}{\emph{Age of participant at the time of data collection}}
+#' \item{relationship_status}{\emph{Relationship status of participants}}
+#' \item{freedom_of_choice}{Item: \emph{Some people feel they have completely
+#' free choice and control over their lives, while other people feel that
+#' what they do has no real effect on what happens to them. Indicate how much
+#' freedom of choice and control you feel you have over the way your life
+#' turns out | 1 ("no choice at all") to 10 ("a great deal of choice").}}
+#' \item{satisfaction}{Item: \emph{All things considered, how satisfied
+#' are you with your life as a whole these days? | 1 (“completely dissatisfied”)
+#' to 10 (“completely satisfied”)}}
+#' }
+#' @source World Value Survey (\url{https://www.worldvaluessurvey.org})
+"wvs_nona"
+
+# ------------------------------------------------------------------------------
 
 #' Global Education Profiler \emph{(random sample)}
 #'
@@ -99,7 +123,7 @@
 #' @source Global Education Profiler (\url{https://warwick.ac.uk/gep})
 "gep"
 
-#' ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 #' Simpson's Paradox: A demonstration dataset \emph{(random sample)}
 #'
@@ -144,7 +168,7 @@
 #' @source World Health Organisation datasets: \url{https://covid19.who.int/info/}
 "covid"
 
-#' ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 #' IC Training Data
 #'
@@ -169,7 +193,7 @@
 #' @source Research at the University of Warwick (2018)
 "ic_training"
 
-#' ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 #' World Value Survey (Waves)
 #'

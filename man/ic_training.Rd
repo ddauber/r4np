@@ -3,8 +3,7 @@
 \docType{data}
 \name{ic_training}
 \alias{ic_training}
-\title{------------------------------------------------------------------------------
-IC Training Data}
+\title{IC Training Data}
 \format{
 A data frame with 96 rows and 11 variables:
 \describe{

@@ -3,8 +3,7 @@
 \docType{data}
 \name{wvs_waves}
 \alias{wvs_waves}
-\title{------------------------------------------------------------------------------
-World Value Survey (Waves)}
+\title{World Value Survey (Waves)}
 \format{
 A data frame with 39,962 rows and 4 variables:
 \describe{

@@ -3,8 +3,7 @@
 \docType{data}
 \name{simpson}
 \alias{simpson}
-\title{------------------------------------------------------------------------------
-Simpson's Paradox: A demonstration dataset \emph{(random sample)}}
+\title{Simpson's Paradox: A demonstration dataset \emph{(random sample)}}
 \format{
 A data frame with 300 rows and 3 variables:
 \describe{
