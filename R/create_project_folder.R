@@ -3,7 +3,7 @@
 #' @details Automatically generate a project
 #'     folder structure in the working directory of your R session.
 #' @export
-create_dr <- function() {
+create_project_folder <- function() {
   base::dir.create("00_raw_data")
   base::dir.create("01_tidy_data")
   base::dir.create("02_r_scripts")
