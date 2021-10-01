@@ -2,5 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-10-01T16:27Z
+last_built: 2021-10-01T16:44Z
+urls:
+  reference: https://ddauber.github.io/r4np//reference
+  article: https://ddauber.github.io/r4np//articles
 
