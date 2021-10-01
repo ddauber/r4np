@@ -12,6 +12,12 @@
 ##'                      standardized parameters for a wide variety of models,
 ##'                      allowing computation of and conversion between indices such as Cohen's d,
 ##'                      r, odds, etc.}
+##'  \item{exact2x2: }{Provides a function to compute the exact McNemar Test.}
+##'  \item{ggdist: }{ggplot2 extension to plot uncertainty and frequencies.}
+##'  \item{ggforce: }{ggplot2 extension to plot even more geoms.}
+##'  \item{ggmosaic: }{Creates mosiac plots with ggplot2. Useful when visualising contingency tables}
+##'  \item{ggraph: }{Used to build network graphs}
+##'  \item{ggridges: }{ggplot2 extension to build ridge plots}
 ##'  \item{janitor: }{The main janitor functions can: perfectly f
 ##'                   ormat data.frame column names; provide quick
 ##'                   counts of variable combinations (i.e., frequency
@@ -21,12 +27,14 @@
 ##'                  of (primarily) regression analyses.}
 ##'  \item{lavaan: }{Fit a variety of latent variable models, including confirmatory factor analysis,
 ##'                  structural equation modeling and latent growth curve models.}
+##'  \item{igraph: }{Used in combination with ggraph to create network plots}
 ##'  \item{mice: }{Multiple imputation using Fully Conditional Specification (FCS)
 ##'               implemented by the MICE algorithm as described in Van Buuren and
 ##'               Groothuis-Oudshoorn (2011).}
 ##'  \item{mi: }{Provides functions for data manipulation, imputing missing values
 ##'              in an approximate Bayesian framework, diagnostics of the models used
 ##'              to generate the imputations, etc.}
+##'  \item{modelr: }{Build pipefriendly operations to model data.}
 ##'  \item{naniar: }{Provides data structures and functions that
 ##'                  facilitate the plotting of missing values and examination
 ##'                  of imputations.}
@@ -35,11 +43,16 @@
 ##'  \item{performance: }{Returns performance indices for regression models}
 ##'  \item{psych: }{A general purpose toolbox for personality, psychometric theory
 ##'                 and experimental psychology.}
+##'  \item{pwr: }{Compute the statistical power of different analytical approaches}
 ##'  \item{rcompanion: }{Additional functions, such as for effect sizes.}
-##'  \item{rstatix: }{A pipe-friendly way of computing various statistics.}
+##'  \item{rstatix: }{A pipe-friendly way of computing various common statistics.}
+##'  \item{scales: }{Useful functions to format ggplot axes.}
+##'  \item{see: }{Enables visualising output from easystats packages.}
+##'  \item{simputation: }{Offer imputation methods for missing data.}
 ##'  \item{skimr: }{A simple to use summary function that can be used with pipes
 ##'                 and displays nicely in the console.}
 ##'  \item{tidyverse: }{Install the core tidyverse packages.}
+##'  \item{wesanderson}{Colour palettes inspired by Wes Anderson movies for ggplot2}
 ##'  }
 #' @examples
 #' \dontrun{
