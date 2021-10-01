@@ -3,9 +3,8 @@ reference:
 - contents:
   - create_project_folder
   - install_r4np
-
 - title
-- contents
+- contents:
   - covid
   - dir_mov
   - gep
