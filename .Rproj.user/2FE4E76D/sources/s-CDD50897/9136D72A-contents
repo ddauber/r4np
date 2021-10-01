@@ -1,0 +1,512 @@
+# generate random names
+set.seed(1234)
+new_names <- randomNames::randomNames(48, ethnicity = c(1,2,3,4,5,6))
+(new_names <- randomNames::randomNames(48, ethnicity = c(1,2,3,4,5,6)))
+# generate random names
+set.seed(1234)
+(new_names <- randomNames::randomNames(48, ethnicity = c(1,2,3,4,5,6)))
+ic_training <- ic_training %>%
+na.omit()
+# Assign random names
+ic_training %>%
+distinct(name)
+# Assign random names
+real_names <- ic_training %>% distinct(name)
+# generate random names
+# new_names <- randomNames::randomNames(48, ethnicity = c(1,2,3,4,5,6))
+new_names <- tibble(new_names = new_names)
+new_names
+# generate random names
+# new_names <- randomNames::randomNames(48, ethnicity = c(1,2,3,4,5,6))
+new_names <- tibble(names = new_names)
+# Assign random names
+real_names <- ic_training %>% distinct(name)
+real_names
+new_names
+rm(new_names)
+# generate random names
+random_names <- randomNames::randomNames(48, ethnicity = c(1,2,3,4,5,6))
+random_names
+new_names <- tibble(names = random_names)
+new_names
+new_names <- tibble(new_names = random_names)
+new_names
+name_lookup <- cbind(real_names, new_names)
+name_lookup
+real_names
+ic_training2 <- left_join(ic_training, name_lookup, by = "name")
+glimpse(ic_training2)
+ic_training2 %>% group_by(name) %>% select(name, new_names)
+ic_training2 %>% group_by(name) %>% select(name, new_names) %>% arrange(name)
+ic_training2 %>% group_by(name) %>% select(name, new_names) %>% arrange(name) %>% print(n = Inf)
+ic_training <- left_join(ic_training, name_lookup, by = "name")
+# Remove real names and rename column
+ic_training %>%
+select(-name)
+# Remove real names and rename column
+ic_training %>%
+select(-name) %>%
+rename(name = new_name)
+# Remove real names and rename column
+ic_training %>%
+select(-name) %>%
+rename(name = new_names)
+# Remove real names and rename column
+ic_training %>%
+select(-name) %>%
+rename(name = new_names) %>%
+relocate(name)
+# Remove real names and rename column
+ic_training <- ic_training %>%
+select(-name) %>%
+rename(name = new_names) %>%
+relocate(name)
+# write csv file to disk
+write_csv(ic_training, "data-raw/ic_training.csv")
+# Import original data
+ic_training <- read_csv("data-raw/ic_training.csv")
+glimpse(ic_training)
+source("/Volumes/WORK/GitHub/r4np/data-raw/ic_training.R", echo=TRUE)
+glimpse(ic_training)
+source("/Volumes/WORK/GitHub/r4np/data-raw/ic_training.R", echo=TRUE)
+# Set as new dataset
+usethis::use_data(ic_training)
+# Set as new dataset
+usethis::use_data(ic_training, overwrite = TRUE)
+glimpse(ic_training)
+dim ic_training
+dim(ic_training)
+dim(covid)
+devtools::load_all(".")
+dim(covid)
+simpson
+gep
+wvs
+dir_mov
+imdb_top_250
+document()
+check()
+devtools::load_all(".")
+install_github("ddauber/r4np")
+source("/Volumes/WORK/GitHub/r4np/data-raw/ic_training.R", echo=TRUE)
+library(tidyverse)
+library(devtools)
+source("/Volumes/WORK/GitHub/r4np/data-raw/ic_training.R", echo=TRUE)
+glimpse(ic_training)
+# rename factor levels for 'test'
+ic_training %>%
+mutate(test = recode_factor(test,
+"pre_training" = "pre-training",
+"post_training" = "post-training")
+)
+# rename factor levels for 'test'
+ic_training %>%
+mutate(test = recode_factor(test,
+"pre-training" = "pre_training",
+"post-training" = "post_training")
+)
+# rename factor levels for 'test'
+ic_training %>%
+mutate(test = recode_factor(test,
+"pre-training" = "pre_training",
+"post-training" = "post_training")
+) %>%
+count(test)
+# rename factor levels for 'test'
+ic_training <- ic_training %>%
+mutate(test = recode_factor(test,
+"pre-training" = "pre_training",
+"post-training" = "post_training")
+)
+glimpse(ic_training)
+source("/Volumes/WORK/GitHub/r4np/data-raw/ic_training.R", echo=TRUE)
+devtools::load_all(".")
+ic_training
+devtools::load_all(".")
+library(tidyverse)
+ic_training
+# Import original data
+ic_training <- read_csv("data-raw/ic_training.csv")
+ic_training
+ic_training %>% count(test_phase)
+library(readr)
+all_data20180504_final <- read_delim("/Volumes/WORK/01_WORK/01_PROJECTS/02_ONGOING/01_organisational_diagnostics/organisational_diagnostic_tool/chugai_gap_analysis/04_R_calculation/all_data_analysis/data/all_data20180504_final.txt",
+delim = "\t", escape_double = FALSE,
+trim_ws = TRUE)
+all_data20180504_final %>% count(test_phase)
+library(readr)
+wvs_waves <- read_csv("/Volumes/WORK/01_WORK/02_PUBLICATIONS/01_DRAFTS/R-for-Non-Programmers_book/wvs_waves.csv")
+usethis::use_data_raw(wvs_waves)
+usethis::use_data_raw("wvs_waves")
+readr::write.csv(wvs_waves, "data-raw/wvs_waves.csv")
+readr::write_csv(wvs_waves, "data-raw/wvs_waves.csv")
+library(readr)
+wvs_waves <- read_csv("data-raw/wvs_waves.csv")
+View(wvs_waves)
+df_select %>%
+filter(country != "USA")
+library(tidyverse)
+df_select %>%
+filter(country != "USA")
+wvs_waves %>%
+filter(country != "USA")
+df_select <- wvs_waves %>%
+filter(country != "USA")
+df_select <- wvs_waves
+df_select <- wvs_waves %>%
+filter(country != "USA")
+wvs_waves %>%
+rstatix::anova_test(satisfaction ~ country,
+within = wave)
+effectsize::interpret_eta_squared(0.055)
+wvs_waves %>%
+rstatix::anova_test(satisfaction ~ country,
+within = wave,
+detailed = TRUE)
+df_select %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+df_select %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+df_select %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+group = country)) +
+geom_boxplot()
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+library(tidyverse)
+df_select %>%
+rstatix::anova_test(satisfaction ~ country,
+within = wave,
+detailed = TRUE)
+effectsize::interpret_eta_squared(0.073)
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_col()
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = wave)) +
+geom_boxplot()
+wvs_waves %>%
+ungroup() %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+devtools::load_all(".")
+library(readr)
+wvs_waves <- read_csv("data-raw/wvs_waves.csv")
+library(tidyverse)
+wvs_waves %>%
+ggplot(aes(x = waves,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+wvs %>%
+count(wave, country)
+wvs_waves %>%
+count(wave, country)
+wvs_waves %>%
+group_by(waves) %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+wvs_waves %>%
+group_by(wave) %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+wvs_waves %>%
+group_by(country) %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+glimpse(wvs_waves)
+wvs_waves %>%
+group_by(wave, country) %>%
+summarise(mean = mean(satisfaction))
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction),
+fill = country) +
+geom_boxplot()
+fill = country) +
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+wvs_waves %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = as_factor(country))) +
+geom_boxplot()
+wvs_waves %>%
+ggplot(aes(x = as_factor(wave),
+y = satisfaction,
+fill = as_factor(country))) +
+geom_boxplot()
+df_select <- wvs_waves %>%
+mutate(wave = as_factor(wave),
+country = as_factor(country))
+summary_data <- df_select %>%
+group_by(country, wave) %>%
+summarise(mean = mean(satisfaction))
+wvs_waves %>%
+ungroup() %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+df_select %>%
+ungroup() %>%
+ggplot(aes(x = wave,
+y = satisfaction,
+fill = country)) +
+geom_boxplot()
+df_select <- wvs_waves %>%
+filter(country != "USA")
+df_select %>%
+rstatix::anova_test(satisfaction ~ country,
+within = wave,
+detailed = TRUE)
+effectsize::interpret_eta_squared(0.073)
+# Add to package
+usethis::use_data(wvs_waves, overwrite = TRUE)
+devtools::load_all(".")
+wvs_waves
+document()
+library(devtools)
+document()
+check()
+devtools::load_all(".")
+library(devtools)
+library(tidyverse)
+glimpse(wvs_waves)
+df_select <- wvs_waves %>%
+mutate(wave = as_factor(wave),
+country = as_factor(country))
+# recode factor levels for 'wave'
+df_select <- df_select %>%
+mutate(wave = paste("w", wave, sep = ""))
+df_select
+df_select <- wvs_waves %>%
+mutate(country = as_factor(country))
+# recode factor levels for 'wave'
+df_select <- df_select %>%
+mutate(wave = paste("w", wave, sep = ""))
+df_select
+# recode factor levels for 'wave'
+df_select <- df_select %>%
+mutate(wave = as_factor(paste("w", wave, sep = "")))
+df_select
+source("/Volumes/WORK/GitHub/r4np/data-raw/wvs_waves.R", echo=TRUE)
+devtools::load_all(".")
+wvs_waves
+devtools::load_all(".")
+wvs_waves
+r4np::wvs_waves
+source("/Volumes/WORK/GitHub/r4np/data-raw/wvs_waves.R", echo=TRUE)
+wvs_wavew
+wvs_waves
+devtools::load_all(".")
+r4np::wvs_waves
+# recode factor levels for 'wave'
+df_select <- df_select %>%
+mutate(wave = as_factor(paste("w", wave, sep = "")))
+source("/Volumes/WORK/GitHub/r4np/data-raw/wvs_waves.R", echo=TRUE)
+wvs_waves
+devtools::load_all(".")
+wvs_waves
+source("/Volumes/WORK/GitHub/r4np/data-raw/wvs_waves.R", echo=TRUE)
+devtools::load_all(".")
+wvs_waves
+r4np::wvs_waves
+install_github("ddauber/r4np")
+source("/Volumes/WORK/GitHub/r4np/data-raw/wvs_waves.R", echo=TRUE)
+df_select <- wvs_waves
+devtools::load_all(".")
+df_select <- wvs_waves
+wvs_waves %>% group_by(country) %>% summarise(sum = sum())
+wvs_waves %>% group_by(country) %>% summarise(sum = n())
+wvs_waves %>% group_by(country, waves) %>% summarise(sum = n())
+wvs_waves %>% group_by(country, waves) %>% summarise(sum = nrow())
+wvs_waves %>% group_by(country, waves) %>% summarise(sum = n())
+wvs_waves %>% group_by(country, wave) %>% summarise(sum = n())
+df_select %>%
+group_by(country, wave) %>%
+summarise(obs = n())
+df_select %>%
+group_by(country, wave) %>%
+summarise(obs = n()) %>%
+print(n = Inf)
+df_select %>%
+group_by(country, wave) %>%
+sample_n(100) %>%
+summarise(obs = n()) %>%
+print(n = Inf)
+df_select %>%
+group_by(country, wave) %>%
+sample_n(100) %>%
+summarise(obs = n()) %>%
+print(n = Inf)
+# Create equally large sub-samples of datasets
+df_select_sub <- df_select %>%
+group_by(country, wave) %>%
+sample_n(100) %>%
+ungroup()
+# Create equally large sub-samples of datasets
+df_select_sub <- df_select %>%
+group_by(country, wave) %>%
+sample_n(100) %>%
+ungroup()
+df_select_sub
+row_ids <- seq(1:100)
+row_ids <- seq(1:100, 7)
+?seq()
+row_id_arg <- rep(1:100, times  = 7)
+row_id_arg <- rep(101:200, times  = 7)
+df_select %>%
+group_by(country, wave) %>%
+sample_n(100) %>%
+summarise(obs = n()) %>%
+print(n = Inf)
+row_id_arg <- rep(1:100, times  = 7)
+row_id_jpn <- rep(101:200, times  = 7)
+row_id_jpn <- rep(201:300, times  = 7)
+row_id_mex <- rep(201:300, times  = 7)
+row_ids <- rbind(row_id_arg, row_id_jpn, row_id_mex)
+row_ids
+row_ids <- rbind(row_id_arg, row_id_jpn, row_id_mex) %>% as_tibble()
+row_id_arg <- rep(1:100, times  = 7) %>% as_tibble()
+row_id_jpn <- rep(101:200, times  = 7) %>% as_tibble()
+row_id_mex <- rep(201:300, times  = 7) %>% as_tibble()
+row_ids <- rbind(row_id_arg, row_id_jpn, row_id_mex) %>% as_tibble()
+row_ids <- rbind(row_id_arg, row_id_jpn, row_id_mex)
+row_ids
+df_select_sub %>% mutate(id = row_ids)
+df_select_sub %>% mutate(id = row_ids$value)
+df_select_sub %>% mutate(id = row_ids$value) %>% relocate(id)
+df_select_sub %>% mutate(id = as_factor(row_ids$value)) %>% relocate(id)
+df_select_sub <- df_select_sub %>% mutate(id = as_factor(row_ids$value)) %>% relocate(id)
+df_select_sub %>% print(n = Inf)
+# rename dataset for storing
+wvs_waves <- df_select_sub
+# Add to package
+usethis::use_data(wvs_waves, overwrite = TRUE)
+glimpse(wvs_waves)
+library(devtools)
+document()
+devtools::load_all(".")
+r4np::wvs_waves
+check()
+library(readr)
+wvs_nona <- read_csv("/Volumes/WORK/01_WORK/02_PUBLICATIONS/01_DRAFTS/R-for-Non-Programmers_book/wvs_nona.csv")
+library(tidyverse)
+glimpse(wvs_nona)
+wvs_nona %>%
+mutate(country = as_factor(country),
+gender = as_factor(gender),
+relationship_status = as_factor(relationship_status))
+wvs_nona <- wvs_nona %>%
+mutate(country = as_factor(country),
+gender = as_factor(gender),
+relationship_status = as_factor(relationship_status))
+glimpse(wvs_nona)
+usethis::use_data(wvs_nona)
+library(devtools)
+document()
+devtools::load_all(".")
+wvs_nona
+?wvs_nona
+wvs
+?wvs
+?wvs_nona
+glimpse(wvs_nona)
+document()
+check()
+document()
+check()
+document()
+check()
+load("/Volumes/WORK/GitHub/r4np/data/imdb_top_250.rda")
+library(tidyverse)
+library(r4np)
+library(devtools)
+install.packages(c("cpp11", "psych", "rgeos", "shiny"))
+glimpse(imdb_top_250)
+imdb_top_250 %>% mutate(synopsis = as.character(synopsis))
+imdb_top_250 <- imdb_top_250 %>% mutate(synopsis = as.character(synopsis))
+glimpse(imdb_top_250)
+use_data(imdb_top_250, overwrite = TRUE)
+devtools::load_all(".")
+r4np::imdb_top_250
+devtools::load_all(".")
+library(devtools)
+devtools::as.package()
+devtools::load_all(".")
+detach("package:devtools", unload = TRUE)
+library(devtools)
+document()
+check()
+document()
+check*()
+check()
+devtools::load_all(".")
+create_project_folder()
+devtools::load_all(".")
+install_r4np()
+library(usethis)
+library(devtools)
+use_logo("visual_assets/r4np_icon_white_bg_favicon.png")
+devtools::load_all(".")
+use_pkgdown_github_pages()
+.Last.error.trace
+document()
+library(pkgdown)
+build_site()
+use_pkgdown()
+build_site()
+document()
+use_github_action("pkgdown")
+use_pkgdown()
+build_site()
+use_logo("visual_assets/r4np_icon_white_bg_favicon.png")
+use_github_action("pkgdown")
+deploy_site_github()
+document()
+devtools::load_all(".")
+check()
+devtools::load_all(".")
+document()
+check()
+build_reference_index()
+document()
+build_reference_index()
+check()
+build_reference_index()
