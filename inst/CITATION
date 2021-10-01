@@ -5,6 +5,6 @@ citEntry(entry = "Book",
          title = "R For Non-Programmers: A Guide For Social Scientists",
          publisher = "Bookdown.org",
          year = "2021",
-         url = "https://danieldauber.com",
-         textVersion = "Dauber, D. (2021). R For Non-Programmers: A Guide for Social Scientists. Bookdown.org, https://danieldauber.com"
+         url = "https://link.danieldauber.com/r4np-book",
+         textVersion = "Dauber, D. (2021). R For Non-Programmers: A Guide for Social Scientists. Bookdown.org, https://link.danieldauber.com/r4np-book"
 )
