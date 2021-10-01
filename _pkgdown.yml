@@ -3,7 +3,7 @@ reference:
 - contents:
   - create_project_folder
   - install_r4np
-- title
+- title: "Data sets"
 - contents:
   - covid
   - dir_mov
