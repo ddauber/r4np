@@ -1,0 +1,18 @@
+url: https://ddauber.github.io/r4np/
+
+reference:
+- title: "Useful functions"
+- contents:
+  - create_project_folder
+  - install_r4np
+- title: "Data sets"
+- contents:
+  - covid
+  - dir_mov
+  - gep
+  - ic_training
+  - imdb_top_250
+  - simpson
+  - wvs
+  - wvs_nona
+  - wvs_waves
