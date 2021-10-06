@@ -1,9 +1,9 @@
 ---
-title: "Exercises: R Bascics"
+title: "Exercises: R Basics"
 author: Daniel Dauber
 output: learnr::tutorial
 runtime: shiny_prerendered
-description: "Exercises "
+description: "Exercises section of R4NP: A Guide for Social Scientists"
 ---
 
 ```{r setup, include=FALSE}
