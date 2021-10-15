@@ -1,0 +1,269 @@
+---
+title: "Exercises: R Basics"
+author: Daniel Dauber
+output: learnr::tutorial
+runtime: shiny_prerendered
+description: "Exercises section of R4NP: A Guide for Social Scientists"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Basic computations
+
+### Exercise 1
+
+Change the code below to divide the result of `(2022-1982)` by `5`.
+
+```{r division, exercise=TRUE}
+(2022-1982)
+```
+
+```{r division-solution}
+(2022-1982)/5
+```
+
+### Exercise 2
+
+What is the result of $\sqrt[2]{25-16}+2*8-6$?
+
+```{r take-sqrt, exercise=TRUE}
+
+```
+
+```{r take-sqrt-hint-1}
+# You need a function to compute the square root
+```
+
+```{r take-sqrt-hint-2}
+sqrt(...)
+```
+
+```{r take-sqrt-solution}
+sqrt(25-16)+2*8-6
+```
+
+### Exercise 3
+
+What does the console return if you execute the following code `"Five" == 5`?
+
+```{r logicals, exercise=TRUE}
+
+```
+
+```{r logicals-quiz,}
+quiz(
+  question("What does the result imply?",
+           answer("'Five' and '5' are the same."),
+           answer("'Five' and '5' are not the same.", correct = TRUE),
+           answer("We performed a logical operation.", correct = TRUE),
+           allow_retry = TRUE
+           )
+)
+```
+
+## Assigning values to objects: `<-`
+
+### Exercise 4
+
+First, create a list called `books` and include the following book titles in it:
+
+-   "Harry Potter and the Deathly Hallows",
+
+-   "The Alchemist",
+
+-   "The Davinci Code",
+
+-   "R For Dummies".
+
+Secondly, inspect the object `books` to see the book titles inside of it.
+
+```{r book-list, exercise=TRUE, exercise.lines=6}
+
+```
+
+```{r book-list-hint-1}
+# Create an object called 'books'
+books <- ...
+```
+
+```{r book-list-hint-2}
+# You need to use the function 'list()' to create a list object
+books <- list(...)
+```
+
+```{r book-list-hint-3}
+# Remember that you have to use "..." for each book title, e.g.
+books <- list("Harry Potter and the Deathly Hallows")
+```
+
+```{r book-list-solution}
+# The solution
+books <- list("Harry Potter and the Deathly Hallows",
+              "The Alchemist",
+              "The Davinci Code",
+              "R For Dummies")
+
+# Inspect the list of `books`
+books
+```
+
+### Exercise 5
+
+Create an object `todo` and concatenate (`c()`) the following three tasks:
+
+-   Go shopping
+
+-   Prepare lunch
+
+-   Have coffee with Peter Parker
+
+```{r todo, exercise=TRUE}
+
+```
+
+```{r todo-hint-1}
+# Create an object 'todo'
+todo <- ...
+```
+
+```{r todo-hint-2}
+# Use the function 'c()'
+todo <- c(...)
+```
+
+```{r todo-solution}
+# The solution
+todo <- c("Go shopping",
+          "Prepare lunch",
+          "Have coffee with Peter Parker")
+```
+
+### Exercise 6
+
+Can you find out which cookie is my favourite one in `file_daniel`?
+
+```{r nested-list-setup, include=FALSE}
+# Movies
+movies <- c("Captain America; The first Avenger",
+            "Lala Land",
+            "Moana",
+            "Dr Strange")
+
+# Food
+savory <- c("Laksa Noodles",
+            "")
+
+cakes <- c("NY-style cheesecake",
+          "Burnt cheesecake",
+          "White chocolate oolong sponge cake")
+
+cookies <- c("White chocolate macademia cookie") 
+
+food <- list(savory,
+             cakes,
+             cookies)
+
+names(food) <- c("Savory-food", "Cakes", "Cookies")
+
+# Compile file
+file_daniel <- list(movies,
+             food)
+
+names(file_daniel) <- c("Movies", "Food")
+```
+
+```{r nested-list, exercise=TRUE, exercise.setup = "nested-list-setup"}
+
+```
+
+```{r nested-list-hint-1}
+# Option 1: You use '$' after the object name to dig deeper into the list
+```
+
+```{r nested-list-hint-2}
+# Option 1: You use '$' after the object name to dig deeper into the list
+file_daniel$Food$...
+```
+
+```{r nested-list-hint-3}
+# Option 1: You use '$' after the object name to dig deeper into the list
+file_daniel$Food$Cookies
+```
+
+```{r nested-list-hint-4}
+# Option 2: You inspect the entire list in the console
+file_daniel
+```
+
+## Functions
+
+### Exercise 7
+
+Use the following function and give it the following two values: `2` and `3`.
+
+```{r function, exercise=TRUE, exercise.lines = 8}
+x_x <- function(number1, number2){
+      result1 <- number1 * number2
+      result2 <- sqrt(number1)
+      result3 <- number1 - number2
+      return(c(result1, result2, result3))
+    }
+```
+
+```{r function-hint-1}
+# To use the function you have to write and insert the values.
+x_x()
+```
+
+```{r function-hint-2}
+# You can insert the values as is, because they are numbers.
+x_x(2, 3)
+```
+
+```{r function-quiz}
+quiz(
+  question(
+    "What does the computation in the function do?",
+    answer("It adds up the numbers '2' and '3'.",
+           message = "Almost. The function subtracts first value from the second."),
+    answer("It takes the squareroot of the second number.",
+           message = "Not quite. It takes the squareroot of the first number."),
+    answer("It multiplies the first number with the second number", correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+## R packages
+
+### Exercise 8
+
+```{r loading-packages}
+quiz(
+  question(
+    "What are three steps to use a function from a new R package you found on CRAN?",
+    answer("Install the R package using 'install.packages()'", correct = TRUE),
+    answer("Load the R package with 'library()'", correct = TRUE),
+    answer("Call the function of interest.", correct = TRUE),
+    answer("Use 'package_name::function_name()' to use functions directly after installation.", correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+```{r search-packages}
+quiz(
+  question(
+    "Where in RStudio can you install R packages?",
+    answer("In the console.", correct = TRUE),
+    answer("In the 'Environment' pane.", message = "Unfortuntaely not. You can only find objects in the 'Environment' pane."),
+    answer("In the 'Packages'.", correct = TRUE),
+    answer("In the 'Source' window, using an R script.", correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+
+```

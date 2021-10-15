@@ -1,0 +1,243 @@
+---
+title: "Exercises: Data Wrangling and Cleaning"
+author: Daniel Dauber
+output: learnr::tutorial
+runtime: shiny_prerendered
+description: "Exercises section of R4NP: A Guide for Social Scientists"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(r4np)
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Importing data
+
+### Exercise 1
+
+```{r import-data}
+quiz(
+  question(
+    "Which of the following ways can you import data into your RStudio session?",
+    answer("The 'Import Dataset' button in the 'Environment' pane does the trick.",
+           correct = TRUE),
+    answer("I can drag and drop files into the 'Source' window.",
+           message = "I am afraid it is not possible to drag and drop files. It would be nice, though."),
+    answer("I can use the function 'import_dataset()' from the 'readr' package.",
+           message = "Unfortunately, the `readr` package has no function called 'import_dataset()."),
+    answer("readr::read_csv('mydata.csv') imports data directly into the 'Environment' pane.",
+           correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 2
+
+```{r delimiters}
+quiz(
+  question(
+    "What is a delimiter in datasets?",
+    answer("It limits the amount of data shown in the console.",
+           message = "Not quite. Delimiters do not affect what is shown in the console."),
+    answer("It enables computers to identify were a column starts and where it ends in our data frame.",
+           correct = TRUE),
+    answer("A comma is the delimiter in a '.csv' file.",
+           correct = "TRUE"),
+    answer("There is a pre-defined set of delimiters we have to use.",
+           message = "You can define any character or symbol as a delimiter. The choice is yours."),
+    allow_retry = TRUE
+  )
+)
+```
+
+## Inspecting data
+
+### Exercise 3
+
+How can we find out what kind of variables are included in the `imdb_top_250` dataset? Change the code below accordingly.
+
+```{r inspect-imdb-dataset, exercise=TRUE}
+imdb_top_250
+```
+
+```{r inspect-imdb-dataset-hint}
+# You might want to take a 'glimpse' at the dataset.
+```
+
+### Exercise 4
+
+How can we view the `synopsis` (a column in `imdb_top_250`)? Provide the correct code below.
+
+```{r synopsis, exercise=TRUE}
+
+```
+
+```{r synopsis-hint}
+# We have to use '$' to select specific column/variable in a dataset
+```
+
+```{r synopsis-solution}
+imdb_top_250$synopsis
+```
+
+## Cleaning column names
+
+### Exercise 5
+
+```{r good-names}
+quiz(
+  question(
+    "What makes for good column/variable names?",
+    answer("They should be as detailed as possible.",
+           message = "While it is important a name captures the meaning of column/variable, we always should aim for being succinct, even if it means we have to sacrifice a bit on detail."),
+    answer("They should be standardised, for example using lower-case only.",
+           correct = TRUE),
+    answer("If other people can easily make sense of them.",
+           correct = TRUE),
+    answer("They do not exceed a certain character limit.",
+           message = "The length of names is relevant, but there is no particular character limit. Remember: Short is good, but nobodoy really defined what is 'short' and what is not."),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 6
+
+```{r clean-column-names}
+# Install janitor if not installed yet
+if("janitor" %in% rownames(installed.packages()) == FALSE){install.packages("janitor")}
+
+# Create messy dataset
+data <- tibble(ID_number = c("N006", "N007", "N008"),
+               Gender_of_Participant = c("female", "male", "female"),
+               emotional_resilience = c(4, 8, 10),
+               Name = c("Kirk", "Bond", "The Rock")
+               )
+```
+
+A colleague gaves us a data frame saved in the object `data`. Let's first, inspect `data` using `glimpse()` to see what it includes
+
+```{r inspect-data, exercise=TRUE, exercise.setup="clean-column-names"}
+
+```
+
+```{r question-inspect-data}
+quiz(
+  caption = "Follow up question",
+  question(
+    "What can we say about this data frame?",
+    answer("The data frame is not correct.",
+           message = "Technically, this is a fully functional dataset. However, there are other things we can improve."),
+    answer("There are 3 variables and 4 observations",
+           message = "This dataset has 4 variables and 3 observations. Be aware of the difference between variable (a column) and an observation (a row) in a dataset"),
+    answer("The column names are difficult to read.",
+           correct = TRUE),
+    answer("We could use a package like `janitor` to clean this dataset.",
+           correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 7
+
+With these insights, how can we clean the column names and save it in the new object `data_clean`? Inspect the result with `glimspse()`.
+
+```{r clean-col-names-janitor, exercise=TRUE, exercise.setup="clean-column-names", exercise.lines= 8, message=FALSE}
+library(janitor)
+
+# Clean the column names to make them more uniform
+
+
+# Inspect the results
+
+```
+
+```{r clean-col-names-janitor-hint-1}
+# The 'janitor' package has a function to 'clean names'.
+```
+
+```{r clean-col-names-janitor-hint-2}
+# The following function should help
+clean_names(...)
+```
+
+```{r clean-col-names-janitor-solution}
+# The solution
+data_clean <- clean_names(data)
+```
+
+### Exercise 8
+
+There are some more improvements we could make to `data_clean`. For example, we could shorten the following column names:
+
+-   `id_number` to `id`, and
+
+-   `gender_of_participant` to `gender`.
+
+Clean these column names using the `dplyr` function `rename()` and save the changes in the object `data_clean`. Review the changes using `glimpse()`.
+
+```{r rename-cols-prep}
+# Create messy dataset
+data <- tibble(ID_number = c("N006", "N007", "N008"),
+               Gender_of_Participant = c("female", "male", "female"),
+               emotional_resilience = c(4, 8, 10),
+               Name = c("Kirk", "Bond", "The Rock")
+               )
+
+data_clean <- janitor::clean_names(data)
+```
+
+
+```{r rename-cols, exercise=TRUE, exercise.setup="rename-cols-prep", exercise.lines = 5}
+# Rename columns
+
+
+# Review changes
+
+
+```
+
+```{r rename-cols-hint-1}
+# When using dplyr we can specify the dataset first.
+data_clean <-
+  data_clean %>% ...
+```
+
+```{r rename-cols-hint-2}
+# Then we can use the 'rename()' function.
+data_clean <-
+  data_clean %>%
+  rename(...)
+```
+
+```{r rename-cols-hint-3}
+# Remember, we first need to specify the new and then the old name
+data_clean <-
+  data_clean %>%
+  rename(new_name = old_name)
+```
+
+```{r rename-cols-hint-4}
+# Here is the example for the column 'id_number'
+data_clean <-
+  data_clean %>%
+  rename(id = id_number)
+```
+
+```{r rename-cols-solution}
+# The solution for both columns
+data_clean <-
+  data_clean %>%
+  rename(id = id_number,
+         gender = gender_of_participant)
+```
+
+## Data types
+
+## Dealing with missing values
+
+## Latent constructs and their realiability
