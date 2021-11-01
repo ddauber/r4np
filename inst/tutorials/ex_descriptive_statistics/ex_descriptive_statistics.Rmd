@@ -1,0 +1,40 @@
+---
+title: "Exercises: Descriptive Statistics"
+author: Daniel Dauber
+output: learnr::tutorial
+runtime: shiny_prerendered
+description: "Exercises section of R4NP: A Guide for Social Scientists"
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(r4np)
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Plotting in R with `ggplot2`
+
+## Central tendency measures
+
+## Spread of data
+
+## Packages for descriptive statistics
+
+
+```{r tempalte}
+# quiz(
+#   question(
+#     "Which of the following statements are correct?",
+#     answer("",
+#            ),
+#     answer("",
+#            ),
+#     answer("",
+#            ),
+#     answer("",
+#            ),
+#     allow_retry = TRUE
+#   )
+# )
+```

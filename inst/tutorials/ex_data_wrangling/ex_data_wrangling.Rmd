@@ -45,7 +45,7 @@ quiz(
     answer("It enables computers to identify were a column starts and where it ends in our data frame.",
            correct = TRUE),
     answer("A comma is the delimiter in a '.csv' file.",
-           correct = "TRUE"),
+           correct = TRUE),
     answer("There is a pre-defined set of delimiters we have to use.",
            message = "You can define any character or symbol as a delimiter. The choice is yours."),
     allow_retry = TRUE
@@ -80,6 +80,7 @@ How can we view the `synopsis` (a column in `imdb_top_250`)? Provide the correct
 ```
 
 ```{r synopsis-solution}
+# Solution
 imdb_top_250$synopsis
 ```
 
@@ -144,7 +145,7 @@ quiz(
 
 ### Exercise 7
 
-With these insights, how can we clean the column names and save it in the new object `data_clean`? Inspect the result with `glimspse()`.
+With these insights, how can we clean the column names and save it in the new object `data_clean`? Inspect the result with `glimpse()`.
 
 ```{r clean-col-names-janitor, exercise=TRUE, exercise.setup="clean-column-names", exercise.lines= 8, message=FALSE}
 library(janitor)
@@ -166,7 +167,7 @@ clean_names(...)
 ```
 
 ```{r clean-col-names-janitor-solution}
-# The solution
+# Solution
 data_clean <- clean_names(data)
 ```
 
@@ -238,6 +239,566 @@ data_clean <-
 
 ## Data types
 
+### Exercise 10
+```{r data-types}
+quiz(
+  question(
+    "What types of data can we usually find in Social Sciences projects.",
+    answer("Valided and unvalidaded data.",
+           message = "Valided/unvalidaded data is not a data type."),
+    answer("Nominal data, which refers to categorical data with no particular order.",
+           correct = TRUE),
+    answer("Quantitative data, which consists exclusively of numbers.",
+           correct = TRUE),
+    answer("Ordinal data, which can include categories and numbers to show their order.",
+           message = "Ordinal data is categorical and its categories can be placed in a meaningful order."),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 11
+```{r data-types-r}
+quiz(
+  question(
+    "Which of the following statements are correct?",
+    answer("`<chr>` and `<fct>` refer to columns in a dataset that are categorical.",
+           correct = TRUE),
+    answer("`<dbl>` and `<int>` refer to numeric variables and can be used interchangeably.",
+           message = "It is true that `<dbl>` and `<int>` refer to numeric variables, but they are not interchangeable. <dbl> allows decimals."),
+    answer("Logical variables always only two values: `TRUE` or `FALSE`.",
+           correct = TRUE),
+    answer("When importing data with `readr`, factors are always imported as `<chr>`",
+           correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 12
+```{r inspect-data-types-prep}
+students <- tibble(study_level = c("UG", "PG", "PG"),
+                   study_experiece = c(32, 83, 95),
+                   team = c("Alpha", "Beta", "Gamma")
+                   )
+```
+
+Inspect the dataset `students` and answer the questions below.
+
+```{r inspect-data-types, exercise=TRUE, exercise.setup="inspect-data-types-prep", exercise.lines = 3}
+
+```
+
+```{r inspect-data-types-questions}
+quiz(
+  question(
+    "What can we say about this dataset?",
+    answer("There are three categorical variables as indicated by `<chr>`.",
+           correct = TRUE),
+    answer("Two of the variables should not be `<chr>`, but a factor `<fct>`.",
+           correct = TRUE),
+    answer("The variable 'study_experience' could be considered as an integer `<int>`.",
+           correct = TRUE),
+    answer("It is important to convert the categorical variables to factors `<fct>`.",
+           ),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 13
+
+Changing data types is an essential aspect of data wrangling and cleaning. Take a look at the dataset `halloween` and change the data type of those variables that are not entirely correct.
+
+```{r change-data-types, exercise=TRUE, exercise.lines = 10}
+# Inspect dataset
+
+
+# Change data types
+halloween_clean <-
+  halloween %>%
+
+# Inspect the new dataset
+
+```
+
+```{r change-data-types-hint-1}
+glimpse(halloween)
+
+# We need to mutate the variable 'country' into a factor <fct>,
+# because it is currently a character <chr>
+```
+
+```{r change-data-types-hint-2}
+glimpse(halloween)
+
+halloween_clean <-
+  halloween %>%
+  mutate(...)
+```
+
+```{r change-data-types-solution}
+glimpse(halloween)
+
+halloween_clean <- 
+  halloween %>%
+  mutate(country = as_factor(country))
+```
+
+### Exercise 14
+The dataset `gep` contains categorical and numerical data. We are asked to clean the dataset and ensure that datasets are correct. First, take a look at the variables included in this data frame.
+
+```{r inspect-gep, exercise=TRUE}
+glimpse()
+```
+
+```{r gep-data-types-questions}
+quiz(
+  question(
+    "Which of the following steps should we take?",
+    answer("'gender' and 'level_of_study' should be converted to <fct>.",
+           correct = TRUE),
+    answer("'age' needs to be converted to an integer <int>.",
+           message = "While 'age' is an integer, it is not necessary to change to conduct further analysis."),
+    answer("All numeric variables can be converted to an integer <int>, but it is not necessary.",
+           correct = TRUE),
+    answer("We can create a new object to save the changes we made.",
+           correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+Let's implement these steps.
+
+```{r gep-data-types, exercise=TRUE, exercise.lines=5}
+
+```
+
+```{r gep-data-types-solution}
+gep_clean <-
+  gep %>%
+  mutate(gender = as_factor(gender),
+         level_of_study = as_factor(level_of_study))
+```
+
+## Handling factors
+
+```{r recoding-prep}
+famous_actors <- tibble(name = c("Zendaya", "Will Poulter", "Jamie Lee Curtis", "Oscar Isaac"),
+                   gender = c(1, 0, 1, 0),
+                   country_of_origin = c(1, 2, 1, 3),
+                   birth_place = c("Oakland", "London", "Santa Monica", "Guatemala City")
+                   )
+```
+
+We received a small dataset `famous_actors` which contain information about commonly known actors working in Hollywood. However, some data cleaning is required to ensure data is correctly reflected in *R* for further processing. There are several steps we should perform.
+
+### Exercise 15
+
+First, we need to inspect the dataset to get an idea which variables we need to correct.
+
+```{r recoding, exercise=TRUE, exercise.setup="recoding-prep"}
+# Inspect the dataset 'famous_actors'
+```
+
+```{r famous-actors-quiz}
+quiz(
+  question(
+    "Which of the following steps should we take?",
+    answer("We need to correct the variable `gender`, because it is considered as `dbl`, btu should  be a factor, i.e. `fct`.",
+           correct = TRUE),
+    answer("The variable `country_of_origin` is `dbl` and therefore cannot be used. We should remove it.",
+           message = "We do not have to remove `country_of_origin`, but need to find out what these numbers stand for, i.e. which countries."),
+    answer("The variable `birth_place` is an example of a `chr` variable and therefore needs not further treatment.",
+           message = "The variable `birth_place` shows a limited number of categories and therefore qualifies as a factor (`fct`)."),
+    answer("Except for `name`, all variables should be cleaned up.",
+           ),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 16
+We usually should try to avoid using numbers as factor levels to make it easier to read tables and data visualisations. Instead, we can provide meaningful labels. To do so, we have to *'recode'* these factor levels.
+In the `famous_actors` dataset we find two factors which are missing appropriate labels, i.e. `gender` and `country_of_origin`. Make the required adjustments considering the following lines from the coding booklet of this dataset:
+<br>
+<br>
+- Gender: `1` stands for `female` and `0` stands for `male`.
+<br>
+- Country: `1` stands for `USA`, `2` stands for `United Kingdom` and `3` stands for `Guatemala`.
+<br>
+
+```{r recoding-gender-country, exercise=TRUE, exercise.setup="recoding-prep", exercise.lines=15}
+
+```
+
+```{r recoding-gender-country-hint-1}
+# We need to create an object to save the outcome and use the 'mutate()' function.
+famous_actors_clean <-
+  famous_actors %>%
+  mutate(...)
+```
+
+```{r recoding-gender-country-hint-2}
+# First we need to change the data type to 'factor'.
+famous_actors_clean <-
+  famous_actors %>%
+  mutate(gender = as_factor(gender),
+         country_of_origin = as_factor(country_of_origin),
+         (...)
+         )
+```
+
+```{r recoding-gender-country-hint-3}
+# Then we use the function 'fct_recode()' to replace the numbers
+famous_actors_clean <-
+  famous_actors %>%
+  mutate(gender = as_factor(gender),
+         country_of_origin = as_factor(country_of_origin),
+         gender = fct_recode(...))
+```
+
+```{r recoding-gender-country-hint-4}
+# The same function is used to change the labels for 'country_of_origin'.
+famous_actors_clean <-
+  famous_actors %>%
+  mutate(gender = as_factor(gender),
+         country_of_origin = as_factor(country_of_origin),
+         gender = fct_recode(gender,
+                             "male" = "0",
+                             "female" = "1"),
+         country_of_origin = fct_recode(...)
+         )
+```
+
+```{r recoding-gender-country-solution}
+# Solution
+famous_actors_clean <-
+  famous_actors %>%
+  mutate(gender = as_factor(gender),
+         country_of_origin = as_factor(country_of_origin),
+         gender = fct_recode(gender,
+                             "male" = "0",
+                             "female" = "1"),
+         country_of_origin = fct_recode(country_of_origin,
+                                        "USA" = "1",
+                                        "United Kingdom" = "2",
+                                        "Guatemala" = "3")
+         )
+
+# Inspect the results
+glimpse(famous_actors_clean)
+```
+
 ## Dealing with missing values
+### Exercise 17
+(currently under development)
+
+### Exercise 18
+(currently under development)
+
+### Exercise 19
+(currently under development)
 
 ## Latent constructs and their realiability
+
+```{r latent-constructs-prep}
+set.seed(1234)
+
+happiness_at_work_high <-  sample(3:6, size = 150, replace = TRUE)
+happiness_at_work2_low <- sample(1:4, size = 150, replace = TRUE)
+
+happiness_family_high <-  sample(4:6, size = 150, replace = TRUE)
+happiness_family_low <- sample(1:3, size = 150, replace = TRUE)
+
+happiness_health_high <-  sample(4:6, size = 150, replace = TRUE)
+happiness_health_low <- sample(1:4, size = 150, replace = TRUE)
+
+stress_lots_of_work_high <-  sample(3:6, size = 150, replace = TRUE)
+stress_lots_of_work_low <- sample(1:4, size = 150, replace = TRUE)
+
+stress_cannot_keep_up_high <-  sample(3:6, size = 150, replace = TRUE)
+stress_cannot_keep_up_low <- sample(1:4, size = 150, replace = TRUE)
+
+stress_busy_schedule_high <-  sample(3:6, size = 150, replace = TRUE)
+stress_busy_schedule_low <- sample(1:4, size = 150, replace = TRUE)
+
+# CONTINUE FROM HERE
+happy_data <- tibble(age = sample(25:64, 300, replace = TRUE),
+                     happiness_at_work = append(happiness_at_work_high,
+                                                happiness_at_work2_low),
+                     happiness_family = append(happiness_family_high,
+                                               happiness_family_low),
+                     happiness_health = append(happiness_health_high,
+                                               happiness_health_low),
+                     stress_lots_of_work = append(stress_lots_of_work_low,
+                                                  stress_lots_of_work_high),
+                     stress_cannot_keep_up = append(stress_cannot_keep_up_low,
+                                                    stress_cannot_keep_up_high),
+                     stress_busy_schedule = append(stress_busy_schedule_low,
+                                                   stress_lots_of_work_high)
+                     )
+
+```
+
+### Exercise 20
+
+We collected data about a teams level of happiness and stress stored in the object `happy_data`. We are asked to report the average `happiness` and stress in the team. Inspect the dataset first and then answer the questions below.
+
+```{r happy-inspect, exercise=TRUE, exercise.setup="latent-constructs-prep"}
+
+```
+
+```{r latent-constructs-quiz}
+quiz(
+  question(
+    "Which of the following statements apply?",
+    answer("We need to compute the a single latent variable based on three questions asked in the questionnaire",
+           correct = TRUE),
+    answer("We need to check the internal consistency before computing a latent variable.",
+           correct = TRUE),
+    answer("There is no need to compute a latent variable, because the sample is too small.",
+           message = "The sample size does not affect the computation of latent variables."),
+    answer("We need to consider latent variables if what we want to measure is not normally measured as a number.",
+           correct = TRUE),
+    answer("Often, the computation of latent variables implies taking the average score of each participant across multiple questions.",
+           correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 21
+In a first step, we need to check the internal consistency of those items, i.e. questions in the questionnaire that belong to `happiness` and `stress`.
+
+Compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `happiness`
+
+```{r internal-consistency-happy, exercise=TRUE, exercise.setup="latent-constructs-prep"}
+happy_data %>%
+
+```
+
+```{r internal-consistency-happy-hint}
+# We need to select the right variables
+happy_data %>%
+  select(happiness_at_work,
+         happiness_family,
+         happiness_health) %>%
+  ...
+```
+
+```{r internal-consistency-happy-solution}
+# Solution: We use psych::alpha() to compute the Cronbach's alpha in R
+happy_data %>%
+  select(happiness_at_work,
+         happiness_family,
+         happiness_health) %>%
+  psych::alpha()
+```
+
+
+Also, compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `stress`.
+
+```{r internal-consistency-stress, exercise=TRUE, exercise.setup="latent-constructs-prep"}
+happy_data %>%
+  
+```
+
+```{r internal-consistency-stress-hint-1}
+# We first need to select the correct variables
+happy_data %>%
+  select(stress_lots_of_work,
+         stress_cannot_keep_up,
+         stress_busy_schedule) %>%
+  ...
+```
+
+```{r internal-consistency-stress-solution}
+# Solution: We use the function alpha() from the 'psych' package
+happy_data %>%
+  select(stress_lots_of_work,
+         stress_cannot_keep_up,
+         stress_busy_schedule) %>%
+  psych::alpha()
+```
+
+
+```{r internal-consistency-quiz}
+quiz(
+  question(
+    "How do you rate the level of internal consistency for `happiness` and `stress`?",
+    answer("It is good, because alpha > 0.80",
+           message = "The alpha score for stress does not lie above 0.8"),
+    answer("It is good, because alpha > 0.70",
+           correct = TRUE),
+    answer("It is good, because alpha > 0.65",
+           message = "It is necessary that alpha is at least 0.7."),
+    answer("The Cronbach's alpha is not high enough.",
+           message = "An alpha score of at least 0.7 would be enough."),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 22
+Even though the Cronbach's $\alpha$ look promising for both latent variables, it is essential to also run a confirmatory factor analysis to ensure that these factors are independent latent variables.
+
+Perform a confirmatory factor analysis and include both latent variables when specifying the model we have to test.
+
+```{r cfa, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=25}
+
+```
+
+```{r cfa-hint-1}
+# We need to load the lavaan package to perform a CFA
+library(lavaan)
+```
+
+```{r cfa-hint-2}
+# In a first step we need to define a model
+library(lavaan)
+
+model <- '...'
+```
+
+```{r cfa-hint-3}
+# We need to list all items and use '=~' to define a latent variable
+library(lavaan)
+
+model <- '
+happiness =~
+happiness_at_work +
+happiness_family +
+happiness_health
+
+...
+'
+```
+
+```{r cfa-hint-4}
+# The full specification of the required model.
+library(lavaan)
+
+model <- '
+happiness =~
+happiness_at_work +
+happiness_family +
+happiness_health
+
+stress =~
+stress_lots_of_work +
+stress_cannot_keep_up +
+stress_busy_schedule
+'
+
+... 
+```
+
+```{r cfa-hint-5}
+# Perform CFA
+library(lavaan)
+
+model <- '
+happiness =~
+happiness_at_work +
+happiness_family +
+happiness_health
+
+stress =~
+stress_lots_of_work +
+stress_cannot_keep_up +
+stress_busy_schedule
+'
+
+fit <- cfa(model, data = happy_data)
+
+...
+```
+
+```{r cfa-solution}
+# Solution
+library(lavaan)
+
+model <- '
+happiness =~
+happiness_at_work +
+happiness_family +
+happiness_health
+
+stress =~
+stress_lots_of_work +
+stress_cannot_keep_up +
+stress_busy_schedule
+'
+
+fit <- cfa(model, data = happy_data)
+
+# Here we compute the fit indices to check model fit
+fit_indices <- fitmeasures(fit)
+
+# Optional if we want to only inspect certain indices
+fit_indices %>%
+  enframe() %>%
+  filter(name == "cfi" |
+         name == "srmr" |
+         name == "rmsea") %>%
+  mutate(value = round(value, 3))
+```
+
+```{r cfa-quiz}
+quiz(
+  question(
+    "Based on the result of our CFA, which conclusions can we draw if we looked at the CFI, SRMR and RMSEA?",
+    answer("The indicators suggest a good model fit and therefore we can compute the latent variables",
+           message = "Unfortunately, the CFI is not as high as required, i.e. >= 0.95"),
+    answer("The Root Mean Square Error of Approximation suggests a good fit our model.",
+           correct = TRUE),
+    answer("Two of the indicators suggest that our model fits our data well, but one of them does not.",
+           correct = TRUE),
+    answer("The results of the CFA cannot be fully trusted, because our data set is too small.",
+           message = "While sample size does play a role when performing a CFA, for the number of factors we are interested in, this is a large enough sample."),
+    allow_retry = TRUE
+  )
+)
+```
+
+### Exercise 23
+Considering the fairly good results of our CFA in combination with the good Cronbach's alpha scores, we need to undertake one final step: Compute the latent variables `happiness` and `stress`.
+
+```{r compute-latent-variables, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=10}
+happy_data_latent <-
+  happy_data %>%
+
+```
+
+```{r compute-latent-variables-hint-1}
+# We want to compute a new score for each participant, i.e. for each row.
+happy_data_latent <-
+  happy_data %>%
+  rowwise() %>%
+  ...
+```
+
+```{r compute-latent-variables-hint-2}
+# We need to compute the mean of the corresponding variables
+# to obtain a combined score for the latent variables
+happy_data_latent <-
+  happy_data %>%
+  rowwise() %>%
+  mutate(...)
+```
+
+```{r compute-latent-variables-solution}
+# Solution
+happy_data_latent <-
+  happy_data %>%
+  rowwise() %>%
+  mutate(happiness = mean(c(happiness_at_work,
+                            happiness_family,
+                            happiness_health)),
+         stress = mean(c(stress_lots_of_work,
+                         stress_cannot_keep_up,
+                         stress_busy_schedule)))
+```
+
