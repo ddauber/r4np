@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/ddauber/r4np/workflows/R-CMD-check/badge.svg)](https://github.com/ddauber/r4np/actions)
+[![R4NP-Book](https://img.shields.io/badge/r4np-A%20guide%20for%20Social%20Scientists-lightgrey)](https://link.danieldauber.com/r4np-book)
+[![RStudio community](https://img.shields.io/badge/community-teaching-blue?style=social&logo=rstudio&logoColor=75AADB)](https://community.rstudio.com/c/teaching)
 
 <!-- badges: end -->
 
