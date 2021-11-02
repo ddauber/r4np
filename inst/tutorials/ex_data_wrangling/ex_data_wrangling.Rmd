@@ -219,7 +219,7 @@ data_clean <-
   rename(...)
 ```
 
-```{r rename-cols-hint-3}
+```{r rename-cols-hint-3, eval=FALSE}
 # Remember, we first need to specify the new and then the old name
 data_clean <-
   data_clean %>%
