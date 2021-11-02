@@ -40,7 +40,7 @@ What is the result of $\sqrt[2]{25-16}+2*8-6$?
 # You need a function to compute the square root
 ```
 
-```{r take-sqrt-hint-2}
+```{r take-sqrt-hint-2, eval=FALSE}
 sqrt(...)
 ```
 
@@ -92,7 +92,7 @@ Secondly, inspect the object `books` to see the book titles inside of it.
 books <- ...
 ```
 
-```{r book-list-hint-2}
+```{r book-list-hint-2, eval=FALSE}
 # You need to use the function 'list()' to create a list object
 books <- list(...)
 ```
@@ -127,12 +127,12 @@ Create an object `todo` and concatenate (`c()`) the following three tasks:
 
 ```
 
-```{r todo-hint-1}
+```{r todo-hint-1, eval=FALSE}
 # Create an object 'todo'
 todo <- ...
 ```
 
-```{r todo-hint-2}
+```{r todo-hint-2, eval=FALSE}
 # Use the function 'c()'
 todo <- c(...)
 ```
@@ -216,7 +216,7 @@ x_x <- function(number1, number2){
     }
 ```
 
-```{r function-hint-1}
+```{r function-hint-1, eval=FALSE}
 # To use the function you have to write and insert the values.
 x_x(...)
 ```
