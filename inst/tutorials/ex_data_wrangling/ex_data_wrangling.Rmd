@@ -205,14 +205,14 @@ data_clean <- janitor::clean_names(data)
 
 ```
 
-```{r rename-cols-hint-1}
+```{r rename-cols-hint-1, eval=FALSE}
 # When using dplyr we can specify the dataset first.
 data_clean <-
   data_clean %>%
   
 ```
 
-```{r rename-cols-hint-2}
+```{r rename-cols-hint-2, eval=FALSE}
 # Then we can use the 'rename()' function.
 data_clean <-
   data_clean %>%
@@ -333,7 +333,7 @@ glimpse(halloween)
 # because it is currently a character <chr>
 ```
 
-```{r change-data-types-hint-2}
+```{r change-data-types-hint-2, eval=FALSE}
 glimpse(halloween)
 
 halloween_clean <-
@@ -437,7 +437,7 @@ In the `famous_actors` dataset we find two factors which are missing appropriate
 
 ```
 
-```{r recoding-gender-country-hint-1}
+```{r recoding-gender-country-hint-1, eval=FALSE}
 # We need to create an object to save the outcome and use the 'mutate()' function.
 famous_actors_clean <-
   famous_actors %>%
@@ -453,7 +453,7 @@ famous_actors_clean <-
          )
 ```
 
-```{r recoding-gender-country-hint-3}
+```{r recoding-gender-country-hint-3, eval=FALSE}
 # Then we use the function 'fct_recode()' to replace the numbers
 famous_actors_clean <-
   famous_actors %>%
@@ -463,7 +463,7 @@ famous_actors_clean <-
          )
 ```
 
-```{r recoding-gender-country-hint-4}
+```{r recoding-gender-country-hint-4, eval=FALSE}
 # The same function is used to change the labels for 'country_of_origin'.
 famous_actors_clean <-
   famous_actors %>%
@@ -583,7 +583,7 @@ happy_data %>%
 
 ```
 
-```{r internal-consistency-happy-hint}
+```{r internal-consistency-happy-hint, eval=FALSE}
 # We need to select the right variables
 happy_data %>%
   select(happiness_at_work,
@@ -609,7 +609,7 @@ happy_data %>%
   
 ```
 
-```{r internal-consistency-stress-hint-1}
+```{r internal-consistency-stress-hint-1, eval=FALSE}
 # We first need to select the correct variables
 happy_data %>%
   select(stress_lots_of_work,
@@ -659,7 +659,7 @@ Perform a confirmatory factor analysis and include both latent variables when sp
 library(lavaan)
 ```
 
-```{r cfa-hint-2}
+```{r cfa-hint-2, eval=FALSE}
 # In a first step we need to define a model
 library(lavaan)
 
@@ -770,7 +770,7 @@ happy_data_latent <-
 
 ```
 
-```{r compute-latent-variables-hint-1}
+```{r compute-latent-variables-hint-1, eval=FALSE}
 # We want to compute a new score for each participant, i.e. for each row.
 happy_data_latent <-
   happy_data %>%
@@ -778,7 +778,7 @@ happy_data_latent <-
   
 ```
 
-```{r compute-latent-variables-hint-2}
+```{r compute-latent-variables-hint-2, eval=FALSE}
 # We need to compute the mean of the corresponding variables
 # to obtain a combined score for the latent variables
 happy_data_latent <-
