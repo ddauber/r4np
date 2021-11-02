@@ -163,7 +163,7 @@ library(janitor)
 
 ```{r clean-col-names-janitor-hint-2}
 # The following function should help
-clean_names(...)
+clean_names()
 ```
 
 ```{r clean-col-names-janitor-solution}
@@ -205,14 +205,15 @@ data_clean <- janitor::clean_names(data)
 ```{r rename-cols-hint-1}
 # When using dplyr we can specify the dataset first.
 data_clean <-
-  data_clean %>% ...
+  data_clean %>%
+  
 ```
 
 ```{r rename-cols-hint-2}
 # Then we can use the 'rename()' function.
 data_clean <-
   data_clean %>%
-  rename(...)
+  rename()
 ```
 
 ```{r rename-cols-hint-3}
@@ -334,7 +335,7 @@ glimpse(halloween)
 
 halloween_clean <-
   halloween %>%
-  mutate(...)
+  mutate()
 ```
 
 ```{r change-data-types-solution}
@@ -437,7 +438,7 @@ In the `famous_actors` dataset we find two factors which are missing appropriate
 # We need to create an object to save the outcome and use the 'mutate()' function.
 famous_actors_clean <-
   famous_actors %>%
-  mutate(...)
+  mutate()
 ```
 
 ```{r recoding-gender-country-hint-2}
@@ -446,7 +447,7 @@ famous_actors_clean <-
   famous_actors %>%
   mutate(gender = as_factor(gender),
          country_of_origin = as_factor(country_of_origin),
-         (...)
+         ()
          )
 ```
 
@@ -456,7 +457,7 @@ famous_actors_clean <-
   famous_actors %>%
   mutate(gender = as_factor(gender),
          country_of_origin = as_factor(country_of_origin),
-         gender = fct_recode(...))
+         gender = fct_recode())
 ```
 
 ```{r recoding-gender-country-hint-4}
@@ -468,7 +469,7 @@ famous_actors_clean <-
          gender = fct_recode(gender,
                              "male" = "0",
                              "female" = "1"),
-         country_of_origin = fct_recode(...)
+         country_of_origin = fct_recode()
          )
 ```
 
@@ -585,7 +586,7 @@ happy_data %>%
   select(happiness_at_work,
          happiness_family,
          happiness_health) %>%
-  ...
+  
 ```
 
 ```{r internal-consistency-happy-solution}
@@ -611,7 +612,7 @@ happy_data %>%
   select(stress_lots_of_work,
          stress_cannot_keep_up,
          stress_busy_schedule) %>%
-  ...
+  
 ```
 
 ```{r internal-consistency-stress-solution}
@@ -659,7 +660,7 @@ library(lavaan)
 # In a first step we need to define a model
 library(lavaan)
 
-model <- '...'
+model <- ''
 ```
 
 ```{r cfa-hint-3}
@@ -672,7 +673,7 @@ happiness_at_work +
 happiness_family +
 happiness_health
 
-...
+
 '
 ```
 
@@ -692,7 +693,7 @@ stress_cannot_keep_up +
 stress_busy_schedule
 '
 
-... 
+ 
 ```
 
 ```{r cfa-hint-5}
@@ -713,7 +714,7 @@ stress_busy_schedule
 
 fit <- cfa(model, data = happy_data)
 
-...
+
 ```
 
 ```{r cfa-solution}
@@ -777,7 +778,7 @@ happy_data_latent <-
 happy_data_latent <-
   happy_data %>%
   rowwise() %>%
-  ...
+  
 ```
 
 ```{r compute-latent-variables-hint-2}
@@ -786,7 +787,7 @@ happy_data_latent <-
 happy_data_latent <-
   happy_data %>%
   rowwise() %>%
-  mutate(...)
+  mutate()
 ```
 
 ```{r compute-latent-variables-solution}

@@ -38,7 +38,7 @@ What is the result of $\sqrt[2]{25-16}+2*8-6$?
 ```
 
 ```{r take-sqrt-hint-2}
-sqrt(...)
+sqrt()
 ```
 
 ```{r take-sqrt-solution}
@@ -86,16 +86,16 @@ Secondly, inspect the object `books` to see the book titles inside of it.
 
 ```{r book-list-hint-1}
 # Create an object called 'books'
-books <- ...
+books <- 
 ```
 
 ```{r book-list-hint-2}
 # You need to use the function 'list()' to create a list object
-books <- list(...)
+books <- list()
 ```
 
 ```{r book-list-hint-3}
-# Remember that you have to use "..." for each book title, e.g.
+# Remember that you have to use "" for each book title, e.g.
 books <- list("Harry Potter and the Deathly Hallows")
 ```
 
@@ -126,12 +126,12 @@ Create an object `todo` and concatenate (`c()`) the following three tasks:
 
 ```{r todo-hint-1}
 # Create an object 'todo'
-todo <- ...
+todo <- 
 ```
 
 ```{r todo-hint-2}
 # Use the function 'c()'
-todo <- c(...)
+todo <- c()
 ```
 
 ```{r todo-solution}
@@ -185,7 +185,7 @@ names(file_daniel) <- c("Movies", "Food")
 
 ```{r nested-list-hint-2}
 # Option 1: You use '$' after the object name to dig deeper into the list
-file_daniel$Food$...
+file_daniel$Food$
 ```
 
 ```{r nested-list-hint-3}
