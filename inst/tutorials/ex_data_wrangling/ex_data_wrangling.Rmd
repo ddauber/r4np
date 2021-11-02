@@ -169,9 +169,9 @@ data_clean <-
 # The 'janitor' package has a function to 'clean names'
 ```
 
-```{r clean-col-names-janitor-hint-2, eval=FALSE}
+```{r clean-col-names-janitor-hint-2}
 # The following function should help
-clean_names()
+clean_names(...)
 ```
 
 ```{r clean-col-names-janitor-solution}
