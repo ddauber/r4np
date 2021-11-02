@@ -226,7 +226,7 @@ data_clean <-
   rename(new_name = old_name)
 ```
 
-```{r rename-cols-hint-4}
+```{r rename-cols-hint-4, eval=FALSE}
 # Here is the example for the column 'id_number'
 data_clean <-
   data_clean %>%
