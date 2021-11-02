@@ -164,7 +164,7 @@ library(janitor)
 # The 'janitor' package has a function to 'clean names'
 ```
 
-```{r clean-col-names-janitor-hint-2}
+```{r clean-col-names-janitor-hint-2, eval=FALSE}
 # The following function should help
 clean_names()
 ```
