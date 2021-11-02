@@ -1,7 +1,10 @@
 ---
 title: "Exercises: Descriptive Statistics"
 author: Daniel Dauber
-output: learnr::tutorial
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
 description: "Exercises section of R4NP: A Guide for Social Scientists"
 ---
