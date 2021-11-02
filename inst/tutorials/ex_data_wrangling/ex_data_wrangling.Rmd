@@ -314,13 +314,13 @@ quiz(
 
 Changing data types is an essential aspect of data wrangling and cleaning. Take a look at the dataset `halloween` and change the data type of those variables that are not entirely correct.
 
-```{r change-data-types, exercise=TRUE, exercise.lines = 10}
+```{r change-data-types, exercise=TRUE, exercise.lines = 10, exercise.eval=FALSE}
 # Inspect dataset
-
 
 # Change data types
 halloween_clean <-
   halloween %>%
+  ...
 
 # Inspect the new dataset
 
