@@ -604,7 +604,7 @@ happy_data %>%
 Also, compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `stress`.
 
 ```{r internal-consistency-stress, exercise=TRUE, exercise.setup="latent-constructs-prep"}
-happy_data %>%
+happy_data
   
 ```
 
