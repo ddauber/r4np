@@ -161,12 +161,12 @@ library(janitor)
 ```
 
 ```{r clean-col-names-janitor-hint-1}
-# The 'janitor' package has a function to 'clean names'.
+# The 'janitor' package has a function to 'clean names'
 ```
 
 ```{r clean-col-names-janitor-hint-2}
 # The following function should help
-clean_names(...)
+clean_names()
 ```
 
 ```{r clean-col-names-janitor-solution}
@@ -675,8 +675,6 @@ happiness =~
 happiness_at_work +
 happiness_family +
 happiness_health
-
-
 '
 ```
 
