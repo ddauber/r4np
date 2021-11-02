@@ -314,13 +314,12 @@ quiz(
 
 Changing data types is an essential aspect of data wrangling and cleaning. Take a look at the dataset `halloween` and change the data type of those variables that are not entirely correct.
 
-```{r change-data-types, exercise=TRUE, exercise.lines = 10, eval=FALSE}
+```{r change-data-types, exercise=TRUE, exercise.lines = 10}
 # Inspect dataset
 
 # Change data types
 halloween_clean <-
-  halloween %>%
-  ...
+  halloween
 
 # Inspect the new dataset
 
@@ -353,7 +352,7 @@ halloween_clean <-
 The dataset `gep` contains categorical and numerical data. We are asked to clean the dataset and ensure that datasets are correct. First, take a look at the variables included in this data frame.
 
 ```{r inspect-gep, exercise=TRUE}
-glimpse(...)
+
 ```
 
 ```{r gep-data-types-questions}
