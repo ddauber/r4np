@@ -157,11 +157,12 @@ movies <- c("Captain America; The first Avenger",
 
 # Food
 savory <- c("Laksa Noodles",
-            "")
+            "Pan con tomate",
+            "Shanghainese Maifun")
 
 cakes <- c("NY-style cheesecake",
-          "Burnt cheesecake",
-          "White chocolate oolong sponge cake")
+           "Burnt cheesecake",
+           "White chocolate oolong sponge cake")
 
 cookies <- c("White chocolate macademia cookie") 
 
@@ -186,7 +187,7 @@ names(file_daniel) <- c("Movies", "Food")
 # Option 1: You use '$' after the object name to dig deeper into the list
 ```
 
-```{r nested-list-hint-2}
+```{r nested-list-hint-2, eval=FALSE}
 # Option 1: You use '$' after the object name to dig deeper into the list
 file_daniel$Food$
 ```
