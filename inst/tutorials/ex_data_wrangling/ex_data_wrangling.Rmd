@@ -70,6 +70,11 @@ imdb_top_250
 # You might want to take a 'glimpse' at the dataset.
 ```
 
+```{r inspect-imdb-dataset-solution}
+# Solution
+glimpse(imdb_top_250)
+```
+
 ### Exercise 4
 
 How can we view the `synopsis` (a column in `imdb_top_250`)? Provide the correct code below.
@@ -154,7 +159,7 @@ With these insights, how can we clean the column names and save it in the new ob
 library(janitor)
 
 # Clean the column names to make them more uniform
-
+data_clean <- 
 
 # Inspect the results
 
@@ -239,6 +244,8 @@ data_clean <-
   data_clean %>%
   rename(id = id_number,
          gender = gender_of_participant)
+
+glimpse(data_clean)
 ```
 
 ## Data types
@@ -298,13 +305,13 @@ quiz(
   question(
     "What can we say about this dataset?",
     answer("There are three categorical variables as indicated by `<chr>`.",
-           correct = TRUE),
+           message = "There are only two categorical variables: `study_level` and `team`"),
     answer("Two of the variables should not be `<chr>`, but a factor `<fct>`.",
            correct = TRUE),
     answer("The variable 'study_experience' could be considered as an integer `<int>`.",
            correct = TRUE),
-    answer("It is important to convert the categorical variables to factors `<fct>`.",
-           ),
+    answer("It is important to convert the categorical variables into factors `<fct>`.",
+           correct = TRUE),
     allow_retry = TRUE
   )
 )
@@ -312,7 +319,7 @@ quiz(
 
 ### Exercise 13
 
-Changing data types is an essential aspect of data wrangling and cleaning. Take a look at the dataset `halloween` and change the data type of those variables that are not entirely correct.
+Changing data types is an essential aspect of data wrangling and cleaning. Take a look at the dataset `halloween` and change the data type of those variables that are not entirely correct. 
 
 ```{r change-data-types, exercise=TRUE, exercise.lines = 10}
 # Inspect dataset
@@ -349,7 +356,7 @@ halloween_clean <-
 ```
 
 ### Exercise 14
-The dataset `gep` contains categorical and numerical data. We are asked to clean the dataset and ensure that datasets are correct. First, take a look at the variables included in this data frame.
+The dataset `gep` contains categorical and numerical data. We are asked to clean the dataset and ensure that data types are correct. First, take a look at the variables included in this data frame.
 
 ```{r inspect-gep, exercise=TRUE}
 
@@ -359,11 +366,11 @@ The dataset `gep` contains categorical and numerical data. We are asked to clean
 quiz(
   question(
     "Which of the following steps should we take?",
-    answer("'gender' and 'level_of_study' should be converted to <fct>.",
+    answer("'gender' and 'level_of_study' should be converted to `<fct>`.",
            correct = TRUE),
-    answer("'age' needs to be converted to an integer <int>.",
+    answer("'age' needs to be converted to an integer `<int>`.",
            message = "While 'age' is an integer, it is not necessary to change to conduct further analysis."),
-    answer("All numeric variables can be converted to an integer <int>, but it is not necessary.",
+    answer("All numeric variables can be converted to an `<int>`, but it is not necessary.",
            correct = TRUE),
     answer("We can create a new object to save the changes we made.",
            correct = TRUE),
@@ -372,7 +379,7 @@ quiz(
 )
 ```
 
-Let's implement these steps.
+Let's implement these steps, store the changes in the object `gep_clean` and review the changes using `glimpse()`.
 
 ```{r gep-data-types, exercise=TRUE, exercise.lines=5}
 
@@ -383,6 +390,8 @@ gep_clean <-
   gep %>%
   mutate(gender = as_factor(gender),
          level_of_study = as_factor(level_of_study))
+
+glimpse(gep_clean)
 ```
 
 ## Handling factors
@@ -409,14 +418,14 @@ First, we need to inspect the dataset to get an idea which variables we need to 
 quiz(
   question(
     "Which of the following steps should we take?",
-    answer("We need to correct the variable `gender`, because it is considered as `dbl`, btu should  be a factor, i.e. `fct`.",
+    answer("We need to correct the variable `gender`, because it is considered as `dbl` but should be a factor, i.e. `fct`.",
            correct = TRUE),
     answer("The variable `country_of_origin` is `dbl` and therefore cannot be used. We should remove it.",
            message = "We do not have to remove `country_of_origin`, but need to find out what these numbers stand for, i.e. which countries."),
     answer("The variable `birth_place` is an example of a `chr` variable and therefore needs not further treatment.",
            message = "The variable `birth_place` shows a limited number of categories and therefore qualifies as a factor (`fct`)."),
     answer("Except for `name`, all variables should be cleaned up.",
-           ),
+           correct = TRUE),
     allow_retry = TRUE
   )
 )
