@@ -210,28 +210,28 @@ data_clean <- janitor::clean_names(data)
 
 ```
 
-```{r rename-cols-hint-1, eval=FALSE}
+```{r rename-cols-hint-1}
 # When using dplyr we can specify the dataset first.
 data_clean <-
   data_clean %>%
-  
+  ...
 ```
 
-```{r rename-cols-hint-2, eval=FALSE}
+```{r rename-cols-hint-2}
 # Then we can use the 'rename()' function.
 data_clean <-
   data_clean %>%
   rename(...)
 ```
 
-```{r rename-cols-hint-3, eval=FALSE}
+```{r rename-cols-hint-3}
 # Remember, we first need to specify the new and then the old name
 data_clean <-
   data_clean %>%
   rename(new_name = old_name)
 ```
 
-```{r rename-cols-hint-4, eval=FALSE}
+```{r rename-cols-hint-4}
 # Here is the example for the column 'id_number'
 data_clean <-
   data_clean %>%
@@ -326,7 +326,8 @@ Changing data types is an essential aspect of data wrangling and cleaning. Take 
 
 # Change data types
 halloween_clean <-
-  halloween
+  halloween %>%
+  ...
 
 # Inspect the new dataset
 
@@ -339,7 +340,7 @@ glimpse(halloween)
 # because it is currently a character <chr>
 ```
 
-```{r change-data-types-hint-2, eval=FALSE}
+```{r change-data-types-hint-2}
 glimpse(halloween)
 
 halloween_clean <-
@@ -412,6 +413,7 @@ First, we need to inspect the dataset to get an idea which variables we need to 
 
 ```{r recoding, exercise=TRUE, exercise.setup="recoding-prep"}
 # Inspect the dataset 'famous_actors'
+
 ```
 
 ```{r famous-actors-quiz}
@@ -445,7 +447,7 @@ In the `famous_actors` dataset we find two factors which are missing appropriate
 
 ```
 
-```{r recoding-gender-country-hint-1, eval=FALSE}
+```{r recoding-gender-country-hint-1}
 # We need to create an object to save the outcome and use the 'mutate()' function.
 famous_actors_clean <-
   famous_actors %>%
@@ -461,7 +463,7 @@ famous_actors_clean <-
          )
 ```
 
-```{r recoding-gender-country-hint-3, eval=FALSE}
+```{r recoding-gender-country-hint-3}
 # Then we use the function 'fct_recode()' to replace the numbers
 famous_actors_clean <-
   famous_actors %>%
@@ -471,7 +473,7 @@ famous_actors_clean <-
          )
 ```
 
-```{r recoding-gender-country-hint-4, eval=FALSE}
+```{r recoding-gender-country-hint-4}
 # The same function is used to change the labels for 'country_of_origin'.
 famous_actors_clean <-
   famous_actors %>%
@@ -566,7 +568,7 @@ We collected data about a teams level of happiness and stress stored in the obje
 quiz(
   question(
     "Which of the following statements apply?",
-    answer("We need to compute the a single latent variable based on three questions asked in the questionnaire",
+    answer("We need to compute the two latent variables each based on three questions asked in the questionnaire.",
            correct = TRUE),
     answer("We need to check the internal consistency before computing a latent variable.",
            correct = TRUE),
@@ -587,17 +589,18 @@ In a first step, we need to check the internal consistency of those items, i.e. 
 Compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `happiness`
 
 ```{r internal-consistency-happy, exercise=TRUE, exercise.setup="latent-constructs-prep"}
-happy_data
+happy_data %>%
+  ...
 
 ```
 
-```{r internal-consistency-happy-hint, eval=FALSE}
+```{r internal-consistency-happy-hint}
 # We need to select the right variables
 happy_data %>%
   select(happiness_at_work,
          happiness_family,
          happiness_health) %>%
-  
+  ...
 ```
 
 ```{r internal-consistency-happy-solution}
@@ -613,17 +616,18 @@ happy_data %>%
 Also, compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `stress`.
 
 ```{r internal-consistency-stress, exercise=TRUE, exercise.setup="latent-constructs-prep"}
-happy_data
+happy_data %>%
+  ...
   
 ```
 
-```{r internal-consistency-stress-hint-1, eval=FALSE}
+```{r internal-consistency-stress-hint-1}
 # We first need to select the correct variables
 happy_data %>%
   select(stress_lots_of_work,
          stress_cannot_keep_up,
          stress_busy_schedule) %>%
-  
+  ...
 ```
 
 ```{r internal-consistency-stress-solution}
@@ -654,11 +658,11 @@ quiz(
 ```
 
 ### Exercise 22
-Even though the Cronbach's $\alpha$ look promising for both latent variables, it is essential to also run a confirmatory factor analysis to ensure that these factors are independent latent variables.
+Even though the Cronbach's $\alpha$ looks promising for both latent variables, it is essential to also run a confirmatory factor analysis to ensure that these factors are independent latent variables.
 
 Perform a confirmatory factor analysis and include both latent variables when specifying the model we have to test.
 
-```{r cfa, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=25}
+```{r cfa, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=25, message=FALSE}
 
 ```
 
@@ -667,11 +671,13 @@ Perform a confirmatory factor analysis and include both latent variables when sp
 library(lavaan)
 ```
 
-```{r cfa-hint-2, eval=FALSE}
+```{r cfa-hint-2}
 # In a first step we need to define a model
 library(lavaan)
 
-model <- ''
+model <- '
+...
+'
 ```
 
 ```{r cfa-hint-3}
@@ -760,7 +766,7 @@ quiz(
            message = "Unfortunately, the CFI is not as high as required, i.e. >= 0.95"),
     answer("The Root Mean Square Error of Approximation suggests a good fit our model.",
            correct = TRUE),
-    answer("Two of the indicators suggest that our model fits our data well, but one of them does not.",
+    answer("Two of the indicators suggest that our model fits our data well, but one of them is just a bit too low.",
            correct = TRUE),
     answer("The results of the CFA cannot be fully trusted, because our data set is too small.",
            message = "While sample size does play a role when performing a CFA, for the number of factors we are interested in, this is a large enough sample."),
@@ -774,19 +780,20 @@ Considering the fairly good results of our CFA in combination with the good Cron
 
 ```{r compute-latent-variables, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=10}
 happy_data_latent <-
-  happy_data
+  happy_data %>%
+  ...
 
 ```
 
-```{r compute-latent-variables-hint-1, eval=FALSE}
+```{r compute-latent-variables-hint-1}
 # We want to compute a new score for each participant, i.e. for each row.
 happy_data_latent <-
   happy_data %>%
   rowwise() %>%
-  
+  ...
 ```
 
-```{r compute-latent-variables-hint-2, eval=FALSE}
+```{r compute-latent-variables-hint-2}
 # We need to compute the mean of the corresponding variables
 # to obtain a combined score for the latent variables
 happy_data_latent <-
@@ -806,5 +813,7 @@ happy_data_latent <-
          stress = mean(c(stress_lots_of_work,
                          stress_cannot_keep_up,
                          stress_busy_schedule)))
+
+glimpse(happy_data_latent)
 ```
 
