@@ -765,7 +765,7 @@ Considering the fairly good results of our CFA in combination with the good Cron
 
 ```{r compute-latent-variables, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=10}
 happy_data_latent <-
-  happy_data %>%
+  happy_data
 
 ```
 
