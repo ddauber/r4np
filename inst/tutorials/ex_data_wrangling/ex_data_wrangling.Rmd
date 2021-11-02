@@ -578,7 +578,7 @@ In a first step, we need to check the internal consistency of those items, i.e. 
 Compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `happiness`
 
 ```{r internal-consistency-happy, exercise=TRUE, exercise.setup="latent-constructs-prep"}
-happy_data %>%
+happy_data
 
 ```
 
