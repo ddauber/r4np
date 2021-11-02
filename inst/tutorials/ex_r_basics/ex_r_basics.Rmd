@@ -87,7 +87,7 @@ Secondly, inspect the object `books` to see the book titles inside of it.
 
 ```
 
-```{r book-list-hint-1}
+```{r book-list-hint-1, eval=FALSE}
 # Create an object called 'books'
 books <- ...
 ```
