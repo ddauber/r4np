@@ -52,7 +52,8 @@
 ##'  \item{skimr: }{A simple to use summary function that can be used with pipes
 ##'                 and displays nicely in the console.}
 ##'  \item{tidyverse: }{Install the core tidyverse packages.}
-##'  \item{wesanderson}{Colour palettes inspired by Wes Anderson movies for ggplot2}
+##'  \item{wesanderson: }{Colour palettes inspired by Wes Anderson movies for ggplot2}
+##'  \item{wordcloud: }{Generates word clouds from text data.}
 ##'  }
 #' @examples
 #' \dontrun{
@@ -93,7 +94,8 @@ install_r4np <- function() {
     "skimr",
     "tidytext",
     "tidyverse",
-    "wesanderson"
+    "wesanderson",
+    "wordlcloud"
     # Add packages related to mixed-methods research
   ))
 
@@ -130,5 +132,6 @@ install_r4np <- function() {
           "\n- tidytext",
           "\n- tidyverse",
           "\n- wesanderson",
+          "\n- wordcloud",
           sep = "\n")
 }

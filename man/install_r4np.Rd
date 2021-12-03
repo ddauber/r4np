@@ -62,7 +62,8 @@ Installs the following R packages at once:
  \item{skimr: }{A simple to use summary function that can be used with pipes
                 and displays nicely in the console.}
  \item{tidyverse: }{Install the core tidyverse packages.}
- \item{wesanderson}{Colour palettes inspired by Wes Anderson movies for ggplot2}
+ \item{wesanderson: }{Colour palettes inspired by Wes Anderson movies for ggplot2}
+ \item{wordcloud: }{Generates word clouds from text data.}
  }
 }
 \examples{
