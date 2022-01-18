@@ -12,6 +12,7 @@ description: "Exercises section of R4NP: A Guide for Social Scientists"
 ```{r setup, include=FALSE}
 library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.blanks = TRUE)
 ```
 
 ## Basic computations
@@ -41,7 +42,7 @@ What is the result of $\sqrt[2]{25-16}+2*8-6$?
 ```
 
 ```{r take-sqrt-hint-2}
-sqrt(...)
+sqrt(___)
 ```
 
 ```{r take-sqrt-solution}
@@ -89,12 +90,12 @@ Secondly, inspect the object `books` to see the book titles inside of it.
 
 ```{r book-list-hint-1}
 # Create an object called 'books'
-books <- ...
+books <- ___
 ```
 
 ```{r book-list-hint-2}
 # You need to use the function 'list()' to create a list object
-books <- list(...)
+books <- list(___)
 ```
 
 ```{r book-list-hint-3}
@@ -129,12 +130,12 @@ Create an object `todo` and concatenate (`c()`) the following three tasks:
 
 ```{r todo-hint-1}
 # Create an object 'todo'
-todo <- ...
+todo <- ___
 ```
 
 ```{r todo-hint-2}
 # Use the function 'c()'
-todo <- c(...)
+todo <- c(___)
 ```
 
 ```{r todo-solution}
@@ -219,7 +220,7 @@ x_x <- function(number1, number2){
 
 ```{r function-hint-1}
 # To use the function you have to write and insert the values.
-x_x(...)
+x_x(___)
 ```
 
 ```{r function-hint-2}
