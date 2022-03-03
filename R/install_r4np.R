@@ -27,6 +27,7 @@
 ##'                  of (primarily) regression analyses.}
 ##'  \item{lavaan: }{Fit a variety of latent variable models, including confirmatory factor analysis,
 ##'                  structural equation modeling and latent growth curve models.}
+##'  \item{lubridate: }{Helps manipulate/convert date and time data}
 ##'  \item{igraph: }{Used in combination with ggraph to create network plots}
 ##'  \item{mice: }{Multiple imputation using Fully Conditional Specification (FCS)
 ##'               implemented by the MICE algorithm as described in Van Buuren and
@@ -76,6 +77,7 @@ install_r4np <- function() {
     "janitor",
     "jtools",
     "lavaan",
+    "lubridate",
     "igraph",
     "mice",
     "mi",
@@ -113,6 +115,7 @@ install_r4np <- function() {
           "\n- janitor",
           "\n- jtools",
           "\n- lavaan",
+          "\n- lubridate",
           "\n- igraph",
           "\n- mice",
           "\n- mi",
