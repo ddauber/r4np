@@ -241,7 +241,7 @@
 #'
 #' A dataset which contains data start and end dates regarding the completion of a questionnaire
 #'
-#' @format A data frame with 193 rows and 3 variables:
+#' @format A data frame with 84 rows and 3 variables:
 #' \describe{
 #'   \item{id}{Unique identifier of participant}
 #'   \item{start}{The date and time at which a participant started the questionnaire}
