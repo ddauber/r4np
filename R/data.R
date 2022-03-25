@@ -232,5 +232,21 @@
 #'   \item{country}{Participants country of residence}
 #' }
 #'
-#' @source Ripped from the dying hands of the Pumpkin Lord
+#' @source Ripped from the dying hands of the Pumpkin Lord.
 "halloween"
+
+# ------------------------------------------------------------------------------
+
+#' Start and end dates/times of a questionnaire
+#'
+#' A dataset which contains data start and end dates regarding the completion of a questionnaire
+#'
+#' @format A data frame with 193 rows and 3 variables:
+#' \describe{
+#'   \item{id}{Unique identifier of participant}
+#'   \item{start}{The date and time at which a participant started the questionnaire}
+#'   \item{end}{The date and time at which a participant finished the questionnaire}
+#' }
+#'
+#' @source A random selection of observations from the Global Education Profiler (GEP).
+"quest_time"

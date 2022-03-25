@@ -13,7 +13,7 @@ A data frame with 5982 rows and 3 variables:
 }
 }
 \source{
-Ripped from the dying hands of the Pumpkin Lord
+Ripped from the dying hands of the Pumpkin Lord.
 }
 \usage{
 halloween
