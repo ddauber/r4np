@@ -73,7 +73,7 @@ install_r4np <- function() {
     "ggforce",
     "ggmosaic",
     "ggraph",
-    "ggrigdes",
+    "ggridges",
     "janitor",
     "jtools",
     "lavaan",
@@ -97,9 +97,11 @@ install_r4np <- function() {
     "tidytext",
     "tidyverse",
     "wesanderson",
-    "wordlcloud"
-    # Add packages related to mixed-methods research
-  ))
+    "wordcloud"),                           # Add packages related to mixed-methods research
+    repos = "https://cloud.r-project.org/", # Set CRAN mirror
+    dependencies = TRUE,
+    type = "both"
+  )
 
   message("The following packages have been installed or updated:",
           "\n- broom",
@@ -111,7 +113,7 @@ install_r4np <- function() {
           "\n- ggforce",
           "\n- ggmosaic",
           "\n- ggraph",
-          "\n- ggrigdes",
+          "\n- ggridges",
           "\n- janitor",
           "\n- jtools",
           "\n- lavaan",

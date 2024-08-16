@@ -5,7 +5,7 @@
 \alias{wvs}
 \title{World Value Survey \emph{(Extract)}}
 \format{
-A data frame with 69578 rows and 7 variables:
+A data frame with 8564 rows and 7 variables:
 \describe{
 \item{Participant ID}{\emph{Unique identifier for each participant}}
 \item{Country name}{\emph{Country name, partially abbreviated}}
@@ -23,7 +23,7 @@ to 10 (“completely satisfied”)}}
 }
 }
 \source{
-World Value Survey (\url{https://www.worldvaluessurvey.org})
+World Value Survey (WVS) (\url{https://www.worldvaluessurvey.org})
 }
 \usage{
 wvs

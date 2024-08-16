@@ -19,6 +19,6 @@ A random selection of observations from the Global Education Profiler (GEP).
 quest_time
 }
 \description{
-A dataset which contains data start and end dates regarding the completion of a questionnaire
+A dataset which contains start and end dates regarding the completion of a questionnaire.
 }
 \keyword{datasets}

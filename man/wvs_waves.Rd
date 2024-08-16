@@ -5,7 +5,7 @@
 \alias{wvs_waves}
 \title{World Value Survey (Waves)}
 \format{
-A data frame with 39,962 rows and 4 variables:
+A data frame with 2100 rows and 5 variables:
 \describe{
   \item{id}{Unique ID for each participant}
   \item{wave}{Random names created with `randomName` package}
@@ -21,13 +21,13 @@ A data frame with 39,962 rows and 4 variables:
 }
 }
 \source{
-World Value Survey (\url{https://www.worldvaluessurvey.org})
+World Value Survey (WVS). Data retrieve from \url{https://www.worldvaluessurvey.org}
 }
 \usage{
 wvs_waves
 }
 \description{
-A dataset excerpt from the World Value Survey including 4 countries over 7 waves of data
+A dataset excerpt from the World Value Survey including 3 countries over 7 waves of data
 collection.
 }
 \keyword{datasets}

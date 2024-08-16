@@ -5,7 +5,7 @@
 \alias{wvs_nona}
 \title{World Value Survey \emph{(Extract)}}
 \format{
-A data frame with 69578 rows and 6 variables:
+A data frame with 8564 rows and 6 variables:
 \describe{
 \item{country}{\emph{Country name, partially abbreviated}}
 \item{gender}{\emph{Gender of participant}}
@@ -22,7 +22,7 @@ to 10 (“completely satisfied”)}}
 }
 }
 \source{
-World Value Survey (\url{https://www.worldvaluessurvey.org})
+World Value Survey (WVS) (\url{https://www.worldvaluessurvey.org})
 }
 \usage{
 wvs_nona

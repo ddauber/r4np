@@ -21,7 +21,7 @@ A data frame with 96 rows and 11 variables:
 }
 }
 \source{
-Research at the University of Warwick (2018)
+Research conducted at the University of Warwick (2018)
 }
 \usage{
 ic_training

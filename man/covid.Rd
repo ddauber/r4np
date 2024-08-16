@@ -27,7 +27,8 @@ A data frame with 142674 rows and 17 variables:
 }
 }
 \source{
-World Health Organisation datasets: \url{https://covid19.who.int/info/}
+World Health Organisation (WHO). Dataset retrieved on 2nd February 2023 from: \url{https://covid19.who.int/info/}.
+WHO data is licensed under Creative Commons Attribution 4.0 International License (CC BY 4.0).
 }
 \usage{
 covid

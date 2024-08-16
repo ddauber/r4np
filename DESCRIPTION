@@ -1,10 +1,10 @@
 Package: r4np
 Type: Package
 Title: R for Non-Programmers Companion
-Version: 0.6.1.2.2
+Version: 0.7
 Authors@R: person("Daniel", "Dauber", email = "d.dauber@warwick.ac.uk",
   role = c("aut", "cre"))
-Description: The official companion to 'R For Non-Programmers: A Guide for Social Scientists'.
+Description: The official companion to the book 'R For Non-Programmers: A Guide for Social Scientists'.
     It includes datasets, functions and lots of exercises that are helplful to follow along with
     the book, which can be found here: <http://link.danieldauber.com/r4np-book>.
 License: MIT + file LICENSE
@@ -13,10 +13,50 @@ LazyData: true
 URL: https://github.com/ddauber/r4np
 BugReports: https://github.com/ddauber/r4np/issues
 Depends: 
-    R (>= 2.10)
-RoxygenNote: 7.1.2
+    R (>= 4.2.0)
+RoxygenNote: 7.3.2
 Imports:
     base,
-    utils,
+    broom,
+    cli,
+    dplyr,
+    purrr,
+    tibble,
+    tidyr,
+    utils
+Suggests: 
+    testthat (>= 3.0.0),
+    car,
+    correlation,
+    effectsize,
+    exact2x2,
+    ggdist,
+    ggforce,
+    ggmosaic,
+    ggraph,
+    ggridges,
+    janitor,
+    jtools,
+    lavaan,
+    lubridate,
+    igraph,
+    mice,
+    mi,
+    modelr,
+    naniar,
+    parameters,
+    patchwork,
+    performance,
+    psych,
+    pwr,
+    rcompanion,
+    rstatix,
+    scales,
+    see,
+    simputation,
+    skimr,
+    tidytext,
     tidyverse,
-    learnr
+    wesanderson,
+    wordcloud
+Config/testthat/edition: 3
