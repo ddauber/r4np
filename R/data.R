@@ -353,7 +353,7 @@
 #' circumstances, and environmental factors. It provides a single health score and allows
 #' detailed breakdowns by location and topic, facilitating comparisons over time.
 #'
-#' @format A data frame with 84 rows and 3 variables:
+#' @format A data frame with 2149 rows and 21 variables:
 #' \describe{
 #'   \item{area_name}{The area the data was collected from.}
 #'   \item{region}{Regional categorisation of areas.}
@@ -415,7 +415,7 @@
 #' detailed breakdowns by location and topic, facilitating comparisons over time. This
 #' dataset only contains data collected in 2021.
 #'
-#' @format A data frame with 84 rows and 3 variables:
+#' @format A data frame with 307 rows and 21 variables:
 #' \describe{
 #'   \item{area_name}{The area the data was collected from.}
 #'   \item{region}{Regional categorisation of areas.}

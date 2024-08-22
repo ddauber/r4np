@@ -5,7 +5,7 @@
 \alias{hie}
 \title{The Health Index for England (2015-2021)}
 \format{
-A data frame with 84 rows and 3 variables:
+A data frame with 2149 rows and 21 variables:
 \describe{
   \item{area_name}{The area the data was collected from.}
   \item{region}{Regional categorisation of areas.}
