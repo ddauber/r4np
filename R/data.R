@@ -269,9 +269,6 @@
 #' \describe{
 #'   \item{id}{Participant unique ID}
 #'   \item{wave}{Data was collected in several waves, 2007 and 2011. This allows comparing countries over time.}
-#'   \item{country}{Item: \emph{How much do you agree or disagree with the following statements relating
-#'                           to green and natural spaces locally: Places where I can relax and unwind.}
-#'                           | 1 ("Strongly disagree") to 5 = ("Strongly agree").}
 #'   \item{country_name}{Name of country participants resides in.}
 #'   \item{iso_code}{Country ISO code}
 #'   \item{marital_status}{Marital status}
@@ -300,8 +297,8 @@
 #'   \item{vol_political_parties}{Item: \emph{How often unpaid voluntary work in the last 12 months: Political parties, trade unions?}
 #'                                    | 1 ("Every week") to 5 = ("Not at all").}
 #'   \item{vol_other_organisation}{Item: \emph{How often unpaid voluntary work in the last 12 months: Other voluntary organisations?
-#'                                    | 1 ("Every week") to 5 = ("Not at all").}
-#'   \item{volunteering_frequency}{Volunteering frequency} | 1 ("Every week") to 5 = ("Not at all").}
+#'                                    | 1 ("Every week") to 5 = ("Not at all").}}
+#'   \item{volunteering_frequency}{Volunteering frequency | 1 ("Every week") to 5 = ("Not at all").}
 #'   \item{sei_left_out_soc}{Item: \emph{I feel left out of society}.}
 #'   \item{sei_life_is_complicated}{Item: \emph{Life has become so complicated today that I almost can’t find my way}
 #'                                     | 1 ("Strongly agree") to 5 = ("Strongly disagree").}
@@ -320,25 +317,25 @@
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
 #'   \item{mwbi_felt_fresh}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I woke up feeling fresh and rested}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
-#'   \item{mwbi_life_is_interestin}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - My daily life has been filled with things that interest me}
+#'   \item{mwbi_life_is_interesting}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - My daily life has been filled with things that interest me}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
 #'   \item{mwbi_felt_tense}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt particularly tense}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
 #'   \item{mwbi_felt_lonely}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt lonely}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
-#'   \item{mbwi_felt_downhearted}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt downhearted and depressed}
+#'   \item{mwbi_felt_downhearted}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt downhearted and depressed}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
-#'   \item{mbwi}{Item: \emph{WHO-5 mental wellbeing index}.}
+#'   \item{mwbi}{Item: \emph{WHO-5 mental wellbeing index}.}
 #'   \item{wlbc_too_tired_household}{Item: \emph{I have come home from work too tired to do some of the household jobs which need to be done}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
-#'   \item{wlbc_fam_responsibilitie}{Item: \emph{It has been difficult for me to fulfil my family responsibilities because of the amount of time I spend on the job}
+#'   \item{wlbc_fam_responsibilities}{Item: \emph{It has been difficult for me to fulfil my family responsibilities because of the amount of time I spend on the job}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
-#'   \item{wlbc_cannot_focus_on_wor}{Item: \emph{I have found it difficult to concentrate at work because of my family responsibilities}
+#'   \item{wlbc_cannot_focus_on_work}{Item: \emph{I have found it difficult to concentrate at work because of my family responsibilities}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
 #'   \item{wlbc}{Item: \emph{Work-life balance conflict}.}
 #'   \item{hrs_work_first_job}{Item: \emph{How many hours do you normally work per week in your main job?} | (80hrs or more).}
 #'   \item{hrs_work_additional_job}{Item: \emph{About how many hours per week did you work in this additional job?} | (60hrs or more).}
-#'   \item{work_hrs}{The total number of working hours}.
+#'   \item{work_hrs}{The total number of working hours.}
 
 #' }
 #'

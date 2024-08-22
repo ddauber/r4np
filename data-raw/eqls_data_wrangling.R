@@ -4,6 +4,7 @@
 
 # LOAD PACKAGES -----------------------------------------------------------
 library(tidyverse)
+library(purrr)
 
 # IMPORT DATA -------------------------------------------------------------
 eqls_raw <- read_csv("data-raw/eqls_2007and2011.csv")
@@ -258,8 +259,8 @@ eqls_renamed <-
     mwbi_life_is_interesting  = Y11_Q45e,                  #	How often felt your daily life has been filled with things that interest you last 2 weeks?
     mwbi_felt_tense           = Y11_Q46a,                  #	How often felt particularly tense last 2 weeks?
     mwbi_felt_lonely          = Y11_Q46b,                  #	How often felt lonely last 2 weeks?
-    mbwi_felt_downhearted     = Y11_Q46c,	                # How often felt downhearted and depressed last 2 weeks?
-    mbwi                      = Y11_MWIndex,               # WHO-5 mental wellbeing index
+    mwbi_felt_downhearted     = Y11_Q46c,	                # How often felt downhearted and depressed last 2 weeks?
+    mwbi                      = Y11_MWIndex,               # WHO-5 mental wellbeing index
     wlbc_too_tired_household  = Y11_Q12a,                 #	Come home from work too tired to do some of the household jobs
     wlbc_fam_responsibilities = Y11_Q12b,                 #	Difficult to fulfil family responsibilities because of the time at work
     wlbc_cannot_focus_on_work = Y11_Q12c,                 #	Difficult to concentrate at work because of family responsibilities
@@ -449,6 +450,26 @@ eqls_clean_factors <-
   eqls_clean_factors |>
   select(-total_hrs_working)
 
+
+
+# FIX: NON-ASCII strings --------------------------------------------------
+
+## In response to the following warning:
+##
+## Warning: found non-ASCII strings
+## 'Tertiary education <e2><80><93> advanced level (ISCED 6)' in object 'eqls'
+## 'Tertiary education <e2><80><93> first level (ISCED 5)' in object 'eqls'
+
+## Function to replace non-ASCII en dash with ASCII hyphen
+replace_non_ascii <- function(x) {
+  str_replace_all(x, "\u2013", "-")  # Replace en dash (U+2013) with hyphen
+}
+
+## Apply the replacement to the entire dataset
+eqls_ascii_strings <-
+  eqls %>%
+  mutate(across(everything(), ~ replace_non_ascii(.)))
+
 # FINAL DATASET -----------------------------------------------------------
 
-eqls <- eqls_clean_factors
+eqls <- eqls_ascii_strings
