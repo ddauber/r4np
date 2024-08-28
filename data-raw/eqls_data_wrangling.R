@@ -467,8 +467,9 @@ replace_non_ascii <- function(x) {
 
 ## Apply the replacement to the entire dataset
 eqls_ascii_strings <-
-  eqls %>%
-  mutate(across(everything(), ~ replace_non_ascii(.)))
+  eqls_clean_factors %>%
+  # mutate(across(everything(), ~ replace_non_ascii(.)))
+  mutate(education = as_factor(replace_non_ascii(education)))
 
 # FINAL DATASET -----------------------------------------------------------
 
