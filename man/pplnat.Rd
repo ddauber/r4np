@@ -46,7 +46,7 @@ A data frame with 3585 rows and 19 variables:
 }
 }
 \source{
-Natural England. (2023). people and Nature Survey for England, 2020-2023: Open Access. 3rd Edition. UK Data Service. SN: 9092.
+Natural England. (2023). People and Nature Survey for England, 2020-2023: Open Access. 3rd Edition. UK Data Service. SN: 9092.
         DOI: \url{http://doi.org/10.5255/UKDA-SN-9092-3}
 }
 \usage{

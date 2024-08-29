@@ -480,6 +480,7 @@ eqls_2011 <-
   eqls |>
   filter(wave == 2011)
 
+
 ## Dataset with country aggregates
 eqls_country_2011 <-
   eqls_2011 |>
