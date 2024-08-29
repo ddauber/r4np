@@ -487,4 +487,5 @@ eqls_country_2011 <-
   summarise(trust_people = mean(trust_people, na.rm = TRUE),
             sei          = mean(sei, na.rm = TRUE),
             mwbi         = mean(mwbi, na.rm = TRUE),
-            wlbc         = mean(wlbc, na.rm = TRUE))
+            wlbc         = mean(wlbc, na.rm = TRUE)) |>
+  na.omit()
