@@ -471,6 +471,11 @@ eqls_ascii_strings <-
   # mutate(across(everything(), ~ replace_non_ascii(.)))
   mutate(education = as_factor(replace_non_ascii(education)))
 
-# FINAL DATASET -----------------------------------------------------------
+# FINAL DATASETS ----------------------------------------------------------
 
 eqls <- eqls_ascii_strings
+
+## Dataset which only contains 2011 data
+eqls_2011 <-
+  eqls |>
+  filter(wave == 2011)
