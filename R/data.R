@@ -253,7 +253,7 @@
 #'   \item{wellbeing}{Wellbeing (latent variable based on `wb` items).}
 #' }
 #'
-#' @source Natural England. (2023). people and Nature Survey for England, 2020-2023: Open Access. 3rd Edition. UK Data Service. SN: 9092.
+#' @source Natural England. (2023). People and Nature Survey for England, 2020-2023: Open Access. 3rd Edition. UK Data Service. SN: 9092.
 #'         DOI: \url{http://doi.org/10.5255/UKDA-SN-9092-3}
 "pplnat"
 
@@ -574,3 +574,43 @@
 #' @source Office for National Statistics (ONS), released 16 June 2023, ONS website, Health Index Scores, England,
 #' Url: \url{https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/healthandwellbeing/datasets/healthindexscoresengland}.
 "hie_2021"
+
+# ------------------------------------------------------------------------------
+
+#' Alcohol consumption around the world (2000-2019)
+#'
+#' A dataset which contains information about alcohol consumption across various countries.
+#'
+#' @format A data frame with 936 rows and 4 variables:
+#' \describe{
+#'   \item{country}{Country of origin of participant}
+#'   \item{code}{Country code related to the country-of-origin of participant}
+#'   \item{year}{The year in which data was collected}
+#'   \item{consumption}{Indicates the liters of pure alcohol consumed by individuals of 15+ years of age}
+#' }
+#'
+#' @source Multiple sources compiled by World Bank (2024) – processed by Our World in Data.
+#' “Total alcohol consumption per capita – In liters of pure alcohol, projected estimates,
+#' 15+ years of age”, Url: \url{https://ourworldindata.org/alcohol-consumption}. World Health Organization (via World Bank),
+#' “World Development Indicators”, Url: \url{https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators}.
+"alcohol"
+
+# ------------------------------------------------------------------------------
+
+#' Alcohol consumption around the world (2019)
+#'
+#' A dataset which contains information about alcohol consumption across various countries.
+#'
+#' @format A data frame with 188 rows and 4 variables:
+#' \describe{
+#'   \item{country}{Country of origin of participant}
+#'   \item{code}{Country code related to the country-of-origin of participant}
+#'   \item{year}{The year in which data was collected}
+#'   \item{consumption}{Indicates the liters of pure alcohol consumed by individuals of 15+ years of age}
+#' }
+#'
+#' @source Multiple sources compiled by World Bank (2024) – processed by Our World in Data.
+#' “Total alcohol consumption per capita – In liters of pure alcohol, projected estimates,
+#' 15+ years of age”, Url: \url{https://ourworldindata.org/alcohol-consumption}. World Health Organization (via World Bank),
+#' “World Development Indicators”, Url: \url{https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators}.
+"alcohol_2019"
