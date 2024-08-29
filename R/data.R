@@ -308,7 +308,7 @@
 #'                                     | 1 ("Strongly agree") to 5 = ("Strongly disagree").}
 #'   \item{sei_feel_close_to_people}{Item: \emph{I feel close to people in the area where I live}
 #'                                     | 1 ("Strongly agree") to 5 = ("Strongly disagree").}
-#'   \item{sei}{Item: \emph{Social Exclusion Index}.}
+#'   \item{sei}{Social Exclusion Index}
 #'   \item{mwbi_felt_cheerful}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt cheerful and in good spirits}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
 #'   \item{mwbi_felt_calm}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt calm and relaxed}
@@ -325,14 +325,14 @@
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
 #'   \item{mwbi_felt_downhearted}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt downhearted and depressed}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
-#'   \item{mwbi}{Item: \emph{WHO-5 mental wellbeing index}.}
+#'   \item{mwbi}{WHO-5 mental wellbeing index}
 #'   \item{wlbc_too_tired_household}{Item: \emph{I have come home from work too tired to do some of the household jobs which need to be done}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
 #'   \item{wlbc_fam_responsibilities}{Item: \emph{It has been difficult for me to fulfil my family responsibilities because of the amount of time I spend on the job}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
 #'   \item{wlbc_cannot_focus_on_work}{Item: \emph{I have found it difficult to concentrate at work because of my family responsibilities}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
-#'   \item{wlbc}{Item: \emph{Work-life balance conflict}.}
+#'   \item{wlbc}{Work-life balance conflict}
 #'   \item{hrs_work_first_job}{Item: \emph{How many hours do you normally work per week in your main job?} | (80hrs or more).}
 #'   \item{hrs_work_additional_job}{Item: \emph{About how many hours per week did you work in this additional job?} | (60hrs or more).}
 #'   \item{work_hrs}{The total number of working hours.}
@@ -394,7 +394,7 @@
 #'                                     | 1 ("Strongly agree") to 5 = ("Strongly disagree").}
 #'   \item{sei_feel_close_to_people}{Item: \emph{I feel close to people in the area where I live}
 #'                                     | 1 ("Strongly agree") to 5 = ("Strongly disagree").}
-#'   \item{sei}{Item: \emph{Social Exclusion Index}.}
+#'   \item{sei}{Social Exclusion Index}
 #'   \item{mwbi_felt_cheerful}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt cheerful and in good spirits}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
 #'   \item{mwbi_felt_calm}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt calm and relaxed}
@@ -411,14 +411,14 @@
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
 #'   \item{mwbi_felt_downhearted}{Item: \emph{Which is closest to how you have been feeling over the last 2 weeks? - I have felt downhearted and depressed}
 #'                                     | 1 ("All of the time") to 6 = ("At no time").}
-#'   \item{mwbi}{Item: \emph{WHO-5 mental wellbeing index}.}
+#'   \item{mwbi}{WHO-5 mental wellbeing index}
 #'   \item{wlbc_too_tired_household}{Item: \emph{I have come home from work too tired to do some of the household jobs which need to be done}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
 #'   \item{wlbc_fam_responsibilities}{Item: \emph{It has been difficult for me to fulfil my family responsibilities because of the amount of time I spend on the job}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
 #'   \item{wlbc_cannot_focus_on_work}{Item: \emph{I have found it difficult to concentrate at work because of my family responsibilities}
 #'                                     | 1 ("Several times a week") to 6 = ("Less often/rarely").}
-#'   \item{wlbc}{Item: \emph{Work-life balance conflict}.}
+#'   \item{wlbc}{Work-life balance conflict}
 #'   \item{hrs_work_first_job}{Item: \emph{How many hours do you normally work per week in your main job?} | (80hrs or more).}
 #'   \item{hrs_work_additional_job}{Item: \emph{About how many hours per week did you work in this additional job?} | (60hrs or more).}
 #'   \item{work_hrs}{The total number of working hours.}
@@ -428,6 +428,29 @@
 #'         European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
 #'         SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
 "eqls_2011"
+
+# ------------------------------------------------------------------------------
+
+#' European Quality of Life Survey Time Series (2011 only, country aggregates)
+#'
+#' The EQLS dataset is a pan-European survey that captures both the objective conditions of citizens'
+#' lives (e.g., employment, income, health) and their subjective perceptions, including life satisfaction
+#' and happiness.
+#'
+#' @format A data frame with 32 rows and 5 variables:
+#' \describe{
+#'   \item{country_name}{Name of country participants resides in.}
+#'   \item{trust_people}{Item: \emph{Would you say that most people can be trusted?}
+#'                                    | 1 ("You cannot be too careful") to 10 = ("Most people can be trusted").}
+#'   \item{sei}{Social Exclusion Index}
+#'   \item{mwbi}{WHO-5 mental wellbeing index}
+#'   \item{wlbc}{Work-life balance conflict}
+#' }
+#'
+#' @source European Foundation for the Improvement of Living and Working Conditions. (2015).
+#'         European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
+#'         SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
+"eqls_country_2011"
 
 # ------------------------------------------------------------------------------
 

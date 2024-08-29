@@ -479,3 +479,12 @@ eqls <- eqls_ascii_strings
 eqls_2011 <-
   eqls |>
   filter(wave == 2011)
+
+## Dataset with country aggregates
+eqls_country_2011 <-
+  eqls_2011 |>
+  group_by(country_name) |>
+  summarise(trust_people = mean(trust_people, na.rm = TRUE),
+            sei          = mean(sei, na.rm = TRUE),
+            mwbi         = mean(mwbi, na.rm = TRUE),
+            wlbc         = mean(wlbc, na.rm = TRUE))
