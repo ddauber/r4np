@@ -10,7 +10,8 @@ A data frame with 188 rows and 4 variables:
   \item{country}{Country of origin of participant}
   \item{code}{Country code related to the country-of-origin of participant}
   \item{year}{The year in which data was collected}
-  \item{consumption}{Indicates the liters of pure alcohol consumed by individuals of 15+ years of age}
+  \item{consumption}{Indicates the liters of pure alcohol consumed by
+                     individuals of 15+ years of age in the previous year.}
 }
 }
 \source{
