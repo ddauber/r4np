@@ -1,7 +1,7 @@
 Package: r4np
 Type: Package
 Title: R for Non-Programmers Companion
-Version: 0.7.4.1
+Version: 0.7.4.2
 Authors@R: person("Daniel", "Dauber", email = "d.dauber@warwick.ac.uk",
   role = c("aut", "cre"))
 Description: The official companion to the book 'R For Non-Programmers: A Guide for Social Scientists'.

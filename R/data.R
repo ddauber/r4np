@@ -616,3 +616,33 @@
 #' 15+ years of age”, Url: \url{https://ourworldindata.org/alcohol-consumption}. World Health Organization (via World Bank),
 #' “World Development Indicators”, Url: \url{https://datacatalog.worldbank.org/search/dataset/0037712/World-Development-Indicators}.
 "alcohol_2019"
+
+# ------------------------------------------------------------------------------
+
+#' The Health Index for England (2015 and 2021)
+#'
+#' A selected range of variables from the the Health Index for England dataset, which is
+#' a comprehensive measure of national health, considering outcomes, behaviors, personal
+#' circumstances, and environmental factors. It provides a single health score and allows
+#' detailed breakdowns by location and topic, facilitating comparisons over time. This
+#' dataset only contains data collected in 2015 and 2021.
+#'
+#' @format A data frame with 614 rows and 6 variables:
+#' \describe{
+#'   \item{area_name}{The area the data was collected from.}
+#'   \item{year}{The year data was collected.}
+
+#'   \item{feelings_of_anxiety}{The average anxiety score of respondents (16+) when asked
+#'                              how they felt the day before.}
+#'   \item{happiness}{The average happiness score of respondents (16+) when asked
+#'                              how they felt the day before.}
+#'   \item{healthy_eating}{The percentage of adults (16+) who report eating five or more
+#'                          portions of fruit and vegetables on a 'usual day'.}
+#'   \item{life_satisfaction}{The average life satisfaction score of respondents aged 16 and over.}
+#' }
+#'
+#' @source Office for National Statistics (ONS), released 16 June 2023, ONS website, Health Index Scores, England,
+#' Url: \url{https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/healthandwellbeing/datasets/healthindexscoresengland}.
+"hie_15_21"
+
+# ------------------------------------------------------------------------------
