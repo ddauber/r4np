@@ -1,7 +1,7 @@
 #' Install R packages relevant for the book 'R for Non-Programmers: A Guide for Social Scientists'.
 #'
 #' @details Installs the following R packages at once:
-##' \itemize{
+##' \describe{
 ##'  \item{broom: }{Turns output from functions into tibbles.}
 ##'  \item{car: }{Interpret regression results}
 ##'  \item{correlation: }{Lightweight package for computing different kinds of

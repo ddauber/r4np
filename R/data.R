@@ -646,3 +646,15 @@
 "hie_15_21"
 
 # ------------------------------------------------------------------------------
+
+#' Student Life (Open comments)
+#'
+#' This dataset contains English comments by students about their study experiences at a fictitious university.
+#'
+#' @format A data frame with 209 rows and 1 variable:
+#' \describe{
+#'   \item{comment}{Comments by students about their study experiences.}
+#' }
+#'
+#' @source Data was generated using GPT-3 and GPT-4o by OpenAI. Date of creation: 2024-09-30.
+"comments"
