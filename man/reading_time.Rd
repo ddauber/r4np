@@ -9,7 +9,7 @@ A data frame with 209 rows and 1 variable:
 \describe{
   \item{gender}{Gender of the participant}
   \item{degree_level}{Degree level of participant}
-  \item{reading_time}{Reading time per week measured in minutes}
+  \item{min_reading}{Reading time per week measured in minutes}
 }
 }
 \source{

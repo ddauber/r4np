@@ -671,7 +671,7 @@
 #' \describe{
 #'   \item{gender}{Gender of the participant}
 #'   \item{degree_level}{Degree level of participant}
-#'   \item{reading_time}{Reading time per week measured in minutes}
+#'   \item{min_reading}{Reading time per week measured in minutes}
 #' }
 #'
 #' @source Data was generated using GPT-3 and GPT-4o by OpenAI. Date of creation: 2024-10-01.
