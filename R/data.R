@@ -660,3 +660,19 @@
 #'
 #' @source Data was generated using GPT-3 and GPT-4o by OpenAI. Date of creation: 2024-09-30.
 "comments"
+
+# ------------------------------------------------------------------------------
+
+#' Student Reading Time
+#'
+#' This dataset contains English comments by students about their study experiences at a fictitious university.
+#'
+#' @format A data frame with 209 rows and 1 variable:
+#' \describe{
+#'   \item{gender}{Gender of the participant}
+#'   \item{degree_level}{Degree level of participant}
+#'   \item{reading_time}{Reading time per week measured in minutes}
+#' }
+#'
+#' @source Data was generated using GPT-3 and GPT-4o by OpenAI. Date of creation: 2024-10-01.
+"reading_time"
