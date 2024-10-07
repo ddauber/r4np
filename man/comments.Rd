@@ -13,7 +13,7 @@ A data frame with 209 rows and 1 variable:
 }
 }
 \source{
-Data was generated using GPT-3 and GPT-4o by OpenAI. Date of creation: 2024-09-30.
+Fictitious dataset created for educational purposes.
 }
 \usage{
 comments

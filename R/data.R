@@ -658,7 +658,7 @@
 #'                           experienced by students. | 1 ("I feel lonely") to 10 = ("I feel par of the campus community").}
 #' }
 #'
-#' @source Data was generated using GPT-3 and GPT-4o by OpenAI. Date of creation: 2024-09-30.
+#' @source Fictitious dataset created for educational purposes.
 "comments"
 
 # ------------------------------------------------------------------------------
@@ -667,12 +667,29 @@
 #'
 #' This dataset contains English comments by students about their study experiences at a fictitious university.
 #'
-#' @format A data frame with 209 rows and 1 variable:
+#' @format A data frame with 209 rows and 3 variable:
 #' \describe{
 #'   \item{gender}{Gender of the participant}
 #'   \item{degree_level}{Degree level of participant}
 #'   \item{min_reading}{Reading time per week measured in minutes}
 #' }
 #'
-#' @source Data was generated using GPT-3 and GPT-4o by OpenAI. Date of creation: 2024-10-01.
+#' @source Fictitious dataset created for educational purposes.
 "reading_time"
+
+# ------------------------------------------------------------------------------
+
+#' Salary, Work experience, and Mindfulness (SWM)
+#'
+#' This dataset contains information about employees' salary, their working experience and time spend
+#' on mindfulness practices.
+#'
+#' @format A data frame with 100 rows and 3 variables:
+#' \describe{
+#'   \item{salary}{Salary earned (in USD 1000)}
+#'   \item{work_experience}{Years of working experience}
+#'   \item{mindfulness}{Minutes spent on mindfulness practices in a 5-day working week.}
+#' }
+#'
+#' @source Fictitious dataset created for educational purposes.
+"swm"
