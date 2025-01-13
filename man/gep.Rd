@@ -10,15 +10,24 @@ A data frame with 300 rows and 12 variables:
   \item{age}{\emph{Age of participant}}
   \item{gender}{\emph{Gender of participant}}
   \item{level_of_study}{\emph{Degree level at the time of the research project}}
-  \item{si_socialise_with_people_exp}{\emph{Extent to which participants have opportunities to socialise with people from diverse cultural backgrounds}}
-  \item{si_supportive_friends_exp}{\emph{Extent to which participants have supportive friends with a diverse cultural background}}
-  \item{si_time_socialising_exp}{\emph{Extent to which participants take time to socialise with people from diverse cultural backgrounds}}
-  \item{cs_explain_ideas_imp}{\emph{Extent to which participants perceive improving in explaining ideas to others (importance)}}
-  \item{cs_find_clarification_imp}{\emph{Extent to which participants are able to clarify what others mean (importance)}}
-  \item{cs_learn_different_styles_imp}{\emph{Extent to which participants learn about other students communication styles (importance)}}
-  \item{cs_explain_ideas_exp}{\emph{Extent to which participants perceive improving in explaining ideas to others (experience)}}
-  \item{cs_find_clarification_exp}{\emph{Extent to which participants are able to clarify what others mean (experience)}}
-  \item{cs_learn_different_styles_exp}{\emph{Extent to which participants learn about other students communication styles (experience)}}
+  \item{si_socialise_with_people_exp}{\emph{Extent to which participants have opportunities to socialise with people from diverse cultural backgrounds}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{si_supportive_friends_exp}{\emph{Extent to which participants have supportive friends with a diverse cultural background}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{si_time_socialising_exp}{\emph{Extent to which participants take time to socialise with people from diverse cultural backgrounds}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{cs_explain_ideas_imp}{\emph{Extent to which participants perceive improving in explaining ideas to others (importance)}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{cs_find_clarification_imp}{\emph{Extent to which participants are able to clarify what others mean (importance)}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{cs_learn_different_styles_imp}{\emph{Extent to which participants learn about other students communication styles (importance)}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{cs_explain_ideas_exp}{\emph{Extent to which participants perceive improving in explaining ideas to others (experience)}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{cs_find_clarification_exp}{\emph{Extent to which participants are able to clarify what others mean (experience)}
+  | 1 ("not at all") to 6 ("very much")}
+  \item{cs_learn_different_styles_exp}{\emph{Extent to which participants learn about other students communication styles (experience)}
+  | 1 ("not at all") to 6 ("very much")}
 }
 }
 \source{

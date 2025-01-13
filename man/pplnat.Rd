@@ -13,36 +13,43 @@ A data frame with 3585 rows and 19 variables:
                        outside in green and natural spaces?}}
   \item{ncs_easy_walking_distance}{Item: \emph{How much do you agree or disagree with the following statements
                                    relating to green and natural spaces locally: Within easy walking distance.}
-                                   | 1 ("Strongly disagree") to 5 = ("Strongly agree").}
+                   | 1 ("Strongly disagree") to 5 = ("Strongly agree").}
   \item{ncs_relax_unwind}{Item: \emph{How much do you agree or disagree with the following statements relating
                           to green and natural spaces locally: Places where I can relax and unwind.}
-                          | 1 ("Strongly disagree") to 5 = ("Strongly agree").}
+                   | 1 ("Strongly disagree") to 5 = ("Strongly agree").}
   \item{ncs_high_enough_standard}{Item: \emph{How much do you agree or disagree with the following statements
                                   relating to green and natural spaces locally: A high enough standard to want
                                   to spend time in.}
-                                  | 1 ("Strongly disagree") to 5 = ("Strongly agree").}
+                   | 1 ("Strongly disagree") to 5 = ("Strongly agree").}
   \item{imp_protect_environment}{Item: \emph{How important is protecting the environment to you personally?}
-                                 | 1 ("Not at all important") to 5 = ("Very important").}
+                   | 1 ("Not at all important") to 5 = ("Very important").}
   \item{concerned_damaging_environment}{Item: \emph{How much do you agree or disagree with the following
                                         statement? I am concerned about damage to the natural environment.}
-                                        | 1 ("Not at all important") to 5 = ("Very important").}
+                   | 1 ("Not at all important") to 5 = ("Very important").}
   \item{pick_up_litter}{Item: \emph{How often do you do the actions below when you have the opportunity?
                         When I see litter, I pick it up.}
-                        | 1 ("Never") to 5 = ("Always / whenever I have the opportunity").}
+                   | 1 ("Never") to 5 = ("Always / whenever I have the opportunity").}
   \item{vote_political_party}{Item: \emph{How often do you do the actions below when you have the opportunity?
                               I vote for political parties with strong environmental policies}
-                              | 1 ("Never") to 5 = ("Always / whenever I have the opportunity").}
+                   | 1 ("Never") to 5 = ("Always / whenever I have the opportunity").}
   \item{change_lifestyle}{Item: \emph{Are you going to make changes to your lifestyle to protect the environment
                           (for example by recycling rather than throwing things away, using your car less and
                           buying local food)?}}
-  \item{wb_lonely}{Item: \emph{How often do you feel lonely?} | 1 ("Never") to 5 = ("Often / always").}
-  \item{wb_satisfied}{Item: \emph{Overall, how satisfied are you with your life nowadays?} | 1 ("Not at all") to 10 = ("Completely").}
-  \item{wb_worthwhile}{Item: \emph{Overall, how worthwhile are the things you do in your life?} | 1 ("Not at all") to 10 = ("Completely").}
-  \item{wb_happy}{Item: \emph{How happy were you feeling yesterday?} | 1 ("Not at all") to 10 = ("Completely").}
-  \item{wb_worried_anxious}{Item: \emph{How anxious were you feeling yesterday?} | 1 ("Not at all") to 10 = ("Completely").}
+  \item{wb_lonely}{Item: \emph{How often do you feel lonely?}
+                  | 1 ("Never") to 5 = ("Often / always").}
+  \item{wb_satisfied}{Item: \emph{Overall, how satisfied are you with your life nowadays?}
+                  | 1 ("Not at all") to 10 = ("Completely").}
+  \item{wb_worthwhile}{Item: \emph{Overall, how worthwhile are the things you do in your life?}
+                  | 1 ("Not at all") to 10 = ("Completely").}
+  \item{wb_happy}{Item: \emph{How happy were you feeling yesterday?}
+                  | 1 ("Not at all") to 10 = ("Completely").}
+  \item{wb_worried_anxious}{Item: \emph{How anxious were you feeling yesterday?}
+                  | 1 ("Not at all") to 10 = ("Completely").}
   \item{wb_worried_anxious_r}{This is the reverse-scored item for `wb_worried_anxious`.}
-  \item{ncs}{Natural connectedness scale (latent variable based on `ncs` items).}
-  \item{wellbeing}{Wellbeing (latent variable based on `wb` items).}
+  \item{ncs}{Natural connectedness scale (latent variable based on `ncs` items).
+             A higher score implies higher natural connectedness.}
+  \item{wellbeing}{Wellbeing (latent variable based on `wb` items).
+                   A higher score implies higher wellbeing}
 }
 }
 \source{
