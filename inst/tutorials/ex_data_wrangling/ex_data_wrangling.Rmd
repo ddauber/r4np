@@ -5,99 +5,257 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
+    toc: true
+    toc_depth: 3
 runtime: shiny_prerendered
 description: "Exercises section of R4NP: A Guide for Social Scientists"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
+library(naniar)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.blanks = TRUE)
 ```
 
-## Importing data
 
-### Exercise 1
 
-```{r import-data}
-quiz(
-  question(
-    "Which of the following ways can you import data into your RStudio session?",
-    answer("The 'Import Dataset' button in the 'Environment' pane does the trick.",
-           correct = TRUE),
-    answer("I can drag and drop files into the 'Source' window.",
-           message = "I am afraid it is not possible to drag and drop files. It would be nice, though."),
-    answer("I can use the function 'import_dataset()' from the 'readr' package.",
-           message = "Unfortunately, the `readr` package has no function called 'import_dataset()."),
-    answer("readr::read_csv('mydata.csv') imports data directly into the 'Environment' pane.",
-           correct = TRUE),
-    allow_retry = TRUE
-  )
+## Import your data
+
+### Knowledge Check | 1
+
+```{r import-data-q1, echo=FALSE}
+question("Which of the following methods can be used to import data into RStudio?",
+         answer("Using the 'Import Dataset' button in the Environment pane", correct = TRUE),
+         answer("Using the `read_csv()` or similar functions directly", correct = TRUE),
+         answer("Typing the file path directly into the Environment tab", message = "Not quite — remember that the Environment pane doesn't accept direct paths."),
+         answer("Copying and pasting data into the Console", message = "Unfortunately this would not work. This isn't a typical way to load data in R."),
+         allow_retry = TRUE
 )
 ```
 
-### Exercise 2
+### Knowledge Check | 2
+
+```{r import-data-q2, echo=FALSE}
+question("What happens when you use the Files pane to import a dataset?",
+         answer("The dataset is automatically saved to the cloud", message = "That's a common misconception — RStudio works locally by default."),
+         answer("The dataset is printed to the Viewer pane", message = "Close! `View()` opens a spreadsheet-style tab, not the Files pane."),
+         answer("RStudio generates code in the console to load the data", correct = TRUE),
+         answer("No code is needed to load data this way", message = "Good try — even if you only press 'buttons' in your software, these actions usually produce code under the hood."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r import-data-q3, echo=FALSE}
+question("Why might importing with code (e.g., `read_csv()`) be preferable to using the interface?",
+         answer("It creates a reproducible workflow", correct = TRUE),
+         answer("It saves the data permanently to your hard drive", message = "Almost! Importing data doesn't automatically save it."),
+         answer("It avoids using R packages", message = "Not quite. `read_csv()` comes from the `readr` package, which helps with tidy imports."),
+         answer("It reduces file size", message = "Nice try, but file size stays the same regardless of how it's loaded."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
 
 ```{r delimiters}
-quiz(
-  question(
-    "What is a delimiter in datasets?",
-    answer("It limits the amount of data shown in the console.",
-           message = "Not quite. Delimiters do not affect what is shown in the console."),
-    answer("It enables computers to identify were a column starts and where it ends in our data frame.",
-           correct = TRUE),
-    answer("A comma is the delimiter in a '.csv' file.",
-           correct = TRUE),
-    answer("There is a pre-defined set of delimiters we have to use.",
-           message = "You can define any character or symbol as a delimiter. The choice is yours."),
-    allow_retry = TRUE
-  )
+question(
+  "What is a delimiter in datasets?",
+  answer("It limits the amount of data shown in the console.",
+         message = "Not quite. Delimiters do not affect what is shown in the console."),
+  answer("It enables computers to identify were a column starts and where it ends in our data frame.",
+         correct = TRUE),
+  answer("A comma is the delimiter in a '.csv' file.",
+         correct = TRUE),
+  answer("There is a pre-defined set of delimiters we have to use.",
+         message = "You can define any character or symbol as a delimiter. The choice is yours."),
+  allow_retry = TRUE
 )
 ```
 
-## Inspecting data
+## Inspecting your data
 
-### Exercise 3
+### Knowledge Check | 1
 
-How can we find out what kind of variables are included in the `imdb_top_250` dataset? Change the code below accordingly.
-
-```{r inspect-imdb-dataset, exercise=TRUE}
-imdb_top_250
+```{r inspect-data-q1, echo=FALSE}
+question("Which function gives you a quick look at the structure of a dataset?",
+         answer("Typing the name of the dataset into the console", message = "This is unfortunately not correct. Depending on the size of the dataset it might show the entire set"),
+         answer("View()", message = "This is not quite right. It displays the whole dataset and not just the first few rows."),
+         answer("glimpse()", correct = TRUE, message = "`glimpse()` shows the structure of a dataset in a convenient way in the console."),
+         answer("lookup()", message = "I am afraid, `lookup()` is not a valid function in base R."),
+         allow_retry = TRUE
+)
 ```
 
-```{r inspect-imdb-dataset-hint}
-# You might want to take a 'glimpse' at the dataset.
+### Knowledge Check | 2
+
+```{r inspect-data-q2, echo=FALSE}
+question("What does `glimpse(data)` return?",
+         answer("The same as typing `data` into the console", message = "`glimpse()` is more compact and structural, while `data` shows the entire dataset as is exists."),
+         answer("Only the first 5 columns of `data`", message = "No, it shows all columns."),
+         answer("A compact overview of all columns and their types", correct = TRUE),
+         answer("Only the numeric columns of `data", message = "It shows all columns, regardless of type."),
+         allow_retry = TRUE
+)
 ```
 
-```{r inspect-imdb-dataset-solution}
-# Solution
-glimpse(imdb_top_250)
+### Knowledge Check | 3
+
+```{r inspect-data-q3, echo=FALSE}
+question("Which are good reasons to inspect your data right after loading it?",
+         answer("To check for missing or unexpected values", correct = TRUE),
+         answer("To preview the values in the Environment pane", message = "The Environment pane gives limited info — we usually inspect more directly."),
+         answer("To convert all character variables to factors", message = "`factor()` is used later — inspection just helps you spot issues and not fix them."),
+         answer("To ensure variable names are formatted correctly", correct = TRUE),
+         allow_retry = TRUE
+)
 ```
 
-### Exercise 4
+### Coding Practice | 1
 
-How can we view the `synopsis` (a column in `imdb_top_250`)? Provide the correct code below.
+We want to inspect the dataset `hie`. How could we best do that to see the structure of the dataset?
 
-```{r synopsis, exercise=TRUE}
-
+```{r hie-glimpse, exercise=TRUE}
+# Inspect the structure of the dataset
 ```
 
-```{r synopsis-hint}
-# We have to use '$' to select specific column/variable in a dataset
+```{r hie-glimpse-hint-1}
+# Use the `glimpse()` function from the tidyverse
 ```
 
-```{r synopsis-solution}
-# Solution
-imdb_top_250$synopsis
+```{r hie-glimpse-hint-2}
+glimpse(dataset_name)
 ```
 
-## Cleaning column names
+```{r hie-glimpse-solution}
+glimpse(hie)
+```
 
-### Exercise 5
+```{r hie-glimpse-check}
+grade_this_code()
+```
 
-```{r good-names}
+### Coding Practice | 2.1
+
+The following code attempts to extract a variable from the dataset `hie`, but something is wrong. Fix the code to access the `happiness` column.
+
+```{r hie-access-column, exercise=TRUE, error=TRUE}
+# Fix the code to access the column
+hie("happiness")
+```
+
+```{r hie-access-column-hint-1}
+# Use the `$` operator to access a specific column
+```
+
+```{r hie-access-column-hint-2}
+# Example: dataset$column_name
+```
+
+```{r hie-access-column-solution}
+hie$happiness
+```
+
+```{r hie-access-column-check}
+grade_this_code()
+```
+
+### Coding Practice | 2.2
+
+```{r hie-access-column-quiz}
+question("Why did the original code not return the column values as expected?",
+  answer("The dataset does not contain a column called 'happiness'.", message = "Check again — it's likely the column exists."),
+  answer("The column can only be accessed using `select()` from dplyr.", message = "Not necessarily — the `$` operator is valid for this task."),
+  answer("The syntax used round brackets which is primarily used for functions. `hie` is not a function but a dataset.", correct = TRUE),
+  answer("`glimpse()` must be used before accessing a column.", message = "`glimpse()` helps inspect, but is not required to select a column."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3.1
+
+The following code tries to access a column in the `hie` dataset, but it results in an error. Can you help fix it?
+
+```{r hie-access-capitalisation, exercise=TRUE, error=TRUE}
+# Fix the incorrect capitalisation of the column name
+hie$Life_expectancy
+```
+
+```{r hie-access-capitalisation-hint-1}
+# Column names in R are case sensitive
+```
+
+```{r hie-access-capitalisation-hint-2}
+# Use `glimpse(hie)` to check the exact column name
+```
+
+```{r hie-access-capitalisation-solution}
+# Corrected column access
+hie$life_expectancy
+```
+
+```{r hie-access-capitalisation-check}
+grade_this_code()
+```
+
+### Coding Practice | 3.2
+
+```{r hie-access-capitalisation-quiz}
+question("Why did the original code throw an error?",
+  answer("The column 'life_expectancy' does not exist.", message = "It does exist — but with different spelling/capitalisation."),
+  answer("R is case sensitive, and the column name was capitalised incorrectly.", correct = TRUE),
+  answer("`$` cannot be used to access this type of variable.", message = "`$` is fine — the issue is with the column name."),
+  answer("The dataset was not loaded properly.", message = "The dataset is not the issue here."),
+  allow_retry = TRUE
+)
+```
+
+## Cleaning your column names 
+
+### Knowledge Check | 1
+
+```{r clean-names-q1, echo=FALSE}
+question("What does `clean_names()` from the janitor package do?",
+         answer("It renames rows", message = "`clean_names()` is focused on column names, not rows."),
+         answer("It removes all special characters from data", message = "`clean_names()` is focused on column names, not rows."),
+         answer("It standardises column names to lowercase with underscores", correct = TRUE),
+         answer("It converts numeric data into character format", message = "`clean_names()` doesn’t change the type of data."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r clean-names-q2, echo=FALSE}
+question("After using `clean_names()`, what would the column `First Name` become?",
+         answer("`First_Name`", message = "`clean_names()` makes them lowercase with underscores."),
+         answer("`first name`", message = "Good thinking — the spaces are handled by inserting underscores."),
+         answer("`first_name`", correct = TRUE),
+         answer("`First.Name`", message = "That’s more typical in base R, not in `janitor::clean_names()`."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r clean-names-q3, echo=FALSE}
+question("When should you typically run `clean_names()`?",
+         answer("After plotting the data", message = "`clean_names()` is usually part of your early data setup. Cleaning your data before plotting it can help make them more comprehensible."),
+         answer("Right after importing the dataset", correct = TRUE),
+         answer("Only if your data has missing values", message = "I am afraid, `clean_names()` helps with names only and not with missing values."),
+         answer("Before saving your project", message = "It’s helpful to apply `clean_names()` early in your workflow to reap the full benefits of working with consistent column names"),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r clean-names-q4, echo=FALSE}
 quiz(
   question(
     "What makes for good column/variable names?",
@@ -114,47 +272,58 @@ quiz(
 )
 ```
 
-### Exercise 6
 
-```{r clean-column-names}
-# Install janitor if not installed yet
+## Cleaning your column names
+
+### Coding Practice | 1.1
+
+A colleague gave us a data frame saved in the object `data`. Let's first inspect `data` using `glimpse()` to see what it includes.
+
+```{r clean-column-names, include=FALSE}
+# Setup: Create messy dataset
 if("janitor" %in% rownames(installed.packages()) == FALSE){install.packages("janitor")}
 
-# Create messy dataset
 data <- tibble(ID_number = c("N006", "N007", "N008"),
                Gender_of_Participant = c("female", "male", "female"),
                emotional_resilience = c(4, 8, 10),
-               Name = c("Kirk", "Bond", "The Rock")
-               )
+               Name = c("Anna", "Sven", "Elsa"))
 ```
-
-A colleague gaves us a data frame saved in the object `data`. Let's first, inspect `data` using `glimpse()` to see what it includes
 
 ```{r inspect-data, exercise=TRUE, exercise.setup="clean-column-names"}
-
+# Use glimpse() to inspect the structure of the dataset
 ```
 
-```{r question-inspect-data}
-quiz(
-  caption = "Follow up question",
-  question(
-    "What can we say about this data frame?",
-    answer("The data frame is not correct.",
-           message = "Technically, this is a fully functional dataset. However, there are other things we can improve."),
-    answer("There are 3 variables and 4 observations",
-           message = "This dataset has 4 variables and 3 observations. Be aware of the difference between variable (a column) and an observation (a row) in a dataset"),
-    answer("The column names are difficult to read.",
-           correct = TRUE),
-    answer("We could use a package like `janitor` to clean this dataset.",
-           correct = TRUE),
-    allow_retry = TRUE
-  )
+```{r inspect-data-hint-1}
+# Use the `glimpse()` function from the tidyverse
+```
+
+```{r inspect-data-hint-2}
+# Syntax: glimpse(data)
+```
+
+```{r inspect-data-solution}
+glimpse(data)
+```
+
+```{r inspect-data-check}
+grade_this_code()
+```
+
+### Coding Practice | 1.2
+
+```{r inspect-data-quiz, echo=FALSE}
+question("What can we say about this data frame?",
+  answer("The column names are difficult to read.", correct = TRUE),
+  answer("There are 3 variables and 4 observations.", message = "There are 4 variables and 3 observations — remember: columns vs. rows."),
+  answer("The data frame is not correct.", message = "Technically, this is a valid dataset, but improvements are possible."),
+  answer("We could use a package like `janitor` to clean this dataset.", correct = TRUE),
+  allow_retry = TRUE
 )
 ```
 
-### Exercise 7
+### Coding Practice | 2
 
-With these insights, how can we clean the column names and save it in the new object `data_clean`? Inspect the result with `glimpse()`.
+Now that we have a solid understanding of our dataset and what it contains, let's clean the column names and save the result in a new object `data_clean` to get it ready for further analysis. Inspect the outcome of our renaming using `glimpse()`.
 
 ```{r clean-col-names-janitor, exercise=TRUE, exercise.setup="clean-column-names", exercise.lines= 8, message=FALSE}
 library(janitor)
@@ -163,334 +332,371 @@ library(janitor)
 data_clean <- 
 
 # Inspect the results
-
 ```
 
 ```{r clean-col-names-janitor-hint-1}
-# The 'janitor' package has a function to 'clean names'
+# The `janitor` package has a function to clean column names
 ```
 
 ```{r clean-col-names-janitor-hint-2}
-# The following function should help
-clean_names(___)
+# Try: clean_names(dataset)
 ```
 
 ```{r clean-col-names-janitor-solution}
-# Solution
 data_clean <- clean_names(data)
+glimpse(data_clean)
 ```
 
-### Exercise 8
+```{r clean-col-names-janitor-check}
+grade_this_code()
+```
 
-There are some more improvements we could make to `data_clean`. For example, we could shorten the following column names:
+### Coding Practice | 3
 
--   `id_number` to `id`, and
+Finally, we want to shorten some of the cleaned column names in `data_clean`. Change:
 
--   `gender_of_participant` to `gender`.
+- `id_number` to `id`
+- `gender_of_participant` to `gender`
 
-Clean these column names using the `dplyr` function `rename()` and save the changes in the object `data_clean`. Review the changes using `glimpse()`.
+Save the updated version in `data_clean`.
 
-```{r rename-cols-prep}
-# Create messy dataset
+```{r rename-cols-prep, include=FALSE}
 data <- tibble(ID_number = c("N006", "N007", "N008"),
                Gender_of_Participant = c("female", "male", "female"),
                emotional_resilience = c(4, 8, 10),
-               Name = c("Kirk", "Bond", "The Rock")
-               )
-
+               Name = c("Anna", "Sven", "Elsa"))
 data_clean <- janitor::clean_names(data)
 ```
 
-
 ```{r rename-cols, exercise=TRUE, exercise.setup="rename-cols-prep", exercise.lines = 5}
-# Rename columns
-
-
-# Review changes
-
-
+# Rename columns and review the results
 ```
 
 ```{r rename-cols-hint-1}
-# When using dplyr we can specify the dataset first.
-data_clean <-
-  data_clean %>%
-  ___
+# Use `rename()` with the syntax: new_name = old_name
 ```
 
 ```{r rename-cols-hint-2}
-# Then we can use the 'rename()' function.
-data_clean <-
-  data_clean %>%
-  rename(___)
-```
-
-```{r rename-cols-hint-3}
-# Remember, we first need to specify the new and then the old name
-data_clean <-
-  data_clean %>%
-  rename(new_name = old_name)
-```
-
-```{r rename-cols-hint-4}
-# Here is the example for the column 'id_number'
-data_clean <-
-  data_clean %>%
-  rename(id = id_number)
+# Place it inside a pipe with `|>`
 ```
 
 ```{r rename-cols-solution}
-# The solution for both columns
-data_clean <-
-  data_clean %>%
+data_clean <- data_clean |>
   rename(id = id_number,
          gender = gender_of_participant)
 
 glimpse(data_clean)
 ```
 
+```{r rename-cols-check}
+grade_this_code()
+```
+
 ## Data types
 
-### Exercise 10
-```{r data-types}
-quiz(
-  question(
-    "What types of data can we usually find in Social Sciences projects.",
-    answer("Valided and unvalidaded data.",
-           message = "Valided/unvalidaded data is not a data type."),
-    answer("Nominal data, which refers to categorical data with no particular order.",
-           correct = TRUE),
-    answer("Quantitative data, which consists exclusively of numbers.",
-           correct = TRUE),
-    answer("Ordinal data, which can include categories and numbers to show their order.",
-           message = "Ordinal data is categorical and its categories can be placed in a meaningful order."),
-    allow_retry = TRUE
-  )
+### Knowledge Check | 1
+
+```{r data-types-q1, echo=FALSE}
+question("Which function is commonly used to check the structure of a dataset?",
+         answer("structure()", message = "Close, but `structure()` isn't a standard function in this context."),
+         answer("check()", message = "That's not a recognised function for data structures."),
+         answer("glimpse()", correct = TRUE),
+         answer("summary()", message = "Good thought — `summary()` gives statistical overviews, not structure."),
+         allow_retry = TRUE
 )
 ```
 
-### Exercise 11
-```{r data-types-r}
-quiz(
-  question(
-    "Which of the following statements are correct?",
-    answer("`<chr>` and `<fct>` refer to columns in a dataset that are categorical.",
-           correct = TRUE),
-    answer("`<dbl>` and `<int>` refer to numeric variables and can be used interchangeably.",
-           message = "It is true that `<dbl>` and `<int>` refer to numeric variables, but they are not interchangeable. <dbl> allows decimals."),
-    answer("Logical variables always only two values: `TRUE` or `FALSE`.",
-           correct = TRUE),
-    answer("When importing data with `readr`, factors are always imported as `<chr>`",
-           correct = TRUE),
-    allow_retry = TRUE
-  )
+### Knowledge Check | 2
+
+```{r data-types-q2, echo=FALSE}
+question("What does the function `as.numeric()` do?",
+         answer("It checks if a variable is numeric", message = "`as.numeric()` changes types — it doesn't test them."),
+         answer("It deletes non-numeric variables", message = "Not quite — it only changes data types."),
+         answer("It converts a variable to numeric type", correct = TRUE),
+         answer("It rounds numeric values", message = "`as.numeric()` doesn't affect precision."),
+         allow_retry = TRUE
 )
 ```
 
-### Exercise 12
-```{r inspect-data-types-prep}
+### Knowledge Check | 3
+
+```{r data-types-q3, echo=FALSE}
+question("Why is it important to check and set data types before analysis?",
+         answer("Because numeric values are always required", message = "Not necessarily — text and factors are valid too."),
+         answer("To reduce file size", message = "Sorry, but changing types doesn't significantly reduce file size, if at all."),
+         answer("To ensure functions behave correctly and avoid errors", correct = TRUE),
+         answer("So column names display correctly", message = "That's unrelated to data types. We consider data types to ensure the data we have is accurately represented when we conduct analysis on it."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r data-types-q4, echo=FALSE}
+question(
+  "What types of data can we usually find in Social Sciences projects.",
+  answer("Valided and unvalidaded data.",
+         message = "Valided/unvalidaded data is not a data type."),
+  answer("Nominal data, which refers to categorical data with no particular order.",
+         correct = TRUE),
+  answer("Quantitative data, which consists exclusively of numbers.",
+         correct = TRUE),
+  answer("Ordinal data, which can include categories and numbers to show their order.",
+         message = "Ordinal data is categorical and its categories can be placed in a meaningful order."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 5
+
+```{r data-types-q5, echo=FALSE}
+question(
+  "Which of the following statements are correct?",
+  answer("`<chr>` and `<fct>` refer to columns in a dataset that are categorical.",
+         correct = TRUE),
+  answer("`<dbl>` and `<int>` refer to numeric variables and can be used interchangeably.",
+         message = "It is true that `<dbl>` and `<int>` refer to numeric variables, but they are not interchangeable. <dbl> allows decimals."),
+  answer("Logical variables always only have two values: `TRUE` or `FALSE`, but may also include NA (missing values)",
+         correct = TRUE),
+  answer("When importing data with `readr`, factors are always imported as `<chr>`",
+         correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1.1
+
+Inspect the dataset `students` and identify what types of variables are included.
+
+```{r inspect-data-types-prep, include=FALSE}
 students <- tibble(study_level = c("UG", "PG", "PG"),
                    study_experiece = c(32, 83, 95),
-                   team = c("Alpha", "Beta", "Gamma")
-                   )
+                   team = c("Alpha", "Beta", "Gamma"))
 ```
-
-Inspect the dataset `students` and answer the questions below.
 
 ```{r inspect-data-types, exercise=TRUE, exercise.setup="inspect-data-types-prep", exercise.lines = 3}
-
+# Use glimpse() to inspect data types
 ```
 
-```{r inspect-data-types-questions}
-quiz(
-  question(
-    "What can we say about this dataset?",
-    answer("There are three categorical variables as indicated by `<chr>`.",
-           message = "There are only two categorical variables: `study_level` and `team`"),
-    answer("Two of the variables should not be `<chr>`, but a factor `<fct>`.",
-           correct = TRUE),
-    answer("The variable 'study_experience' could be considered as an integer `<int>`.",
-           correct = TRUE),
-    answer("It is important to convert the categorical variables into factors `<fct>`.",
-           correct = TRUE),
-    allow_retry = TRUE
-  )
+```{r inspect-data-types-hint-1}
+# Try using `glimpse(students)` to see all variable types
+```
+
+```{r inspect-data-types-solution}
+glimpse(students)
+```
+
+```{r inspect-data-types-check}
+grade_this_code()
+```
+
+### Coding Practice | 1.2
+
+```{r inspect-data-types-questions, echo=FALSE}
+question("What can we say about this dataset?",
+  answer("Two of the variables should not be `<chr>`, but a factor `<fct>`.", correct = TRUE),
+  answer("The variable 'study_experience' could be considered as an integer `<int>`.", correct = TRUE),
+  answer("There are three categorical variables as indicated by `<chr>`.", message = "There are only two categorical variables: `study_level` and `team`."),
+  answer("It is important to convert the categorical variables into factors `<fct>`.", correct = TRUE),
+  allow_retry = TRUE
 )
 ```
 
-### Exercise 13
+### Coding Practice | 2
 
-Changing data types is an essential aspect of data wrangling and cleaning. Take a look at the dataset `halloween` and change the data type of those variables that are not entirely correct. 
+We have another dataset, called `halloween` and we are asked to change the data types of incorrectly typed variables in the dataset.
 
 ```{r change-data-types, exercise=TRUE, exercise.lines = 10}
-# Inspect dataset
+# Inspect the dataset
 
-# Change data types
+# Fix incorrect types and inspect changes
 halloween_clean <-
-  halloween %>%
-  ___
-
-# Inspect the new dataset
-
+  halloween |>
+  
 ```
 
 ```{r change-data-types-hint-1}
-glimpse(halloween)
-
-# We need to mutate the variable 'country' into a factor <fct>,
-# because it is currently a character <chr>
+# Check the structure using `glimpse(halloween)`
 ```
 
 ```{r change-data-types-hint-2}
-glimpse(halloween)
-
-halloween_clean <-
-  halloween %>%
-  mutate(___)
+# Use `mutate()` and `as_factor()` to fix variable types
 ```
 
 ```{r change-data-types-solution}
 glimpse(halloween)
 
 halloween_clean <- 
-  halloween %>%
+  halloween |>
   mutate(country = as_factor(country))
 ```
 
-### Exercise 14
-The dataset `gep` contains categorical and numerical data. We are asked to clean the dataset and ensure that data types are correct. First, take a look at the variables included in this data frame.
-
-```{r inspect-gep, exercise=TRUE}
-
+```{r change-data-types-check}
+grade_this_code()
 ```
 
-```{r gep-data-types-questions}
-quiz(
-  question(
-    "Which of the following steps should we take?",
-    answer("'gender' and 'level_of_study' should be converted to `<fct>`.",
-           correct = TRUE),
-    answer("'age' needs to be converted to an integer `<int>`.",
-           message = "While 'age' is an integer, it is not necessary to change to conduct further analysis."),
-    answer("All numeric variables can be converted to an `<int>`, but it is not necessary.",
-           correct = TRUE),
-    answer("We can create a new object to save the changes we made.",
-           correct = TRUE),
-    allow_retry = TRUE
-  )
+### Coding Practice | 3.1
+
+After conducting a large-scale study on students, we obtained a dataset called `gep`. Take a look at the variables included in this dataset to determine which changes are needed.
+
+```{r inspect-gep, exercise=TRUE}
+# Use glimpse() to inspect structure of gep dataset
+```
+
+```{r inspect-gep-hint}
+# Try using glimpse(gep)
+```
+
+```{r inspect-gep-solution}
+glimpse(gep)
+```
+
+```{r inspect-gep-check}
+grade_this_code()
+```
+
+### Coding Practice | 3.2
+
+```{r gep-data-types-questions, echo=FALSE}
+question("Which of the following steps should we take?",
+  answer("'gender' and 'level_of_study' should be converted to `<fct>`.", correct = TRUE),
+  answer("'age' needs to be converted to an integer `<int>`.", message = "There is no conversion needed, but one could convert it to an integer. It would likely make no different to our analysis, though."),
+  answer("All numeric variables can be converted to an `<int>`, but it is not necessary.", correct = TRUE),
+  answer("We can create a new object to save the changes we made.", correct = TRUE),
+  allow_retry = TRUE
 )
 ```
 
-Let's implement these steps, store the changes in the object `gep_clean` and review the changes using `glimpse()`.
+### Coding Practice | 3.3
+
+Now apply the needed changes and save them in a new object `gep_clean`.
 
 ```{r gep-data-types, exercise=TRUE, exercise.lines=5}
+# Fix variable types in gep and assign to gep_clean
+```
 
+```{r gep-data-types-hint-1}
+# Use mutate() with as_factor() to convert gender and level_of_study
 ```
 
 ```{r gep-data-types-solution}
 gep_clean <-
-  gep %>%
+  gep |>
   mutate(gender = as_factor(gender),
          level_of_study = as_factor(level_of_study))
 
 glimpse(gep_clean)
 ```
 
+```{r gep-data-types-check}
+grade_this_code()
+```
+
 ## Handling factors
 
-```{r recoding-prep}
-famous_actors <- tibble(name = c("Zendaya", "Will Poulter", "Jamie Lee Curtis", "Oscar Isaac"),
-                   gender = c(1, 0, 1, 0),
-                   country_of_origin = c(1, 2, 1, 3),
-                   birth_place = c("Oakland", "London", "Santa Monica", "Guatemala City")
-                   )
-```
+### Knowledge Check | 1
 
-We received a small dataset `famous_actors` which contain information about commonly known actors working in Hollywood. However, some data cleaning is required to ensure data is correctly reflected in *R* for further processing. There are several steps we should perform.
-
-### Exercise 15
-
-First, we need to inspect the dataset to get an idea which variables we need to correct.
-
-```{r recoding, exercise=TRUE, exercise.setup="recoding-prep"}
-# Inspect the dataset 'famous_actors'
-
-```
-
-```{r famous-actors-quiz}
-quiz(
-  question(
-    "Which of the following steps should we take?",
-    answer("We need to correct the variable `gender`, because it is considered as `dbl` but should be a factor, i.e. `fct`.",
-           correct = TRUE),
-    answer("The variable `country_of_origin` is `dbl` and therefore cannot be used. We should remove it.",
-           message = "We do not have to remove `country_of_origin`, but need to find out what these numbers stand for, i.e. which countries."),
-    answer("The variable `birth_place` is an example of a `chr` variable and therefore needs not further treatment.",
-           message = "The variable `birth_place` shows a limited number of categories and therefore qualifies as a factor (`fct`)."),
-    answer("Except for `name`, all variables should be cleaned up.",
-           correct = TRUE),
-    allow_retry = TRUE
-  )
+```{r factors-q1, echo=FALSE}
+question("What is a factor in R?",
+         answer("A numeric variable used for calculations", message = "That describes a numeric variable, not a factor."),
+         answer("A list of unique values", message = "Close, but a factor includes levels and ordering."),
+         answer("A categorical variable with defined levels", correct = TRUE),
+         answer("Any non-numeric column", message = "Not every non-numeric column is a factor, for example it could be just text `<chr>` or contain logical operators `<lgl>`."),
+         allow_retry = TRUE
 )
 ```
 
-### Exercise 16
-We usually should try to avoid using numbers as factor levels to make it easier to read tables and data visualisations. Instead, we can provide meaningful labels. To do so, we have to *'recode'* these factor levels.
-In the `famous_actors` dataset we find two factors which are missing appropriate labels, i.e. `gender` and `country_of_origin`. Make the required adjustments considering the following lines from the coding booklet of this dataset:
-<br>
-<br>
-- Gender: `1` stands for `female` and `0` stands for `male`.
-<br>
-- Country: `1` stands for `USA`, `2` stands for `United Kingdom` and `3` stands for `Guatemala`.
-<br>
+### Knowledge Check | 2
+
+```{r factors-q2, echo=FALSE}
+question("Which function is used to change the order of levels in a factor?",
+         answer("reorder()", message = "This works differently and is used in plots."),
+         answer("arrange()", message = "That's for sorting rows, not factor levels."),
+         answer("mutate()", message = "That modifies or adds columns, but not levels directly."),
+         answer("fct_relevel()", correct = TRUE),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r factors-q3, echo=FALSE}
+question("Why might you remove unused factor levels?",
+         answer("To clean up your data and avoid confusion in plots or summaries", correct = TRUE),
+         answer("To change column names", message = "Factor levels are not column names."),
+         answer("To turn factors into numeric variables", message = "That would require a different conversion."),
+         answer("To speed up your computer", message = "Nice idea — but not quite relevant here."),
+         allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1.1
+
+We received a small dataset `famous_actors` which contains information about commonly known actors working in Hollywood. However, some data cleaning is required to ensure data is correctly reflected in *R* for further processing. Let's inspect the dataset to see what needs to be corrected.
+
+```{r recoding-prep, include=FALSE}
+famous_actors <- tibble(name = c("Zendaya", "Will Poulter", "Jamie Lee Curtis", "Oscar Isaac"),
+                   gender = c(1, 0, 1, 0),
+                   country_of_origin = c(1, 2, 1, 3),
+                   birth_place = c("Oakland", "London", "Santa Monica", "Guatemala City"))
+```
+
+```{r recoding, exercise=TRUE, exercise.setup="recoding-prep"}
+# Inspect the dataset 'famous_actors'
+```
+
+```{r recoding-hint-1}
+# Use `glimpse()` to get a quick overview of variable types and values
+```
+
+```{r recoding-solution}
+glimpse(famous_actors)
+```
+
+```{r recoding-check}
+grade_this_code()
+```
+
+### Coding Practice | 1.2
+
+```{r famous-actors-quiz, echo=FALSE}
+question(
+  "Which of the following steps should we take?",
+  answer("We need to correct the variable `gender`, because it is considered as `dbl` but should be a factor, i.e. `fct`.", correct = TRUE),
+  answer("The variable `country_of_origin` is `dbl` and therefore cannot be used. We should remove it.",
+         message = "We do not have to remove `country_of_origin`, but need to find out what these numbers stand for, i.e. which countries."),
+  answer("The variable `birth_place` is an example of a `<chr>` variable and therefore needs no further treatment.",
+         message = "The variable `birth_place` shows a limited number of categories and could be converted to a factor (`<fct>`)."),
+  answer("Except for `name`, all variables should be cleaned up.", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2
+
+We usually should try to avoid using numbers as factor levels to make it easier to read tables and data visualisations. Instead, we can provide meaningful labels.  
+In the `famous_actors` dataset, we need to recode the variables `gender` and `country_of_origin` using the following mappings:
+
+- Gender: `1` = `female`, `0` = `male`
+- Country: `1` = `USA`, `2` = `United Kingdom`, `3` = `Guatemala`
+
+Give the tidy dataset the name `famous_actors_cleaned` and review our changes using `glimpse()` at the end.
 
 ```{r recoding-gender-country, exercise=TRUE, exercise.setup="recoding-prep", exercise.lines=15}
-
+# Recode the gender and country_of_origin variables
 ```
 
 ```{r recoding-gender-country-hint-1}
-# We need to create an object to save the outcome and use the 'mutate()' function.
-famous_actors_clean <-
-  famous_actors %>%
-  mutate(___)
+# Use mutate(), as_factor(), and fct_recode() for this task
 ```
 
 ```{r recoding-gender-country-hint-2}
-# First we need to change the data type to 'factor'.
-famous_actors_clean <-
-  famous_actors %>%
-  mutate(gender = as_factor(gender),
-         country_of_origin = as_factor(country_of_origin)
-         )
-```
-
-```{r recoding-gender-country-hint-3}
-# Then we use the function 'fct_recode()' to replace the numbers
-famous_actors_clean <-
-  famous_actors %>%
-  mutate(gender = as_factor(gender),
-         country_of_origin = as_factor(country_of_origin),
-         gender = fct_recode(___)
-         )
-```
-
-```{r recoding-gender-country-hint-4}
-# The same function is used to change the labels for 'country_of_origin'.
-famous_actors_clean <-
-  famous_actors %>%
-  mutate(gender = as_factor(gender),
-         country_of_origin = as_factor(country_of_origin),
-         gender = fct_recode(gender,
-                             "male" = "0",
-                             "female" = "1"),
-         country_of_origin = fct_recode(___)
-         )
+# Remember: fct_recode(new_label = "old_value")
 ```
 
 ```{r recoding-gender-country-solution}
-# Solution
 famous_actors_clean <-
-  famous_actors %>%
+  famous_actors |>
   mutate(gender = as_factor(gender),
          country_of_origin = as_factor(country_of_origin),
          gender = fct_recode(gender,
@@ -499,47 +705,579 @@ famous_actors_clean <-
          country_of_origin = fct_recode(country_of_origin,
                                         "USA" = "1",
                                         "United Kingdom" = "2",
-                                        "Guatemala" = "3")
-         )
+                                        "Guatemala" = "3"))
 
-# Inspect the results
 glimpse(famous_actors_clean)
 ```
 
-## Dealing with missing values
-```{r miss-data-prep}
-set.seed(2345)
-student_feedback <- tibble(teacher_rating = sample(1:10, size = 175, replace = TRUE),
-                           student_rating = sample(1:10, size = 175, replace = TRUE))
-student_feedback <- missForest::prodNA(student_feedback, noNA = 0.09)
+```{r recoding-gender-country-check}
+grade_this({
+  user <- try(get("famous_actors_clean", envir = .envir_result), silent = TRUE)
+
+  if (inherits(user, "try-error")) {
+    fail("It looks like you didn't create an object called `famous_actors_clean`.")
+  }
+
+  if (!inherits(user, "data.frame")) {
+    fail("`famous_actors_clean` should be a data frame.")
+  }
+
+  if (!"gender" %in% names(user)) {
+    fail("The dataset is missing a `gender` column.")
+  }
+
+  if (!is.factor(user$gender)) {
+    fail("The `gender` column should be a factor.")
+  }
+
+  if (!setequal(levels(user$gender), c("male", "female"))) {
+    fail("The `gender` factor should have levels 'male' and 'female'. Did you remember to use `fct_recode()`?")
+  }
+
+  if (!"country_of_origin" %in% names(user)) {
+    fail("The dataset is missing a `country_of_origin` column.")
+  }
+
+  if (!is.factor(user$country_of_origin)) {
+    fail("The `country_of_origin` column should be a factor.")
+  }
+
+  if (!setequal(levels(user$country_of_origin), c("USA", "United Kingdom", "Guatemala"))) {
+    fail("The `country_of_origin` factor should have levels 'USA', 'United Kingdom', and 'Guatemala'. Did you forget to use `fct_recode()`?")
+  }
+
+  pass("Excellent work! You correctly created and recoded the factor variables.")
+})
 ```
 
-### Exercise 17
+## Handling dates, times and durations
 
-We made use of a new 360 feedback tool which allows students to evaluate a lecturer, who in return evaluates students as well. The dataset `student_feedback` includes the results. However, before digging deeper into the data we have to check whether there is any missing data we have to consider.
+### Knowledge Check | 1
 
-Inspect `student_feedback` and determine how much data is missing by using `naniar::vismis()`.
-```{r miss-data-vis, exercise=TRUE, exercise.setup="miss-data-prep", exercise.lines=5}
+```{r dates-q1, echo=FALSE}
+question("What function from the lubridate package is typically used to parse dates?",
+         answer("parse_date()", message = "Close — but that’s not from lubridate."),
+         answer("ymd()", correct = TRUE),
+         answer("as.Date()", message = "This is from base R, not lubridate."),
+         answer("make_date()", message = "`make_date()` is useful, but `ymd()` is the typical parser."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r dates-q2, echo=FALSE}
+question("You are working with a date stored as the character string `'15/03/2024'`. Which lubridate function is most appropriate to parse it?",
+         answer("dmy()", correct = TRUE),
+         answer("ymd()", message = "`ymd()` assumes the format starts with the year."),
+         answer("mdy()", message = "`mdy()` expects the month to come first."),
+         answer("as.Date()", message = "`as.Date()` is from base R and needs manual formatting."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r dates-q3, echo=FALSE}
+question("Which of the following is *not* a valid reason to use lubridate?",
+         answer("To automatically parse and standardise date formats", correct = FALSE),
+         answer("To compute time differences", correct = FALSE),
+         answer("To analyse missing text fields", correct = TRUE),
+         answer("To extract components like year or month from dates", correct = FALSE),
+         allow_retry = TRUE
+)
+```
+
+## Handling date-time variables
+
+### Coding Practice | 1.1
+
+Let's say you're tracking your sleep for 20 consecutive nights using a new wearable device that you purchased. You collected your data in a spreadsheet and imported it into RStudio using the following name for the dataset object: `sleep_data`. Inspect the dataset and get familiar with its variables.
+
+```{r sleep-data-prep, include=FALSE}
+sleep_data <- tibble(
+  night = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20),
+  start_sleep = c("2025-05-19 22:14", "2025-05-20 22:09", "2025-05-21 22:54", "2025-05-22 22:30",
+                  "2025-05-23 22:10", "2025-05-24 22:37", "2025-05-25 23:40", "2025-05-26 22:27",
+                  "2025-05-27 23:33", "2025-05-28 22:48", "2025-05-29 22:29", "2025-05-30 23:55",
+                  "2025-05-31 22:27", "2025-06-01 23:42", "2025-06-02 22:55", "2025-06-03 23:47",
+                  "2025-06-04 22:03", "2025-06-05 22:43", "2025-06-06 23:42", "2025-06-07 23:15"),
+  end_sleep = c("2025-05-20 06:23", "2025-05-21 06:53", "2025-05-22 06:18", "2025-05-23 06:19",
+                "2025-05-24 06:55", "2025-05-25 06:52", "2025-05-26 07:15", "2025-05-27 07:01",
+                "2025-05-28 06:26", "2025-05-29 07:09", "2025-05-30 06:01", "2025-05-31 08:33",
+                "2025-06-01 06:39", "2025-06-02 08:06", "2025-06-03 07:53", "2025-06-04 08:04",
+                "2025-06-05 06:58", "2025-06-06 07:30", "2025-06-07 08:46", "2025-06-08 07:20"),
+  tiredness_level = c("tired", "well-rested", "well-rested", "well-rested", "well-rested", "well-rested",
+                      "well-rested", "well-rested", "tired", "well-rested", "tired", "energetic",
+                      "well-rested", "energetic", "well-rested", "energetic", "well-rested", "well-rested",
+                      "energetic", "well-rested")
+)
+```
+
+```{r sleep-data-inspect, exercise=TRUE, exercise.setup="sleep-data-prep"}
+# Inspect the sleep_data dataset
 
 ```
 
-[Add a MC question here]
+### Coding Practice | 1.2
 
+After reviewing the dataset, we want to understand how many hours we slept each night. In order to do this correctly we have to convert our `start_sleep` and `end_sleep` columns into proper date-time format using the appropriate `lubridate` function. Save the result of this operation in a new dataset, called `sleep_data_clean`.
 
-### Exercise 18
-(currently under development)
+```{r convert-sleep-datetime, exercise=TRUE, exercise.setup="sleep-data-prep"}
+# Convert start_sleep and end_sleep columns
+```
 
-### Exercise 19
-(currently under development)
+```{r convert-sleep-datetime-hint-1}
+# Use lubridate::ymd_hm() to parse the datetime values
+```
 
-## Latent constructs and their realiability
+```{r convert-sleep-datetime-hint-2}
+# Example: mutate(start_sleep = ymd_hm(start_sleep))
+```
 
+```{r convert-sleep-datetime-solution}
+sleep_data_clean <-
+  sleep_data |>
+  mutate(start_sleep = ymd_hm(start_sleep),
+         end_sleep = ymd_hm(end_sleep))
+```
+
+```{r convert-sleep-datetime-check}
+grade_this({
+  user <- try(get("sleep_data_clean", envir = .envir_result), silent = TRUE)
+
+  if (inherits(user, "try-error")) {
+    fail("It looks like you didn't create an object called `sleep_data_clean`.")
+  }
+
+  if (!inherits(user, "data.frame")) {
+    fail("`sleep_data_clean` should be a data frame.")
+  }
+
+  if (!"start_sleep" %in% names(user)) {
+    fail("The dataset is missing a `start_sleep` column.")
+  }
+
+  if (!inherits(user$start_sleep, "POSIXct")) {
+    fail("The `start_sleep` column should be in datetime format. Did you use `ymd_hm()`?")
+  }
+
+  if (!"end_sleep" %in% names(user)) {
+    fail("The dataset is missing an `end_sleep` column.")
+  }
+
+  if (!inherits(user$end_sleep, "POSIXct")) {
+    fail("The `end_sleep` column should be in datetime format. Did you use `ymd_hm()`?")
+  }
+
+  pass("Great job! You've correctly converted the datetime columns using `ymd_hm()`.")
+})
+```
+
+### Coding Practice | 2
+
+With our tidy dataset in place, we can now calculate the sleep duration for each night and save the result in a new column called `duration`. Store these changes in a new object called `sleep_data_duration`.
+
+```{r sleep-data-prep-clean, include=FALSE}
+sleep_data <- tibble(
+  night = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20),
+  start_sleep = c("2025-05-19 22:14", "2025-05-20 22:09", "2025-05-21 22:54", "2025-05-22 22:30",
+                  "2025-05-23 22:10", "2025-05-24 22:37", "2025-05-25 23:40", "2025-05-26 22:27",
+                  "2025-05-27 23:33", "2025-05-28 22:48", "2025-05-29 22:29", "2025-05-30 23:55",
+                  "2025-05-31 22:27", "2025-06-01 23:42", "2025-06-02 22:55", "2025-06-03 23:47",
+                  "2025-06-04 22:03", "2025-06-05 22:43", "2025-06-06 23:42", "2025-06-07 23:15"),
+  end_sleep = c("2025-05-20 06:23", "2025-05-21 06:53", "2025-05-22 06:18", "2025-05-23 06:19",
+                "2025-05-24 06:55", "2025-05-25 06:52", "2025-05-26 07:15", "2025-05-27 07:01",
+                "2025-05-28 06:26", "2025-05-29 07:09", "2025-05-30 06:01", "2025-05-31 08:33",
+                "2025-06-01 06:39", "2025-06-02 08:06", "2025-06-03 07:53", "2025-06-04 08:04",
+                "2025-06-05 06:58", "2025-06-06 07:30", "2025-06-07 08:46", "2025-06-08 07:20"),
+  tiredness_level = c("tired", "well-rested", "well-rested", "well-rested", "well-rested", "well-rested",
+                      "well-rested", "well-rested", "tired", "well-rested", "tired", "energetic",
+                      "well-rested", "energetic", "well-rested", "energetic", "well-rested", "well-rested",
+                      "energetic", "well-rested")
+)
+
+sleep_data_clean <-
+  sleep_data |>
+  mutate(start_sleep = ymd_hm(start_sleep),
+         end_sleep = ymd_hm(end_sleep))
+```
+
+```{r compute-sleep-duration, exercise=TRUE, exercise.setup="sleep-data-prep-clean"}
+# Calculate duration of sleep for each night
+```
+
+```{r compute-sleep-duration-hint-1}
+# You can subtract two date-time variables directly in R
+```
+
+```{r compute-sleep-duration-hint-2}
+# Example: mutate(duration = end_sleep - start_sleep)
+```
+
+```{r compute-sleep-duration-solution}
+sleep_data_duration <-
+  sleep_data_clean |>
+  mutate(duration = end_sleep - start_sleep)
+```
+
+```{r compute-sleep-duration-check}
+grade_this({
+  user <- try(get("sleep_data_duration", envir = .envir_result), silent = TRUE)
+
+  if (inherits(user, "try-error")) {
+    fail("It looks like you didn't create an object called `sleep_data_duration`.")
+  }
+
+  if (!inherits(user, "data.frame")) {
+    fail("`sleep_data_duration` should be a data frame.")
+  }
+
+  if (!"duration" %in% names(user)) {
+    fail("The dataset is missing a `duration` column.")
+  }
+
+  if (!inherits(user$duration, "difftime")) {
+    fail("The `duration` column should be of class `difftime`. Did you subtract `start_sleep` from `end_sleep`?")
+  }
+
+  if (any(user$duration < 0, na.rm = TRUE)) {
+    fail("Some values in the `duration` column are negative. Did you subtract `start_sleep` from `end_sleep`, not the other way around?")
+  }
+
+  code <- as.character(.user_code)
+  
+  if (!grepl("duration\\s*=\\s*end_sleep\\s*-\\s*start_sleep", code)) {
+    fail("Make sure you're calculating `duration` as `end_sleep - start_sleep` exactly.")
+  }
+  
+  pass("Well done! You've correctly calculated the duration of sleep.")
+})
+```
+
+## Dealing with missing data
+
+### Knowledge Check | 1
+
+```{r missing-q1, echo=FALSE}
+question("Which function helps identify missing values in a dataset?",
+         answer("is.na()", correct = TRUE),
+         answer("is.null()", message = "`is.null()` checks for NULLs, not NA."),
+         answer("na.rm()", message = "`na.rm = TRUE` is an argument, not a function."),
+         answer("na_omit()", message = "`na.omit()` removes NAs but doesn't identify them."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r missing-q2, echo=FALSE}
+question("Which of the following functions works best for visualising missing data patterns?",
+         answer("summary()", message = "`summary()` shows some NA counts but not patterns."),
+         answer("Using `vis_miss()` from the naniar package", correct = TRUE),
+         answer("filter()", message = "`filter()` is for subsetting you dataset, not visualisation."),
+         answer("count()", message = "This gives counts, not visualisations."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r missing-q3, echo=FALSE}
+question("When is it appropriate to replace missing values with the mean?",
+         answer("When you're working with factor variables", message = "Not typically — factors should not use mean imputation."),
+         answer("Any time you find missing values", message = "That’s a bit too general — context matters."),
+         answer("When the variable is binary", message = "Mean replacement is not ideal for binary variables."),
+         answer("When the variable is numeric and missingness is random", correct = TRUE),
+         allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1.1
+
+Your university collected feedback from students after the semester ended. But something went wrong during data collection as some of the forms are incomplete. You’ve received the dataset and your job is to inspect what might be missing.
+
+```{r feedback-missing-setup, include=FALSE}
+set.seed(123)
+student_feedback <- tibble(
+  course_satisfaction = sample(c(1:5, NA), 25, replace = TRUE),
+  lecturer_rating = sample(c(1:10, NA), 25, replace = TRUE),
+  would_recommend = sample(c("Yes", "No", NA), 25, replace = TRUE),
+  comments = sample(c("Great course!", "Too fast", NA, NA), 25, replace = TRUE)
+)
+```
+
+Use the `vis_miss()` function from the **naniar** package to visualise the missing data.
+
+```{r feedback-missing-vis, exercise=TRUE, exercise.setup="feedback-missing-setup"}
+# Visualise the dataset for missing values (remember to load the naniar package first!)
+```
+
+```{r feedback-missing-vis-hint-1}
+# Use the function `vis_miss()` and pass the dataset as an argument
+```
+
+```{r feedback-missing-vis-hint-2}
+# Example: vis_miss(student_feedback)
+```
+
+```{r feedback-missing-vis-solution}
+library(naniar)
+vis_miss(student_feedback)
+```
+
+```{r feedback-missing-vis-check}
+grade_this_code()
+```
+
+### Coding Practice | 1.2
+
+```{r feedback-missing-interpretation, echo=FALSE}
+question("Looking at the visualisation, what stands out?",
+  answer("There is no missing data in the dataset.", message = "Look again — some columns have black gaps."),
+  answer("The 'comments' column has many missing values.", correct = TRUE),
+  answer("Only numeric columns have missing values.", message = "Not quite — 'comments' is a character variable with missing data."),
+  answer("All columns are missing the same amount of data.", message = "Missingness varies between columns."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2.1
+
+You are helping a teacher analyse student performance data. She’s concerned that some information might be systematically missing. Take a look at the dataset below:
+
+```{r student-records-setup, include=FALSE}
+student_records <- tibble(
+  grades = c(65, NA, 90, 85, 80, 80, 69, NA, 90, 90, 80, NA, NA, 80, 80, 71, 85, 85, 85, 80, 90, 80, 80, 85, 85, 90, 80, 85, 85, NA),
+  attendance = c(100, NA, 100, 90, 90, 100, 95, NA, 90, 95, 95, NA, NA, 95, 90, 95, 90, 95, 100, 100, 90, 100, 100, 95, 90, 95, 95, 95, 95, NA),
+  feedback = c("neutral", "negative", "positive", "negative", "postive", "negative", "neutral", "negative", "positive", "positive", "positive", "negative", "negative", "positive", "negative", "neutral", "positive", "neutral", "positive", "negative", "positive", "negative", "negative", "positive", "positive", "negative", "negative", "negative", "negative", "negative")
+)
+
+```
+
+Use `vis_miss()` to check for patterns of missing data in the dataset.
+
+```{r vis-patterns, exercise=TRUE, exercise.setup="student-records-setup"}
+# Visualise missing values
+```
+
+```{r vis-patterns-hint-1}
+# Use naniar::vis_miss() to view missing patterns
+```
+
+```{r vis-patterns-hint-2}
+# Example: vis_miss(student_records)
+```
+
+```{r vis-patterns-solution}
+vis_miss(student_records)
+```
+
+```{r vis-patterns-check}
+grade_this_code()
+```
+
+### Coding Practice | 2.2
+
+```{r vis-patterns-quiz, echo=FALSE}
+question("What do you notice about the pattern of missing data?",
+  answer("Whenever 'grades' is missing, 'attendance' is also missing.", correct = TRUE),
+  answer("The missing data is randomly distributed.", message = "Look closely — do some columns always miss together?"),
+  answer("Only the 'feedback' column contains missing values.", message = "That’s not quite right."),
+  answer("The dataset has no missing values.", message = "There are clear white gaps — which indicate missing values."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3.1
+
+You are working as part of the HR analytics team at a large company. Your manager suspects that some of the onboarding support data might be incomplete, especially for new employees in Engineering. The dataset below shows recent onboarding outcomes.
+
+```{r onboarding-setup, include=FALSE}
+onboarding_data <- tibble(
+  employee_id = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40),
+  department = c("Marketing", "Engineering", "Engineering", "Engineering", "Marketing", "Engineering", "Sales", "Marketing", "Engineering", "Engineering", "Engineering", "Marketing", "Engineering", "HR", "Engineering", "Marketing", "HR", "HR", "Engineering", "Engineering", "Marketing", "Sales", "Marketing", "Marketing", "Marketing", "Engineering", "Engineering", "Engineering", "Engineering", "Marketing", "HR", "Engineering", "Engineering", "Engineering", "Engineering", "Engineering", "Engineering", "Sales", "Sales", "Engineering"),
+  team_support = c(5, NA, NA, 4, NA, NA, 4, NA, 5, NA, 3, NA, NA, 5, 4, 4, 4, 5, NA, NA, 5, 5, 5, 5, NA, NA, NA, NA, 3, 5, 3, NA, 5, NA, NA, 5, 5, 3, 3, NA),
+  buddy_checkins = c(1, NA, NA, 1, NA, NA, 1, 0, 1, NA, 3, NA, NA, 3, 2, 2, 1, 1, NA, NA, 2, 2, 1, 1, 1, NA, NA, NA, 3, 1, 1, NA, 1, NA, NA, 2, 2, 2, 0, NA),
+  integration_score = c(NA, NA, NA, 80, NA, NA, 60, 80, 90, NA, 90, 60, NA, 90, NA, 50, 70, 60, NA, NA, 50, 60, NA, 80, 70, NA, NA, NA, 90, 90, 60, NA, 60, NA, NA, 50, 80, 90, 80, NA)
+)
+
+```
+
+Use `gg_miss_upset()` from the `naniar` package to explore patterns of missing data across the variables. Ensure to load the `naniar` package first.
+
+```{r onboarding-upset-plot, exercise=TRUE, exercise.setup="onboarding-setup"}
+# Create an upset plot of missingness
+```
+
+```{r onboarding-upset-plot-hint-1}
+# You’ll need to load naniar and pass the dataset to `gg_miss_upset()`
+```
+
+```{r onboarding-upset-plot-hint-2}
+# Example: gg_miss_upset(onboarding_data)
+```
+
+```{r onboarding-upset-plot-solution}
+library(naniar)
+gg_miss_upset(onboarding_data)
+```
+
+```{r onboarding-upset-plot-check}
+grade_this_code()
+```
+
+### Coding Practice | 3.2
+
+```{r onboarding-upset-quiz, echo=FALSE}
+question("What does the upset plot help you identify?",
+  answer("It shows which combinations of variables tend to be missing together.", correct = TRUE),
+  answer("It replaces the need to ever inspect data manually.", message = "It’s a helpful tool, but manual checks are still important."),
+  answer("It removes missing data automatically.", message = "The function is used for exploration, not cleaning."),
+  answer("It converts NA values into zeros.", message = "Unfortunately that is not quite right. The function only visualises missing data but does not transform it."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3.3
+
+```{r onboarding-upset-insight, echo=FALSE}
+question("What insight can you gain from the upset plot?",
+  answer("Missing data tends to exist when buddy checkin data is missing too", correct = TRUE),
+  answer("Only the department column has missing values.", message = "Check the visualisation — the missingness is likely in support-related columns."),
+  answer("Missingness appears randomly across the dataset.", message = "The plot suggests some variables miss together."),
+  answer("There seems to be data missing when data for `integration_score` as well as `team_support` is missing as well.", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 4
+
+Compute how many missing values there are in each department for the `team_support` variable to help confirm your manager's suspicion.
+
+```{r onboarding-summarise-na, exercise=TRUE, exercise.setup="onboarding-setup"}
+# Count NAs in team_support by department
+```
+
+```{r onboarding-summarise-na-hint-1}
+# Use group_by() and filter() along with is.na()
+```
+
+```{r onboarding-summarise-na-hint-2}
+# Example: group_by(department) |> filter(is.na(team_support))
+```
+
+```{r onboarding-summarise-na-solution}
+onboarding_data |> 
+  group_by(department) |> 
+  filter(is.na(team_support)) |>
+  count(sort = TRUE)
+```
+
+```{r onboarding-summarise-na-check}
+grade_this_code()
+```
+
+### Coding Practice | 5.1
+
+You wonder whether the missing data in the onboarding dataset is truly random. How could you best check for this statistically? Make sure you start your pipeline with the dataset.
+
+```{r mcar-test, exercise=TRUE, exercise.setup="onboarding-setup"}
+
+```
+
+```{r mcar-test-hint-1}
+# Use naniar::mcar_test() and pass the dataset as the only argument
+```
+
+```{r mcar-test-hint-2}
+# Example: mcar_test(onboarding_data)
+```
+
+```{r mcar-test-solution}
+onboarding_data |>
+  select(-employee_id) |>
+  mcar_test()
+```
+
+```{r mcar-test-check}
+grade_this({
+  user_code <- deparse(.user_code)
+  code_text <- paste(user_code, collapse = " ")
+
+  if (!grepl("onboarding_data", code_text)) {
+    fail("Start with the `onboarding_data` dataset.")
+  }
+
+  if (!grepl("select\\s*\\(\\s*-employee_id\\s*\\)", code_text)) {
+    fail("Don't forget to remove `employee_id` with `select(-employee_id)`.")
+  }
+
+  if (!grepl("mcar_test", code_text)) {
+    fail("Did you run `mcar_test()`?")
+  }
+
+  pass("Excellent work! You removed the `employee_id` and performed the `mcar_test()` correctly.")
+})
+```
+
+### Coding Practice | 5.2
+
+```{r mcar-test-interpretation, echo=FALSE}
+question("The output of the MCAR test shows a p-value. What does this suggest?",
+  answer("The missingness is not completely random, which means data is missing systematically.", correct = TRUE, message = "Correct, and because of this we might want to investigate further what could be causes for the missing data."),
+  answer("The p-value confirms the data is MCAR.", message = "A p-value of 0.0488 is below 0.05, so we reject the MCAR assumption."),
+  answer("There is no missing data in the dataset.", message = "There is missing data — we're testing if it's randomly distributed."),
+  answer("The MCAR test confirms the missing values can be ignored.", message = "Not quite — non-random missingness may require special handling."),
+  allow_retry = TRUE
+)
+```
+
+## Latent constructs and their reliability
+
+### Knowledge Check | 1
+
+```{r latent-q1, echo=FALSE}
+question("What is a latent variable?",
+         answer("A variable with missing values", message = "Not quite — that's just an incomplete variable."),
+         answer("A construct that cannot be directly measured, but is inferred from observed variables", correct = TRUE),
+         answer("A type of numeric variable", message = "That doesn’t define latent constructs."),
+         answer("Any variable that is derived from text", message = "That would be a different type of variable."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r latent-q2, echo=FALSE}
+question("What does Cronbach’s alpha measure?",
+         answer("The internal consistency or reliability of a set of items", correct = TRUE),
+         answer("The average score across a set of variables", message = "I am afraid, no — it's not a mean."),
+         answer("The correlation between two variables", message = "That would be a Pearson or Spearman correlation."),
+         answer("The amount of missing data in a set", message = "Unfortunately, that’s not the purpose of Cronbach’s alpha."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r latent-q3, echo=FALSE}
+question("Why might you reverse the scale of some survey items?",
+         answer("To check whether respondents complete survey items carefully", correct = TRUE, message = "It can help with this, because inconsistent answers to questions could be detected easily."),
+         answer("To make data harder to interpret", message = "This would work against your analysis."),
+         answer("To increase the sample size", message = "That’s unrelated to reverse scoring."),
+         answer("To align the direction of agreement across items", correct = TRUE),
+         allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1.1
 ```{r latent-constructs-prep}
 set.seed(1234)
 happiness_at_work_high <-  sample(3:6, size = 150, replace = TRUE)
 
 set.seed(1234)
-happiness_at_work2_low <- sample(1:4, size = 150, replace = TRUE)
+happiness_at_work_low <- sample(1:4, size = 150, replace = TRUE)
 
 set.seed(1234)
 happiness_family_high <-  sample(4:6, size = 150, replace = TRUE)
@@ -552,25 +1290,25 @@ happiness_health_high <-  sample(4:6, size = 150, replace = TRUE)
 set.seed(1234)
 happiness_health_low <- sample(1:4, size = 150, replace = TRUE)
 
-set.seed(1234)
-stress_lots_of_work_high <-  sample(3:6, size = 150, replace = TRUE)
-set.seed(1234)
-stress_lots_of_work_low <- sample(1:4, size = 150, replace = TRUE)
+set.seed(1237)
+stress_lots_of_work_high <-  sample(4:6, size = 150, replace = TRUE)
+set.seed(1237)
+stress_lots_of_work_low <- sample(1:5, size = 150, replace = TRUE)
 
-set.seed(1234)
-stress_cannot_keep_up_high <-  sample(3:6, size = 150, replace = TRUE)
-set.seed(1234)
-stress_cannot_keep_up_low <- sample(1:4, size = 150, replace = TRUE)
+set.seed(1236)
+stress_cannot_keep_up_high <-  sample(4:6, size = 150, replace = TRUE)
+set.seed(1236)
+stress_cannot_keep_up_low <- sample(1:5, size = 150, replace = TRUE)
 
-set.seed(1234)
+set.seed(1235)
 stress_busy_schedule_high <-  sample(3:6, size = 150, replace = TRUE)
-set.seed(1234)
-stress_busy_schedule_low <- sample(1:4, size = 150, replace = TRUE)
+set.seed(1235)
+stress_busy_schedule_low <- sample(1:5, size = 150, replace = TRUE)
 
 # CONTINUE FROM HERE
 happy_data <- tibble(age = sample(25:64, 300, replace = TRUE),
                      happiness_at_work = append(happiness_at_work_high,
-                                                happiness_at_work2_low),
+                                                happiness_at_work_low),
                      happiness_family = append(happiness_family_high,
                                                happiness_family_low),
                      happiness_health = append(happiness_health_high,
@@ -580,269 +1318,911 @@ happy_data <- tibble(age = sample(25:64, 300, replace = TRUE),
                      stress_cannot_keep_up = append(stress_cannot_keep_up_low,
                                                     stress_cannot_keep_up_high),
                      stress_busy_schedule = append(stress_busy_schedule_low,
-                                                   stress_lots_of_work_high)
+                                                   stress_busy_schedule_high)
                      )
-
 ```
 
-### Exercise 20
-
-We collected data about a teams level of happiness and stress stored in the object `happy_data`. We are asked to report the average `happiness` and stress in the team. Inspect the dataset first and then answer the questions below.
+We collected data about our team's level of happiness and stress stored in the object `happy_data`. We are asked to report the average `happiness` and `stress` in the team. Inspect the dataset first to decide where to get started with analysing the data.
 
 ```{r happy-inspect, exercise=TRUE, exercise.setup="latent-constructs-prep"}
-
+# Inspect the data
 ```
 
-```{r latent-constructs-quiz}
-quiz(
-  question(
-    "Which of the following statements apply?",
-    answer("We need to compute the two latent variables each based on three questions asked in the questionnaire.",
-           correct = TRUE),
-    answer("We need to check the internal consistency before computing a latent variable.",
-           correct = TRUE),
-    answer("There is no need to compute a latent variable, because the sample is too small.",
-           message = "The sample size does not affect the computation of latent variables."),
-    answer("We need to consider latent variables if what we want to measure is not normally measured as a number.",
-           correct = TRUE),
-    answer("Often, the computation of latent variables implies taking the average score of each participant across multiple questions.",
-           correct = TRUE),
-    allow_retry = TRUE
-  )
+```{r happy-inspect-solution}
+glimpse(happy_data)
+```
+
+```{r happy-inspect-check}
+grade_this_code()
+```
+
+### Coding Practice | 1.2
+
+```{r latent-constructs-q1, echo=FALSE}
+question("Which of the following statements apply?",
+  answer("We need to compute the two latent variables each based on three questions asked in the questionnaire.", correct = TRUE),
+  answer("We need to check the internal consistency before computing a latent variable.", correct = TRUE),
+  answer("There is no need to compute a latent variable, because the sample is too small.", message = "Sample size does not affect the need for latent variables."),
+  answer("We need to consider latent variables if what we want to measure is not normally measured as a number.", correct = TRUE),
+  answer("Often, the computation of latent variables implies taking the average score of each participant across multiple questions.", correct = TRUE),
+  allow_retry = TRUE
 )
 ```
 
-### Exercise 21
-In a first step, we need to check the internal consistency of those items, i.e. questions in the questionnaire that belong to `happiness` and `stress`.
+### Coding Practice | 2.1
 
-Compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `happiness`
+Before we go ahead and start creating our latent variables, we should check for internal consistency. Let's compute the Cronbach’s α for the `happiness` scale first.
 
 ```{r internal-consistency-happy, exercise=TRUE, exercise.setup="latent-constructs-prep"}
-happy_data %>%
-  ___
-
+# Start by referencing our dataset.
 ```
 
 ```{r internal-consistency-happy-hint}
-# We need to select the right variables
-happy_data %>%
-  select(happiness_at_work,
-         happiness_family,
-         happiness_health) %>%
-  ___
+# Use select() to choose variables, then use psych::alpha()
 ```
 
 ```{r internal-consistency-happy-solution}
-# Solution: We use psych::alpha() to compute the Cronbach's alpha in R
-happy_data %>%
-  select(happiness_at_work,
-         happiness_family,
-         happiness_health) %>%
+happy_data |>
+  select(happiness_at_work, happiness_family, happiness_health) |>
   psych::alpha()
 ```
 
-
-Also, compute the Cronbach's $\alpha$ for those variables which reflect the latent construct `stress`.
-
-```{r internal-consistency-stress, exercise=TRUE, exercise.setup="latent-constructs-prep"}
-happy_data %>%
-  ___
-  
+```{r internal-consistency-happy-check}
+grade_this_code()
 ```
 
-```{r internal-consistency-stress-hint-1}
-# We first need to select the correct variables
-happy_data %>%
-  select(stress_lots_of_work,
-         stress_cannot_keep_up,
-         stress_busy_schedule) %>%
-  ___
+### Coding Practice | 2.2
+
+Now compute Cronbach’s α for the `stress` scale.
+
+```{r internal-consistency-stress, exercise=TRUE, exercise.setup="latent-constructs-prep"}
+
+```
+
+```{r internal-consistency-stress-hint}
+# Use select() and psych::alpha() as before.
 ```
 
 ```{r internal-consistency-stress-solution}
-# Solution: We use the function alpha() from the 'psych' package
-happy_data %>%
-  select(stress_lots_of_work,
-         stress_cannot_keep_up,
-         stress_busy_schedule) %>%
+happy_data |>
+  select(stress_lots_of_work, stress_cannot_keep_up, stress_busy_schedule) |>
   psych::alpha()
 ```
 
+```{r internal-consistency-stress-check}
+grade_this_code()
+```
 
-```{r internal-consistency-quiz}
-quiz(
-  question(
-    "How do you rate the level of internal consistency for `happiness` and `stress`?",
-    answer("It is good, because alpha > 0.80",
-           message = "The alpha score for stress does not lie above 0.8"),
-    answer("It is good, because alpha > 0.70",
-           correct = TRUE),
-    answer("It is good, because alpha > 0.65",
-           message = "It is necessary that alpha is at least 0.7."),
-    answer("The Cronbach's alpha is not high enough.",
-           message = "An alpha score of at least 0.7 would be enough."),
-    allow_retry = TRUE
-  )
+### Coding Practice | 2.3
+
+```{r internal-consistency-quiz, echo=FALSE}
+question("How do you rate the level of internal consistency for `happiness` and `stress`?",
+  answer("The happiness scale has excellent internal consistency, but the stress scale is just passable.", correct = TRUE),
+  answer("Both scales are reliable since alpha > 0.80 for each.", message = "Only the happiness scale meets this threshold — stress is much lower."),
+  answer("The stress scale is reliable, but the happiness scale is not.", message = "This is reversed — happiness is reliable, stress is barely acceptable."),
+  answer("Neither scale is reliable due to low alpha values.", message = "Only the stress scale has low reliability."),
+  allow_retry = TRUE
 )
 ```
 
-### Exercise 22
-Even though the Cronbach's $\alpha$ looks promising for both latent variables, it is essential to also run a confirmatory factor analysis to ensure that these factors are independent latent variables.
+### Coding Practice | 3.1
 
-Perform a confirmatory factor analysis and include both latent variables when specifying the model we have to test.
+Now run a confirmatory factor analysis (CFA) using the `lavaan` package and test the two-factor model to be sure that the latent variables work well for your intended purpose of reporting happiness and stress in the team. Create a `model` first and then use then compute the model fit and save results in an object called `fit`. Lastly use the `fitmeasures()` function to inspect the fit indices for our model.
 
-```{r cfa, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=25, message=FALSE}
-
+```{r cfa, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=20, message=FALSE}
+# Define the model and run cfa()
 ```
 
-```{r cfa-hint-1}
-# We need to load the lavaan package to perform a CFA
-library(lavaan)
-```
-
-```{r cfa-hint-2}
-# In a first step we need to define a model
-library(lavaan)
-
-model <- '
-___
-'
-```
-
-```{r cfa-hint-3}
-# We need to list all items and use '=~' to define a latent variable
-library(lavaan)
-
-model <- '
-happiness =~
-happiness_at_work +
-happiness_family +
-happiness_health
-'
-```
-
-```{r cfa-hint-4}
-# The full specification of the required model.
-library(lavaan)
-
-model <- '
-happiness =~
-happiness_at_work +
-happiness_family +
-happiness_health
-
-stress =~
-stress_lots_of_work +
-stress_cannot_keep_up +
-stress_busy_schedule
-'
-```
-
-```{r cfa-hint-5}
-# Perform CFA
-library(lavaan)
-
-model <- '
-happiness =~
-happiness_at_work +
-happiness_family +
-happiness_health
-
-stress =~
-stress_lots_of_work +
-stress_cannot_keep_up +
-stress_busy_schedule
-'
-
-fit <- cfa(model, data = happy_data)
+```{r cfa-hint}
+# Use lavaan's `cfa()` and `fitmeasures()` functions after defining the model
 ```
 
 ```{r cfa-solution}
-# Solution
 library(lavaan)
 
 model <- '
-happiness =~
-happiness_at_work +
-happiness_family +
-happiness_health
-
-stress =~
-stress_lots_of_work +
-stress_cannot_keep_up +
-stress_busy_schedule
+happiness =~ happiness_at_work + happiness_family + happiness_health
+stress =~ stress_lots_of_work + stress_cannot_keep_up + stress_busy_schedule
 '
 
 fit <- cfa(model, data = happy_data)
 
-# Here we compute the fit indices to check model fit
-fit_indices <- fitmeasures(fit)
-
-# Optional if we want to only inspect certain indices
-fit_indices %>%
-  enframe() %>%
-  filter(name == "cfi" |
-         name == "srmr" |
-         name == "rmsea") %>%
-  mutate(value = round(value, 3))
+fitmeasures(fit)
 ```
 
-```{r cfa-quiz}
-quiz(
-  question(
-    "Based on the result of our CFA, which conclusions can we draw if we looked at the CFI, SRMR and RMSEA?",
-    answer("The indicators suggest a good model fit and therefore we can compute the latent variables",
-           message = "Unfortunately, the CFI is not as high as required, i.e. >= 0.95"),
-    answer("The Root Mean Square Error of Approximation suggests a good fit our model.",
-           correct = TRUE),
-    answer("Two of the indicators suggest that our model fits our data well, but one of them is just a bit too low.",
-           correct = TRUE),
-    answer("The results of the CFA cannot be fully trusted, because our data set is too small.",
-           message = "While sample size does play a role when performing a CFA, for the number of factors we are interested in, this is a large enough sample."),
-    allow_retry = TRUE
-  )
+```{r cfa-check}
+grade_this({
+  # Check if lavaan is loaded
+  if (!requireNamespace("lavaan", quietly = TRUE)) {
+    fail("The `lavaan` package needs to be loaded using `library(lavaan)`.")
+  }
+
+  # Attempt to retrieve the model fit object
+  fit <- try(get("fit", envir = .envir_result), silent = TRUE)
+
+  # Check 1: model object created
+  if (inherits(fit, "try-error") || !inherits(fit, "lavaan")) {
+    fail("It looks like the CFA model hasn't been correctly created or assigned to the object `fit`. Did you use the `cfa()` function?")
+  }
+
+  # Check 2: fitmeasures was called and result printed
+  user_code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("fitmeasures\\(", user_code_text)) {
+    fail("You need to use the `fitmeasures()` function to evaluate your CFA model.")
+  }
+
+  pass("Great work! You've correctly specified the CFA model and examined the model fit with `fitmeasures()`.")
+})
+```
+
+### Coding Practice | 3.2
+
+```{r cfa-quiz, echo=FALSE}
+question("What can we conclude from the CFA fit measures?",
+  answer("The Root Mean Square Error of Approximation suggests a poor fit of our model to the data.", correct = TRUE),
+  answer("The SRMR is within an acceptable range, but the RMSEA is too high for a good model fit.", correct = TRUE),
+  answer("The CFI of 0.92 shows that the model fits the data perfectly.", message = "CFI = 0.92 is acceptable, but not considered perfect — the threshold is typically ≥ 0.95."),
+  answer("All fit indices support a strong and well-fitting model.", message = "Only SRMR suggests a good fit. The others point to a weaker model."),
+  allow_retry = TRUE
 )
 ```
 
-### Exercise 23
-Considering the fairly good results of our CFA in combination with the good Cronbach's alpha scores, we need to undertake one final step: Compute the latent variables `happiness` and `stress`.
+### Coding Practice | 4
+
+Considering the poor CFA results, we might only consider creating a latent variable called `happiness` and provide insighs for `stress` on a per-item basis. Let's calculate the row-wise averages and store them in a new dataset.
 
 ```{r compute-latent-variables, exercise=TRUE, exercise.setup="latent-constructs-prep", exercise.lines=10}
 happy_data_latent <-
-  happy_data %>%
-  ___
-
+  happy_data |>
+  
 ```
 
-```{r compute-latent-variables-hint-1}
-# We want to compute a new score for each participant, i.e. for each row.
-happy_data_latent <-
-  happy_data %>%
-  rowwise() %>%
-  ___
-```
-
-```{r compute-latent-variables-hint-2}
-# We need to compute the mean of the corresponding variables
-# to obtain a combined score for the latent variables
-happy_data_latent <-
-  happy_data %>%
-  rowwise() %>%
-  mutate(___)
+```{r compute-latent-variables-hint}
+# Use rowwise() and mutate() to compute averages across selected columns
 ```
 
 ```{r compute-latent-variables-solution}
-# Solution
 happy_data_latent <-
-  happy_data %>%
-  rowwise() %>%
-  mutate(happiness = mean(c(happiness_at_work,
-                            happiness_family,
-                            happiness_health)),
-         stress = mean(c(stress_lots_of_work,
-                         stress_cannot_keep_up,
-                         stress_busy_schedule)))
+  happy_data |>
+  rowwise() |>
+  mutate(
+    happiness = mean(c(happiness_at_work, happiness_family, happiness_health))
+  )
 
 glimpse(happy_data_latent)
 ```
 
+```{r compute-latent-variables-check}
+grade_this({
+  # Try retrieving the object
+  result <- try(get("happy_data_latent", envir = .envir_result), silent = TRUE)
+
+  if (inherits(result, "try-error")) {
+    fail("You need to assign the output to a new object called `happy_data_latent`.")
+  }
+
+  if (!"happiness" %in% names(result)) {
+    fail("Your dataset is missing a new column called `happiness`. Make sure you've added it with `mutate()`.")
+  }
+
+ user_code_text <- paste(deparse(.user_code), collapse = " ")
+
+  # Check for presence of each variable
+  required_vars <- c("happiness_at_work", "happiness_family", "happiness_health")
+  missing_vars <- required_vars[!sapply(required_vars, grepl, user_code_text)]
+
+  if (length(missing_vars) > 0) {
+    fail(glue::glue("It looks like you're missing one or more variables in your `mean()` calculation: {paste(missing_vars, collapse = ', ')}."))
+  }
+
+  if (!grepl("rowwise\\(\\)", user_code_text)) {
+    fail("You're missing `rowwise()`, which is needed before using `mutate()` to calculate row-wise means.")
+  }
+
+  # Check that rowwise() appears in the code
+  if (!grepl("rowwise\\(\\)", user_code_text)) {
+    fail("It looks like you're missing `rowwise()`, which is needed before using `mutate()` to calculate row means.")
+  }
+
+  pass("Nicely done! You've computed the `happiness` score correctly using `rowwise()` and all relevant variables.")
+})
+```
+
+## Once you finished with data wrangling
+
+### Knowledge Check | 1
+
+```{r wrapup-q1, echo=FALSE}
+question("What is a good next step after completing data wrangling?",
+         answer("Immediately begin writing your conclusion", message = "Hold on — you likely need to analyse first."),
+         answer("Undo your transformations to obtain a clean dataset", message = "Not unless you made a mistake!"),
+         answer("Save your tidy dataset to a file on my computer", correct = TRUE),
+         answer("Delete the original dataset", message = "You might want to keep the original as a backup."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r wrapup-q2, echo=FALSE}
+question("Why is documenting your data wrangling process important?",
+         answer("So you can reduce the file size", message = "Documentation doesn’t change file size."),
+         answer("So you can skip cleaning next time", message = "Not quite — every dataset is different."),
+         answer("So you (and others) can reproduce your results", correct = TRUE),
+         answer("So you can remember how you approach data cleaning for your project.", correct = TRUE, message = "Indeed, having your research process documented allows you to come back to it even months and years later and still remind yourself what you did."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r wrapup-q3, echo=FALSE}
+question("What might a final check of your dataset include?",
+         answer("Printing every single row", message = "That’s impractical with large datasets."),
+         answer("Re-importing the raw file", message = "That would reset your wrangling steps."),
+         answer("Clearing the environment", message = "Only do that after you’re sure everything has been saved."),
+         answer("Reviewing variable names, types, and missing data", correct = TRUE, message = "It is always good to perform a final check to see whether all the changes we made are represented in our tidy data."),
+         allow_retry = TRUE
+)
+```
+
+
+## Case Study | Understanding Employee Wellbeing at Brightmind Inc.
+
+```{r brightmind-case-setup}
+# Load required packages
+
+set.seed(42)
+
+# Define departments
+departments <- c("Marketing", "Finance", "HR", "IT", "Sales")
+department <- sample(departments, size = 300, replace = TRUE)
+
+# Create conditional helper function
+generate_scores <- function(dept, high_range, low_range) {
+  if (dept == "HR") {
+    sample(low_range, size = 1)
+  } else {
+    sample(high_range, size = 1)
+  }
+}
+
+# Generate data row-wise
+brightmind_survey <- tibble::tibble(
+  department = department
+) |>
+  rowwise() |>
+  mutate(
+    # Sense of Belonging
+    belonging_1 = generate_scores(department, 4:6, 1:3),
+    belonging_2 = generate_scores(department, 4:6, 1:3),
+    belonging_3 = 7 - generate_scores(department, 4:6, 1:3),  # reverse-coded
+
+    # Burnout (higher values = more burnout)
+    burnout_1 = generate_scores(department, 4:6, 1:3),
+    burnout_2 = generate_scores(department, 4:6, 1:3),
+    burnout_3 = generate_scores(department, 4:6, 1:3),
+
+    # Peer Support (weaker correlation for item 3)
+    peer_support_1 = generate_scores(department, 4:6, 1:3),
+    peer_support_2 = generate_scores(department, 4:6, 1:3),
+    peer_support_3 = generate_scores(department, 1:3, 1:2)  # low correlation
+  ) |>
+  ungroup()
+```
+
+Brightmind Inc. recently introduced a hybrid work model and leadership wants to understand how employees are coping. You’ve been asked to analyse data from an internal survey measuring:
+
+- **Sense of belonging**
+- **Level of burnout**
+- **Quality of peer support**
+
+Each construct is measured using three items. Your job is to inspect the dataset, clean it up, evaluate reliability, confirm the structure with CFA, compute latent variables, and compare outcomes across departments.
+
+### Step 1.1 | Inspecting our data
+
+Let’s start by inspecting the dataset called `brightmind_survey` and carefully consider what kind of data wrangling/cleaning will be necessary before we can start analysing the data with regards to our key research question: How do departments score with regards to all three latent variables?
+
+```{r brightmind-inspect, exercise=TRUE, exercise.setup="brightmind-case-setup"}
+# Glimpse the data
+```
+
+```{r brightmind-inspect-hint}
+# Use glimpse() to inspect the structure
+```
+
+```{r brightmind-inspect-solution}
+glimpse(brightmind_survey)
+```
+
+```{r brightmind-inspect-check}
+grade_this_code()
+```
+
+### Step 1.2 | Inspecting our data
+
+```{r department-type-question, echo=FALSE}
+question("What can we say about our data wrangling needs at this point?",
+  answer("We need to clean the column names using `janitor::clean_names()`.", 
+         message = "Actually, the variable names are already clean and follow tidy naming conventions."),
+  answer("The `department` variable should be converted to a factor `<fct>` because it represents categories.", 
+         correct = TRUE),
+  answer("We need to remove all non-numeric columns from the dataset.", 
+         message = "Not necessarily — categorical data can be useful for grouping and analysis."),
+  answer("We should convert all factor variables into character strings.", 
+         message = "That would reduce structure and make analysis harder — factors are more appropriate for categorical data."),
+  allow_retry = TRUE
+)
+```
+
+### Step 2 | Converting data types
+
+Before we begin any analysis, it’s important to ensure that the data types of our variables reflect their intended use.
+
+While inspecting the dataset, we have noticed that the variable `department` is currently a character vector (`<chr>`). Since departments are categories, we should convert this variable into a factor (`<fct>`) to ensure accurate grouping and summary operations later on.
+
+Let’s fix this now and save the result in an object called `brightmind_survey_clean_types`. Make sure to inspect this object at the end to see whether the changes have successfully been applied.
+
+```{r convert-department-type, exercise=TRUE, exercise.setup="brightmind-case-data-types-setup", exercise.lines=3}
+# Convert department to factor
+```
+
+```{r convert-department-type-hint-1}
+# Use mutate() and as_factor() to change the data type
+```
+
+```{r convert-department-type-hint-2}
+# Example: mutate(department = as_factor(department))
+```
+
+```{r convert-department-type-solution}
+brightmind_survey_clean_types <- 
+  brightmind_survey |>
+  mutate(department = as_factor(department))
+
+glimpse(brightmind_survey_clean_types)
+```
+
+```{r convert-department-type-check}
+grade_this_code()
+```
+
+### Step 3 | Inspecting the meaning of items
+
+```{r brightmind-case-data-types-setup}
+# Load required packages
+
+set.seed(42)
+
+# Define departments
+departments <- c("Marketing", "Finance", "HR", "IT", "Sales")
+department <- sample(departments, size = 300, replace = TRUE)
+
+# Create conditional helper function
+generate_scores <- function(dept, high_range, low_range) {
+  if (dept == "HR") {
+    sample(low_range, size = 1)
+  } else {
+    sample(high_range, size = 1)
+  }
+}
+
+# Generate data row-wise
+brightmind_survey <- tibble::tibble(
+  department = department
+) |>
+  rowwise() |>
+  mutate(
+    # Sense of Belonging
+    belonging_1 = generate_scores(department, 4:6, 1:3),
+    belonging_2 = generate_scores(department, 4:6, 1:3),
+    belonging_3 = 7 - generate_scores(department, 4:6, 1:3),  # reverse-coded
+
+    # Burnout (higher values = more burnout)
+    burnout_1 = generate_scores(department, 4:6, 1:3),
+    burnout_2 = generate_scores(department, 4:6, 1:3),
+    burnout_3 = generate_scores(department, 4:6, 1:3),
+
+    # Peer Support (weaker correlation for item 3)
+    peer_support_1 = generate_scores(department, 4:6, 1:3),
+    peer_support_2 = generate_scores(department, 4:6, 1:3),
+    peer_support_3 = generate_scores(department, 1:3, 1:2)  # low correlation
+  ) |>
+  ungroup()
+
+# Clean data types
+brightmind_survey_clean_types <- 
+  brightmind_survey |>
+  mutate(department = as_factor(department))
+```
+
+Inspecting a dataset provides only very limited insights into the content of a study because we have to use variable names instead of item labels, i.e., the actual question/statement in a questionnaire.
+
+Fortunately, management provided us with a link to the online survey, and we learned that each latent variable was measured using three items.
+
+#### Sense of Belonging
+- `belonging_1`: *I feel part of my team.*
+- `belonging_2`: *I feel connected to my department.*
+- `belonging_3`: *I often feel isolated at work.*
+
+#### Burnout
+- `burnout_1`: *I feel emotionally drained.*
+- `burnout_2`: *Work leaves me exhausted.*
+- `burnout_3`: *I struggle to recover after workdays.*
+
+#### Peer Support
+- `peer_support_1`: *Colleagues support me.*
+- `peer_support_2`: *I can count on teammates.*
+- `peer_support_3`: *I rarely talk to anyone.* 
+
+```{r reverse-coded-question, echo=FALSE}
+question("Which of the following statements best describes the items used to measure sense of belonging?",
+  answer("All three items consistently reflect a high sense of belonging.", 
+         message = "Not quite. One of the items may not align with the others in how it's phrased."),
+  answer("One item has the opposite meaning of what it should measure and could reduce internal consistency if not adjusted.", 
+         correct = TRUE,
+         message = "Correct, item `belonging_3` seems to measure the opposite of  *sense of belonging*. We need to reverse the coding"),
+  answer("All items use the same scale, so no further inspection is needed.", 
+         message = "Having the same scale doesn't guarantee they all measure the same direction of the concept."),
+  answer("The wording of the items does not affect reliability.", 
+         message = "It actually does — reverse-worded items can impact reliability and interpretation."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4 | Reverse coding items
+
+Understanding the meaning of our variables is crucial to determine if we need to reverse the coding to align with other items. Failing to do so may lead to catastrophic consequences, as errors unnoticed during data cleaning and reliability analysis can result in incorrect results, conclusions, and recommendations. It is certainly a step we should never skip.
+
+How would you go about reversing the item `belonging_3`, which is currently scored low when the actual sense of belonging is high. Save the result in a new object called `brightmind_survey_reversed` and call the reversed itemd `belonging_3r`, where `r` stands for *reversed*.
+
+**Note: All items were measured on a 6-point Likert scale.**
+
+```{r reverse-code-belonging, exercise=TRUE, exercise.setup="brightmind-case-data-types-setup", exercise.lines=6}
+# Reverse belonging_3 and create new object
+```
+
+```{r reverse-code-belonging-hint-1}
+# The max score is 6, so subtract the score from 7
+# This turns every 6 into a 1 (6-7) and every 1 into a 6 (1 - 7) 
+```
+
+```{r reverse-code-belonging-hint-2}
+# Example: mutate(belonging_3 = 7 - belonging_3)
+```
+
+```{r reverse-code-belonging-solution}
+brightmind_survey_reversed <- brightmind_survey_clean_types |>
+  mutate(belonging_3r = 7 - belonging_3)
+```
+
+```{r reverse-code-belonging-check}
+grade_this_code()
+```
+
+### Step 5.1 | Testing internal consistency
+
+```{r brightmind-case-reversed-setup}
+# Load required packages
+library(psych)
+library(lavaan)
+
+set.seed(42)
+
+# Define departments
+departments <- c("Marketing", "Finance", "HR", "IT", "Sales")
+department <- sample(departments, size = 300, replace = TRUE)
+
+# Create conditional helper function
+generate_scores <- function(dept, high_range, low_range) {
+  if (dept == "HR") {
+    sample(low_range, size = 1)
+  } else {
+    sample(high_range, size = 1)
+  }
+}
+
+# Generate data row-wise
+brightmind_survey <- tibble::tibble(
+  department = department
+) |>
+  rowwise() |>
+  mutate(
+    # Sense of Belonging
+    belonging_1 = generate_scores(department, 4:6, 1:3),
+    belonging_2 = generate_scores(department, 4:6, 1:3),
+    belonging_3 = 7 - generate_scores(department, 4:6, 1:3),  # reverse-coded
+
+    # Burnout (higher values = more burnout)
+    burnout_1 = generate_scores(department, 4:6, 1:3),
+    burnout_2 = generate_scores(department, 4:6, 1:3),
+    burnout_3 = generate_scores(department, 4:6, 1:3),
+
+    # Peer Support (weaker correlation for item 3)
+    peer_support_1 = generate_scores(department, 4:6, 1:3),
+    peer_support_2 = generate_scores(department, 4:6, 1:3),
+    peer_support_3 = generate_scores(department, 1:3, 1:2)  # low correlation
+  ) |>
+  ungroup()
+
+# Clean data types
+brightmind_survey_clean_types <- 
+  brightmind_survey |>
+  mutate(department = as_factor(department))
+
+# Create reversed item
+brightmind_survey_reversed <- brightmind_survey_clean_types |>
+  mutate(belonging_3r = 7 - belonging_3)
+```
+
+Now assess the internal consistency (reliability) of the *sense of belonging* items. Remember to use our cleaner dataset `brightmind_survey_clean_types` instead of the raw dataset `brightmind_survey`. 
+
+```{r alpha-belonging, exercise=TRUE, exercise.setup="brightmind-case-reversed-setup"}
+# Compute Cronbach's alpha for the belonging items
+```
+
+```{r alpha-belonging-hint-1}
+# Use psych::alpha() after selecting the three belonging items
+```
+
+```{r alpha-belonging-hint-2}
+brightmind_survey_reversed |>
+  select(belonging_1, belonging_2, belonging_3r) |>
+  alpha()
+```
+
+```{r alpha-belonging-solution, message=FALSE}
+brightmind_survey_reversed |>
+  select(belonging_1, belonging_2, belonging_3r) |>
+  alpha()
+```
+
+```{r alpha-belonging-check}
+grade_this_code()
+```
+
+### Step 5.2 | Testing internal consistency
+
+```{r alpha-belonging-quiz, echo=FALSE}
+question("The Cronbach’s alpha for the belonging items is high. What does this mean?",
+  answer("The items measure the same underlying construct reliably.", correct = TRUE),
+  answer("It means there are no missing values.", message = "Reliability isn't about missingness."),
+  answer("It shows that we don’t need to reverse code anything.", message = "Even high alpha could hide a mis-coded item."),
+  answer("The scale should be discarded.", message = "High alpha means the scale is reliable."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5.3 | Testing internal consistency
+
+Let's also test the reliability of the three **burnout** items and see whether we can obtain similarly good results.
+
+```{r alpha-burnout, exercise=TRUE, exercise.setup="brightmind-case-reversed-setup"}
+# Cronbach's alpha for burnout items
+```
+
+```{r alpha-burnout-solution}
+brightmind_survey_reversed |>
+  select(burnout_1, burnout_2, burnout_3) |>
+  alpha()
+```
+
+```{r alpha-burnout-check}
+grade_this_code()
+```
+
+### Step 5.4 | Testing internal consistency
+
+```{r alpha-burnout-quiz, echo=FALSE}
+question("How do you interpret the internal consistency of the burnout items?",
+  answer("The reliability is low, suggesting the items are not consistent.", 
+         message = "Check the alpha value again — it is actually quite high."),
+  answer("The items seem to reflect different constructs, as indicated by the alpha score.", 
+         message = "Not quite — a high alpha suggests they measure the same construct well."),
+  answer("The reliability is strong, similar to the belonging construct.", 
+         correct = TRUE),
+  answer("There are too few items to calculate Cronbach’s alpha.", 
+         message = "Cronbach’s alpha can be computed with as few as two items."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5.5 | Testing internal consistency
+
+Finally, we need to check our third latent variable, i.e.  **peer support**. Let's repeat the steps as we did previously.
+
+```{r alpha-peers, exercise=TRUE, exercise.setup="brightmind-case-reversed-setup"}
+# Cronbach's alpha for peer support items
+```
+
+```{r alpha-peers-solution}
+brightmind_survey_reversed |>
+  select(peer_support_1, peer_support_2, peer_support_3) |>
+  alpha()
+```
+
+```{r alpha-peers-check}
+grade_this_code()
+```
+
+### Step 5.6 | Testing internal consistency
+
+```{r alpha-peers-quiz, echo=FALSE}
+question("Your reliability result for peer support is low. What should you do?",
+  answer("Drop the item that weakens the scale’s internal consistency.", correct = TRUE),
+  answer("Use the alpha anyway.", message = "Low alpha suggests the items do not align well."),
+  answer("Combine peer support with burnout to improve reliability.", message = "These are conceptually different constructs."),
+  answer("Reverse-code the item with the lowest mean.", message = "Reverse-coding is only used when meaning is flipped."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5.7 | Testing internal consistency
+
+The only way to try to fix our issues with low Cronbach's alpha scores is to remove an item that drags the score down. We can find out how the latent variable would perform by looking at `Reliability if an item is dropped`.
+
+Adjust the code below to obtain a better outcome for our latent variable.
+
+```{r alpha-peers-dropped, exercise=TRUE, exercise.setup="brightmind-case-reversed-setup"}
+brightmind_survey_reversed |>
+  select(peer_support_1, peer_support_2, peer_support_3) |>
+  alpha()
+```
+
+```{r alpha-peers-dropped-solution}
+brightmind_survey_reversed |>
+  select(peer_support_1, peer_support_2) |>
+  alpha()
+```
+
+```{r alpha-peers-dropped-check}
+grade_this_code()
+```
+
+
+### Step 6.1 | Conducting a CFA
+
+To further corroborate that our latent variables are trustworthy, we should perform a *confirmatory factor analysis (CFA)*. Please create a `model`, perform the CFA and inspect the fit indices.
+
+```{r brightmind-cfa-model, exercise=TRUE, exercise.setup="brightmind-case-reversed-setup", exercise.lines=25, message=FALSE, warning=FALSE}
+# Define the CFA model
+model <- ''
+
+# Test the CFA model
+fit <- 
+
+# Inspect the fit indices
+
+```
+
+```{r brightmind-cfa-model-solution}
+model <- '
+belonging =~ belonging_1 + belonging_2 + belonging_3r
+burnout =~ burnout_1 + burnout_2 + burnout_3
+peer_support =~ peer_support_1 + peer_support_2
+'
+
+fit <- cfa(model, data = brightmind_survey_reversed)
+fitmeasures(fit)
+```
+
+```{r brightmind-cfa-model-check}
+grade_this({
+  user_code <- paste(deparse(.user_code), collapse = " ")
+  has_model <- grepl("belonging\\s*=~", user_code) &&
+               grepl("burnout\\s*=~", user_code) &&
+               grepl("peer_support\\s*=~", user_code)
+  has_cfa <- grepl("cfa\\(", user_code)
+  has_fit <- grepl("fitmeasures", user_code)
+
+  if (!has_model) {
+    fail("Make sure to define all three latent variables in your model.")
+  } else if (!has_cfa) {
+    fail("Did you use the `cfa()` function from the `lavaan` package?")
+  } else if (!has_fit) {
+    fail("Make sure to run `fitmeasures()` to inspect model fit.")
+  } else {
+    pass("Great! You've defined and tested your CFA model.")
+  }
+})
+```
+
+### Step 6.2 | Conducting a CFA
+
+```{r brightmind-cfa-quiz, echo=FALSE}
+question("Based on the CFA fit indices (CFI, RMSEA, SRMR), what can we conclude?",
+  answer("The model shows poor fit and needs to be revised.", 
+         message = "Not quite — the indices actually suggest the model fits the data well."),
+  answer("The model fit is acceptable, but not strong enough for analysis.", 
+         message = "Have another look at the indicators — all three are within excellent ranges."),
+  answer("The model demonstrates excellent fit based on standard thresholds.", 
+         correct = TRUE),
+  answer("The CFA failed due to high multicollinearity between variables.", 
+         message = "There’s no indication of multicollinearity problems here."),
+  allow_retry = TRUE
+)
+```
+
+### Step 7 | Computation of latent variables
+
+Now compute the final **latent variables** using `mutate()` with `rowwise()`. Call the new variables `belonging`, `burnout` and `peer_support`.
+
+Remember to check the outcome of your computation using `glimpse()` at the end.
+
+```{r compute-latent-vars, exercise=TRUE, exercise.setup="brightmind-case-reversed-setup", exercise.lines=10}
+# Compute mean scores for latent variables
+```
+
+```{r compute-latent-vars-solution}
+brightmind_latent <- brightmind_survey_reversed |>
+  rowwise() |>
+  mutate(
+    belonging = mean(c(belonging_1, belonging_2, belonging_3r)),
+    burnout = mean(c(burnout_1, burnout_2, burnout_3)),
+    peer_support = mean(c(peer_support_1, peer_support_2))
+  )
+
+glimpse(brightmind_latent)
+```
+
+```{r compute-latent-vars-check}
+grade_this({
+  user <- try(get("brightmind_latent", envir = .envir_result), silent = TRUE)
+  if (inherits(user, "try-error")) {
+    fail("Make sure you created an object called `brightmind_latent`.")
+  } else if (!"belonging" %in% names(user)) {
+    fail("Did you compute the `belonging` latent variable?")
+  } else if (!"peer_support" %in% names(user)) {
+    fail("Make sure to include the `peer_support` latent variable (using only two items).")
+  } else if (!"burnout" %in% names(user)) {
+    fail("Check that you've added the `burnout` variable correctly.")
+  } else {
+    # Check if peer_support_3 exists and if it's been used
+    correct_peer <- user |>
+      rowwise() |>
+      mutate(peer_check = mean(c(peer_support_1, peer_support_2))) |>
+      pull(peer_check)
+
+    # Now we compare with the user's peer_support variable
+    user_peer <- try(user$peer_support, silent = TRUE)
+
+    if (inherits(user_peer, "try-error") || !is.numeric(user_peer)) {
+      fail("Something went wrong while trying to access your `peer_support` values. Did you calculate it correctly?")
+    }
+
+    if (!all.equal(correct_peer, user_peer, tolerance = 1e-6)) {
+      fail("It looks like you may have included `peer_support_3` in your `peer_support` calculation. Only items 1 and 2 should be used.")
+    }
+
+    pass("Excellent! You've created the latent variable scores.")
+  }
+})
+```
+
+### Step 8 | Analysis
+
+```{r brightmind-case-analysis-setup}
+# Load required packages
+
+set.seed(42)
+
+# Define departments
+departments <- c("Marketing", "Finance", "HR", "IT", "Sales")
+department <- sample(departments, size = 300, replace = TRUE)
+
+# Create conditional helper function
+generate_scores <- function(dept, high_range, low_range) {
+  if (dept == "HR") {
+    sample(low_range, size = 1)
+  } else {
+    sample(high_range, size = 1)
+  }
+}
+
+# Generate data row-wise
+brightmind_survey <- tibble::tibble(
+  department = department
+) |>
+  rowwise() |>
+  mutate(
+    # Sense of Belonging
+    belonging_1 = generate_scores(department, 4:6, 1:3),
+    belonging_2 = generate_scores(department, 4:6, 1:3),
+    belonging_3 = 7 - generate_scores(department, 4:6, 1:3),  # reverse-coded
+
+    # Burnout (higher values = more burnout)
+    burnout_1 = generate_scores(department, 4:6, 1:3),
+    burnout_2 = generate_scores(department, 4:6, 1:3),
+    burnout_3 = generate_scores(department, 4:6, 1:3),
+
+    # Peer Support (weaker correlation for item 3)
+    peer_support_1 = generate_scores(department, 4:6, 1:3),
+    peer_support_2 = generate_scores(department, 4:6, 1:3),
+    peer_support_3 = generate_scores(department, 1:3, 1:2)  # low correlation
+  ) |>
+  ungroup()
+
+# Clean data types
+brightmind_survey_clean_types <- 
+  brightmind_survey |>
+  mutate(department = as_factor(department))
+
+# Create reversed item
+brightmind_survey_reversed <- brightmind_survey_clean_types |>
+  mutate(belonging_3r = 7 - belonging_3)
+
+# Dataset with latent variables computed
+brightmind_latent <- brightmind_survey_reversed |>
+  rowwise() |>
+  mutate(
+    belonging = mean(c(belonging_1, belonging_2, belonging_3r)),
+    burnout = mean(c(burnout_1, burnout_2, burnout_3)),
+    peer_support = mean(c(peer_support_1, peer_support_2))
+  )
+```
+
+We are finally ready to analyse our data. Let’s wrap up by computing average scores by department. This is a more advanced technique, which we will cover in the next chapters. However, this case study would feel incomplete without knowing what we should report back to management.
+
+To complete this task, you will need to use a new function called `summarise()`. It works similarly to `mutate()`. Consider writing your code as you would with `mutate()`, but replace it with `summarise()`. Additionally, I recommend naming your new variables as follows:
+- `mean_belonging`,
+- `mean_burnout`, and
+- `mean_peer_review`.
+
+Don't forget, you can request hints to assist you in writing this code.
+
+```{r group-by-department, exercise=TRUE, exercise.setup="brightmind-case-analysis-setup"}
+# Average scores by department
+```
+
+```{r group-by-department-hint-1}
+# To calculate averages for each department, start by using `group_by(department)` before applying `summarise()`.
+```
+
+```{r group-by-department-hint-2}
+# Example:
+# my_data |>
+#   group_by(department) |>
+#   summarise(mean_variable = mean(variable, na.rm = TRUE))
+```
+
+```{r group-by-department-solution}
+brightmind_latent |>
+  group_by(department) |>
+  summarise(
+    mean_belonging = mean(belonging, na.rm = TRUE),
+    mean_burnout = mean(burnout, na.rm = TRUE),
+    mean_peer_support = mean(peer_support, na.rm = TRUE)
+  )
+```
+
+```{r group-by-department-check}
+grade_this({
+  code <- paste(deparse(.user_code), collapse = " ")
+
+  # Check 0: Did the user use mutate instead of summarise?
+  if (grepl("mutate\\(", code)) {
+    fail("It looks like you're using `mutate()` — but here we want to summarise each group. Try using `summarise()` instead.")
+  }
+  
+  # Check 1: grouping by department
+  if (!grepl("group_by\\(.*department.*\\)", code)) {
+    fail("It looks like you forgot to group the data by `department` using `group_by(department)`.")
+  }
+
+  # Check 2: summarising all three latent variables
+  if (!grepl("summarise\\(.*mean_belonging\\s*=.*mean\\(.*belonging.*\\)", code)) {
+    fail("Make sure you're calculating `mean_belonging` using the `belonging` variable.")
+  }
+
+  if (!grepl("mean_burnout\\s*=.*mean\\(.*burnout.*\\)", code)) {
+    fail("You're missing the `mean_burnout` calculation.")
+  }
+
+  if (!grepl("mean_peer_support\\s*=.*mean\\(.*peer_support.*\\)", code)) {
+    fail("You're missing the `mean_peer_support` calculation.")
+  }
+
+  # Final check passed
+  pass("ell done! You've grouped the data and calculated the average scores correctly.")
+})
+```

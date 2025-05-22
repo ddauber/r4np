@@ -11,67 +11,261 @@ description: "Exercises section of R4NP: A Guide for Social Scientists"
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
+
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Basic computations
+## Knowledge Check
 
-### Exercise 1
+###
 
-Change the code below to divide the result of `(2022-1982)` by `5`.
-
-```{r division, exercise=TRUE}
-(2022-1982)
-```
-
-```{r division-solution}
-(2022-1982)/5
-```
-
-### Exercise 2
-
-What is the result of $\sqrt[2]{25-16}+2*8-6$?
-
-```{r take-sqrt, exercise=TRUE}
-
-```
-
-```{r take-sqrt-hint-1}
-# You need a function to compute the square root
-```
-
-```{r take-sqrt-hint-2}
-sqrt(___)
-```
-
-```{r take-sqrt-solution}
-sqrt(25-16)+2*8-6
-```
-
-### Exercise 3
-
-What does the console return if you execute the following code `"Five" == 5`?
-
-```{r logicals, exercise=TRUE}
-
-```
-
-```{r logicals-quiz,}
-quiz(
-  question("What does the result imply?",
-           answer("'Five' and '5' are the same."),
-           answer("'Five' and '5' are not the same.", correct = TRUE),
-           answer("We performed a logical operation.", correct = TRUE),
-           allow_retry = TRUE
-           )
+```{r q1-order-of-operations, echo=FALSE}
+question("What does the following code return: `4 + 3 * 2`?",
+         answer("14", message = "Check the order of operations. Multiplication happens before addition."),
+         answer("10", correct = TRUE, message = "Correct! 3 * 2 = 6, then 4 + 6 = 10."),
+         answer("7", message = "That would be 4 + 3, then * 2 — but R uses standard math order."),
+         answer("6", message = "Nope — think carefully about multiplication vs addition."),
+         allow_retry = TRUE
 )
 ```
 
-## Assigning values to objects: `<-`
+###
 
-### Exercise 4
+```{r q2-operators, echo=FALSE}
+question("Which of the following are valid arithmetic operators in R?",
+         answer("`+`", correct = TRUE, message = "Correct! `+` is for addition."),
+         answer("`**`", message = "Not valid in base R."),
+         answer("`-`", correct = TRUE, message = "Correct! `-` is for subtraction."),
+         answer("`*`", correct = TRUE, message = "Correct! `*` is for multiplication."),
+         allow_retry = TRUE
+)
+```
 
-First, create a list called `books` and include the following book titles in it:
+###
+
+```{r q3-sqrt, echo=FALSE}
+question("What is the result of `sqrt(25 - 9)`?",
+         answer("4", correct = TRUE, message = "Correct! 25 - 9 = 16, and sqrt(16) = 4."),
+         answer("2", message = "Check your subtraction — 25 - 9 = 16, not 4."),
+         answer("16", message = "That’s the inside of the sqrt, not the final result."),
+         answer("Error", message = "No error here — R can handle square roots."),
+         allow_retry = TRUE
+)
+```
+
+###
+
+```{r q4-compare-string-number, echo=FALSE}
+question('What will `5 == 5` return in R?',
+         answer("Nothing", message = "R always provides an 'answer'. Have another go at it."),
+         answer("TRUE", correct = TRUE, message = "Correct! The `==` symbol stands for 'is equal to'."),
+         answer("Error", message = "No error — just a logical comparison."),
+         answer('"FALSE"', message = "Both values appear to be the same. So they are euqal. Try again"),
+         allow_retry = TRUE
+)
+```
+
+###
+
+```{r q5-logical-operators, echo=FALSE}
+question("Which of the following are logical operators in R?",
+         answer("==", correct = TRUE, message = "Correct! It checks equality."),
+         answer("!=", correct = TRUE, message = "Correct! It checks inequality."),
+         answer("&", correct = TRUE, message = "Correct! It's a logical AND."),
+         answer("=", message = "This is for assignment, not comparison."),
+         allow_retry = TRUE
+)
+
+```
+
+###
+
+```{r q6-object-creation, echo=FALSE}
+question("What happens when you run `my_number <- 42`?",
+         answer("You print the number 42", message = "It doesn't print unless you explicitly tell it do so."),
+         answer("You create an object", correct = TRUE, message = "Yes! `my_number` is now stored in your environment."),
+         answer("You assign 42 to `my_number`", correct = TRUE, message = "Correct — that’s exactly what the `<-` does."),
+         answer("It returns an error", message = "No error — this is valid R syntax."),
+         allow_retry = TRUE
+)
+```
+
+###
+
+```{r q7-assignment-symbols, echo=FALSE}
+question("Which symbol is used for assignment in R?",
+         answer("<-", correct = TRUE, message = "Correct! This is the standard assignment symbol in R."),
+         answer("=", correct = TRUE, message = "Technically valid — but `<-` is preferred for clarity."),
+         answer("->", correct = TRUE, message = "Correct — but it assigns in the opposite direction."),
+         answer("=>", message = "That’s from other languages like JavaScript."),
+         allow_retry = TRUE
+)
+```
+
+###
+
+```{r q8-character-vector, echo=FALSE}
+question('What does `c("a", "b", "c")` create?',
+         answer("A character vector", correct = TRUE, message = "Correct — it combines character elements into a vector."),
+         answer("A list", message = "Nope — use `list()` for that."),
+         answer("A data frame", message = "A data frame needs named columns and structure."),
+         answer("An object", message = "Without `<-` it would not become a new object."),
+         allow_retry = TRUE
+)
+```
+
+###
+
+```{r q9-assignment, echo=FALSE}
+question("What happens when you run the following code in RStudio: `x <- 4 + 5`?",
+         answer("The result `9` is printed in the console.", message = "Not unless you explicitly call `x`."),
+         answer("The result is saved in an object called `x`.", correct = TRUE, message = "Correct — `x` stores the result."),
+         answer("An object named `4` is created.", message = "No — object names must come before the assignment arrow."),
+         answer("An error is returned.", message = "This is valid syntax — no error."),
+         allow_retry = TRUE
+)
+```
+
+###
+
+```{r q10-naming_conventions, echo=FALSE}
+question("Which of the following is a valid object name in R?",
+         answer("2nd_name", message = "Object names cannot begin with a number."),
+         answer("first_name", correct = TRUE, message = "Correct — it starts with a letter and uses only valid characters."),
+         answer("full name", message = "Spaces are not allowed in object names."),
+         answer("_data", message = "Object names cannot start with an underscore."),
+         allow_retry = TRUE
+)
+```
+
+###
+
+```{r q11-loading-packages}
+question(
+  "What are three steps to use a function from a new R package you found on CRAN?",
+  answer("Install the R package using 'install.packages()'", correct = TRUE),
+  answer("Load the R package with 'library()'", correct = TRUE),
+  answer("Call the function of interest.", correct = TRUE),
+  answer("Use 'package_name::function_name()' to use functions directly after installation.", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+###
+
+```{r q12-search-packages}
+question(
+  "Where in RStudio can you install R packages?",
+  answer("In the console.", correct = TRUE),
+  answer("In the 'Environment' pane.", message = "Unfortuntaely not. You can only find objects in the 'Environment' pane."),
+  answer("In the 'Packages'.", correct = TRUE),
+  answer("In the 'Source' window, using an R script.", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+## Coding Practice
+
+### Basic Computations | 01
+
+Compute the result of 7 plus 5.
+
+```{r arithmetic-1, exercise=TRUE}
+
+```
+
+```{r arithmetic-1-hint-1}
+# Use the + operator to add the two numbers
+```
+
+```{r arithmetic-1-hint-2}
+# Example: 2 + 2
+```
+
+```{r arithmetic-1-solution}
+7 + 5
+```
+
+```{r arithmetic-1-check}
+grade_this_code()
+```
+
+### Basic Computations | 02
+
+Check if 3 is greater than 1.
+
+```{r logical-1, exercise=TRUE}
+
+```
+
+```{r logical-1-hint-1}
+# Use the > operator
+```
+
+```{r logical-1-hint-2}
+# Syntax: 3 > 1
+```
+
+```{r logical-1-solution}
+3 > 1
+```
+
+```{r logical-1-check}
+grade_this_code()
+```
+
+### Basic Computations | 03
+
+Subtract 8 from 20.
+
+```{r arithmetic-2, exercise=TRUE}
+
+```
+
+```{r arithmetic-2-hint-1}
+# Use the - operator
+```
+
+```{r arithmetic-2-hint-2}
+# Syntax: 20 - 8
+```
+
+```{r arithmetic-2-solution}
+20 - 8
+```
+
+```{r arithmetic-2-check}
+grade_this_code()
+```
+
+### Basic Computations | 04
+
+Assign the value 42 to an object called 'answer'.
+
+```{r object-1, exercise=TRUE}
+
+```
+
+```{r object-1-hint-1}
+# Use <- to assign a value
+```
+
+```{r object-1-hint-2}
+# Syntax: object_name <- value
+```
+
+```{r object-1-solution}
+answer <- 42
+```
+
+```{r object-1-check}
+grade_this_code()
+```
+
+### Basic Computations | 05
+
+Please, create a list called `books` and include the following book titles in it in this order:
 
 -   "Harry Potter and the Deathly Hallows",
 
@@ -81,10 +275,10 @@ First, create a list called `books` and include the following book titles in it:
 
 -   "R For Dummies".
 
-Secondly, inspect the object `books` to see the book titles inside of it.
+Then, inspect the object `books` to see the book titles inside of it.
 
 ```{r book-list, exercise=TRUE, exercise.lines=6}
-
+# Create a list of book titles
 ```
 
 ```{r book-list-hint-1}
@@ -98,22 +292,37 @@ books <- list(___)
 ```
 
 ```{r book-list-hint-3}
-# Remember that you have to use "" for each book title, e.g.
+# Remember to use "" for each book title
 books <- list("Harry Potter and the Deathly Hallows")
 ```
 
 ```{r book-list-solution}
-# The solution
 books <- list("Harry Potter and the Deathly Hallows",
               "The Alchemist",
               "The Davinci Code",
               "R For Dummies")
-
-# Inspect the list of `books`
 books
 ```
 
-### Exercise 5
+```{r book-list-check}
+grade_this({
+  correct <- list(
+    "Harry Potter and the Deathly Hallows",
+    "The Alchemist",
+    "The Davinci Code",
+    "R For Dummies"
+  )
+  user_val <- get("books", envir = .envir_result)
+
+  if (setequal(unlist(user_val), unlist(correct))) {
+    pass("Great! Your list contains all the correct book titles.")
+  }
+
+  fail("It looks like the `books` list is missing titles or has incorrect entries.")
+})
+```
+
+### Basic Computations | 06
 
 Create an object `todo` and concatenate (`c()`) the following three tasks:
 
@@ -124,7 +333,7 @@ Create an object `todo` and concatenate (`c()`) the following three tasks:
 -   Have coffee with Peter Parker
 
 ```{r todo, exercise=TRUE}
-
+# Create a todo list
 ```
 
 ```{r todo-hint-1}
@@ -138,15 +347,27 @@ todo <- c(___)
 ```
 
 ```{r todo-solution}
-# The solution
 todo <- c("Go shopping",
           "Prepare lunch",
           "Have coffee with Peter Parker")
 ```
 
-### Exercise 6
+```{r todo-check}
+grade_this({
+  correct <- c("Go shopping", "Prepare lunch", "Have coffee with Peter Parker")
+  user_val <- get("todo", envir = .envir_result)
 
-Can you find out which cookie is my favourite one in `file_daniel`?
+  if (setequal(user_val, correct)) {
+    pass("Excellent! You've listed all the right tasks.")
+  }
+
+  fail("Double-check your `todo` list — something's missing or incorrect.")
+})
+```
+
+### Basic Computations | 07
+
+Can you find out which cookie is my favourite one in `file_daniel`? Provide the code that returns my favourite cookie.
 
 ```{r nested-list-setup, include=FALSE}
 # Movies
@@ -166,108 +387,313 @@ cakes <- c("NY-style cheesecake",
 
 cookies <- c("White chocolate macademia cookie") 
 
-food <- list(savory,
-             cakes,
-             cookies)
-
+food <- list(savory, cakes, cookies)
 names(food) <- c("Savory-food", "Cakes", "Cookies")
 
-# Compile file
-file_daniel <- list(movies,
-             food)
-
+file_daniel <- list(movies, food)
 names(file_daniel) <- c("Movies", "Food")
 ```
 
 ```{r nested-list, exercise=TRUE, exercise.setup = "nested-list-setup"}
-
+# Find out which cookie is Daniel's favourite
 ```
 
 ```{r nested-list-hint-1}
-# Option 1: You use '$' after the object name to dig deeper into the list
+# Use $ after the object name to dig into the list
 ```
 
 ```{r nested-list-hint-2}
-# Option 1: You use '$' after the object name to dig deeper into the list
 file_daniel$Food$
 ```
 
 ```{r nested-list-hint-3}
-# Option 1: You use '$' after the object name to dig deeper into the list
 file_daniel$Food$Cookies
 ```
 
 ```{r nested-list-hint-4}
-# Option 2: You inspect the entire list in the console
 file_daniel
 ```
 
-## Functions
-
-### Exercise 7
-
-Use the following function and give it the following two values: `2` and `3`.
-
-```{r function, exercise=TRUE, exercise.lines = 8}
-x_x <- function(number1, number2){
-      result1 <- number1 * number2
-      result2 <- sqrt(number1)
-      result3 <- number1 - number2
-      return(c(result1, result2, result3))
-    }
+```{r nested-list-solution}
+file_daniel$Food$Cookies
 ```
 
-```{r function-hint-1}
-# To use the function you have to write and insert the values.
-x_x(___)
+```{r nested-list-check}
+grade_this_code()
 ```
 
-```{r function-hint-2}
-# You can insert the values as is, because they are numbers.
-x_x(2, 3)
+### Functions | 01
+
+```{r function-1, exercise=TRUE}
+# Find the length of the vector c(2, 4, 6, 8)
 ```
 
-```{r function-quiz}
-quiz(
-  question(
-    "What does the computation in the function do?",
-    answer("It adds up the numbers '2' and '3'.",
-           message = "Almost. The function subtracts first value from the second."),
-    answer("It takes the squareroot of the second number.",
-           message = "Not quite. It takes the squareroot of the first number."),
-    answer("It multiplies the first number with the second number", correct = TRUE),
-    allow_retry = TRUE
-  )
-)
+```{r function-1-hint-1}
+# Use the length() function
 ```
 
-## R packages
-
-### Exercise 8
-
-```{r loading-packages}
-quiz(
-  question(
-    "What are three steps to use a function from a new R package you found on CRAN?",
-    answer("Install the R package using 'install.packages()'", correct = TRUE),
-    answer("Load the R package with 'library()'", correct = TRUE),
-    answer("Call the function of interest.", correct = TRUE),
-    answer("Use 'package_name::function_name()' to use functions directly after installation.", correct = TRUE),
-    allow_retry = TRUE
-  )
-)
+```{r function-1-hint-2}
+# Syntax: length(vector)
 ```
 
-```{r search-packages}
-quiz(
-  question(
-    "Where in RStudio can you install R packages?",
-    answer("In the console.", correct = TRUE),
-    answer("In the 'Environment' pane.", message = "Unfortuntaely not. You can only find objects in the 'Environment' pane."),
-    answer("In the 'Packages'.", correct = TRUE),
-    answer("In the 'Source' window, using an R script.", correct = TRUE),
-    allow_retry = TRUE
-  )
-)
+```{r function-1-solution}
+length(c(2, 4, 6, 8))
+```
 
+```{r function-1-check}
+grade_this_code()
+```
+
+### Functions | 02
+
+```{r function-2, exercise=TRUE}
+# Use abs() to find the absolute value of -15
+```
+
+```{r function-2-hint-1}
+# Use abs() function
+```
+
+```{r function-2-hint-2}
+# Syntax: abs(number)
+```
+
+```{r function-2-solution}
+abs(-15)
+```
+
+```{r function-2-check}
+grade_this_code()
+```
+
+### Functions | 03
+
+Create a vector named `cookie_sales` that contains the following sales numbers and compute the average: 55, 76, 32, 49.
+
+```{r function-3, exercise=TRUE}
+
+```
+
+```{r function-3-hint-1}
+# Use c() function to combine all numbers into one vector.
+```
+
+```{r function-3-hint-2}
+# The 'average' is called 'mean' in R.
+```
+
+```{r function-3-solution}
+cookie_sales <- c(55, 76, 32, 49)
+
+mean(cookie_sales)
+```
+
+```{r function-3-check}
+grade_this_code()
+```
+
+### Coding Etiquette | 01
+
+Assign the number 4 to an object called `my_fav_number` and include the comment `My lucky number`.
+
+```{r etiquette-1, exercise=TRUE}
+
+```
+
+```{r etiquette-1-hint-1}
+# Use <- for assignment and # for comments
+```
+
+```{r etiquette-1-hint-2}
+# Example: my_var <- 5  # this is a comment
+```
+
+```{r etiquette-1-solution}
+my_favorite_number <- 4  # My lucky number
+```
+
+```{r etiquette-1-check}
+grade_this_code()
+```
+
+### Coding Etiquette | 02
+
+Create an object called `my_name` and assign your name to it (as a character string).
+
+```{r etiquette-2, exercise=TRUE}
+
+```
+
+```{r etiquette-2-hint-1}
+# Use quotation marks around your name
+```
+
+```{r etiquette-2-hint-2}
+# Example: my_name <- "Alice"
+```
+
+```{r etiquette-2-solution}
+my_name <- "Alice"
+```
+
+```{r etiquette-2-check}
+grade_this_code()
+```
+
+### Coding Etiquette | 03
+
+Make this code chunk more readable. Be aware, there are many different ways to do this. The solution provided is just one of many.
+
+```{r etiquette-3, exercise=TRUE}
+X=5+7#add apples
+MyDATA<-list("Apple",TRUE,  7.1);print(MyDATA)
+```
+
+```{r etiquette-3-hint-1}
+# Use clear naming and spacing
+```
+
+```{r etiquette-3-hint-2}
+# Example: number_of_apples <- 5 + 7
+```
+
+```{r etiquette-3-solution}
+# Add the number of apples collected
+apple_count <- 5 + 7
+
+# Create a list with fruit name, freshness, and weight
+my_data <- list("Apple", TRUE, 7.1)
+
+# Print the list to inspect its contents
+print(my_data)
+```
+
+
+## Case Study Challenge
+
+### Packing for a Weekend Trip | 01
+
+You are preparing for a weekend trip to Paris. Over the last weeks you prepared a packing list which you stored in an object called `packing_list`. 
+
+Your task is to create a new object called `already_packed` that includes the items you’ve already packed: `"shirt"`, `"toothbrush"`, and `"socks"`.
+
+```{r packing-setup, include=FALSE}
+packing_list <- c("shirt", "trousers", "toothbrush", "passport", "socks")
+```
+
+```{r already-packed, exercise=TRUE, exercise.setup="packing-setup"}
+
+```
+
+```{r already-packed-hint-1}
+# Use c() to create a character vector
+```
+
+```{r already-packed-hint-2}
+# Your list should contain three items: shirt, toothbrush, and socks
+```
+
+```{r already-packed-solution}
+already_packed <- c("shirt", "toothbrush", "socks")
+```
+
+```{r already-packed-check}
+grade_this_code()
+```
+
+### Packing for a Weekend Trip | 02
+
+Use the function `length()` to find out how many items are on the full `packing_list`.
+
+```{r packing-length, exercise=TRUE, exercise.setup="packing-setup"}
+
+```
+
+```{r packing-length-hint-1}
+# Use the length() function on packing_list
+```
+
+```{r packing-length-hint-2}
+# Syntax: length(object_name)
+```
+
+```{r packing-length-solution}
+length(packing_list)
+```
+
+```{r packing-length-check}
+grade_this_code()
+```
+
+### Packing for a Weekend Trip | 03
+
+Now use `length()` again to find out how many items you have already packed (using your `already_packed` object).
+
+```{r already-packed-length-setup, include=FALSE}
+already_packed <- c("shirt", "toothbrush", "socks")
+```
+
+```{r already-packed-length, exercise=TRUE, exercise.setup="already-packed-length-setup"}
+
+```
+
+```{r already-packed-length-hint-1}
+# Use the length() function on your object
+```
+
+```{r already-packed-length-hint-2}
+# Syntax: length(already_packed)
+```
+
+```{r already-packed-length-solution}
+length(already_packed)
+```
+
+```{r already-packed-length-check}
+grade_this_code()
+```
+
+### Packing for a Weekend Trip | 04
+
+Now inspect both `packing_list` and `already_packed` to figure out what item is missing. Create an object named `forgotten_item` and assign the missing item to it as a character string. Include the code for inspecting the `packing_list` and the `already_packed` object.
+
+```{r forgotten-item-setup, include=FALSE}
+packing_list <- c("shirt", "trousers", "toothbrush", "passport", "socks")
+already_packed <- c("shirt", "toothbrush", "socks")
+```
+
+```{r forgotten-item, exercise=TRUE, exercise.setup="forgotten-item-setup"}
+
+```
+
+```{r forgotten-item-hint-1}
+# Use quotation marks and assign the value using <-
+```
+
+```{r forgotten-item-hint-2}
+# Think: what’s in packing_list that’s not in already_packed?
+```
+
+```{r forgotten-item-solution}
+packing_list
+already_packed
+
+forgotten_item <- c("trousers", "passport")
+```
+
+```{r forgotten-item-check}
+grade_this({
+  if (!exists("forgotten_item", envir = .envir_result)) {
+    fail("It looks like you didn't assign an object called `forgotten_item`.")
+  }
+
+  correct <- c("trousers", "passport")
+  user_val <- get("forgotten_item", envir = .envir_result)
+
+  if (setequal(user_val, correct)) {
+    pass("Excellent! You correctly assigned the forgotten items to `forgotten_item`.")
+  }
+
+  fail("Almost. Make sure `forgotten_item` includes all the missing items.")
+})
 ```
