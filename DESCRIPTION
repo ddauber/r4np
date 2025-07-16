@@ -62,4 +62,6 @@ Suggests:
     tidyverse,
     wesanderson,
     wordcloud
+Remotes:
+    rstudio/gradethis
 Config/testthat/edition: 3
