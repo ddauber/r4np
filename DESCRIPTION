@@ -10,7 +10,7 @@ Description: The official companion to the book 'R For Non-Programmers: A Guide 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/ddauber/r4np
+URL: https://ddauber.github.io/r4np/
 BugReports: https://github.com/ddauber/r4np/issues
 Depends: 
     R (>= 4.2.0)

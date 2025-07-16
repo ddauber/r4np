@@ -5,14 +5,31 @@ reference:
 - contents:
   - create_project_folder
   - install_r4np
+  - ntest
+  - ntest_by
 - title: "Data sets"
 - contents:
+  - alcohol_2019
+  - alcohol
+  - comments
   - covid
-  - dir_mov
+  - eqls_2011
+  - eqls_country_2011
+  - eqls
   - gep
+  - halloween
+  - hie_15_21
+  - hie_2021
+  - hie
   - ic_training
-  - imdb_top_250
+  - pplnat
+  - quest_time
+  - reading_time
   - simpson
-  - wvs
+  - swm
   - wvs_nona
   - wvs_waves
+  - wvs
+
+template:
+  bootstrap: 5
