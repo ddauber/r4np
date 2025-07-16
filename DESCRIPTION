@@ -4,7 +4,7 @@ Title: R for Non-Programmers Companion
 Version: 1.0.0
 Authors@R: person("Daniel", "Dauber", email = "d.dauber@warwick.ac.uk",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0003-4324-4796"))
-Description: The official companion to the book 'R For Non-Programmers: A Guide for Social Scientists'.
+Description: The official companion to the book 'R For Non-Programmers (R4NP)'.
     It includes datasets, functions and lots of exercises that are helplful to follow along with
     the book, which can be found here: <http://link.danieldauber.com/r4np-book>.
 License: MIT + file LICENSE
