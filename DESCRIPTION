@@ -32,7 +32,7 @@ Suggests:
     ggdist,
     ggforce,
     ggmosaic,
-    gradethis
+    gradethis,
     ggraph,
     ggridges,
     janitor,
