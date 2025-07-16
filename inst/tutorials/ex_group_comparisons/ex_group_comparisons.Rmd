@@ -5,6 +5,8 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
+    toc: true
+    toc_depth: 3
 runtime: shiny_prerendered
 description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
