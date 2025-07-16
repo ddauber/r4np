@@ -6,15 +6,14 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/ddauber/r4np/workflows/R-CMD-check/badge.svg)](https://github.com/ddauber/r4np/actions)
-[![R4NP-Book](https://img.shields.io/badge/r4np-A%20guide%20for%20Social%20Scientists-lightgrey)](https://link.danieldauber.com/r4np-book)
+[![R4NP-Book](https://img.shields.io/badge/R4NP-lightgrey)](https://r4np.com)
 [![RStudio
 community](https://img.shields.io/badge/community-teaching-blue?style=social&logo=rstudio&logoColor=75AADB)](https://community.rstudio.com/c/teaching)
 
 <!-- badges: end -->
 
-The `r4np` package is the companion for the book [R For Non-Programmers:
-A Guide for Social
-Scientists](https://github.com/ddauber/R-for-Non-Programmers "R For Non-Programmers")
+The `r4np` package is the companion for the book [R For Non-Programmers
+(R4NP)](https://r4np.com "R For Non-Programmers")
 
 ## Installation
 
