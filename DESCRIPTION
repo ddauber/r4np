@@ -8,7 +8,7 @@ Description: The official companion to the book 'R For Non-Programmers (R4NP)'.
     It includes datasets, functions and lots of exercises for the book: <https://r4np.com>.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 URL: https://ddauber.github.io/r4np/
 BugReports: https://github.com/ddauber/r4np/issues
 Depends: 
