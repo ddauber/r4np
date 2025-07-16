@@ -1,39 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ddauber.github.io/r4np//index.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/covid.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/create_project_folder.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/dir_mov.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/gep.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/ic_training.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/imdb_top_250.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/install_r4np.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/simpson.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/wvs.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/wvs_nona.html</loc>
-  </url>
-  <url>
-    <loc>https://ddauber.github.io/r4np//reference/wvs_waves.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ddauber.github.io/r4np/404.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/LICENSE-text.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/LICENSE.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/authors.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/index.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/alcohol.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/alcohol_2019.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/comments.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/covid.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/create_project_folder.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/eqls.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/eqls_2011.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/eqls_country_2011.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/gep.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/halloween.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/hie.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/hie_15_21.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/hie_2021.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/ic_training.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/index.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/install_r4np.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/ntest.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/ntest_by.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/pplnat.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/quest_time.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/reading_time.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/simpson.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/swm.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/wvs.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/wvs_nona.html</loc></url>
+<url><loc>https://ddauber.github.io/r4np/reference/wvs_waves.html</loc></url>
 </urlset>
+
