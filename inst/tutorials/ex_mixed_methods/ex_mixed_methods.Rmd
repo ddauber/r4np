@@ -6,12 +6,537 @@ output:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
+library(wordcloud)
+library(tidytext)
+library(igraph)
+library(ggraph)
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## Knowledge Check
+
+### Knowledge Check | 1
+
+```{r mm-kc1, echo=FALSE}
+question("What is the main advantage of mixed methods research?",
+  answer("It uses only qualitative data for depth.",
+         message = "Mixed methods combines both qualitative and quantitative data for richer insights."),
+  answer("It allows for more robust and comprehensive understanding by combining qualitative and quantitative approaches.", correct = TRUE,
+         message = "Exactly! Mixed methods draws on the strengths of both approaches."),
+  answer("It always produces statistically significant results.",
+         message = "Mixed methods does not guarantee statistical significance."),
+  answer("It is only suitable for small sample sizes.",
+         message = "Mixed methods can be used with any sample size."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r mm-kc2, echo=FALSE}
+question("Which of the following is a typical feature of qualitative data?",
+  answer("Numbers representing survey scale responses.",
+         message = "These are examples of quantitative data."),
+  answer("p-values and regression coefficients.",
+         message = "These are results from quantitative analysis."),
+  answer("They are usually text-based.", correct = TRUE,
+         message = "That is right. Qualitative data often is text-based."),
+  answer("Open-ended survey comments and interview transcripts.", correct = TRUE,
+         message = "Open-ended survey comments and interview transcripts provide rich, text-based information."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r mm-kc3, echo=FALSE}
+question("Why is it important to remove stop words in text analysis?",
+  answer("They are always positive words.",
+         message = "Stop words are common words, not positive or negative."),
+  answer("Stop words increase the power of statistical tests.",
+         message = "They do not affect statistical power."),
+  answer("Stop words do not carry much meaning and can obscure key themes in text analysis.", correct = TRUE,
+         message = "You are right! Removing stop words helps focus on the most meaningful words."),
+  answer("They are specific to only one language.",
+         message = "Every language has its own stop words, but all common ones can obscure meaning."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study: Analysing Instagram Comments Engagement for a Single Photo Post
+
+### Introduction
+
+An international clothing brand hired you to help with analysing social media engagement. In particular, you are asked to analyse a set of Instagram comments from a single photo post to explore whether the post generated positive engagement. You will apply key steps in text analysis: cleaning the data, removing stop words, visualising word clouds, and exploring relationships between words using bigram networks.
+
+```{r cs-setup, include=FALSE}
+set.seed(1234)
+
+# Simulate example Instagram comments data for a single photo post
+comments <- tibble(
+  comment = c(
+    "Nice shot, looks good.",
+    "Colors are a bit dull.",
+    "Great composition but lighting could improve.",
+    "Interesting angle, well done.",
+    "I like the framing here.",
+    "Could be sharper.",
+    "Nice capture.",
+    "The background is a little busy.",
+    "Good effort on this one.",
+    "Photo quality is decent.",
+    "Love this photo, so inspiring!",
+    "Amazing shot, very engaging.",
+    "Great editing and smooth transitions.",
+    "This made my day, fantastic!",
+    "Awesome visuals and colors.",
+    "Really enjoyed looking at this.",
+    "So creative and fun!",
+    "Excellent storytelling here.",
+    "The energy is contagious!",
+    "Loved every second of this.",
+    "Such a cool photo!",
+    "Brilliant work, keep it up!",
+    "This is top quality content.",
+    "Very impressive and entertaining.",
+    "Can't wait to see more posts like this!",
+    "Lighting could be better but nice try.",
+    "Not my favorite, but decent.",
+    "Could use some improvement in focus.",
+    "Wow, the vibes here are just right.",
+    "Absolutely stunning capture!",
+    "Love how you played with the light.",
+    "Really love the color palette.",
+    "Didn’t expect this, what a surprise.",
+    "Brings back memories, so lovely.",
+    "Could use a bit more contrast.",
+    "This deserves way more likes.",
+    "So much emotion in one picture.",
+    "The caption fits perfectly.",
+    "Can’t stop looking at this photo.",
+    "Not your best, but still cool.",
+    "Very creative perspective!",
+    "Adore the textures and tones.",
+    "The edit is a little harsh.",
+    "Background feels distracting here.",
+    "You always capture the mood.",
+    "A little blurry but nice idea.",
+    "One of your best uploads yet.",
+    "Could have framed it differently.",
+    "Lighting is really flattering.",
+    "Colors really pop here!",
+    "Such a peaceful scene.",
+    "Too dark in some areas.",
+    "Made me smile instantly.",
+    "Frame feels a bit tight.",
+    "Dreamy vibes, love it!",
+    "Composition is on point.",
+    "Brilliant use of negative space.",
+    "Kind of overexposed, but I get the look.",
+    "More shots like this, please!",
+    "Your work keeps getting better.",
+    "Bit too busy for my taste.",
+    "Details are incredible!",
+    "Such strong storytelling.",
+    "You always inspire me.",
+    "So much talent in one post.",
+    "Warm tones make this feel cozy.",
+    "Blurry foreground is distracting.",
+    "Wish I could double-like this!",
+    "Impressive, but maybe a softer edit?",
+    "Just wow. No words needed.",
+    "Not a fan of the filter, but cool pic.",
+    "So much to love here.",
+    "Could do with a touch less saturation.",
+    "Totally nailed the mood."
+  )
+)
+```
+
+### Step 1a | Data Cleaning and Removing Stop Words
+
+As usual, we need to do some data preparation before we can get to the fun part of analysing it. First, we will convert the comments to lower case, tokenise the corpus, and remove common stop words (such as "the", "and", "was") which don't carry much meaning.
+
+Take the `comments` data set and perform all three steps in one go using your mixed-methods `tidytext` R package skills.
+
+```{r cs-step1, exercise=TRUE, exercise.setup="cs-setup"}
+# Tidy our dataset
+
+```
+
+```{r cs-step1-hint}
+# tolower() to convert text to lower case, unnest_tokens() to tokenise text into words, and anti_join() with stop_words to remove common stop words.
+```
+
+```{r cs-step1-solution}
+tidy_comments <- comments |>
+  mutate(comment = tolower(comment)) |>
+  unnest_tokens(word, comment) |>
+  anti_join(stop_words, by = "word")
+
+```
+
+
+```{r cs-step1-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("tolower|str_to_lower", code_text)) {
+    fail("Did you convert comments to lower case?")
+  }
+  if (!grepl("unnest_tokens", code_text)) {
+    fail("Did you use `unnest_tokens()` to tokenize the text?")
+  }
+  if (!grepl("anti_join", code_text) || !grepl("stop_words", code_text)) {
+    fail("Did you remove stop words with `anti_join()` and `stop_words`?")
+  }
+  pass("Great! You cleaned and tokenised the text, and removed stop words.")
+})
+```
+
+### Step 1b | Data Cleaning and Removing Stop Words
+
+```{r cs-step1b-data-cleaning-mcq, echo=FALSE}
+question("After removing stop words, which of these words is most likely to remain in the dataset?",
+  answer("the", message = "Not quite. Try again."),
+  answer("was", message = "This is a common stop word."),
+  answer("photo", correct = TRUE, message = "Exactly! 'photo' is not a common stop word."),
+  answer("and", message = "Unfortunately, this is a stop word we frequently find in a corpus."), 
+  allow_retry = TRUE
+)
+```
+
+### Step 2a | Create Word Cloud for the Photo Post Comments
+
+Now let's visualise the most common words in the comments using a word cloud. This helps us quickly spot the overall tone and key themes in the language. It is a quick way to capture sentiments and topics covered in the corpus. Use the `wordlcoud` package to create a nice data visualisation. Complete the code below.
+
+```{r cs-tidy-setup}
+set.seed(1234)
+
+# Simulate example Instagram comments data for a single photo post
+comments <- tibble(
+  comment = c(
+    "Nice shot, looks good.",
+    "Colors are a bit dull.",
+    "Great composition but lighting could improve.",
+    "Interesting angle, well done.",
+    "I like the framing here.",
+    "Could be sharper.",
+    "Nice capture.",
+    "The background is a little busy.",
+    "Good effort on this one.",
+    "Photo quality is decent.",
+    "Love this photo, so inspiring!",
+    "Amazing shot, very engaging.",
+    "Great editing and smooth transitions.",
+    "This made my day, fantastic!",
+    "Awesome visuals and colors.",
+    "Really enjoyed looking at this.",
+    "So creative and fun!",
+    "Excellent storytelling here.",
+    "The energy is contagious!",
+    "Loved every second of this.",
+    "Such a cool photo!",
+    "Brilliant work, keep it up!",
+    "This is top quality content.",
+    "Very impressive and entertaining.",
+    "Can't wait to see more posts like this!",
+    "Lighting could be better but nice try.",
+    "Not my favorite, but decent.",
+    "Could use some improvement in focus.",
+    "Wow, the vibes here are just right.",
+    "Absolutely stunning capture!",
+    "Love how you played with the light.",
+    "Really love the color palette.",
+    "Didn’t expect this, what a surprise.",
+    "Brings back memories, so lovely.",
+    "Could use a bit more contrast.",
+    "This deserves way more likes.",
+    "So much emotion in one picture.",
+    "The caption fits perfectly.",
+    "Can’t stop looking at this photo.",
+    "Not your best, but still cool.",
+    "Very creative perspective!",
+    "Adore the textures and tones.",
+    "The edit is a little harsh.",
+    "Background feels distracting here.",
+    "You always capture the mood.",
+    "A little blurry but nice idea.",
+    "One of your best uploads yet.",
+    "Could have framed it differently.",
+    "Lighting is really flattering.",
+    "Colors really pop here!",
+    "Such a peaceful scene.",
+    "Too dark in some areas.",
+    "Made me smile instantly.",
+    "Frame feels a bit tight.",
+    "Dreamy vibes, love it!",
+    "Composition is on point.",
+    "Brilliant use of negative space.",
+    "Kind of overexposed, but I get the look.",
+    "More shots like this, please!",
+    "Your work keeps getting better.",
+    "Bit too busy for my taste.",
+    "Details are incredible!",
+    "Such strong storytelling.",
+    "You always inspire me.",
+    "So much talent in one post.",
+    "Warm tones make this feel cozy.",
+    "Blurry foreground is distracting.",
+    "Wish I could double-like this!",
+    "Impressive, but maybe a softer edit?",
+    "Just wow. No words needed.",
+    "Not a fan of the filter, but cool pic.",
+    "So much to love here.",
+    "Could do with a touch less saturation.",
+    "Totally nailed the mood."
+  )
+)
+
+# Define tidy_comments for subsequent exercises
+tidy_comments <- comments |>
+  mutate(comment = tolower(comment)) |>
+  unnest_tokens(word, comment) |>
+  anti_join(stop_words, by = "word")
+```
+
+```{r cs-step2, exercise=TRUE, exercise.setup="cs-tidy-setup", fig.height=4, fig.width=6}
+# Calculate word frequencies
+word_counts <- tidy_comments |>
+
+
+# Word cloud for the photo post comments
+wordcloud(words = ,
+          freq = ,
+          random.order = FALSE,
+          min.freq = 1,
+          colors = brewer.pal(8, "Dark2"),
+          scale = c(2, 0.6))
+```
+
+```{r cs-step2-hint}
+# You need to link to the columns in the word_counts tibble when completing the `words` and `freq` part of the wordcloud() function.
+```
+
+```{r cs-step2-solution, fig.height=4, fig.width=6}
+word_counts <- tidy_comments |>
+  count(word, sort = TRUE)
+
+wordcloud(words = word_counts$word,
+          freq = word_counts$n,
+          random.order = FALSE,
+          min.freq = 1,
+          colors = brewer.pal(8, "Dark2"),
+          scale = c(2, 0.6))
+```
+
+```{r cs-step2-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("count", code_text)) {
+    fail("Did you count the frequency of each word?")
+  }
+  if (!grepl("wordcloud", code_text)) {
+    fail("Did you use `wordcloud()` to visualise word frequency?")
+  }
+  pass("Nice! Your word cloud highlights the most frequent words in the comments.")
+})
+```
+
+### Step 2b | Create Word Cloud for the Photo Post Comments
+
+```{r cs-step2b-create-wordcloud-mcq, echo=FALSE}
+question("What can a word cloud help you identify?",
+         answer("The exact number of times each word appears.", message = "Not quite. It does not tell us the exact frequencty with numbers."),
+         answer("Whether the post was shared or not.", message = "This is not related to the dataset. It likely was shared, otherwise we would not have retrieved comments for it."),
+         answer("The most frequent and prominent words in the comments.", correct = TRUE,
+                message = "Spot on! Word clouds visually highlight the most common words."),
+         answer("It covers positive, neutral, negative comments.", message = "It covers all comments of all sentiments, unless you filtered certain comments in advance."),
+         allow_retry = TRUE
+)
+```
+
+### Step 3a | Tokenise into Bigrams and Plot Bigram Network
+
+While a word cloud can provide some insights into certain themes, it is very limited. Bigrams, however, have a much better chance to reveal important themes that single words could. To explore relationships between words, let's break comments into bigrams (pairs of consecutive words), remove stop words from both words in each bigram, and visualise the most common bigrams as a network. Use the `comments` dataset. We should be able to achieve all steps in one go. Here is a breakdown of what we need to achieve (in this order):
+
+- Tidy `comments` dataset like we did before, i.e. turn into lower case, tokenise into bigrams (call the result `bigrams`)
+- Separate bigrams and remove stop words from both words using the `%in%` approach (call the result `bigrams_separated`)
+- Count the bigrams (call the results `bigram_counts`)
+- Plot the bigram network using the `igraph` package.
+
+If you need a little help you can always click on 'hint'. This is the longest code you will have written across all exercises. It is also the last one in this series. So let's make it count!
+
+```{r cs-step3, exercise=TRUE, exercise.setup="cs-setup"}
+# Tokenise into bigrams
+bigrams <- 
+
+  # Separate bigrams and remove stop words from both words
+bigrams_separated <- bigrams |>
+  
+# Count bigram frequencies
+bigram_counts <- bigrams_separated |>
+  
+# Create the special igraph object
+graph <- igraph::graph_from_data_frame()
+
+# Plot the network graph
+graph |>
+  ggraph(layout = "kk") +           # Choose a layout, e.g. "kk"
+  
+  # Add missing elements here
+  
+  geom_node_text(aes(label = name), # Add node labels
+                 vjust = -1,
+                 hjust = 0,
+                 size = 3)
+```
+
+```{r cs-step3-hint}
+# unnest_tokens() with token = "ngrams" and n = 2 to create bigrams.
+# Then use separate() to split bigrams into two words and filter out stop words.
+# Next, create a graph object using the graph_from_data_frame() function. This way we can create plots with the `igraph` package.
+# Finally, count() bigram frequencies and plot with ggraph().
+```
+
+```{r cs-step3-solution}
+# Tokenise into bigrams
+bigrams <- comments |>
+  mutate(comment = tolower(comment)) |>
+  unnest_tokens(bigram, comment, token = "ngrams", n = 2)
+
+# Separate bigrams and remove stop words from both words
+bigrams_separated <- bigrams |>
+  separate(bigram, c("word1", "word2"), sep = " ") |>
+  filter(!word1 %in% stop_words$word,
+         !word2 %in% stop_words$word)
+
+# Count bigram frequencies
+bigram_counts <- bigrams_separated |>
+  count(word1, word2, sort = TRUE)
+
+# Create the special igraph object
+graph <- igraph::graph_from_data_frame(bigram_counts)
+
+# Plot the network graph
+graph |>
+  ggraph(layout = "kk") +           # Choose a layout, e.g. "kk"
+  geom_edge_link() +                # Draw lines between nodes
+  geom_node_point() +               # Add node points
+  geom_node_text(aes(label = name), # Add note labels
+                 vjust = -1,
+                 hjust = 0,
+                 size = 3)
+```
+
+```{r cs-step3-check}
+grade_this({
+  # Get the code as submitted by the user (not deparsed)
+  code_text <- paste(.user_code, collapse = "\n")
+  
+  # Check for bigram tokenisation - look for unnest_tokens with ngrams and n=2
+  if (!grepl("unnest_tokens", code_text, ignore.case = TRUE)) {
+    fail("Did you use unnest_tokens() to create bigrams?")
+  }
+  
+  if (!grepl("token\\s*=\\s*[\"']ngrams[\"']", code_text, ignore.case = TRUE)) {
+    fail("Did you set token = 'ngrams' in unnest_tokens()?")
+  }
+  
+  if (!grepl("n\\s*=\\s*2", code_text, ignore.case = TRUE)) {
+    fail("Did you set n = 2 in unnest_tokens()?")
+  }
+  
+  # Check for separation into two words
+  if (!grepl("separate", code_text, ignore.case = TRUE)) {
+    fail("Did you use separate() to split the bigrams?")
+  }
+  
+  if (!grepl("word1", code_text) || !grepl("word2", code_text)) {
+    fail("Did you split the bigram into `word1` and `word2`?")
+  }
+  
+  # Check for stop word removal
+  if (!grepl("stop_words", code_text)) {
+    fail("Did you filter out stop words?")
+  }
+  
+  if (!grepl("!word1.*%in%.*stop_words", code_text) || !grepl("!word2.*%in%.*stop_words", code_text)) {
+    fail("Did you filter out stop words from BOTH word1 and word2?")
+  }
+  
+  # Check for count
+  if (!grepl("count\\s*\\(", code_text)) {
+    fail("Did you use count() to count bigram frequencies?")
+  }
+  
+  # Check for graph creation
+  if (!grepl("graph_from_data_frame", code_text)) {
+    fail("Did you use graph_from_data_frame() to create the network object?")
+  }
+  
+  # Check for ggraph
+  if (!grepl("ggraph", code_text)) {
+    fail("Did you use ggraph() for plotting?")
+  }
+  
+  if (!grepl("layout.*=.*[\"']kk[\"']", code_text)) {
+    fail("Did you set layout = 'kk' in ggraph()?")
+  }
+  
+  # Check for geoms
+  if (!grepl("geom_edge_link", code_text)) {
+    fail("Did you use geom_edge_link() to plot edges?")
+  }
+  
+  if (!grepl("geom_node_point", code_text)) {
+    fail("Did you add node points with geom_node_point()?")
+  }
+  
+  if (!grepl("geom_node_text", code_text)) {
+    fail("Did you add node labels with geom_node_text()?")
+  }
+  
+  pass("Fantastic! You built a network graph to visualise bigram relationships, including nodes, edges, and labels.")
+})
+```
+
+### Step 3b | Tokenise into Bigrams and Plot Bigram Network
+
+```{r cs-step3b-bigram-network-mcq, echo=FALSE}
+question("What does a bigram network visualise?",
+  answer("The order in which comments were collected.", message = "That is not quite right. Try again."),
+  answer("Relationships and co-occurrences between pairs of words in the text.", correct = TRUE,
+         message = "Exactly! Bigram networks show how words tend to appear together."),
+  answer("How many stop words are in the text.", message = "Unfortunately this is not right. We usually remove stop words before plotting word networks."),
+  answer("The average length of comments.", message = "This kind of plot does not show any length of individual comments, but combinations of words frequently used in the corpus."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3c | Tokenise into Bigrams and Plot Bigram Network
+
+```{r bigram-network-mcq, echo=FALSE}
+question("Based on the bigram network plot of Instagram comments, which of the following statements best describe the feedback on the post?",
+  answer("There are several clusters of positive words, such as 'amazing shot', 'love vibes', and 'awesome visuals'.", correct = TRUE,
+         message = "Spot on! These clusters show strong positive engagement."),
+  answer("Some negative feedback appears, such as 'dull bit' and 'background distracting'.", correct = TRUE,
+         message = "There is also some negative feedback, indicating some criticism, even if positive comments dominate."),
+  answer("Most bigram connections are unrelated to the post's quality.",
+         message = "No, many bigrams actually reflect feedback on quality and sentiment."),
+  answer("The network is dominated by negative sentiment.",
+         message = "Actually, positive feedback is much more frequent."),
+  answer("Certain technical aspects are mentioned, such as 'edit softer' and 'photo quality'.", correct = TRUE,
+         message = "There is some technical feedback present. Well spotted."),
+  allow_retry = TRUE
+)
+```
+
+### Congratulations, you completed all exercises for this last chapter! You did it.

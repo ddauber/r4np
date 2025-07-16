@@ -6,13 +6,979 @@ output:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
+library(rstatix)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## Knowledge Check
+
+### Knowledge Check | 1
+
+```{r groupcomp-kc1, echo=FALSE}
+question("What is the main goal of a group comparison in statistics?",
+  answer("To create new groups from the data.",
+         message = "Unfortunately, that’s clustering, not group comparison."),
+  answer("To remove missing values from a dataset.",
+         message = "That’s data cleaning, not group comparison."),
+  answer("To identify differences in a numeric outcome between two or more groups.", correct = TRUE,
+         message = "Exactly! Group comparison tests whether means or distributions differ between groups."),
+  answer("To check if a dataset is normally distributed.",
+         message = "Normality is one assumption, not the main goal."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r groupcomp-kc2, echo=FALSE}
+question("What is the difference between a t-test and an ANOVA?",
+  answer("A t-test compares two groups, ANOVA can compare three or more.", correct = TRUE,
+         message = "ANOVA generalizes the t-test to more groups. Well done."),
+  answer("ANOVA is onyl for comparing two groups.",
+         message = "ANOVA is for any number of groups (usually unpaired)."),
+  answer("A t-test is used for categorical outcomes.",
+         message = "No, t-tests require a numeric outcome."),
+  answer("There is no difference.",
+         message = "They are used for different situations."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r groupcomp-kc3, echo=FALSE}
+question("Which is NOT an assumption of the independent-samples t-test?",
+  answer("Normal distribution of the outcome in each group.",
+         message = "Normality is an assumption of the t-test."),
+  answer("Equal variance (homogeneity of variance) between groups.",
+         message = "Homogeneity of variance is an assumption."),
+  answer("The outcome variable is categorical.", correct = TRUE,
+         message = "T-tests require numeric outcomes, not categorical."),
+  answer("Independence of observations.",
+         message = "Independence is required."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r groupcomp-kc4, echo=FALSE}
+question("What does it mean if a difference between groups is 'statistically significant'?",
+  answer("It is always practically important.",
+         message = "Statistical and practical significance are not the same."),
+  answer("It is the largest possible difference.",
+         message = "Significant means unlikely by chance, not the biggest possible difference."),
+  answer("It means the data are normally distributed.",
+         message = "Significance doesn’t guarantee normality."),
+  answer("It is likely not due to random chance.", correct = TRUE,
+         message = "Yes! Statistically significant means unlikely to be due to chance."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 5
+
+```{r groupcomp-kc5, echo=FALSE}
+question("When should you use an ANOVA instead of a t-test?",
+  answer("When all groups are paired observations.",
+         message = "Paired t-tests are for two related groups."),
+  answer("When the outcome is categorical.",
+         message = "ANOVA requires a numeric outcome variable."),
+  answer("When you want to compare the means of three or more groups.", correct = TRUE,
+         message = " Spot on! ANOVA is for comparing multiple groups."),
+  answer("When you want to test for correlation.",
+         message = "ANOVA is not for correlation."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 6
+
+```{r groupcomp-kc6, echo=FALSE}
+question("Why are post-hoc tests performed after a significant ANOVA?",
+  answer("To identify which pairs of groups differ.", correct = TRUE,
+         message = "Exactly! ANOVA tells you if there is a difference, post-hoc shows where."),
+  answer("To increase the sample size.",
+         message = "Sample size is not changed by post-hoc tests."),
+  answer("To check for normality again.",
+         message = "Normality is checked before ANOVA."),
+  answer("To convert categorical data to numeric.",
+         message = "This is not related to post-hoc analysis."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 7
+
+```{r groupcomp-kc7, echo=FALSE}
+question("What do post-hoc tests correct for in multiple group comparisons?",
+  answer("Missing data in the outcome variable.",
+         message = "Post-hoc tests do not address missing data."),
+  answer("The increased risk of Type I error from making many comparisons.", correct = TRUE,
+         message = "Yes! Post-hoc tests adjust for multiple comparisons."),
+  answer("Differences in group sizes.",
+         message = "This is not the main role of post-hoc tests."),
+  answer("Low statistical power.",
+         message = "Post-hoc tests don’t increase power."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 8
+
+```{r groupcomp-kc8, echo=FALSE}
+question("How do factor variables (categorical) define groups in R?",
+  answer("They must be numeric only.",
+         message = "No, factor variables can have string labels."),
+  answer("They tell R which values belong to each group for comparison.", correct = TRUE,
+         message = "That is right! Factors set group membership for tests and plots."),
+  answer("They are not required for group comparison.",
+         message = "This is, unfortunately, not true. Factors make group comparisons possible in R."),
+  answer("They determine if a dataset is normal.",
+         message = "No, normality is about numeric variables."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 9
+
+```{r groupcomp-kc9, echo=FALSE}
+question("What problem can arise if a grouping variable is not coded as a factor in R?",
+  answer("Group comparisons may fail or produce incorrect results.", correct = TRUE,
+         message = "Exactly! Use factors for grouping in R."),
+  answer("It will always plot as a boxplot.",
+         message = "This is not right. Plots are separate matter from data type."),
+  answer("It makes data cleaning easier.",
+         message = "Not necessarily."),
+  answer("It increases sample size.",
+         message = "Data type doesn’t affect sample size."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 10
+
+```{r groupcomp-kc10, echo=FALSE}
+question("What is the difference between statistical and practical significance?",
+  answer("Statistical significance is always more important.",
+         message = "Not necessarily—real-world impact matters too."),
+  answer("Practical significance is a statistical term.",
+         message = "No, it’s about real-world relevance."),
+  answer("There is no difference.",
+         message = "There definitely is a difference."),
+  answer("Statistical significance means the difference is unlikely due to chance; practical significance means it matters in the real world.", correct = TRUE,
+         message = "Perfect! Both are important for interpretation."),
+  allow_retry = TRUE
+)
+```
+
+## Coding Practice
+
+### Coding Practice | 1a
+
+A major marketing firm recently ran a campaign using three different channels (`TV`, and `Print`) to boost brand awareness for a new product. They now want to know which channel was most effective. You have been given data from a recent survey of 120 participants. Each participant was randomly assigned to see an advert from just one channel and then rated their brand awareness.
+
+Your task is to explore whether brand awareness scores differ by marketing channel using the `campaign_data` dataset.
+
+In a first step, you should check whether the required variables have the correct data type.
+
+```{r cp1a-glimpse-setup, include=FALSE}
+set.seed(2025)
+campaign_data <- tibble::tibble(
+  channel = sample(c("TV", "Print"), 80, replace = TRUE, prob = c(0.5, 0.5)),
+  brand_awareness = round(
+    rnorm(80, mean = ifelse(channel == "TV", 75, 55), 
+          sd = ifelse(channel == "TV", 8, 7))
+  )
+)
+```
+
+```{r cp1a-glimpse, exercise=TRUE, exercise.setup="cp1a-glimpse-setup"}
+# Use the provided 'campaign_data' dataset
+# Glimpse the data and convert 'channel' to factor if needed
+
+```
+
+```{r cp1a-glimpse-hint}
+# Use glimpse() to check data structure
+# Use mutate() and as_factor() if 'channel' isn’t a factor
+
+```
+
+```{r cp1a-glimpse-solution}
+glimpse(campaign_data)
+campaign_data <- campaign_data |> mutate(channel = as_factor(channel))
+```
+
+```{r cp1a-glimpse-check}
+grade_this_code()
+```
+
+### Coding Practice | 1b
+
+```{r cp1b-glimpse-mcq, echo=FALSE}
+question("Why must the group variable ('channel') be a factor before analysis?",
+  answer("So that summary statistics are always higher.",
+         message = "No, it’s about group definitions."),
+  answer("So R knows which observations belong to each group.", correct = TRUE,
+         message = "Factors define group membership for comparison."),
+  answer("Because factors are easier to plot.",
+         message = "Plots are easier but the main reason is for group analysis."),
+  answer("To make the code run faster.",
+         message = "Not the main reason."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2a
+
+Now with the dataset fully set up, we can start inspecting visually how the different channels performed. Create boxplots which show the performance of each channel. Use `fill = channel` inside the `aes()` to make the different groups stand out even more.
+
+```{r cp-campaign-setup-02, include=FALSE}
+set.seed(2025)
+campaign_data <- tibble::tibble(
+  channel = as_factor(sample(c("TV", "Print"), 80, replace = TRUE, prob = c(0.5, 0.5))),
+  brand_awareness = round(
+    rnorm(80, mean = ifelse(channel == "TV", 75, 55), 
+          sd = ifelse(channel == "TV", 8, 7))
+  )
+)
+```
+
+```{r cp2a-boxplot, exercise=TRUE, exercise.setup="cp-campaign-setup-02"}
+# Create a boxplot showing brand awareness by marketing channel
+
+campaign_data |>
+  
+```
+
+```{r cp2a-boxplot-hint}
+# Use ggplot with aes(x = channel, y = brand_awareness) and geom_boxplot()
+```
+
+```{r cp2a-boxplot-solution}
+campaign_data |>
+  ggplot(aes(x = channel,
+             y = brand_awareness,
+             fill = channel)) +
+  geom_boxplot()
+```
+
+```{r cp2a-boxplot-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Check that aes maps x = channel, y = brand_awareness, and fill = channel
+  has_x_channel <- grepl("aes\\s*\\([^)]*x\\s*=\\s*channel", code_text)
+  has_y_ba <- grepl("aes\\s*\\([^)]*y\\s*=\\s*brand_awareness", code_text)
+  has_fill_channel <- grepl("aes\\s*\\([^)]*fill\\s*=\\s*channel", code_text)
+  
+  if (!(has_x_channel && has_y_ba && has_fill_channel)) {
+    fail("Did you map `x = channel`, `y = brand_awareness`, and `fill = channel` inside aes()? All three are required.")
+  }
+  
+  # Check for geom_boxplot
+  if (!grepl("geom_boxplot", code_text)) {
+    fail("Make sure to use `geom_boxplot()` to create a boxplot.")
+  }
+  
+  pass("Nice! Your boxplot clearly compares brand awareness by marketing channel, using colour to distinguish groups.")
+})
+```
+
+### Coding Practice | 2b
+
+```{r cp2b-boxplot-mcq, echo=FALSE}
+question("From the boxplot, which marketing channel appears to have the highest median brand awareness?",
+  answer("`TV`", correct = TRUE,
+         message = "`TV` has the highest median."),
+  answer("`Print` is the lowest.", correct = TRUE,
+         message = "`Print` has the lowest median."),
+  answer("`Print`",
+         message = "`Print` is not the highest in this data."),
+  answer("`TV` is the lowest.",
+         message = "That is right."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3a
+
+Based on the visual inspection of each group, we have an idea whether groups differ or not. However, we have no confirmation whether these differences are statisically significant and actually matter. Let's conduct a t-test using the `rstatix` package and `t_test()`.
+
+```{r cp3a-ttest, exercise=TRUE, exercise.setup="cp-campaign-setup-02"}
+# Compare TV vs. Print brand awareness using a t-test
+```
+
+```{r cp3a-ttest-hint}
+# Use campaign_data |> t_test
+```
+
+```{r cp3a-ttest-solution}
+campaign_data |> t_test(brand_awareness ~ channel)
+```
+
+```{r cp3a-ttest-check}
+grade_this_code()
+```
+
+### Coding Practice | 3b
+
+```{r cp3b-ttest-mcq, echo=FALSE}
+question("What does the p-value in the t-test output tell you?",
+  answer("It is greater than 0.05, there is no statistical effect.",
+         message = "That is right."),
+  answer("The larger the p-value, the more important the findings are.",
+         message = "Unfortunately, not quite right."),
+  answer("It is less than 0.05, the difference is statistically significant.", correct = TRUE,
+         message = "Very good!"),
+  answer("The effect size is large.",
+         message = "The p-value provides no insights into effect size."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3c
+
+Since the data tells us that there is a significant difference between both groups, we should compute the effect size to determine whether this difference matters.
+
+```{r cp3c-ttest-effect, exercise=TRUE, exercise.setup="cp-campaign-setup-02"}
+# Calculate Cohen's d for TV vs Print brand awareness
+```
+
+```{r cp3c-ttest-effect-hint}
+# Use cohens_d() from rstatix; pass brand_awareness ~ channel and the filtered tv_print data.
+```
+
+```{r cp3c-ttest-effect-solution}
+campaign_data |> cohens_d(brand_awareness ~ channel)
+```
+
+```{r cp3c-ttest-effect-check}
+grade_this_code()
+```
+
+### Coding Practice | 3d
+
+```{r cp3d-ttest-effect-mcq, echo=FALSE}
+question("What does a Cohen’s d of 2.47 indicate?",
+  answer("A large effect size, meaning the group difference is very noticeable and important.", correct = TRUE,
+         message = "Yes, 2.47 is typically considered a very large effect."),
+  answer("A small effect size, barely noticeable.",
+         message = "A value of 2.47 is larger than a small effect."),
+  answer("A medium difference between groups.",
+         message = "No, 2.47 is not considered medium"),
+  answer("No effect at all.",
+         message = "There is an effect, but which one?"),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 4a
+
+After running a t-test, you might wonder what to do if your data do **not** meet the assumptions of normality. In that case, we use non-parametric methods. For this exercise, suppose the distribution of brand awareness is highly skewed. Use the Wilcoxon rank-sum test (Mann-Whitney U test) from `rstatix` to compare `TV` and `Print` channels using the `campaign_data` dataset. If the result is significant, also compute the correct effect size.
+
+```{r cp4a-wilcox, exercise=TRUE, exercise.setup="cp-campaign-setup-02"}
+# Perform a Wilcoxon test for brand awareness by channel
+```
+
+```{r cp4a-wilcox-hint}
+# Use wilcox_test() from rstatix. The formula is brand_awareness ~ channel.
+```
+
+```{r cp4a-wilcox-solution}
+campaign_data |> wilcox_test(brand_awareness ~ channel)
+campaign_data |> wilcox_effsize(brand_awareness ~ channel)
+```
+
+```{r cp4a-wilcox-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("wilcox_test\\s*\\(", code_text)) {
+    fail("Did you use wilcox_test() from rstatix?")
+  }
+  if (!grepl("brand_awareness\\s*~\\s*channel", code_text)) {
+    fail("Did you use the correct formula: brand_awareness ~ channel?")
+  }
+  pass("Great job! You ran a non-parametric test when the assumptions for a t-test weren't met.")
+})
+```
+
+### Coding Practice | 4b
+
+```{r cp4b-wilcox-mcq-1, echo=FALSE}
+question("How can we interpret the outcome?",
+  answer("In this case, the result is almost the same as the one conducted with the t-test.", correct = TRUE,
+         message = "Indeed, the results are very similar as data is normally distributed. We should expect fairly similar results."),
+  answer("There is a large difference in outcomes to the t-test we conducted earlier.",
+         message = "No, it still requires a numeric outcome."),
+  answer("The result is significant.", correct = TRUE,
+         message = "p < 0.05 and therefore a significant result."),
+  answer("The effect size is large and therefore also practically significant.", correct = TRUE,
+         message = "Well done."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 4c
+
+```{r cp4b-wilcox-mcq-2, echo=FALSE}
+question("What is the main advantage of the Wilcoxon rank-sum test over a t-test?",
+  answer("It is always more powerful.",
+         message = "Power depends on the situation."),
+  answer("It is only for categorical outcomes.",
+         message = "No, it still requires a numeric outcome."),
+  answer("It checks for outliers automatically.",
+         message = "Outlier detection is a separate step."),
+  answer("It does not assume a normal distribution of the outcome.", correct = TRUE,
+         message = "Yes! The Wilcoxon test is non-parametric and does not require normality."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 5a
+
+Let’s work with the `wvs_nona` dataset and focus on `country` and `satisfaction`. Suppose we are interested in whether mean satisfaction with life differs across three countries: `Bolivia`, `Egypt`, and `Japan`.
+
+Test for group differences using a one-way ANOVA with `anova_test()` from the `rstatix` package.
+
+```{r cp5a-anova-setup, include=FALSE}
+wvs_3_countries <-
+  wvs_nona |> 
+  filter(country %in% c("Bolivia", "Egypt", "Japan")) |>
+  droplevels()
+```
+
+```{r cp5a-anova, exercise=TRUE, exercise.setup="cp5a-anova-setup"}
+# Perform a one-way ANOVA for consumption by region
+```
+
+```{r cp5a-anova-hint}
+# Use anova_test() from rstatix: anova_test(dv ~ group, data = ...)
+```
+
+```{r cp5a-anova-solution}
+wvs_3_countries |> anova_test(satisfaction ~ country)
+```
+
+```{r cp5a-anova-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Check use of anova_test()
+  if (!grepl("anova_test\\s*\\(", code_text)) {
+    fail("Did you use `anova_test()` from rstatix?")
+  }
+  
+  # Check for formula: satisfaction ~ country
+  if (!grepl("satisfaction\\s*~\\s*country", code_text)) {
+    fail("Did you use the correct formula: satisfaction ~ country?")
+  }
+  
+  pass("Well done! You used ANOVA to compare mean satisfaction between countries.")
+})
+```
+
+### Coding Practice | 5b
+
+```{r cp5b-anova-mcq, echo=FALSE}
+question("What does the outcome of our analysis imply?",
+  answer("All countries have the same mean.",
+         message = "Our test results do not show the means for each country. As such we cannot really tell from this output alone."),
+  answer("At least one country has satisfaction levels different from the others.", correct = TRUE,
+         message = "ANOVA tells us there is at least one significant difference."),
+  answer("The data are not normally distributed.",
+         message = "That’s not what ANOVA tells you."),
+  answer("No further tests are needed.",
+         message = "Actually, we need post-hoc tests to see where the significant differences are."),
+  allow_retry = TRUE
+)
+```
+
+---
+
+### Coding Practice | 6a
+
+Now let’s perform a Tukey post-hoc test using the same `wvs_3_countries` data. This helps identify which specific pairs of regions differ.
+
+```{r cp6a-tukey, exercise=TRUE, exercise.setup="cp5a-anova-setup"}
+# Perform Tukey’s HSD post-hoc test for region differences
+```
+
+```{r cp6a-tukey-hint}
+# Use tukey_hsd() from rstatix: tukey_hsd(dv ~ group, data = ...)
+```
+
+```{r cp6a-tukey-solution}
+wvs_3_countries |> tukey_hsd(satisfaction ~ country)
+```
+
+```{r cp6a-tukey-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Check use of tukey_hsd()
+  if (!grepl("tukey_hsd\\s*\\(", code_text)) {
+    fail("Did you use `tukey_hsd()` from rstatix?")
+  }
+  
+  # Check for formula: satisfaction ~ country
+  if (!grepl("satisfaction\\s*~\\s*country", code_text)) {
+    fail("Did you use the correct formula: satisfaction ~ country?")
+  }
+  
+  pass("Great! You performed a post-hoc test to see which countries differ in satisfaction.")
+})
+```
+
+### Coding Practice | 6b
+
+```{r cp6b-tukey-mcq-1, echo=FALSE}
+question("What is the main purpose of a post-hoc Tukey test after ANOVA?",
+  answer("To check for missing data.",
+         message = "No, Tukey's test doesn't address missing data."),
+  answer("To adjust the dataset for normality.",
+         message = "Tukey's HSD is not for normality."),
+  answer("To visualize group means.",
+         message = "Visualisation is separate from statistical testing."),
+  answer("To show which specific groups differ from each other.", correct = TRUE,
+         message = "Exactly! It pinpoints which pairs of groups differ."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 6c
+
+```{r cp6b-tukey-mcq-2, echo=FALSE}
+question("Based on the results of the Tukey's test, what can we conclude?",
+  answer("There are actually no significant differences.",
+         message = "Not quite. Try again."),
+  answer("There is only a difference between Japan and Egypt.",
+         message = "There is a significant difference between these two countries, but it is not the only one."),
+  answer("There is a difference across all three countries, but it is not statistically significant.",
+         message = "Almost right. Look at the p-values again."),
+  answer("There is a statistically significant difference between all three groups", correct = TRUE,
+         message = "Exactly! All pairs show a p-value smaller than 0.05. Thus, all differences matter statistically."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study | Comparing Student Satisfaction Across Levels
+
+A university wants to better understand student satisfaction at different stages of study. The university collected satisfaction scores (on a scale of 1–10) for students in three groups: Undergraduate (`UG`), Postgraduate Taught (`PGT`), and Postgraduate Research (`PGR`). The goal is to determine whether satisfaction differs by study level and, if so, which groups differ. We are also asked to provide a visualisation of the final outcome to the University Senior Management.
+
+```{r cs11-sat-setup, include=FALSE}
+set.seed(7)
+student_satisfaction <- tibble::tibble(
+  study_level = as_factor(
+    sample(
+      c("UG", "PGT", "PGR"),
+      size = 120 + 70 + 45,  # n = 235
+      replace = TRUE,
+      prob = c(0.51, 0.3, 0.19)
+    )
+  ),
+  satisfaction = round(
+    rnorm(235, 
+          mean = ifelse(study_level == "UG", 7.2, ifelse(study_level == "PGT", 6.4, 6.7)), 
+          sd = ifelse(study_level == "UG", 1.1, ifelse(study_level == "PGT", 1.3, 1.5))
+    ), 1)
+)
+```
+
+### Step 1 | Inspecting the Data
+
+In a first, we need to inspect the data and see whether the data requires any cleaning or modification before we can start our analysis. Inspect the dataset `student_satisfaction` using `glimpse()`.
+
+```{r cs1a-sat-glimpse, exercise=TRUE, exercise.setup="cs11-sat-setup"}
+# Glimpse the structure of the dataset
+```
+
+```{r cs1a-sat-glimpse-solution}
+glimpse(student_satisfaction)
+```
+
+```{r cs1a-sat-glimpse-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("glimpse\\s*\\(", code_text)) {
+    fail("Did you use `glimpse()` to inspect the dataset?")
+  }
+  pass("Good start! Always check your data structure first.")
+})
+```
+
+### Step 2a | Visualising Satisfaction by Group
+
+A good starting point for group comparisons is a visualisation. Let's quickly design a boxplot. We can make it look more presentable in a later step. For now, we only want to get a feel for the data. Plot `study_level` onto the x-axis.
+
+```{r cs1b-sat-boxplot, exercise=TRUE, exercise.setup="cs11-sat-setup"}
+# Create a boxplot of satisfaction by study level, with colour or fill
+```
+
+```{r cs1b-sat-boxplot-hint}
+# Use ggplot(), geom_boxplot() and the aes() function to create the plot. You can use `fill = study_level` to colour the different groups.
+```
+
+```{r cs1b-sat-boxplot-solution}
+student_satisfaction |>
+  ggplot(aes(x = study_level, y = satisfaction, fill = study_level)) +
+  geom_boxplot()
+```
+
+```{r cs1b-sat-boxplot-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("ggplot\\s*\\(", code_text)) {
+    fail("Did you use ggplot to visualise the data?")
+  }
+  if (!grepl("aes\\s*\\([^)]*x\\s*=\\s*study_level", code_text) ||
+      !grepl("aes\\s*\\([^)]*y\\s*=\\s*satisfaction", code_text) ||
+      !grepl("aes\\s*\\([^)]*fill\\s*=\\s*study_level", code_text)) {
+    fail("Did you map x to `study_level`, y to `satisfaction`, and fill to `study_level` in aes()? All three are needed.")
+  }
+  if (!grepl("geom_boxplot", code_text)) {
+    fail("Did you use geom_boxplot()?")
+  }
+  pass("Nice! A boxplot lets you easily compare satisfaction across study levels.")
+})
+```
+
+### Step 2b | Visualising Satisfaction by Group
+
+```{r cs2b-mcq, echo=FALSE}
+question("What do our boxplots show?",
+  answer("UG students seem to have the highest level of satisfaction with their studies.", correct = TRUE,
+         message = "Exactly."),
+  answer("PGT and PGR students have very similar satisfaction levels and their medians seem almost identical.", correct = TRUE,
+         message = "Good observation."),
+  answer("There are some outliers with some groups.", correct = TRUE,
+         message = "Well done."),
+  answer("None of the groups shows important insights.",
+         message = "Well, even if all groups were showing the same boxplots it would be an important insight. No? Try again."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3a | Pre-tests
+
+While the visualisation of groups is helpful, it is not as precise as a statistical test. Before we can conduct a proper group comparison computationally, we need to review our data and perform several pre-tests.
+
+```{r cs3a-mcq, echo=FALSE}
+question("What pre-tests do we have to consider for our data?",
+  answer("Normality tests", correct = TRUE,
+         message = "We need a normality test."),
+  answer("Sphericity Test",
+         message = "Sphericity tests are only required for multiple paired groups. Our groups are independent from each other, i.e. unpaired."),
+  answer("Homogeneity of Variance test", correct = TRUE,
+         message = "Also, the test for Homogeneity of Variance is necessary for this group comparison. Well done."),
+  answer("There are no pre-tests needed since our dataset is very large.",
+         message = "Well, even if our dataset is very large, it is good practice to run pre-tests. They can reveal anomalies in your data that need addressing."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3b | Checking normality
+
+```{r cs3a-sat-normality, exercise=TRUE, exercise.setup="cs11-sat-setup"}
+# Test for normality by group
+```
+
+```{r cs3a-sat-normality-hint-1}
+# Use ntest_by() to compute normality tests for each group separately in one go.
+```
+
+```{r cs3a-sat-normality-hint-2}
+# Consider this incomplete code as a template for your answer:
+
+ntest_by(cols = variable01,
+         group = variable02)
+```
+
+```{r cs3a-sat-normality-solution}
+student_satisfaction |>
+  ntest_by(cols = satisfaction,
+           group = study_level)
+```
+
+```{r cs3a-sat-normality-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  # Must use ntest_by
+  if (!grepl("ntest_by\\s*\\(", code_text)) {
+    fail("Did you use the `ntest_by()` function to check normality by group?")
+  }
+  # Must mention satisfaction
+  if (!grepl("satisfaction", code_text)) {
+    fail("Did you include the satisfaction variable as the column to test?")
+  }
+  # Must mention study_level
+  if (!grepl("study_level", code_text)) {
+    fail("Did you specify study_level to check normality by group?")
+  }
+  pass("Great! You checked for normality by group using `ntest_by()` with the correct variables.")
+})
+```
+
+### Step 3c | Checking Normality
+
+```{r cs1a-sat-normality-mcq, echo=FALSE}
+question("What do the results from our normality test suggest?",
+  answer("All groups have p > 0.05; normality is not violated.", correct = TRUE,
+         message = "Spot on! All three groups seem to have normally distributed."),
+  answer("At least one group has p < 0.05, so we can proceed assuming normality.",
+         message = "If p < 0.05, normality is violated. This is not the case here."),
+  answer("Normality is violated for all three groups as the p value is bigger than 0.05.",
+         message = "Normality requires a p-value bigger than 0.05 and not smaller than 0.05."),
+  answer("The result is inconclusive. We need to perform more tests and plot a histogram to see whether data is normally distributed.",
+         message = "While it helps to visualise normality, a statistical test alone would be enough."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3d | Checking Homogeneity of Variance
+
+With normality confirmed, we also have to check for Homogeneity of Variance before we can judge how we can proceed.
+
+```{r cs1b-sat-levene, exercise=TRUE, exercise.setup="cs11-sat-setup"}
+# Test for homogeneity of variance
+```
+
+```{r cs1b-sat-levene-hint}
+# Use the levene_test() from the rstatix package.
+```
+
+```{r cs1b-sat-levene-solution}
+student_satisfaction |> levene_test(satisfaction ~ study_level)
+```
+
+```{r cs1b-sat-levene-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("levene_test\\s*\\(", code_text)) {
+    fail("Did you use levene_test() from rstatix?")
+  }
+  if (!grepl("satisfaction\\s*~\\s*study_level", code_text)) {
+    fail("Did you use the correct formula: satisfaction ~ study_level?")
+  }
+  pass("Perfect! Levene's test assesses homogeneity of variance across groups.")
+})
+```
+
+### Step 3e | Checking Homogeneity of Variance
+
+```{r cs1b-sat-levene-mcq, echo=FALSE}
+question("How do you know if the assumption of homogeneity of variance is met?",
+  answer("The Levene's test p-value is less than 0.05.",
+         message = "If p < 0.05, variances are not equal (assumption violated)."),
+  answer("Means are equal across groups.",
+         message = "Means are not related to variance."),
+  answer("All variances are exactly the same number.",
+         message = "Small differences are allowed; the test checks for statistically significant differences."),
+  answer("The Levene's test p-value is greater than 0.05.", correct = TRUE,
+         message = "That’s right! A large p-value means variances are equal across groups."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4a | Conducting the group comparison
+
+```{r cs1c-sat-anova, exercise=TRUE, exercise.setup="cs11-sat-setup"}
+# Test for group differences with ANOVA
+```
+
+```{r cs1c-sat-anova-hint}
+#Try the anova_test() function from rstatix. It will do the trick. 
+```
+
+```{r cs1c-sat-anova-solution}
+student_satisfaction |> anova_test(satisfaction ~ study_level)
+```
+
+```{r cs1c-sat-anova-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("anova_test\\s*\\(", code_text)) {
+    fail("Did you use anova_test() from rstatix?")
+  }
+  if (!grepl("satisfaction\\s*~\\s*study_level", code_text)) {
+    fail("Did you use the correct formula: satisfaction ~ study_level?")
+  }
+  pass("Great! You ran ANOVA to test for satisfaction differences by study level.")
+})
+```
+
+### Step 4b | Conducting the group comparison
+
+```{r cs1c-sat-anova-mcq, echo=FALSE}
+question("What do the results of our group comparison imply?",
+  answer("The p-value is less than 0.05 for study level and therefore the differences across groups are statistically significant.", correct = TRUE,
+         message = "That’s right! A small p-value indicates a significant group difference."),
+  answer("The result shows that there are no significant differences as p < 0.05.",
+         message = "A p value below 0.05 would mean there is a statistically significant difference."),
+  answer("The effect size is small.", correct = TRUE,
+         message = "Our effect size of ges = 0.054, is considered a small effect size."),
+  answer("The effect size is large.",
+         message = "Unfortunately, that is not correct. Try again."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4c | Tukey Post-Hoc Test
+
+Our results have shown that the group differences are statistically significant but not practically significant, i.e. we obtained a small effect size. While we could stop our analysis right here as there is nothing gained from conducting post-hoc tests, it would make for a good exercise to condluce this case study with one.
+
+Perform Tukey's HSD for our group comparison.
+
+```{r cs1d-sat-tukey, exercise=TRUE, exercise.setup="cs11-sat-setup"}
+# Perform Tukey's HSD to find out which pairs differ
+```
+
+```{r cs1d-sat-tukey-hint}
+# We need to use the function tukey_hsd() from the rstatix package to perform pairwis comparisons.
+```
+
+```{r cs1d-sat-tukey-solution}
+student_satisfaction |> tukey_hsd(satisfaction ~ study_level)
+```
+
+```{r cs1d-sat-tukey-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("tukey_hsd\\s*\\(", code_text)) {
+    fail("Did you use tukey_hsd() from rstatix?")
+  }
+  if (!grepl("satisfaction\\s*~\\s*study_level", code_text)) {
+    fail("Did you use the correct formula: satisfaction ~ study_level?")
+  }
+  pass("Excellent! The post-hoc test tells you exactly which groups differ.")
+})
+```
+
+### Step 4d | Post-hoc results
+
+```{r cs1g-sat-outcome-mcq, echo=FALSE}
+question("Which statements about the post-hoc results are correct?",
+  answer("There are statistically significant differences between `UG` and `PGT` as well as `UG` and `PGR`.", correct = TRUE,
+         message = "Well spotted! The main differences were found for UG vs. PGT and UG vs. PGR."),
+  answer("There is no statistically significant difference between PGR and PGT.", correct = TRUE,
+         message = "No significant difference was found between PGR and PGT."),
+  answer("The effect size (eta squared) is small, suggesting practical differences are minor.",
+         message = "From our output we cannot quite tell how big the effect size is for each pairwise comparison."),
+  answer("All groups have exactly the same mean satisfaction.",
+         message = "The results show group means differ, so this is not correct."),
+  answer("Statistical significance always means the effect is practically important.",
+         message = "Not always. A small effect size can mean limited real-world importance."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5 | Visualise results for presentation
+
+In our final step it is time to visualise our results. There are many different ways we can do this, but it would be nice to use a violin plot and different colours.
+
+Please create a violin plot to show the satisfaction scores for each study level (UG, PGT, PGR), using different custom colours for the groups and an informative title. Complete the coding below. Make sure that `study_level` is plotted onto the x -axis.
+
+```{r cs1h-sat-violin, exercise=TRUE, exercise.setup="cs11-sat-setup"}
+# Create a violin plot with custom colours and a title
+
+student_satisfaction |>
+  ggplot(aes()) +
+  geom_violin() +
+  theme_minimal() +
+  labs(title = "",
+       x = "",
+       y = "",
+       fill = "Study Level") +
+  
+  # Add custom colours
+  scale_fill_manual(values = c("#1E3A40", "#A6763C", "#5E7355")) +
+  
+  # Customise plot area
+  theme(
+    panel.background = element_rect(fill = "#F2F2F2", color = NA),
+    plot.background = element_rect(fill = "#F2F2F2", color = NA),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r cs1h-sat-violin-hint}
+# Use ggplot() + geom_violin(), map x = study_level, y = satisfaction, fill = study_level
+# Add a proper title and axis labels
+```
+
+```{r cs1h-sat-violin-solution}
+student_satisfaction |>
+  ggplot(aes(x = study_level, y = satisfaction, fill = study_level)) +
+  geom_violin() +
+  scale_fill_manual(values = c("#1E3A40", "#A6763C", "#5E7355")) +
+  theme_minimal(base_size = 15) +
+  theme(
+    panel.background = element_rect(fill = "#F2F2F2", color = NA),
+    plot.background = element_rect(fill = "#F2F2F2", color = NA),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  labs(title = "Differences in satisfaction across UG, PGT and PGR students",
+       x = "Study Level",
+       y = "Satisfaction",
+       fill = "Study level")
+```
+
+```{r cs1h-sat-violin-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  # 1. Check that aes includes x = study_level, y = satisfaction, fill = study_level
+  aes_ok <- grepl("aes\\s*\\([^)]*x\\s*=\\s*study_level", code_text) &&
+            grepl("aes\\s*\\([^)]*y\\s*=\\s*satisfaction", code_text) &&
+            grepl("aes\\s*\\([^)]*fill\\s*=\\s*study_level", code_text)
+  if (!aes_ok) {
+    fail("Check that your `aes()` maps `x = study_level`, `y = satisfaction`, and `fill = study_level`.")
+  }
+
+  # 2. Check geom_violin is present
+  if (!grepl("geom_violin", code_text)) {
+    fail("Did you add the `geom_violin()` layer to draw the violin plot?")
+  }
+
+  # 3. Check for scale_fill_manual (custom colors)
+  if (!grepl("scale_fill_manual", code_text)) {
+    fail("Did you use `scale_fill_manual()` to add custom colours?")
+  }
+
+  # 4. Check for theme_minimal and plot/panel backgrounds
+  if (!grepl("theme_minimal", code_text)) {
+    fail("Did you use `theme_minimal()` for the background?")
+  }
+  if (!grepl("panel.background", code_text) || !grepl("plot.background", code_text)) {
+    fail("Did you set both panel and plot backgrounds to a custom colour?")
+  }
+
+  # 5. Check grids are removed
+  if (!grepl("panel.grid.major\\s*=\\s*element_blank", code_text) || 
+      !grepl("panel.grid.minor\\s*=\\s*element_blank", code_text)) {
+    fail("Did you remove both major and minor grid lines with `element_blank()`?")
+  }
+
+  # 6. Check for labs() and that x, y, and title are all set to something
+  labs_present <- grepl("labs\\s*\\(", code_text)
+  any_labels <- grepl("title\\s*=", code_text) && grepl("x\\s*=", code_text) && grepl("y\\s*=", code_text)
+  if (!(labs_present && any_labels)) {
+    fail("Did you set a plot title, and x- and y-axis labels using `labs()`?")
+  }
+
+  pass("Fantastic! Your violin plot is presentation-ready, using clear colours and background, and all labels are set.")
+})
+```
+
+### Congratulations, you completed all exercises for this chapter!

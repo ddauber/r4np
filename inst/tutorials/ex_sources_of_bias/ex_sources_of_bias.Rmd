@@ -6,12 +6,1366 @@ output:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## The Origins of Bias
+
+### Knowledge Check | 1
+
+```{r bias-origins-q1, echo=FALSE}
+question("Which of the following best describes 'bias' in the context of data analysis?",
+  answer("Random variation that averages out in large samples.",
+         message = "Random variation is not bias."),
+  answer("A technical term for missing data.",
+         message = "Bias is not the same as missing data."),
+  answer("A systematic error that skews results away from the true value.", correct = TRUE,
+         message = "Exactly! Bias is a systematic error."),
+  answer("The process of collecting data from only one source.",
+         message = "This can *cause* bias, but bias itself is broader."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r bias-origins-q2, echo=FALSE}
+question("Which of these is NOT a source of bias in data collection?",
+  answer("Asking leading questions in a survey.",
+         message = "This is a classic source of bias."),
+  answer("Recording only favourable outcomes.",
+         message = "This introduces bias by ignoring other results."),
+  answer("Using a random sampling method.", correct = TRUE,
+         message = "You are right! Random sampling is designed to reduce bias."),
+  answer("Selecting participants based on convenience.",
+         message = "Convenience sampling can be very biased."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r bias-origins-q3, echo=FALSE}
+question("Which of the following best illustrates *selection bias* in a research study?",
+  answer("Measuring variables accurately and precisely.",
+         message = "This helps reduce bias, not cause it."),
+  answer("Randomly assigning participants to groups.",
+         message = "Random assignment helps avoid selection bias."),
+  answer("Recruiting participants only from people who are easy to contact.", correct = TRUE,
+         message = "Spot on! This is a classic example of selection bias."),
+  answer("Using a large sample size regardless of sampling method.",
+         message = "Large samples can still be biased if not properly selected."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r bias-origins-q4, echo=FALSE}
+question("Which of the following best helps minimize bias when designing a study?",
+  answer("Changing methods based on early results.",
+         message = "This, unfortunately, may introduce bias."),
+  answer("Only including participants who agree with your hypothesis.",
+         message = "This would drastically increase bias!"),
+  answer("Using the largest possible sample, regardless of its composition.",
+         message = "Sample size alone doesn't guarantee lack of bias."),
+  answer("Carefully defining sampling and measurement methods in advance.", correct = TRUE,
+         message = "That is right! Planning ahead helps prevent bias."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 5
+
+```{r bias-origins-q5, echo=FALSE}
+question("Which is a practical example of bias in survey research?",
+  answer("Sending surveys only to people on your email list.", correct = TRUE,
+         message = "You are right! This can miss those not on your list."),
+  answer("Ensuring questions are clear and neutral.",
+         message = "This reduces bias."),
+  answer("Randomising the order of questions.",
+         message = "This reduces ordering bias."),
+  answer("Reporting findings that support your hypothesis in detail.",
+         message = "While it is good to report the results in appropriately detail for transparency, it would be wrong to only report findings that support your hypothesis."),
+  allow_retry = TRUE
+)
+```
+
+## Linearity
+
+### Knowledge Check | 1
+
+```{r linearity-q1, echo=FALSE}
+question("What does 'linearity' refer to in the context of statistical modelling?",
+  answer("All variables are categorical.",
+         message = "Linearity involves numeric variables."),
+  answer("The data contains no outliers.",
+         message = "Outliers can exist even if the relationship is linear."),
+  answer("The relationship between variables can be described as a straight line.", correct = TRUE,
+         message = "Exactly! Linearity means a straight-line relationship."),
+  answer("All variables have the same mean.",
+         message = "Means are not the same as linear relationships."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r linearity-q2, echo=FALSE}
+question("Which plot would best help you check for linearity between two variables?",
+  answer("A histogram",
+         message = "Histograms show distribution, not relationship."),
+  answer("A boxplot",
+         message = "Boxplots show spread for a variable, not linearity."),
+  answer("A pie chart",
+         message = "I am afraid, pie charts are not suitable for this."),
+  answer("A scatter plot", correct = TRUE,
+         message = "Scatter plots let you see the relationship."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r linearity-q3, echo=FALSE}
+question("If a scatter plot shows a curved pattern, what does this mean?",
+  answer("There is a strong linear relationship.",
+         message = "I am afraid, a curved pattern is not linear."),
+  answer("The variables are unrelated.",
+         message = "Curves indicate a non-linear relationship, not lack of association."),
+  answer("There are too many outliers to tell.",
+         message = "Outliers might obscure the pattern, but curves are the key."),
+  answer("The relationship is not linear.", correct = TRUE,
+         message = "Absolutely right! Curves indicate non-linearity."),
+  allow_retry = TRUE
+)
+```
+
+## Independence
+
+### Knowledge Check | 1
+
+```{r independence-q1, echo=FALSE}
+question("What does 'independence' mean in statistics?",
+  answer("The value of one observation does not influence another.", correct = TRUE,
+         message = "Exactly! Independence means observations do not affect each other."),
+  answer("All observations have the same value.",
+         message = "That's not independence."),
+  answer("Knowing the value of one observation tells you nothing about the value of another.", correct = TRUE,
+         message = "Yes, that is another way of defining independence."),
+  answer("All observations come from the same group.",
+         message = "Same group doesn't guarantee independence."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r independence-q2, echo=FALSE}
+question("Why is independence important when analysing data?",
+  answer("It helps visualise data better.",
+         message = "Visualisation is not the main reason."),
+  answer("Dependent observations can lead to misleading results.", correct = TRUE,
+         message = "Lack of independence can invalidate statistical conclusions."),
+  answer("It reduces the number of variables.",
+         message = "Number of variables and independence are not linked."),
+  answer("It ensures data are normal.",
+         message = "Normality and independence are separate concepts."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r independence-q3, echo=FALSE}
+question("Which of these designs would likely violate independence?",
+  answer("Randomly sampling people from a large population.",
+         message = "Random sampling promotes independence."),
+  answer("Using a between-groups design with random assignment.",
+         message = "Random assignment usually ensures independence."),
+  answer("Measuring the same people before and after an intervention without accounting for pairing.", correct = TRUE,
+         message = "These are not independent measurements and therefore we need to account for the fact that scores are paired, i.e. related to each other."),
+  answer("Using a control group and an experimental group.",
+         message = "This by itself does not violate independence."),
+  allow_retry = TRUE
+)
+```
+
+## Normality
+
+### Knowledge Check | 1
+
+```{r normality-q1, echo=FALSE}
+question("What does 'normality' mean in statistics?",
+  answer("All values are identical.",
+         message = "Normality involves spread, not identical values."),
+  answer("The data follow a bell-shaped, symmetric distribution.", correct = TRUE,
+         message = "Spot on! Normal distributions are bell-shaped."),
+  answer("There are no outliers.",
+         message = "A normal distribution may still have outliers."),
+  answer("The mean is always zero.",
+         message = "The mean of a normal distribution can be any value."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r normality-q1-plot, echo=FALSE}
+# Prepare the data
+x <- seq(-4, 4, length = 200)
+
+# Create y values for each group
+y_left <- dnorm(x, mean = -1, sd = 0.5)                                        # Left
+y_middle <- dnorm(x)                                                           # Middle (Normal)
+y_right <- 0.2 * dnorm(x, mean = 2, sd = 0.4) + 0.2 * dnorm(x, mean = 3, sd = 0.4) # Right (bimodal)
+
+plot_df <- data.frame(
+  x = rep(x, 3),
+  y = c(y_left, y_middle, y_right),
+  group = rep(c("Left", "Middle", "Right"), each = length(x))
+)
+
+ggplot(plot_df, aes(x = x, y = y, color = group)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = c("red", "black", "blue")) +
+  labs(x = "Value", y = "Density", title = "Which curve is normal?") +
+  theme_minimal() +
+  theme(legend.position = "top") +
+  guides(color = guide_legend(title = NULL))
+```
+
+```{r normality-q2, echo=FALSE}
+question("Which curve represents a normal distribution?",
+         answer("The curve in the middle.", correct = TRUE,
+                message = "Yes! The middle curve is symmetric and bell-shaped."),
+         answer("The leftmost curve.",
+                message = "The left curve is skewed."),
+         answer("The rightmost curve.",
+                message = "The right curve is bimodal."),
+         allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r normality-q3, echo=FALSE}
+question("Which of these best describes a bimodal distribution?",
+  answer("A perfectly symmetric distribution with one peak.",
+         message = "Well, that's a normal distribution."),
+  answer("A distribution where all values are identical.",
+         message = "Not quite. This special case would be called a degenerate distribution, not bimodal."),
+  answer("A flat distribution with no peaks.",
+         message = "I am afraid, flat distributions are called uniform."),
+  answer("A distribution with two distinct peaks.", correct = TRUE,
+         message = "Exactly! Bimodal implies two modes (peaks)."),
+  allow_retry = TRUE
+)
+```
+
+
+
+
+## Normality
+
+### Coding Practice | 1a
+
+You are a public health analyst interested in the distribution of life expectancies across UK regions. Use the `hie_2021` to investigate this.
+
+In particular, we want to know whether the pattern is close to normal, or whether there are surprising outliers? This would matter for fair comparisons and further analysis. Perform a Shapiro-Wilk test using the variable `life_expectancy`.
+
+```{r cp1-normality-shapiro, exercise=TRUE}
+shapiro.test()
+```
+
+```{r cp1-normality-shapiro-hint}
+# Use shapiro.test() on the life_expectancy column.
+```
+
+```{r cp1-normality-shapiro-solution}
+shapiro.test(hie_2021$life_expectancy)
+```
+
+```{r cp1-normality-shapiro-check}
+grade_this_code()
+```
+
+### Coding Practice | 1b
+```{r cp1-normality-shapiro-mcq, echo=FALSE}
+question("What does a p-value > 0.05 in the Shapiro-Wilk test suggest?",
+  answer("The data are likely normally distributed.", correct = TRUE,
+         message = "That is right. A p-value larger than 0.05 suggests evidence for normality."),
+  answer("The data are definitely not normal.",
+         message = "A larger p-value suggests the opposite."),
+  answer("The sample size is too small.",
+         message = "The sample size affects power, but that's not what the p-value means."),
+  answer("There are no outliers.",
+         message = "The test result is about normality, not outliers."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2a
+
+European researchers are examining perceived work-life balance in the `eqls_country_2011` dataset. Before further analysis, it’s crucial to know: Does the variable `wlbc` (work-life-balance) follow a normal distribution?
+
+Use the built-in function from the `r4np`, i.e. `ntest()`, to check normality.
+
+```{r cp2-normality-ntest, exercise=TRUE}
+
+eqls_country_2011 |> 
+```
+
+```{r cp2-normality-ntest-hint}
+# Try ntest() with the 'wlbc' column.
+```
+
+```{r cp2-normality-ntest-solution}
+eqls_country_2011 |> ntest(wlbc)
+```
+
+```{r cp2-normality-ntest-check}
+grade_this_code()
+```
+
+### Coding Practice | 2b
+```{r cp2-normality-ntest-mcq, echo=FALSE}
+question("If the ntest() result shows strong evidence against normality, what should you consider?",
+  answer("Use non-parametric tests.", correct = TRUE,
+         message = "Exactly! Non-normal data often require different analysis."),
+  answer("Ignore the result. All tests assume normality.",
+         message = "It's important to match your analysis to your data."),
+  answer("Delete unusual values.",
+         message = "That might help, but only if they're true outliers."),
+  answer("Increase the sample size.",
+         message = "Larger samples help, but the distribution shape is still key."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3a
+
+Environmental psychologists are investigating whether reported happiness (`wb_happy`) is normally distributed across UK regions before continuing with their data analysis using the `pplnat` dataset. Perform a normality test for each `region` in the `pplnat` dataset. Make use of th ehandy `ntest_by()` function from the `r4np` package.
+
+```{r cp3-normality-ntestby, exercise=TRUE}
+# Use ntest_by() to check normality of wb_happy by region.
+pplnat |> 
+```
+
+```{r cp3-normality-ntestby-hint}
+# Try ntest_by() with pplnat, wb_happy, and region as arguments.
+```
+
+```{r cp3-normality-ntestby-solution}
+pplnat |> ntest_by(wb_happy, region)
+```
+
+```{r cp3-normality-ntestby-check}
+grade_this_code()
+```
+
+### Coding Practice | 3b
+```{r cp3-normality-ntestby-mcq, echo=FALSE}
+question("Why might it be useful to check normality within each region, not just overall?",
+  answer("It's never useful; only overall normality matters.",
+         message = "Group-wise normality is often essential."),
+  answer("Normality is only about means.",
+         message = "Normality describes the distribution shape, not just means."),
+  answer("Because region is always a numeric variable.",
+         message = "Region is categorical, not numeric."),
+  answer("Different regions may have different patterns or anomalies.", correct = TRUE,
+         message = "Your are spot on. Patterns can differ across groups."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 4a
+
+You're consulting on an international health project and you investigate alcohol consumption using the `alcohol_2019` dataset. Before you begin your analysis you check for sources of bias. You first look at `consumption` across countries and check whether the data is approximately normal, or do some countries stand out? Instead of performa a statistical test, you decide to visualise your data with `ggplot()` using a `geom_histogram(bins = 30)`.
+
+```{r cp4-normality-hist, exercise=TRUE}
+# Plot a histogram of alcohol consumption using ggplot2
+alcohol_2019 |> 
+
+```
+
+```{r cp4-normality-hist-hint}
+# Use ggplot2 with geom_histogram() for the consumption variable.
+```
+
+```{r cp4-normality-hist-solution}
+alcohol_2019 |> 
+  ggplot(aes(x = consumption)) +
+  geom_histogram(bins = 30)
+```
+
+```{r cp4-normality-hist-check}
+grade_this_code()
+```
+
+### Coding Practice | 4b
+
+```{r cp4-normality-hist-mcq-1, echo=FALSE}
+question("What should you look for in the histogram to assess normality?",
+  answer("One peak with a heavy tail.",
+         message = "Heavy tails may suggest skewness or outliers."),
+  answer("Uniform spread across all values.",
+         message = "A uniform distribution is flat, not bell-shaped."),
+  answer("A symmetric, bell-shaped distribution.", correct = TRUE,
+         message = "Precisely! That's what a normal distribution looks like."),
+  answer("Exactly two peaks.",
+         message = "That would be a bimodal distribution."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 4c
+
+```{r cp4-normality-hist-mcq-2, echo=FALSE}
+question("How would you assess the normality of `consumption` based on the histogram we plotted?",
+  answer("The distribution is bi-modal",
+         message = "Unfortunately not. There are no two peaks."),
+  answer("Uniform spread across all values.",
+         message = "A uniform distribution is flat, not bell-shaped."),
+  answer("It is asymmetrical, leaning towards the left.", correct = TRUE,
+         message = "Precisely! The data is not normally distributed and there are more observations located at the lower end of the scale, i.e. the x-axis in our case."),
+  answer("Exactly two peaks.",
+         message = "That would be a bimodal distribution."),
+  allow_retry = TRUE
+)
+```
+
+## Homogeneity of Variance
+
+### Knowledge Check | 1
+
+```{r homogeneity-q1, echo=FALSE}
+question("What is 'homogeneity of variance'?",
+  answer("The variances are similar across groups we want to compare.", correct = TRUE,
+         message = "Very good! Homogeneity means the spreads are similar."),
+  answer("All groups have the same mean.",
+         message = "Means are not the same as variances."),
+  answer("There are no outliers.",
+         message = "Homogeneity of variance is about spread, not outliers."),
+  answer("The groups are normally distributed.",
+         message = "Normality is a different assumption."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r homogeneity-q2, echo=FALSE}
+question("Which of the following is a robust measure of spread, less influenced by outliers?",
+  answer("Standard deviation",
+         message = "Standard deviation can be influenced by outliers."),
+  answer("Mean",
+         message = "Mean is not a measure of spread."),
+  answer("Interquartile Range (IQR)", correct = TRUE,
+         message = "You are right! The IQR is robust to outliers."),
+  answer("Range",
+         message = "Unfortunately, the range is highly sensitive to outliers."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r homogeneity-q3-plot, echo=FALSE}
+set.seed(42)
+school_data <- tibble(
+  class = rep(c("Hazel", "Willow"), each = 100),
+  reading_min = c(rnorm(100, mean = 28000, sd = 4000), rnorm(100, mean = 32000, sd = 9000))
+)
+
+ggplot(school_data, aes(x = class, y = reading_min, group = class)) +
+  ggdist::stat_interval(aes(y = reading_min),
+                        .width = c(0.25, 0.5, 0.75, 1)) +
+  scale_color_manual(values = c("#4D87B3", "#A1D6FF", "#FFDAA1", "#B3915F"))
+```
+
+```{r homogeneity-q3, echo=FALSE}
+question("Examine the above plot which shows two primary school classes and the amount of reading kids did (in minutes). What does it suggest about the homogeneity of variance between these two classes?",
+  answer("The variances are different: one group's spread is much wider.", correct = TRUE,
+         message = "This is the right answer! The width of the intervals shows differing spread."),
+  answer("The variances are equal: both groups have similar spread.",
+         message = "Actually, one group has much more spread."),
+  answer("There are no differences between the groups.",
+         message = "That's not true; there are differences."),
+  answer("There are no data points in the Hazel group.",
+         message = "Check the plot again; both groups have data."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1a
+
+You are evaluating mental health data from the `hie_2021` dataframe. Calculate the standard deviation (SD) of `feelings_of_anxiety` across all UK regions. What does this tell us about the spread of anxiety scores?
+
+*Hint*:
+Use `?hie_2021` to find out more about this variable, especially the length of the measuring scale used. This is important to judge the results and understand what counts as a large standard deviation and what does not.
+
+```{r cp1-homogvar-sd, exercise=TRUE}
+# Calculate the standard deviation of feelings_of_anxiety across all regions
+
+```
+
+```{r cp1-homogvar-sd-hint}
+# Use the sd() function on the variable, with na.rm = TRUE to ignore missing data.
+```
+
+```{r cp1-homogvar-sd-solution}
+sd(hie_2021$feelings_of_anxiety, na.rm = TRUE)
+```
+
+```{r cp1-homogvar-sd-check}
+grade_this_code()
+```
+
+### Coding Practice | 1b
+
+```{r cp1-homogvar-sd-mcq, echo=FALSE}
+question("If the standard deviation is low, what does this mean?",
+  answer("All regions have almost identical anxiety scores.",
+         message = "That would mean SD is close to zero."),
+  answer("The data are definitely normal.",
+         message = "SD does not tell us about normality, only spread."),
+  answer("There are no missing values.",
+         message = "That's what na.rm = TRUE controls for, not SD itself."),
+  answer("There is only little variation in anxiety scores between regions.", correct = TRUE,
+         message = "Spot on! High SD means scores are spread out."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2a
+
+Researchers want to summarise how much wellbeing (`wb_satisfied`) varies across the regions in the `pplnat` dataset. Compute the interquartile range (IQR) and interpret what it tells us about differences in satisfaction with nature.
+
+Remember, `wb_satisfied` is measured on a scale from 1-10, i.e. 10 implies very satisfied. You can check the scales using `?pplant`.
+
+```{r cp2-homogvar-iqr, exercise=TRUE}
+# Compute the IQR for wb_satisfied
+
+```
+
+```{r cp2-homogvar-iqr-hint}
+# Use the IQR() function with na.rm = TRUE for missing values.
+```
+
+```{r cp2-homogvar-iqr-solution}
+IQR(pplnat$wb_satisfied, na.rm = TRUE)
+```
+
+```{r cp2-homogvar-iqr-check}
+grade_this_code()
+```
+
+### Coding Practice | 2b
+```{r cp2-homogvar-iqr-mcq, echo=FALSE}
+question("What does a small IQR, like the one we obtained, suggest about wellbeing scores across regions?",
+  answer("There are extreme outliers only.",
+         message = "IQR doesn't just reflect outliers."),
+  answer("Most regions have similar satisfaction with nature.", correct = TRUE,
+         message = "That is right! Low IQR means less variation between regions."),
+  answer("Wellbeing is not measured correctly.",
+         message = "A small IQR is about spread, not measurement error."),
+  answer("The mean is very high.",
+         message = "Mean and IQR measure different things."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3a
+
+A workplace psychologist is testing whether productivity varies more in remote work versus office-based work. Use the `work_setting_prod` dataset, which contains two variables, i.e. `productivity` and `work_setting` ("Remote" or "Office"). Run a Levene’s test to check if the variance is similar in both settings.
+
+```{r cp3-homogvar-levene-setup, include=FALSE}
+set.seed(4321)
+work_setting_prod <- tibble::tibble(
+  work_setting = rep(c("Remote", "Office"), each = 50),
+  productivity = c(rnorm(50, 7, 1.5), rnorm(50, 7, 0.7))
+)
+```
+
+```{r cp3-homogvar-levene, exercise=TRUE, exercise.setup="cp3-homogvar-levene-setup"}
+# Use car::leveneTest() to test equality of variances
+
+```
+
+```{r cp3-homogvar-levene-hint}
+# Use car::leveneTest(response ~ group, data = ...) or
+# Use car::leveneTest(data$variable ~ data$variable)
+# Both are valid ways to use the leveneTest() function.
+```
+
+```{r cp3-homogvar-levene-solution}
+car::leveneTest(work_setting_prod$productivity ~ work_setting_prod$work_setting)
+```
+
+```{r cp3-homogvar-levene-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Must use car::leveneTest or leveneTest
+  if (!grepl("leveneTest", code_text)) {
+    fail("Did you use `leveneTest()` for the Levene’s test?")
+  }
+  
+  # Check if formula contains productivity and work_setting
+  if (!grepl("productivity\\s*~\\s*work_setting", code_text) &&
+      !grepl("work_setting_prod\\$productivity\\s*~\\s*work_setting_prod\\$work_setting", code_text)) {
+    fail("Did you use the correct formula: `productivity ~ work_setting` (either directly or with `$` notation)?")
+  }
+  
+  # Accept either data = work_setting_prod or $ notation
+  uses_data_arg <- grepl("data\\s*=\\s*work_setting_prod", code_text)
+  uses_dollar <- grepl("work_setting_prod\\$productivity\\s*~\\s*work_setting_prod\\$work_setting", code_text)
+  
+  if (!uses_data_arg && !uses_dollar) {
+    fail("You need to specify the dataset. Use either `data = work_setting_prod` or the `$` notation.")
+  }
+  
+  pass("Great job! Both ways are valid: formula with `data = ...` or with `$` notation.")
+})
+```
+
+### Coding Practice | 3b
+
+```{r cp3-homogvar-levene-mcq, echo=FALSE}
+question("What does a significant p-value (e.g. < 0.05) in Levene's test indicate?",
+  answer("The means are the same in both groups.",
+         message = "Levene's test does not test means."),
+  answer("The groups have different sample sizes.",
+         message = "Sample size is not what is being tested here."),
+  answer("The variances are not similar in both groups.", correct = TRUE,
+         message = "Exactly! Significance means the variance is different between groups."),
+  answer("The variances are similar in both groups.",
+         message = "Unfortunately, it is the other way around."),
+  allow_retry = TRUE
+)
+```
+
+## Outliers
+
+### Knowledge Check | 1
+
+```{r outliers-detect-q1, echo=FALSE}
+question("Which of these is a commonly used method for detecting outliers?",
+  answer("Any value greater than the mean.",
+         message = "This would exclude half the data!"),
+  answer("Values lying more than 1.5×IQR above the upper quartile or below the lower quartile.", correct = TRUE,
+         message = "You got it! This is the standard IQR rule for outliers."),
+  answer("All values outside the 10th and 90th percentile.",
+         message = "This can detect extremes, but the 1.5×IQR rule is more standard."),
+  answer("Any value that is negative.",
+         message = "Negativity alone isn't a criterion for outliers."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r outliers-definition-q2, echo=FALSE}
+question("What is an 'outlier'?",
+  answer("A missing value in a dataset.",
+         message = "Missing values are not outliers."),
+  answer("The most common value in a dataset.",
+         message = "That's a mode, not an outlier."),
+  answer("A point at the median of a distribution.",
+         message = "The median is the centre, not an outlier."),
+  answer("A data point that differs significantly from other observations.", correct = TRUE,
+         message = "Exactly! Outliers are unusual or extreme values."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r outliers-remove-q3, echo=FALSE}
+question("Which code snippets would successfully remove outliers from a dataset called `data` where `income` > 100000 is considered an outlier?",
+  answer("data <- filter(income >= 100000",
+         message = "This is another valid way to filter out outliers."),
+  answer("data |> select(income <= 100000)",
+         message = "`select()` does not remove rows, only columns."),
+  answer("data |> filter(income <= 100000)", correct = TRUE,
+         message = "This is the right answer! This will keep only rows where income is 100,000 or less."),
+  answer("data$income <- ifelse(data$income > 100000, NA, data$income)",
+         message = "This replaces outliers with NA, but doesn't remove them."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r outliers-remove-when-q4, echo=FALSE}
+question("When is it appropriate to remove outliers from your data?",
+  answer("When you have a justifiable reason and have documented your decision.", correct = TRUE,
+         message = "Spot on! Always justify and document removal."),
+  answer("Whenever the mean is too high.",
+         message = "The mean being high alone isn't a reason."),
+  answer("Only when p < 0.05.",
+         message = "Not really. The significance level doesn't dictate outlier removal."),
+  answer("Never; outliers must always remain.",
+         message = "Sometimes outliers should be removed, if justified."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 5
+
+```{r outliers-strategy-q5, echo=FALSE}
+question("Which of the following is NOT a good strategy for dealing with outliers?",
+  answer("Investigating whether outliers are due to data entry errors.",
+         message = "Investigating errors is good practice."),
+  answer("Considering robust statistical methods.",
+         message = "Robust methods are a great approach."),
+  answer("Removing outliers without reporting it in your results.", correct = TRUE,
+         message = "You should always report any data cleaning."),
+  answer("Exploring how sensitive your results are to outlier removal.",
+         message = "Sensitivity analysis is very important."),
+  allow_retry = TRUE
+)
+```
+
+
+### Coding Practice | 1a
+
+You are analysing the `hie_2021` data on physical activity across regions. Use a boxplot to visualise the distribution and spot any potential outliers in `physical_activity`. Plot the variable onto the y-axis.
+
+```{r cp1-outliers-boxplot, exercise=TRUE}
+# Create a boxplot of physical_activity
+
+```
+
+```{r cp1-outliers-boxplot-hint}
+# Use ggplot2 and geom_boxplot() for the physical_activity variable.
+```
+
+```{r cp1-outliers-boxplot-solution}
+hie_2021 |> 
+  ggplot(aes(y = physical_activity)) +
+  geom_boxplot()
+```
+
+```{r cp1-outliers-boxplot-check}
+grade_this_code()
+```
+
+### Coding Practice | 1b
+```{r cp1-outliers-boxplot-mcq, echo=FALSE}
+question("What does a point outside the whiskers of a boxplot usually represent?",
+  answer("The median value.",
+         message = "The median is not shown as a point outside the whiskers. It is the bold line inside the box of the boxplot."),
+  answer("A potential outlier.", correct = TRUE,
+         message = "You are right! Points outside the whiskers are usually flagged as outliers."),
+  answer("A missing value.",
+         message = "I am afraid, missing values are not shown in boxplots."),
+  answer("An error in our dataset.",
+         message = "Errors would not display in boxplot. Most likely, you would not be able to plot a boxplot at all."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2a
+
+Suppose you are cleaning the `eqls_2011` data for further analysis and want to exclude outliers from `work_hrs` using the IQR rule. Outliers are values outside 1.5×IQR above the upper quartile or below the lower quartile. Filter out those cases and create a cleaned dataset called `eqls_2011_no_outliers`. Complete the code below.
+
+```{r cp2-outliers-iqr, exercise=TRUE}
+# Filter work_hrs using the IQR rule
+q1 <- 
+q3 <- 
+iqr <- IQR()
+
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+eqls_2011_no_outliers <-
+  eqls_2011 |>
+  filter()
+```
+
+```{r cp2-outliers-iqr-hint}
+# Calculate Q1, Q3, and IQR first, then filter to keep only values within the bounds.
+```
+
+```{r cp2-outliers-iqr-solution}
+q1 <- quantile(eqls_2011$work_hrs, 0.25, na.rm = TRUE)
+q3 <- quantile(eqls_2011$work_hrs, 0.75, na.rm = TRUE)
+iqr <- IQR(eqls_2011$work_hrs, na.rm = TRUE)
+
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+eqls_2011_no_outliers <- eqls_2011 |> 
+  filter(work_hrs >= lower, work_hrs <= upper)
+```
+
+```{r cp2-outliers-iqr-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  # Check for quantile at 0.25 (Q1) and 0.75 (Q3) with na.rm = TRUE
+  if (!grepl("quantile\\s*\\([^,]*work_hrs[^,]*,\\s*0\\.25[^)]*na\\.rm\\s*=\\s*TRUE", code_text)) {
+    fail("Did you calculate the 25th percentile (Q1) with `quantile()` and `na.rm = TRUE`?")
+  }
+  if (!grepl("quantile\\s*\\([^,]*work_hrs[^,]*,\\s*0\\.75[^)]*na\\.rm\\s*=\\s*TRUE", code_text)) {
+    fail("Did you calculate the 75th percentile (Q3) with `quantile()` and `na.rm = TRUE`?")
+  }
+  # Check for IQR usage (any capitalization)
+  if (!grepl("(?i)iqr\\s*\\([^,]*work_hrs[^)]*na\\.rm\\s*=\\s*TRUE", code_text, perl = TRUE)) {
+    fail("Did you compute the IQR of `work_hrs` with `na.rm = TRUE`?")
+  }
+  # Check for 1.5 * IQR (any capitalization)
+  if (!grepl("1\\.5\\s*\\*\\s*.*(?i)iqr", code_text, perl = TRUE)) {
+    fail("Did you use the 1.5*IQR rule to calculate bounds?")
+  }
+  # Filter step: require both lower and upper bounds used for work_hrs
+  filter_pattern <- "filter\\s*\\(([^)]*work_hrs\\s*>?=\\s*\\w+[^,]*,?[^)]*work_hrs\\s*<=\\s*\\w+)"
+  if (!grepl(filter_pattern, code_text)) {
+    fail("Did you filter to keep `work_hrs` between your lower and upper bounds?")
+  }
+
+  pass("Excellent! You calculated Q1, Q3, IQR, bounds, and filtered outliers correctly—even if your variable names or function capitalisation were different.")
+})
+```
+
+### Coding Practice | 2b
+```{r cp2-outliers-iqr-mcq, echo=FALSE}
+question("What effect does removing outliers with the IQR rule have on your data?",
+  answer("It reduces the influence of extreme values.", correct = TRUE,
+         message = "Yes, this makes results more robust to outliers."),
+  answer("It always makes the data normal.",
+         message = "Removing outliers doesn't guarantee normality."),
+  answer("It deletes all missing values.",
+         message = "Filtering removes outliers, not missing data (unless they're outliers)."),
+  answer("It reduces the sample size.", correct = TRUE,
+         message = "Removing outliers will, indeed, reduce the sample size."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3a
+
+A social scientist wants to see how the mean of a sample can change after removing outliers. You have a dataset called `commute_time` with a variable `minutes` representing the daily commute time of city workers. Calculate the mean before and after removing outliers (using the IQR rule). What do you notice?
+
+```{r cp3-outliers-commute-setup, include=FALSE}
+set.seed(123)
+commute_time <- tibble::tibble(
+  minutes = as.integer(c(rnorm(98, 35, 10), 180, 220, 310, 5, 20)) # two outliers
+)
+```
+
+```{r cp3-outliers-commute, exercise=TRUE, exercise.setup="cp3-outliers-commute-setup"}
+# Calculate the mean before and after removing outliers
+
+```
+
+```{r cp3-outliers-commute-hint-1}
+# Calculate the mean, then remove outliers with the IQR rule, then calculate mean again.
+```
+
+```{r cp3-outliers-commute-hint-2}
+# Here is one way you could approach this task. This code is still incomplete, though.
+
+mean_before <- mean()
+
+q1 <- quantile()
+q3 <- quantile()
+iqr <- IQR()
+
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+mean_after <-
+  commute_time |> 
+  filter() |> 
+  summarise(mean = )
+```
+
+```{r cp3-outliers-commute-solution}
+mean_before <- mean(commute_time$minutes)
+
+q1 <- quantile(commute_time$minutes, 0.25)
+q3 <- quantile(commute_time$minutes, 0.75)
+iqr <- IQR(commute_time$minutes)
+
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+mean_after <-
+  commute_time |> 
+  filter(minutes >= lower, minutes <= upper) |> 
+  summarise(mean = mean(minutes))
+
+mean_before
+mean_after
+```
+
+```{r cp3-outliers-commute-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  # Check: mean calculated before filtering
+  if (!grepl("mean\\s*\\([^,]*minutes[^)]*\\)", code_text)) {
+    fail("Did you calculate the mean of `minutes` before filtering outliers?")
+  }
+  # Check for Q1 and Q3
+  if (!grepl("quantile\\s*\\([^,]*minutes[^,]*,\\s*0\\.25", code_text)) {
+    fail("Did you calculate Q1 (25th percentile) for `minutes`?")
+  }
+  if (!grepl("quantile\\s*\\([^,]*minutes[^,]*,\\s*0\\.75", code_text)) {
+    fail("Did you calculate Q3 (75th percentile) for `minutes`?")
+  }
+  # IQR calculation (case-insensitive)
+  if (!grepl("(?i)iqr\\s*\\([^,]*minutes", code_text, perl = TRUE)) {
+    fail("Did you compute the IQR of `minutes`?")
+  }
+  # Bounds calculation
+  if (!grepl("1\\.5\\s*\\*\\s*.*(?i)iqr", code_text, perl = TRUE)) {
+    fail("Did you use the 1.5*IQR rule to compute bounds?")
+  }
+  # Filtering for outliers (minutes >= lower, minutes <= upper)
+  filter_pattern <- "filter\\s*\\(([^)]*minutes\\s*>?=\\s*\\w+[^,]*,?[^)]*minutes\\s*<=\\s*\\w+)"
+  if (!grepl(filter_pattern, code_text)) {
+    fail("Did you filter to keep `minutes` between your lower and upper bounds?")
+  }
+  # mean calculated after filtering
+  if (!grepl("summarise\\s*\\([^)]*mean\\s*=\\s*mean\\s*\\([^,]*minutes", code_text)) {
+    fail("Did you calculate the mean of `minutes` after removing outliers using `summarise()`?")
+  }
+
+  pass("Fantastic! You calculated the mean before and after outlier removal, and used the IQR method to filter correctly.")
+})
+```
+
+### Coding Practice | 3b
+
+```{r cp3-outliers-commute-mcq, echo=FALSE}
+question("What effect did removing the outliers have on the mean?",
+  answer("The mean is much lower now.", correct = TRUE,
+         message = "Exactly! The outliers caused our mean to be higher than it actually should be."),
+  answer("The mean is higher now.",
+         message = "It actually became lower."),
+  answer("It made the data set smaller.", correct = TRUE,
+         message = "Yes, removing outliers usually reduces the sample size."),
+  answer("There is no effect at all.",
+         message = "Usually there is a noticeable effect on the mean."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 4a
+
+Health researchers want to see if certain countries stand out in terms of alcohol consumption. Use a boxplot to visualise `consumption` in the `alcohol_2019` dataset and identify possible outliers. Plot `consumption` onto the y-axis.
+
+```{r cp4-outliers-alcohol, exercise=TRUE}
+
+```
+
+```{r cp4-outliers-alcohol-hint}
+# Use geom_boxplot() for the y = consumption variable.
+```
+
+```{r cp4-outliers-alcohol-solution}
+alcohol_2019 |> 
+  ggplot(aes(y = consumption)) +
+  geom_boxplot()
+```
+
+```{r cp4-outliers-alcohol-check}
+grade_this_code()
+```
+
+### Coding Practice | 4b
+
+```{r cp4-outliers-alcohol-mcq, echo=FALSE}
+question("What does our result show?",
+  answer("Some countries have a higher alcohol consumption than the typical country.", correct = TRUE,
+         message = "Yes, the whiskers indicate that some countries have much higher consumption that the majority of countries in the sample."),
+  answer("There are likely outliers, but they exceed the plotting area and therefore do not show up.",
+         message = "Unfortunately not. With our code, a `geom_boxplot()` would show if there are outliers or not."),
+  answer("There are no outliers in the data.", correct = TRUE,
+         message = "Points outside the whiskers are potential outliers."),
+  answer("All countries have the same level of consumption.",
+         message = "The plot would look very different if that were true."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study | Workplace Stress and Flexible Hours
+
+You are part of a team of social scientists who study how flexible working hours affect employee wellbeing. You surveyed employees at several companies, asking about their perceived workplace stress (on a scale from 1 to 10 where 10 implies high levels of workplace stress), whether they have flexible working hours (Yes/No), and their age group. The team suspects that some employees may have reported extreme stress values that could be outliers and wants to assess distributions, check for outliers, and prepare summary tables and a presentable poster for the senior faculty management team.
+
+```{r cs1-stress-flex-setup, include=FALSE}
+set.seed(888)
+stress_flex <- tibble::tibble(
+  stress = c(rnorm(95, 5.5, 1.8), 1, 10, 11), # two outliers
+  flexible = as_factor(sample(c("Yes", "No"), 98, replace = TRUE, prob = c(0.5, 0.5))),
+  age_group = as_factor(sample(c("18–29", "30–45", "46–60", "60+"), 98, replace = TRUE, prob = c(0.3, 0.4, 0.2, 0.1)))
+)
+```
+
+### Step 1a | Exploring the dataset
+
+Start by inspecting the structure of the new dataset `stress_flex`. What type of variables are included?
+
+```{r cs1-inspect, exercise=TRUE, exercise.setup="cs1-stress-flex-setup"}
+# Glimpse the structure
+```
+
+```{r cs1-inspect-hint}
+# Use glimpse(stress_flex) to view the dataset structure.
+```
+
+```{r cs1-inspect-solution}
+glimpse(stress_flex)
+```
+
+```{r cs1-inspect-check}
+grade_this_code()
+```
+
+### Step 1b | Exploring the dataset
+
+```{r cs1-inspect-mcq, echo=FALSE}
+question("Which of these statements is true about the `stress_flex` dataset?",
+  answer("All variables are numeric.",
+         message = "Check again—some are categorical (factors)."),
+  answer("There are missing values in every column.",
+         message = "There are no missing values in this dataset."),
+  answer("The dataset includes only employees aged 60+.",
+         message = "There are four different age groups represented."),
+ answer("`stress` is a numeric variable, `flexible` and `age_group` are factors.", correct = TRUE,
+         message = "You are right! This structure lets us compare groups and do numeric analysis."),
+  allow_retry = TRUE
+)
+```
+
+### Step 2a | Visualising stress scores
+
+Let's visualise the distribution of reported workplace stress. Create a boxplot of the `stress` variable. Plot the variable onto the y-axis.
+
+```{r cs1-boxplot, exercise=TRUE, exercise.setup="cs1-stress-flex-setup"}
+# Create a boxplot for stress
+```
+
+```{r cs1-boxplot-hint}
+# Use ggplot2 and geom_boxplot().
+```
+
+```{r cs1-boxplot-solution}
+stress_flex |> 
+  ggplot(aes(y = stress)) +
+  geom_boxplot()
+```
+
+```{r cs1-boxplot-check}
+grade_this_code()
+```
+
+### Step 2b | Visualising stress scores
+
+```{r cs1-boxplot-mcq, echo=FALSE}
+question("What can we infer from the boxplot?",
+  answer("There are outliers which show very high scores for certain employees.", correct = TRUE,
+         message = "That is right! These are outliers worth investigating."),
+  answer("There are outliers which show very low scores for certain employees.",
+         message = "I am afraid, that is not correct."),
+  answer("The boxplot is showing a normal distribution",
+         message = "While the boxplot looks fairly symmetrical, it does not reliably indicate normality of our dataset."),
+  answer("There are no extreme values present.",
+         message = "Unfortunately, there are outliers in this dataset."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3a | Removing outliers from stress scores
+
+Use the IQR rule to identify and remove outliers in the `stress` variable. Create a cleaned dataset called `stress_flex_clean`. Lastly, create another boxplot and see whether this time all outliers were successfully removed. Plot the variable onto the y-axis. Complete the code below.
+
+```{r cs1-remove-outliers, exercise=TRUE, exercise.setup="cs1-stress-flex-setup"}
+# Remove outliers using the IQR rule
+q1 <- quantile()
+q3 <- quantile()
+iqr <- IQR()
+
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+stress_flex_clean <- stress_flex |> 
+  filter()
+
+stress_flex_clean |>
+  ggplot(aes()) +
+  geom_boxplot()
+```
+
+```{r cs1-remove-outliers-hint}
+# Calculate Q1, Q3, and IQR for stress, then filter for values within 1.5xIQR of Q1 and Q3.
+```
+
+```{r cs1-remove-outliers-solution}
+q1 <- quantile(stress_flex$stress, 0.25)
+q3 <- quantile(stress_flex$stress, 0.75)
+iqr <- IQR(stress_flex$stress)
+
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+stress_flex_clean <- stress_flex |> 
+  filter(stress >= lower, stress <= upper)
+
+stress_flex_clean |>
+  ggplot(aes(y = stress)) +
+  geom_boxplot()
+```
+
+```{r cs1-remove-outliers-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  # Check for Q1 and Q3 using quantile() for 'stress'
+  if (!grepl("quantile\\s*\\([^,]*stress[^,]*,\\s*0\\.25", code_text)) {
+    fail("Did you calculate Q1 (25th percentile) for `stress`?")
+  }
+  if (!grepl("quantile\\s*\\([^,]*stress[^,]*,\\s*0\\.75", code_text)) {
+    fail("Did you calculate Q3 (75th percentile) for `stress`?")
+  }
+  # IQR calculation (any capitalization)
+  if (!grepl("(?i)iqr\\s*\\([^,]*stress", code_text, perl = TRUE)) {
+    fail("Did you compute the IQR of `stress`?")
+  }
+  # Bounds calculation: must use 1.5 * IQR
+  if (!grepl("1\\.5\\s*\\*\\s*.*(?i)iqr", code_text, perl = TRUE)) {
+    fail("Did you use the 1.5*IQR rule to calculate bounds?")
+  }
+  # Filtering: keep stress between lower and upper
+  filter_pattern <- "filter\\s*\\(([^)]*stress\\s*>?=\\s*\\w+[^,]*,?[^)]*stress\\s*<=\\s*\\w+)"
+  if (!grepl(filter_pattern, code_text)) {
+    fail("Did you filter to keep `stress` between your lower and upper bounds?")
+  }
+  # Plot: must use ggplot and geom_boxplot on stress
+  if (!grepl("ggplot", code_text) || !grepl("geom_boxplot", code_text)) {
+    fail("Did you use ggplot and geom_boxplot to visualize the cleaned data?")
+  }
+  if (!grepl("aes\\s*\\([^)]*stress", code_text)) {
+    fail("Did you map `stress` to an axis in your plot?")
+  }
+
+  pass("Great job! You used the IQR rule to remove outliers and visualized the cleaned `stress` data with a boxplot.")
+})
+```
+
+### Step 3b | Removing outliers from stress scores
+
+```{r cs1-remove-outliers-mcq, echo=FALSE}
+question("Why is it useful to remove outliers before further analysis?",
+  answer("Outliers can strongly influence means and group comparisons.", correct = TRUE,
+         message = "Removing outliers gives a more representative picture."),
+  answer("It always increases the sample size.",
+         message = "Actually, removing outliers usually reduces the sample size."),
+  answer("It makes the data normal.",
+         message = "Removing outliers does not guarantee normality."),
+  answer("It changes factor levels automatically.",
+         message = "Factor levels are not changed by removing rows."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4a | Checking normality of stress scores
+
+Now let's check whether the `stress` variable is approximately normally distributed, using a histogram with `bins = 15`. Use the uncleaned `stress_flex` dataset. What does the shape suggest?
+
+Plot `stress` onto the x-axis.
+
+```{r cs1-histogram, exercise=TRUE, exercise.setup="cs1-stress-flex-setup"}
+# Plot a histogram of stress
+```
+
+```{r cs1-histogram-hint}
+# Use ggplot2 and geom_histogram().
+```
+
+```{r cs1-histogram-solution}
+stress_flex |> 
+  ggplot(aes(x = stress)) +
+  geom_histogram(bins = 15)
+```
+
+```{r cs1-histogram-check}
+grade_this_code()
+```
+
+### Step 4b | Checking normality of stress scores
+
+```{r cs1-histogram-mcq, echo=FALSE}
+question("What does the plot tell us?",
+  answer("After removing outliers, the data may be approximately normal.", correct = TRUE,
+         message = "Yes, a bell shape like in this plot suggests normality."),
+  answer("The histogram shows a bi-modal distribution.",
+         message = "No, this is unfortunately not correct."),
+  answer("The median lies somewhere around the value `9`.",
+         message = "It seems the median is more likely around between `5` and `6`."),
+  answer("There are no extreme values at all.",
+         message = "Not quite. There are outliers present."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5a | Summarising mean stress by flexible working status
+
+Calculate the mean stress level for each group (`flexible`, Yes/No) in the cleaned dataset. What does this show about stress and flexible hours?
+
+```{r cs1-stress-flex-clean-setup, include=FALSE}
+set.seed(888)
+stress_flex <- tibble::tibble(
+  stress = c(rnorm(95, 5.5, 1.8), 1, 10, 11), # two outliers
+  flexible = as_factor(sample(c("Yes", "No"), 98, replace = TRUE, prob = c(0.5, 0.5))),
+  age_group = as_factor(sample(c("18–29", "30–45", "46–60", "60+"), 98, replace = TRUE, prob = c(0.3, 0.4, 0.2, 0.1)))
+)
+
+q1 <- quantile(stress_flex$stress, 0.25)
+q3 <- quantile(stress_flex$stress, 0.75)
+iqr <- IQR(stress_flex$stress)
+
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+stress_flex_clean <- stress_flex |> 
+  filter(stress >= lower, stress <= upper)
+```
+
+```{r cs1-summary-table, exercise=TRUE, exercise.setup="cs1-stress-flex-clean-setup"}
+# Calculate mean stress by flexible group
+```
+
+```{r cs1-summary-table-hint}
+# Use group_by() and summarise() on the cleaned dataset.
+```
+
+```{r cs1-summary-table-solution}
+stress_flex_clean |> 
+  group_by(flexible) |> 
+  summarise(mean_stress = mean(stress))
+```
+
+```{r cs1-summary-table-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  # Check: group_by flexible
+  if (!grepl("group_by\\s*\\([^)]*flexible", code_text)) {
+    fail("Did you group by `flexible`?")
+  }
+  # Check: summarise mean of stress (any output name, but mean(stress) must appear)
+  if (!grepl("summaris(e|e)\\s*\\([^)]*mean\\s*\\(\\s*stress\\s*\\)", code_text)) {
+    fail("Did you summarise the mean of `stress` after grouping?")
+  }
+
+  pass("Excellent! You correctly grouped by flexible working status and calculated the mean stress for each group.")
+})
+```
+
+### Step 5b | Summarising mean stress by flexible working status
+
+```{r cs1-summary-table-mcq, echo=FALSE}
+question("What is a possible interpretation of our results when comparing flexible working hours with those who did not have flexible working hours?",
+  answer("Flexible hours always cause higher stress.",
+         message = "The summary suggests the opposite. Also be careful with causal implications. Comparing means like we did is not sufficient to infer a relationship."),
+  answer("The means are almost the same.", correct = TRUE,
+         message = "You are right, the differences are fairly small."),
+  answer("Flexible working hours may help reduce workplace stress a little, but not too much.", correct = TRUE,
+         message = "Great! That's a reasonable, cautious interpretation."),
+  answer("This result is not helpful.",
+         message = "The analysis provides insight, though more research may be needed to arrive at a final conclusion."),
+  allow_retry = TRUE
+)
+```
+
+### Step 6a | Creating a presentation-ready plot
+
+Now that we obtained all our insights, let's create a bar plot to clearly compare mean stress by group, making it suitable for presentation. Be sure to add axis labels and a title!
+
+```{r cs1-final-barplot, exercise=TRUE, exercise.setup="cs1-stress-flex-clean-setup"}
+# Make a bar plot of mean stress by flexible group
+```
+
+```{r cs1-final-barplot-hint}
+# Use group_by() and summary() to compue the statistics. Then use ggplot() and geom_col() to plot the results.
+```
+
+```{r cs1-final-barplot-solution}
+stress_flex_clean |> 
+  group_by(flexible) |> 
+  summarise(mean_stress = mean(stress)) |> 
+  ggplot(aes(x = flexible, y = mean_stress)) +
+  geom_col() +
+  labs(title = "Mean Stress by Flexible Working Status",
+       x = "Flexible Working Hours",
+       y = "Mean Stress Score (1-10)")
+```
+
+```{r cs1-final-barplot-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Check group_by flexible
+  if (!grepl("group_by\\s*\\([^)]*flexible", code_text)) {
+    fail("Did you group by `flexible`?")
+  }
+  
+  # Check summarise the mean of stress (any output name)
+  if (!grepl("summaris(e|e)\\s*\\([^)]*mean\\s*\\(\\s*stress\\s*\\)", code_text)) {
+    fail("Did you calculate the mean of `stress` after grouping?")
+  }
+  
+  # ggplot with geom_col
+  if (!grepl("ggplot", code_text) || !grepl("geom_col", code_text)) {
+    fail("Did you use ggplot and geom_col to plot the data?")
+  }
+  
+  # Check that y aesthetic is mapped to the mean (variable may have any name)
+  if (!grepl("aes\\s*\\([^)]*y\\s*=\\s*\\w+", code_text)) {
+    fail("Did you map the mean value to the y-axis in your plot?")
+  }
+  
+  # Check for axis labels and title using labs (but not the exact text)
+  if (!grepl("labs\\s*\\(", code_text)) {
+    fail("Did you use labs() to set axis labels and a plot title?")
+  }
+  
+ # Look for labs( ... x = ..., y = ..., title = ... )
+  if (!grepl("labs\\s*\\((?=.*x\\s*=)(?=.*y\\s*=)(?=.*title\\s*=)", code_text, perl = TRUE)) {
+  fail("Did you set x-axis, y-axis labels, and a plot title in labs()? All three are required.")
+  }
+  
+  pass("Fantastic! You grouped by flexible working status, calculated the mean stress, and created a clear, well-labeled plot.")
+})
+```
+
+### Step 6b | Creating a presentation-ready plot
+
+```{r cs1-final-barplot-mcq, echo=FALSE}
+question("What makes this plot suitable for sharing in a report or presentation?",
+  answer("It is clear, labelled, and compares groups directly.", correct = TRUE,
+         message = "Exactly! Good data visualisation is clear and interpretable."),
+  answer("It shows every raw data point.",
+         message = "Aggregated plots summarise groups; raw points aren't always needed."),
+  answer("It includes unnecessary colours and effects.",
+         message = "Clarity is more important than decoration."),
+  answer("It does not show any axis labels.",
+         message = "Good plots have clear axis labels and titles."),
+  allow_retry = TRUE
+)
+```
+
+### Congratulations, you completed all exercises for this chapter!

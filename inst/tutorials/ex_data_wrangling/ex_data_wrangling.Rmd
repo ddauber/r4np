@@ -8,7 +8,7 @@ output:
     toc: true
     toc_depth: 3
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
@@ -20,8 +20,6 @@ library(naniar)
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.blanks = TRUE)
 ```
-
-
 
 ## Import your data
 
@@ -2226,3 +2224,5 @@ grade_this({
   pass("ell done! You've grouped the data and calculated the average scores correctly.")
 })
 ```
+
+### Congratulations, you completed all exercises for this chapter!

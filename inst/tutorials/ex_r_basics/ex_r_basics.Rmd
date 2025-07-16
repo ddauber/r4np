@@ -6,7 +6,7 @@ output:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
@@ -697,3 +697,5 @@ grade_this({
   fail("Almost. Make sure `forgotten_item` includes all the missing items.")
 })
 ```
+
+### Congratulations, you completed all exercises for this chapter!

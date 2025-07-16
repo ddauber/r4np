@@ -6,12 +6,504 @@ output:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
+library(correlation)
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## Knowledge Checks
+
+### Knowledge Check | 1
+```{r corr-q1, echo=FALSE}
+question("What does a correlation coefficient measure?",
+  answer("The difference in means between groups.",
+         message = "That's for t-tests or ANOVA, not correlation. We will learn more about in the next chapter."),
+  answer("The strength and direction of association between two variables.", correct = TRUE,
+         message = "Correct! Correlation quantifies association, not causation."),
+  answer("The probability that results are due to chance.",
+         message = "That's a p-value, not a correlation coefficient."),
+  answer("How much two variables cause each other.",
+         message = "Correlation doesn't imply causation."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+```{r corr-q2, echo=FALSE}
+question("What is the possible range for a Pearson correlation coefficient?",
+  answer("0 to 1",
+         message = "Almost, correlations can be negative as well as positive."),
+  answer("-100 to 100",
+         message = "No quite, correlation coefficients are never this large."),
+  answer("0 to infinity",
+         message = "Sorr, correlations are always between -1 and 1."),
+  answer("From -1 to 1", correct = TRUE,
+         message = "That's right! Correlations range from -1 to 1."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+```{r corr-q3, echo=FALSE}
+question("If two variables have a strong correlation, can we conclude that one causes the other?",
+  answer("Yes, if r > 0.7.",
+         message = "Even a high r does not guarantee causation."),
+  answer("Yes, but only if p < 0.05.",
+         message = "Statistical significance is not causation."),
+  answer("Yes, always.",
+         message = "I am afraid, we never can assume causation from correlation."),
+  answer("No, correlation does not imply causation.", correct = TRUE,
+         message = "Exactly! Correlation is not causation."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+```{r corr-q4, echo=FALSE}
+question("Which of these r values shows the strongest relationship?",
+  answer("-0.82", correct = TRUE,
+         message = "Right! The sign does not matter for strength—only the magnitude."),
+  answer("0.60",
+         message = "This is a moderate positive relationship."),
+  answer("0.04",
+         message = "This is a very weak association."),
+  answer("0.33",
+         message = "This is a weak positive association."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 5
+```{r corr-q5, echo=FALSE}
+question("What does partial correlation allow us to do?",
+  answer("Test if variables are normally distributed.",
+         message = "That's not what partial correlation does."),
+  answer("Measure the association between two variables while controlling for a third.", correct = TRUE,
+         message = "Correct! This is the unique strength of partial correlation."),
+  answer("Increase sample size.",
+         message = "Partial correlation doesn't change your sample size."),
+  answer("Test the difference in means between two groups.",
+         message = "That's for t-tests, not correlation."),
+  allow_retry = TRUE
+)
+```
+
+## Coding Practice
+
+### Coding Practice | 1a
+
+A research team is exploring whether time spent studying predicts exam scores among university students. The dataset `study_data` provide information about `study_hours` and `exam_score`. Visualise their relationship using a scatterplot. Plot `study_hours` on to the x-axis.
+
+```{r cp1-corr-plot-setup, include=FALSE}
+set.seed(10)
+study_data <- tibble::tibble(
+  study_hours = round(rnorm(100, 7, 2), 1),
+  exam_score = round(65 + 3 * study_hours + rnorm(100, 0, 10), 1)
+)
+```
+
+```{r cp1-corr-plot, exercise=TRUE, exercise.setup="cp1-corr-plot-setup"}
+# Use ggplot and geom_point() to show the association.
+```
+
+```{r cp1-corr-plot-hint}
+# Use ggplot2 and geom_point().
+```
+
+```{r cp1-corr-plot-solution}
+study_data |> 
+  ggplot(aes(x = study_hours, y = exam_score)) +
+  geom_point()
+```
+
+```{r cp1-corr-plot-check}
+grade_this_code()
+```
+
+### Coding Practice | 1b
+
+```{r cp1-corr-plot-mcq, echo=FALSE}
+question("What does the scatterplot suggest?",
+  answer("There is a negative association.",
+         message = "I am afraid, that's not what the plot shows."),
+  answer("There is no relationship at all.",
+         message = "Look at the trend in the points."),
+  answer("There is a positive association: more study hours are linked with higher scores.", correct = TRUE,
+         message = "Correct! The points trend upward."),
+  answer("Most students studied around 7 hours.",
+         message = "The data show a range of study hours and seem quite nicely spread out."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2a
+
+A survey (`coffee`) asked 80 students how many cups of coffee they drink each day and their final grade in an online class.
+
+However, the plot looks rather odd. Although 80 responses were collected, it seems much less are shown in the plot. Have a look at the plot first and consider what the potential problem could be. Then consider how to amend the code for a better visualisation of relationships.
+
+```{r cp2-jitter-setup, include=FALSE}
+set.seed(123)
+cups <- sample(0:5, 80, replace = TRUE)
+grades <- sample(seq(50, 100, 5), 80, replace = TRUE)
+coffee <- tibble::tibble(
+  cups = cups,
+  grade = grades
+)
+```
+
+```{r cp2-jitter-plot, exercise=TRUE, exercise.setup="cp2-jitter-setup"}
+# Plot cups vs. grade so that overlapping points are revealed.
+coffee |> 
+  ggplot(aes(x = cups, y = grade)) +
+  geom_point(width = 0.25, height = 0.5)
+```
+
+```{r cp2-jitter-plot-hint}
+# Use geom_jitter() instead of geom_point().
+```
+
+```{r cp2-jitter-plot-solution}
+coffee |> 
+  ggplot(aes(x = cups, y = grade)) +
+  geom_jitter(width = 0.25, height = 0.5)
+```
+
+```{r cp2-jitter-plot-check}
+grade_this_code()
+```
+
+### Coding Practice | 2b
+
+```{r cp2-jitter-plot-mcq, echo=FALSE}
+question("Why is geom_jitter() useful here?",
+  answer("It makes the data points smaller.",
+         message = "No, jitter just changes their position, not their size."),
+  answer("It spreads out overlapping data so we can see each point.", correct = TRUE,
+         message = "Correct! Jittering reveals hidden points."),
+  answer("It sorts the data by value.",
+         message = "Jitter doesn't sort, it spreads points randomly."),
+  answer("It colors the points by grade.",
+         message = "Jitter does not change color unless told to."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3a
+
+Researchers want to test if there’s a significant correlation between weekly `exercise` hours and `happiness` scores in adults. Calculate the Pearson correlation coefficient using the `exercise_data` .
+
+```{r cp3-corrtest-setup, include=FALSE}
+set.seed(99)
+exercise_data <- tibble::tibble(
+  exercise = round(rnorm(60, 3, 1.2), 1),
+  happiness = round(50 + 7 * exercise + rnorm(60, 0, 10), 1)
+)
+```
+
+```{r cp3-corrtest, exercise=TRUE, exercise.setup="cp3-corrtest-setup"}
+# Use the correlation() function to test the correlation between exercise and happiness.
+```
+
+```{r cp3-corrtest-hint}
+# Use correlation::correlation() and supply the two columns as a data frame.
+```
+
+```{r cp3-corrtest-solution}
+library(correlation)
+exercise_data |> correlation::correlation()
+```
+
+```{r cp3-corrtest-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("correlation::correlation|correlation\\(", code_text)) {
+    fail("Did you use the `correlation()` function from the correlation package?")
+  }
+  pass("Excellent! You calculated the correlation using the correlation package.")
+})
+```
+
+### Coding Practice | 3b
+
+```{r cp3-corrtest-mcq-1, echo=FALSE}
+question("Is the correlation statistically significant?",
+  answer("Yes, the p-value is small, so the association is significant.", correct = TRUE,
+         message = "Spot on! The p-value is less than 0.05."),
+  answer("No, the p-value is large.",
+         message = "Check the output of the correlation() function."),
+  answer("No, there is no correlation.",
+         message = "Check the test output for the actual result."),
+  answer("The test could not be computed.",
+         message = "The correlation() function ran fine. Please, check your code and output in the console."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3c
+
+```{r cp3-corrtest-mcq-2, echo=FALSE}
+question("How would you rate the strength of the association?",
+  answer("Quite strong, with an `r > 0.7`.", correct = TRUE,
+         message = "That is right! The effect size is quite substantial."),
+  answer("The correlation shows a mild relationship between both variables.",
+         message = "The `r` value is actually quite high."),
+  answer("There is a strong positive relationship.", correct = TRUE,
+         message = "Very good."),
+  answer("The test show a non-significant result. Therefore, even a high `r` value is not a reliable measure of the relationship.",
+         message = "Not quite right. The `p` value is below 0.05. This means the result is significant."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study | The missing relationship
+
+A school district is examining the relationship between students’ time spent studying and their exam scores and collected data shown in the `study_school` dataframe. Surprisingly, looking at the overall sample, there seems to be no clear correlation between `study_hours` and `exam_score`. But perhaps something is masking this link?
+
+Let's investigate—first, by visualising the basic relationship. Plot `study_hours` on the x-axis. 
+
+```{r cp4-hidden-link-setup, include=FALSE}
+set.seed(2025)
+n <- 100
+
+school <- as_factor(rep(c("East High", "West High"), each = n/2))
+
+# East High: low hours, high scores
+east_hours <- round(rnorm(n/2, mean = 4, sd = 1), 1)
+east_scores <- round(70 + 2.5 * east_hours + rnorm(n/2, 0, 4), 1)
+
+# West High: high hours, low scores
+west_hours <- round(rnorm(n/2, mean = 6, sd = 1), 1)
+west_scores <- round(60 + 2.5 * west_hours + rnorm(n/2, 0, 4), 1)
+
+study_hours <- c(east_hours, west_hours)
+exam_score <- c(east_scores, west_scores)
+
+study_school <- tibble::tibble(
+  school = school,
+  study_hours = study_hours,
+  exam_score = exam_score
+)
+study_school$study_hours <- pmax(0, study_school$study_hours)
+```
+
+### Step 1a: Visualise the basic relationship
+
+```{r cp4-hidden-link-plot, exercise=TRUE, exercise.setup="cp4-hidden-link-setup"}
+# Plot study hours against exam score for all students
+```
+
+```{r cp4-hidden-link-plot-hint}
+# Use ggplot2 and geom_point().
+```
+
+```{r cp4-hidden-link-plot-solution}
+study_school |> 
+  ggplot(aes(x = study_hours, y = exam_score)) +
+  geom_point()
+```
+
+```{r cp4-hidden-link-plot-check}
+grade_this_code()
+```
+
+### Step 1b: Visualise the basic relationship
+
+```{r cp4-hidden-link-mcq, echo=FALSE}
+question("What does this plot suggest about the link between study hours and exam scores?",
+  answer("There is a very strong positive correlation.",
+         message = "Not quite. It's hard to see a strong trend."),
+  answer("There is a strong negative correlation.",
+         message = "I am afraid, that's not what the scatterplot shows."),
+  answer("There is no obvious correlation overall.", correct = TRUE,
+         message = "Right! The pattern is washed out when combining all students."),
+  answer("All students studied the same number of hours.",
+         message = "Unfortunately that is not right. The data show a spread in study hours."),
+  allow_retry = TRUE
+)
+```
+
+### Step 2a: Calculate the Pearson correlation
+
+It is one thing to plot the data, but maybe by computing the correlation we can obtain a better understanding of the relationship between the two variables. 
+
+```{r cp4-hidden-link-cor, exercise=TRUE, exercise.setup="cp4-hidden-link-setup"}
+# Calculate the correlation between study hours and exam scores overall
+```
+
+```{r cp4-hidden-link-cor-hint}
+# Use correlation() from the correlation package to perform a Pearson correlation.
+```
+
+```{r cp4-hidden-link-cor-solution}
+library(correlation)
+study_school |> correlation()
+```
+
+```{r cp4-hidden-link-cor-check}
+grade_this_code()
+```
+
+### Step 2b: Calculate the Pearson correlation
+
+```{r cp4-hidden-link-cor-mcq, echo=FALSE}
+question("Is the correlation between study hours and exam scores significant overall?",
+  answer("No, it's not strong, but statistically significant.",
+         message = "This is not quite right. Try again."),
+  answer("No, it is moderately strong, but not statistically significant.",
+         message = "Check your code—was cor.test() used?"),
+  answer("No, the correlation is weak and not statistically significant.", correct = TRUE,
+         message = "You got it! There is little relationship overall."),
+  answer("No, the correlation is almost `0` and not significant.", correct = TRUE,
+         message = "This is right."),
+  allow_retry = TRUE
+)
+```
+
+### Step 2c: Calculate the Pearson correlation
+
+
+```{r cp4-hidden-link-cor-mcq2, echo=FALSE}
+question("What could be a way forward to check whether there is truly no relationship given our dataset?",
+  answer("We could attempt a partial correlation.", correct = TRUE,
+         message = "This is right."),
+  answer("Nothing, unless we collect more data.",
+         message = "Not quite. We do have one more variable in our dataset."),
+  answer("We could rerun our analysis using a different correlation technique.",
+         message = "While this is could be an option it would depend on the nature of our data. For this dataset the Pearson correlation is the best choice, though."),
+  answer("We could consider other variables in our dataset.", correct = TRUE,
+         message = "Yes, we have another variable (`school`) that we could consider."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3a: Uncovering a possible relationship
+
+Let's now check the correlation between study hours and exam scores **controlling for school attended**.
+
+```{r cp4-hidden-link-pcor, exercise=TRUE, exercise.setup="cp4-hidden-link-setup"}
+
+```
+
+```{r cp4-hidden-link-pcor-hint}
+# Use group_by() to compute the correlation for each school separately.
+```
+
+```{r cp4-hidden-link-pcor-solution}
+study_school |>
+  group_by(school) |> 
+  correlation()
+```
+
+```{r cp4-hidden-link-pcor-check}
+grade_this_code()
+```
+
+### Step 3b: Uncovering a possible relationship
+
+```{r cp4-hidden-link-pcor-mcq, echo=FALSE}
+question("What happens when we control for school attended?",
+  answer("There is still no significant relationship.",
+         message = "Not quite—look at the p-value and effect size."),
+  answer("The correlation becomes negative.",
+         message = "I am afraid, that's not what the output suggests."),
+  answer("The test is invalid.",
+         message = "Actually, partial correlation is valid here and useful. Try again."),
+  answer("A strong positive correlation emerges between study hours and exam scores.", correct = TRUE,
+         message = "Exactly! Controlling for school reveals the real relationship."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4a: Presenting the results to the School District
+
+Now that we gained the important insights it woul be great to visualise the final result. We alread created a scatterplot. We want to recreate it but make sure it shows the right relationships.
+
+```{r cp4-final-plot-to-school, echo=FALSE}
+question("What could we do to improve our previous scatterplot?",
+  answer("Not really much. We can mention in the title that the correlation is spurious.",
+         message = "A possible option, but not ideal given that the plot would not show differences between groups."),
+  answer("Change the size of the plot to make dots more visible.",
+         message = "Not quite, changing the size of the plot would not reveal the relationships in disguise."),
+  answer("Change the shape of the points for each school.", correct = TRUE,
+         message = "It is a great idea to change the shape of the points, which would help a little to distinguish the two groups."),
+  answer("Change the colour of the dots to indicate which observation belongs to which school", correct = TRUE,
+         message = "Using contrasting colours is probably the best option."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4b: Visualising Group Differences in Study Outcomes
+
+While the original scatterplot gives an overall sense of the data, it hides the key insight—differences between schools. By assigning both color and shape to the `school` variable, we make group patterns much more visible. This approach allows stakeholders in the school district to instantly spot hidden trends.
+
+In order to achieve this we can change add `colour` and `shape` within the `aes()` function. Complete the code shown.
+
+```{r cp4-final-plot, exercise=TRUE, exercise.setup="cp4-hidden-link-setup"}
+study_school |>
+  ggplot(aes(x = study_hours, y = exam_score)) +
+  geom_point(size = 2) +
+  labs(
+    title = "Study Hours vs Exam Scores by School",
+    x = "Study Hours per Week",
+    y = "Exam Score"
+  )
+```
+
+```{r cp4-final-plot-hint}
+# In ggplot, add both `color = school` and `shape = school` in aes(). It is also fine to use `col = school` or `colour = school`.
+```
+
+```{r cp4-final-plot-solution}
+study_school |>
+  ggplot(aes(x = study_hours, y = exam_score, color = school, shape = school)) +
+  geom_point(size = 2) +
+  labs(
+    title = "Study Hours vs Exam Scores by School",
+    x = "Study Hours per Week",
+    y = "Exam Score"
+  )
+```
+
+```{r cp4-final-plot-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  # Accept color, colour, or col for color aesthetic
+  if (!grepl("(color|colour|col)\\s*=\\s*school", code_text)) {
+    fail("Did you map `color`, `colour`, or `col` to `school` in your plot?")
+  }
+  # Accept both shape = school or pch = school
+  if (!grepl("(shape|pch)\\s*=\\s*school", code_text)) {
+    fail("Did you map `shape` or `pch` to `school` in your plot?")
+  }
+  if (!grepl("geom_point", code_text)) {
+    fail("Make sure to use `geom_point()` for a scatterplot.")
+  }
+  pass("Excellent! Now the plot clearly distinguishes both schools by color and shape.")
+})
+```
+
+### Step 4c: Visualising Group Differences in Study Outcomes
+
+```{r cp4-final-plot-mcq, echo=FALSE}
+question("What is the main benefit of mapping both color and shape to school?",
+  answer("It allows us to easily distinguish between the two schools, even if the plot is printed in black-and-white.", correct = TRUE,
+         message = "Exactly! Using both color and shape makes the plot accessible and clear."),
+  answer("It changes the underlying correlation coefficient.",
+         message = "No, changing plot aesthetics does not alter statistical calculations."),
+  answer("It filters outliers from the data.",
+         message = "Plot aesthetics don't change the data."),
+  answer("It doubles the sample size.",
+         message = "No, sample size is unchanged."),
+  allow_retry = TRUE
+)
+```
+
+### Congratulations, you completed all exercises for this chapter!

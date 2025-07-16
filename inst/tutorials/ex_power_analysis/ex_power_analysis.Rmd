@@ -6,12 +6,280 @@ output:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
+library(pwr)
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## Knowledge Check
+
+### Knowledge Check | 1
+
+```{r power-kc1, echo=FALSE}
+question("What does 'power' mean in the context of statistical testing?",
+  answer("The probability of finding a statistically significant result if there is a true effect.", correct = TRUE,
+         message = "Exactly. Power is the probability of correctly rejecting the null hypothesis."),
+  answer("The probability that your result is practically significant.",
+         message = "Practical significance is not the same as statistical power."),
+  answer("The ability of a test to have a low p-value, regardless of effect.",
+         message = "A low p-value alone doesn’t define power."),
+  answer("The size of your sample.",
+         message = "Sample size affects power, but is not power itself."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r power-kc2, echo=FALSE}
+question("Which of the following increases the statistical power of a study?",
+  answer("Increasing the sample size.", correct = TRUE,
+         message = "Yes, bigger samples usually mean more power."),
+  answer("Having a larger effect size.", correct = TRUE,
+         message = "Larger effects are easier to detect."),
+  answer("Choosing a more lenient alpha (e.g. 0.10 instead of 0.05).", correct = TRUE,
+         message = "A higher alpha increases power, but increases false positives."),
+  answer("Having more missing data.",
+         message = "Missing data usually *reduces* power."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r power-kc3, echo=FALSE}
+question("What is a potential consequence of conducting a study with low statistical power?",
+  answer("You may fail to detect a real effect.", correct = TRUE,
+         message = "That’s right. Low power means higher risk of false negatives."),
+  answer("Statistically significant results will always be practically important.",
+         message = "Significance and practical importance are different."),
+  answer("You are more likely to find a Type I error.",
+         message = "Type I error is set by alpha, not power."),
+  answer("Null findings are harder to interpret.", correct = TRUE,
+         message = "With low power, null results may simply mean your study was not sensitive enough."),
+  allow_retry = TRUE
+)
+```
+
+## Coding Practice
+
+### Coding Practice | 1a
+
+A research team is planning a study to compare a new revision technique to learn foreing languages quicker with a standard method. They expect a medium effect size (d = 0.5), want a significance level of 0.05, and plan to recruit 64 students (32 per group). Calculate the statistical power of their planned t-test. Use the `pwr` package and the `pwr.t.test()` function to compute the achievable power.
+
+```{r cp1a-power-setup, include=FALSE}
+# No data required, just calculations
+```
+
+```{r cp1a-power, exercise=TRUE, exercise.setup="cp1a-power-setup"}
+# Calculate the power for a two-sample t-test with d = 0.5, alpha = 0.05, n = 32 per group
+```
+
+```{r cp1a-power-hint}
+# Use pwr::pwr.t.test() with d = 0.5, n = 32, sig.level = 0.05, type = "two.sample"
+```
+
+```{r cp1a-power-solution}
+pwr::pwr.t.test(d = 0.5, n = 32, sig.level = 0.05, type = "two.sample")
+```
+
+```{r cp1a-power-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("pwr.t.test", code_text)) {
+    fail("Did you use `pwr.t.test()` from the pwr package?")
+  }
+  if (!grepl("d\\s*=\\s*0.5", code_text)) {
+    fail("Did you set d = 0.5 for a medium effect size?")
+  }
+  if (!grepl("n\\s*=\\s*32", code_text)) {
+    fail("Did you set n = 32 for each group?")
+  }
+  pass("Good job! You calculated the power for the planned study.")
+})
+```
+
+### Coding Practice | 1b
+
+```{r cp1b-power-mcq, echo=FALSE}
+question("What do the results indicate?",
+  answer("There is an 50% chance of detecting a true effect if one exists.", correct = TRUE,
+         message = "That’s right! Power is the chance of finding a true effect."),
+  answer("The effect size is `0.5036`.",
+         message = "Power and effect size are different concepts."),
+  answer("You have a 0.5036% chance of a Type I error.",
+         message = "A Type I error is set by alpha, not by power."),
+  answer("You need to increase your sample size.", correct = TRUE,
+         message = "50% power (i.e. 0.504) is usually considered insufficient."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2a
+
+A market research firm wants to detect if a new ad campaign leads to a small but meaningful difference in customer awareness (d = 0.3). They have a budget to survey 50 people per group (100 total). Use a power calculation to find out if this is enough to achieve 80% power.
+
+```{r cp2a-market-power, exercise=TRUE}
+# Use pwr::pwr.t.test() for this two-sample test.
+```
+
+```{r cp2a-market-power-hint}
+# Use pwr.t.test with d = 0.3 and n = 50
+```
+
+```{r cp2a-market-power-solution}
+pwr::pwr.t.test(d = 0.3, n = 50, sig.level = 0.05, type = "two.sample")
+```
+
+```{r cp2a-market-power-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("pwr.t.test", code_text)) {
+    fail("Did you use `pwr.t.test()`?")
+  }
+  if (!grepl("d\\s*=\\s*0.3", code_text)) {
+    fail("Did you use d = 0.3 for a small effect?")
+  }
+  if (!grepl("n\\s*=\\s*50", code_text)) {
+    fail("Did you use n = 50 for each group?")
+  }
+  pass("Well done! You checked if your sample size is enough for the firm's research goals.")
+})
+```
+
+### Coding Practice | 2b
+
+```{r cp2b-market-power-mcq, echo=FALSE}
+question("What would you tell the market research team based on our findings?",
+  answer("The study is underpowered and likely to miss true effects.", correct = TRUE,
+         message = "That is right! Power below 0.8 means a high risk of missing true effects."),
+  answer("There is a 31.8% chance the result will be statistically significant, if the effect is real.", correct = TRUE,
+         message = "Power is the chance of finding an effect if it’s there."),
+  answer("The firm should increase the number of people surveyed.", correct = TRUE,
+         message = "That’s a good suggestion given the low power."),
+  answer("It’s fine as long as they want a Type I error rate of 5%.",
+         message = "Not quite. Alpha is the probability of a Type I error (false positive), while power is the probability of detecting a real effect if it exists. Setting alpha to 0.05 controls false positives, but doesn’t ensure the study can reliably detect true effects."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3a
+
+A social scientist wants to plan a study with 90% power to detect a medium effect (d = 0.5) at alpha = 0.05. Calculate the required sample size per group.
+
+```{r cp3a-sample-size, exercise=TRUE}
+# Use pwr.t.test() with d = 0.5, power = 0.9, sig.level = 0.05, type = "two.sample"
+```
+
+```{r cp3a-sample-size-hint}
+# Set power = 0.9 and solve for n
+```
+
+```{r cp3a-sample-size-solution}
+pwr::pwr.t.test(d = 0.5, power = 0.9, sig.level = 0.05, type = "two.sample")
+```
+
+```{r cp3a-sample-size-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("pwr.t.test", code_text)) {
+    fail("Did you use `pwr.t.test()`?")
+  }
+  if (!grepl("d\\s*=\\s*0.5", code_text)) {
+    fail("Did you set d = 0.5 for medium effect size?")
+  }
+  if (!grepl("power\\s*=\\s*0.9", code_text)) {
+    fail("Did you set power = 0.9 (90%)?")
+  }
+  pass("Great! You calculated the sample size needed for the planned study.")
+})
+```
+
+### Coding Practice | 3b
+
+```{r cp3b-sample-size-mcq, echo=FALSE}
+question("Our calculation shows that one needs 86 participants per group, but we only have resources for 40 per group, what should we consider?",
+  answer("Our study may be underpowered and could miss real effects.", correct = TRUE,
+         message = "Exactly! Underpowered studies may fail to detect real effects."),
+  answer("We might consider increasing the effect size or accepting a higher alpha (if justified).", correct = TRUE,
+         message = "This could increase power, but must be justified and ethical."),
+  answer("Proceed anyway, but interpret null results with caution.",
+         message = "Null results from underpowered studies are hard to interpret."),
+  answer("Do not conduct the study at all.", correct = TRUE,
+         message = "It would certainly be better not to conduct a study that is underpowered. Instead it would be better to consider how one could obtain additional resources to carry out the study reliably or change the parameters of the study."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study | Determining Power for an Educational Intervention
+
+A research team wants to test whether a new group-based learning approach improves mathematics scores for secondary school students. The intervention will be tested in two schools. Each school will randomly assign students to either the group-based or traditional teaching method. The team wants to know if their planned sample size will give them enough power to detect a moderate effect (`d = 0.5`).
+
+### Step 1 | Study Design Review
+
+```{r cs12-step1-mcq, echo=FALSE}
+question("What is the most important factor affecting the power of this planned study?",
+  answer("The age of participants.",
+         message = "Not quite relevant for statistical power."),
+  answer("Number of schools involved.",
+         message = "Number of schools matters for generalisability, but not directly for power."),
+  answer("Sample size per group.", correct = TRUE,
+         message = "Right—sample size is a primary driver of power."),
+  answer("Day of the week the intervention is delivered.",
+         message = "Not important for power calculation."),
+  allow_retry = TRUE
+)
+```
+
+### Step 2 | Calculate Power for Planned Sample Size
+
+There are 40 students per group (80 per school). Is this enough for 80% power to detect a moderate effect?
+
+```{r cs12-step2-power, exercise=TRUE}
+# Calculate power for d = 0.5, n = 40 per group, alpha = 0.05
+```
+
+```{r cs12-step2-power-solution}
+pwr::pwr.t.test(d = 0.5, n = 40, sig.level = 0.05, type = "two.sample")
+```
+
+```{r cs12-step2-power-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("pwr.t.test", code_text)) {
+    fail("Did you use `pwr.t.test()`?")
+  }
+  if (!grepl("d\\s*=\\s*0.5", code_text)) {
+    fail("Did you use d = 0.5 for a moderate effect size?")
+  }
+  if (!grepl("n\\s*=\\s*40", code_text)) {
+    fail("Did you use n = 40 per group?")
+  }
+  pass("Nice! You checked the statistical power for the planned study.")
+})
+```
+
+### Step 3 | Interpreting Results
+
+```{r cs12-step3-mcq, echo=FALSE}
+question("What do the results of the power analysis mean for the research team?",
+  answer("The study is guaranteed to find a significant effect.",
+         message = "Power is the chance, not a guarantee."),
+  answer("There is a 40%% risk of missing a real effect (Type II error).", correct = TRUE,
+         message = "Yes!. `1 - power` is the chance of missing a real effect."),
+  answer("The sample size should be increased if possible.", correct = TRUE,
+         message = "More participants would improve power."),
+  answer("There is a 5% chance of a Type I error.", correct = TRUE,
+         message = "True, but this was set by you (alpha = 0.05) and is not technically a *result* of the power analysis itself. Keep that in mind."),
+  allow_retry = TRUE
+)
+```
+
+### Congratulations, you completed all exercises for this chapter!

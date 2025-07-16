@@ -6,12 +6,916 @@ output:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
-description: "Exercises section of R4NP: A Guide for Social Scientists"
+description: "Exercises section of R for Non-Programmers (R4NP)"
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+## Knowledge Check
+
+### Knowledge Check | 1
+
+```{r reg-kc1, echo=FALSE}
+question("Which of the following best describes the main purpose of regression analysis?",
+  answer("To test whether group means are different.",
+         message = "This is the main goal of group comparisons (e.g., t-tests, ANOVA), not regression."),
+  answer("To summarise data using measures of central tendency.",
+         message = "That describes summary statistics, not regression analysis."),
+  answer("To examine the relationship between one or more predictor variables and an outcome variable.", correct = TRUE,
+         message = "Spot on! Regression analysis quantifies the relationship between predictors and an outcome."),
+  answer("To visualise the distribution of a variable.",
+         message = "Visualisation is important, but not the primary purpose of regression."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r reg-kc2, echo=FALSE}
+question("Which assumption is *not* required for simple linear regression?",
+  answer("The relationship between predictors and outcome is linear.",
+         message = "A linear relationship is a key assumption."),
+  answer("The residuals are normally distributed.",
+         message = "Normality of residuals is required for accurate inference."),
+  answer("The outcome variable is categorical.", correct = TRUE,
+         message = "Great job! Regression requires a numeric outcome, not a categorical one."),
+  answer("The variance of residuals is constant (homoscedasticity).",
+         message = "Homoscedasticity is an assumption of linear regression."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r reg-kc3, echo=FALSE}
+question("What does the regression coefficient (beta) in a simple linear regression tell you?",
+  answer("Whether the data are normally distributed.",
+         message = "Normality is a separate assumption."),
+  answer("The expected change in the outcome for a one-unit increase in the predictor.", correct = TRUE,
+         message = "Exactly! Beta shows the effect of the predictor on the outcome."),
+  answer("The average value of the outcome variable.",
+         message = "That's the mean, not the regression coefficient."),
+  answer("Whether the outcome is categorical.",
+         message = "Regression coefficients are only meaningful with numeric outcomes."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r reg-kc4, echo=FALSE}
+question("What does the R² value from a regression model represent?",
+  answer("The strength of the relationship between the predictors themselves.",
+         message = "That's more about multicollinearity."),
+  answer("The direction (positive or negative) of the relationship.",
+         message = "R² tells you how much, but not the direction."),
+  answer("The average residual value.",
+         message = "R² is about variance explained, not residual averages."),
+  answer("The proportion of variance in the outcome explained by the predictors.", correct = TRUE,
+         message = "That's right! R² tells you how much of the variation is accounted for."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 5
+
+```{r reg-kc5, echo=FALSE}
+question("What is multicollinearity in multiple regression?",
+  answer("When two or more predictors are highly correlated with each other.", correct = TRUE,
+         message = "Spot on! This can make regression results hard to interpret."),
+  answer("When predictors and outcome have a linear relationship.",
+         message = "That is an assumption of linear regression, not multicollinearity."),
+  answer("When all variables are standardised.",
+         message = "Standardisation is different from multicollinearity."),
+  answer("When predictors are measured in different units.",
+         message = "Multicollinearity is about correlation, not measurement units."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 6
+
+```{r reg-kc6, echo=FALSE}
+question("Which of the following best describes a standardised beta coefficient?",
+  answer("It is always between 0 and 1.",
+         message = "Standardised betas can be any value, positive or negative."),
+  answer("It shows the effect of a predictor on the outcome, measured in standard deviations.", correct = TRUE,
+         message = "Absolutely right! Standardised betas allow easy comparison across predictors."),
+  answer("It is only used for binary predictors.",
+         message = "Standardised betas can be used for any type of predictor."),
+  answer("It shows the mean value of the predictor.",
+         message = "It's about effect size, not the mean."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 7
+
+```{r reg-kc7, echo=FALSE}
+question("In hierarchical regression, what is the main purpose of adding predictors in steps?",
+  answer("To create multiple outcome variables.",
+         message = "Hierarchical regression still predicts one outcome."),
+  answer("To see how much additional variance each set of predictors explains.", correct = TRUE,
+         message = "Exactly! This helps assess the value of each block of predictors."),
+  answer("To randomise the order of predictors in the model.",
+         message = "The order is purposeful, not random."),
+  answer("To transform categorical variables into numeric ones.",
+         message = "That is data preparation, not hierarchical regression."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study | Single Linear Regression
+
+You're given exam results from 150 students, alongside how many hours each student spent studying. Your goal: predict exam scores using study hours and interpret what the model tells you.
+
+```{r reg1-setup, include=FALSE}
+set.seed(1313)
+students <- tibble(
+  id = 1:150,
+  hours_studied = round(rnorm(150, mean = 10, sd = 3), 1),
+  exam_score = round(55 + 4.5 * hours_studied + rnorm(150, sd = 12), 1)
+)
+```
+
+### Step 1 | Inspecting the Data
+
+Let's start by examining the structure of the data. Use `glimpse()` to inspect the `students` dataset.
+
+```{r reg1a-glimpse, exercise=TRUE, exercise.setup="reg1-setup"}
+# Glimpse the dataset to see its variables and types
+
+```
+
+```{r reg1a-glimpse-hint}
+# Use glimpse() to check the structure of the dataset.
+```
+
+```{r reg1a-glimpse-solution}
+glimpse(students)
+```
+
+```{r reg1a-glimpse-check}
+grade_this_code()
+```
+
+### Step 2 | Visual inspection of relationships
+
+Let's see if hours studied and exam scores are related. Create a scatterplot and compute the correlation. Plot `hours_studied` onto the x-axis.
+
+```{r reg1b-plot, exercise=TRUE, exercise.setup="reg1-setup"}
+# Scatterplot: hours_studied vs exam_score
+# Also compute the correlation between the two variables
+
+```
+
+```{r reg1b-plot-hint}
+# Use ggplot() + geom_point(), then correlation::correlation() for the correlation. Ideally, the `id` variable should not be included in this step
+```
+
+```{r reg1b-plot-solution}
+students |> ggplot(aes(x = hours_studied, y = exam_score)) +
+  geom_point()
+
+students |>
+  select(-id) |>
+  correlation::correlation()
+```
+
+```{r reg1b-plot-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  # Check for ggplot call with correct variables
+  has_ggplot <- grepl("ggplot", code_text)
+  has_x_hours <- grepl("aes\\s*\\([^)]*x\\s*=\\s*hours_studied", code_text)
+  has_y_exam <- grepl("aes\\s*\\([^)]*y\\s*=\\s*exam_score", code_text)
+  has_geom_point <- grepl("geom_point", code_text)
+  
+  if (!(has_ggplot && has_x_hours && has_y_exam && has_geom_point)) {
+    fail("Did you create a scatterplot with `hours_studied` on the x-axis and `exam_score` on the y-axis using `geom_point()`?")
+  }
+
+  # Check for correlation() function from the correlation package
+  has_correlation <- grepl("(correlation::correlation|correlation\\s*\\()", code_text)
+  if (!has_correlation) {
+    fail("Did you compute the correlation using the `correlation()` function?")
+  }
+
+  pass("Well done! You plotted the relationship and computed the correlation using the appropriate function.")
+})
+```
+
+### Step 3a | Fitting a linear regression
+
+Now, fit a linear regression model to predict exam score using hours studied. use the `summary()` function to provide the main results. Save the regression results in the object `model1`.
+
+```{r reg1c-model, exercise=TRUE, exercise.setup="reg1-setup"}
+# Fit a regression model: exam_score ~ hours_studied
+
+```
+
+```{r reg1c-model-hint}
+# Use lm() to fit the model: lm(outcome ~ predictor, data = ...)
+```
+
+```{r reg1c-model-solution}
+model1 <- lm(exam_score ~ hours_studied, data = students)
+summary(model1)
+```
+
+```{r reg1c-model-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("lm\\s*\\(", code_text)) {
+    fail("Did you use lm() to fit the regression?")
+  }
+  if (!grepl("exam_score\\s*~\\s*hours_studied", code_text)) {
+    fail("Did you use exam_score ~ hours_studied as the formula?")
+  }
+  pass("Great work! You've fitted a regression model to predict exam scores from study hours.")
+})
+```
+
+### Step 3b | Fitting a linear regression
+
+```{r reg1d-coef-mcq, echo=FALSE}
+question("What does the regression coefficient for `hours_studied` tell us?",
+  answer("For each additional hour studied, exam score increases by 4.9 points.", correct = TRUE,
+         message = "Exactly! The coefficient tells us the expected change in exam score for each additional hour studied."),
+  answer("Each hour studied decreases exam score by 4.9 points.",
+         message = "A negative coefficient would mean a decrease. However, our estimate is positive.."),
+  answer("The intercept is 4.9.",
+         message = "No, the coefficient applies to the predictor, not the intercept."),
+  answer("Exam scores are unrelated to hours studied.",
+         message = "Our results indicate a strong relationship."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4 | Making predictions
+
+Make predictions for three new students who studied 5, 10, and 15 hours. Use the `modelr` package and the `add_predictions()` function.
+
+```{r reg1b-setup, include=FALSE}
+set.seed(1313)
+students <- tibble(
+  id = 1:150,
+  hours_studied = round(rnorm(150, mean = 10, sd = 3), 1),
+  exam_score = round(55 + 4.5 * hours_studied + rnorm(150, sd = 12), 1)
+)
+
+model1 <- lm(exam_score ~ hours_studied, data = students)
+
+```
+
+```{r reg1e-predict, exercise=TRUE, exercise.setup="reg1b-setup"}
+# Predict exam scores for hours_studied = 5, 10, 15
+library(modelr)
+newdata <- tibble(hours_studied = c(5, 10, 15))
+
+```
+
+```{r reg1e-predict-hint}
+# Use predict(model, newdata = ...)
+```
+
+```{r reg1e-predict-solution}
+library(modelr)
+
+newdata <- tibble(hours_studied = c(5, 10, 15))
+
+newdata |>
+  modelr::add_predictions(model1)
+```
+
+```{r reg1e-predict-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Must use predict() OR add_predictions()
+  used_predict <- grepl("predict\\s*\\(", code_text)
+  used_add_predictions <- grepl("add_predictions\\s*\\(", code_text)
+  if (!(used_predict || used_add_predictions)) {
+    fail("Did you use `predict()` or `add_predictions()` to generate predictions from your model?")
+  }
+  
+  # Must provide *only* the numbers 5, 10, and 15 as standalone values
+  has_5  <- grepl("\\b5\\b", code_text)
+  has_10 <- grepl("\\b10\\b", code_text)
+  has_15 <- grepl("\\b15\\b", code_text)
+  if (!(has_5 && has_10 && has_15)) {
+    fail("Did you use all three required values: 5, 10, and 15 for `hours_studied`?")
+  }
+  
+  pass("Great job! You generated predictions for the required values of hours studied.")
+})
+```
+
+## Case Study | Multiple Regression
+
+A company wants to predict job performance based on employee `experience` and `motivation`. Outliers may be present, and you also want to check if predictors are correlated, i.e. check issues around multicollinearity.
+
+```{r reg2-setup, include=FALSE}
+set.seed(1314)
+employees <- tibble(
+  id = 1:180,
+  experience = round(rnorm(180, mean = 7, sd = 2.5), 1),
+  motivation = round(rnorm(180, mean = 70, sd = 10), 1)
+) %>%
+  mutate(
+    job_perf = 50 + 2.5 * experience + 0.7 * motivation +
+      rnorm(180, sd = 8)
+  )
+employees$job_perf[sample(1:180, 4)] <- employees$job_perf[sample(1:180, 4)] + 40
+```
+
+### Step 1 | Inspecting the Data
+
+Inspect the the dataset to check data types.
+
+```{r reg2a-head, exercise=TRUE, exercise.setup="reg2-setup"}
+# Show the first few rows
+```
+
+```{r reg2a-head-solution}
+glimpse(employees)
+```
+
+```{r reg2a-head-check}
+grade_this_code()
+```
+
+### Step 2 | Visualise distribution
+
+Visualise the distribution of job performance to look for outliers. Use a histogram to achieve this. Map `job_perf` on to the x-axis, please. Also use `bins = 30` for your histogram.
+
+```{r reg2b-hist, exercise=TRUE, exercise.setup="reg2-setup"}
+# Create a histogram of job_perf
+```
+
+```{r reg2b-hist-solution}
+ggplot(employees, aes(x = job_perf)) +
+  geom_histogram(bins = 30) +
+  theme_minimal()
+```
+
+```{r reg2b-hist-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("geom_histogram", code_text)) {
+    fail("Did you use geom_histogram() to plot the distribution?")
+  }
+  pass("Histograms are great for spotting outliers and the shape of your data.")
+})
+```
+
+### Step 3a | Fit the model
+
+Fit a multiple regression model with both experience and motivation as predictors. Then, check the correlation between predictors. Make sure to inspect the results of the regression using the `summary()` function. Also, store your regression results in the object `model2`.
+
+```{r reg2c-model, exercise=TRUE, exercise.setup="reg2-setup"}
+# Fit model: job_perf ~ experience + motivation
+# Also check cor(experience, motivation)
+```
+
+```{r reg2c-model-solution}
+model2 <- lm(job_perf ~ experience + motivation, data = employees)
+summary(model2)
+
+employees |>
+  select(-id) |> 
+  correlation::correlation()
+```
+
+```{r reg2c-model-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # 1. Check for correct model definition and name
+  if (!grepl("model2\\s*<-\\s*lm\\s*\\(\\s*job_perf\\s*~\\s*experience\\s*\\+\\s*motivation\\s*,\\s*data\\s*=\\s*employees\\s*\\)", code_text)) {
+    fail("Did you assign the regression model to `model2` and use the correct formula and data?")
+  }
+  
+  # 2. Check for summary(model2)
+  if (!grepl("summary\\s*\\(\\s*model2\\s*\\)", code_text)) {
+    fail("Did you call `summary(model2)` to show the regression results?")
+  }
+  
+  # 3. Check correlation function is used (with select, either -id or explicitly selecting relevant columns)
+  if (!grepl("employees\\s*\\|>\\s*select\\s*\\(([^)]*\\-id|[^)]*job_perf[^)]*experience[^)]*motivation)", code_text) ||
+      !grepl("correlation\\s*::\\s*correlation\\s*\\(|correlation\\s*\\(", code_text)) {
+    fail("Did you use the correlation() function (from the correlation package) on the relevant variables using select(-id) or by selecting the three variables explicitly?")
+  }
+  
+  pass("Excellent! You fit the regression model, checked the summary, and calculated the correlations as required.")
+})
+```
+
+### Step 3b | Fit the model
+
+```{r reg2d-multireg-mcq, echo=FALSE}
+question("What do the regression and correlation results tell us about job performance?",
+  answer("Both experience and motivation are significant predictors of job performance.", correct = TRUE,
+         message = "Exactly! Both predictors have significant p-values in the regression."),
+  answer("Motivation is more strongly correlated with job performance than experience.", correct = TRUE,
+         message = "The correlation between motivation and job performance (r = 0.50) is higher than that for experience (r = 0.29)."),
+  answer("There is no statistically significant relationship between experience and job performance.",
+         message = "No, the regression and correlation both show significant positive associations."),
+  answer("Experience and motivation are negatively correlated with each other.", correct = TRUE,
+         message = "The correlation matrix shows a negative correlation between experience and motivation (r = -0.18)."),
+  answer("The regression model explains a substantial portion of the variance in job performance, i.e. almost 60%.",
+         message = "No quite. Multiple R-squared is about 0.39, meaning almost 40% of variance is explained by the model."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4a | Standardise Predictors
+
+When predictors are measured on different scales, their coefficients in a regression are not directly comparable. By standardising them (converting to z-scores), we put all variables on the same scale, so the resulting beta coefficients reflect the impact of a one standard deviation change in each predictor. This lets us clearly see which predictor has the strongest effect on the outcome. Please standardise the predictorsusing the `scale()` function. For this exercise we only scale the precictors and not the outcome variable.
+
+```{r reg2d-std, exercise=TRUE, exercise.setup="reg2-setup"}
+# Standardise predictors, fit model with standardised betas
+```
+
+```{r reg2d-std-solution}
+model2_std <- lm(job_perf ~ scale(experience) + scale(motivation), data = employees)
+summary(model2_std)
+```
+
+```{r reg2d-std-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # 1. Check for lm() call with correct formula and scaling
+  if (!grepl("lm\\s*\\(\\s*job_perf\\s*~\\s*scale\\s*\\(\\s*experience\\s*\\)\\s*\\+\\s*scale\\s*\\(\\s*motivation\\s*\\)", code_text) ||
+      !grepl("data\\s*=\\s*employees", code_text)) {
+    fail("Did you fit a regression using `lm(job_perf ~ scale(experience) + scale(motivation), data = employees)`?")
+  }
+  
+  # 2. Check summary() is used on the model object
+  if (!grepl("summary\\s*\\(", code_text)) {
+    fail("Did you call `summary()` to view the regression results?")
+  }
+  
+  pass("Great! You fit a regression with standardised predictors and displayed the summary.")
+})
+```
+
+### Step 4b | Standardise Predictors
+
+```{r reg2d-std-mcq, echo=FALSE}
+question("What do the standardised regression results show?",
+  answer("Both standardised predictors, experience and motivation, are significant positive predictors of job performance.", correct = TRUE,
+         message = "Yes! Both `scale(experience)` and `scale(motivation)` have positive and significant coefficients."),
+  answer("Motivation has a larger standardised coefficient than experience.", correct = TRUE,
+         message = "The estimate for `scale(motivation)` is larger (`7.61`) than for `scale(experience)` (`5.26`), so it is a stronger predictor."),
+  answer("Neither predictor is statistically significant.",
+         message = "Both predictors have p-values much less than 0.05, so both are significant."),
+  answer("The intercept is not meaningful in a standardised model.", correct = TRUE,
+         message = " In models with standardised predictors, the intercept represents the mean of the outcome when all predictors are at their mean (i.e., zero after scaling), which may be less interpretable."),
+  answer("The scaled results do not have the same implications as the unscaled version.",
+         message = "Not quite. The statistical significance and direction of effects remain the same, but the interpretation changes: standardised coefficients let us directly compare the relative importance of each predictor. This helps us see which variable contributes more to explaining variance in the model."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5 | Correlations between variables
+
+```{r reg2e-mcq, echo=FALSE}
+question("If experience and motivation are highly correlated, what problem might occur?",
+  answer("Outliers will be undetectable.",
+         message = "Outliers are unrelated to predictor correlation."),
+  answer("Multicollinearity, which can make coefficients unstable.", correct = TRUE,
+         message = "You are right! Multicollinearity makes it hard to interpret individual predictor effects."),
+  answer("The regression will always have a perfect fit.",
+         message = "High predictor correlation doesn't guarantee a perfect fit."),
+  answer("The residuals will not be normally distributed.",
+         message = "Correlation between predictors and normality of residuals are separate issues."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study | Hierarchical Regression
+
+A hospital research team wants to understand what predicts how many days patients spend recovering after surgery. Their main research question: **Does age affect recovery days, even after controlling for the severity of illness?** For this, you have access to anonymised data from 160 patients (`patients`). The research team uses a `severity` score, which has been categorised into two groups: `mild` (score ≤ 5) and `severe` (score > 5). Your task: walk the team through each step of the analysis.
+
+### Step 1 | Inspecting the Data
+
+First, inspect the data using `glimpse()`. Check what variables are included what the size of the sample is?
+
+```{r reg3-setup, include=FALSE}
+set.seed(1315)
+patients <- tibble::tibble(
+  id = 1:160,
+  age = as.integer(rnorm(160, mean = 50, sd = 12)),
+  severity_score = round(rnorm(160, mean = 5, sd = 2), 1)
+) %>%
+  mutate(
+    severity = factor(
+      ifelse(severity_score <= 5, "mild", "severe"),
+      levels = c("mild", "severe")
+    ),
+    recovery_days = 10 + 0.25 * age + 4 * (severity == "severe") + rnorm(160, sd = 4)
+  )
+```
+
+
+```{r reg3a-inspect, exercise=TRUE, exercise.setup="reg3-setup"}
+# Inspect the structure of the dataset
+```
+
+```{r reg3a-inspect-solution}
+glimpse(patients)
+```
+
+```{r reg3a-inspect-check}
+grade_this_code()
+```
+
+### Step 2a | Visualising relationships
+
+Let's begin our analysis by considering the main relationship, i.e. `recovery_days` and `age`. Create a scatterplot which shows the relationship of these two numeric variables and use `col = ` to also show observations based on severity level in different colours. Complete the code as necessary and make sure to plot `age` onto the x-axis.
+
+```{r reg2a-age-plot, exercise=TRUE, exercise.setup="reg3-setup"}
+# Plot recovery days by age, coloured by severity group, with a regression line for each group
+
+patients |>
+  ggplot(aes(x =
+             y = 
+             col = )) +
+  geom_jitter() +
+  stat_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  labs(
+    title = "Recovery Days by Age and Severity Group",
+    x = "Age",
+    y = "Recovery Days",
+    col = "Severity"
+  )
+```
+
+```{r reg2a-age-plot-hint}
+# Use ggplot. Map age to x, recovery_days to y, colour by severity.
+# Add geom_jitter and stat_smooth(method = "lm", se = FALSE).
+```
+
+```{r reg2a-age-plot-solution}
+# Plot recovery days by age, coloured by severity group, with a regression line for each group
+
+patients |>
+  ggplot(aes(x = age,
+             y = recovery_days,
+             col = severity)) +
+  geom_jitter() +
+  stat_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  labs(
+    title = "Recovery Days by Age and Severity Group",
+    x = "Age",
+    y = "Recovery Days",
+    col = "Severity"
+  )
+```
+
+```{r reg2a-age-plot-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  if (!grepl("ggplot", code_text)) {
+    fail("Did you use ggplot() to make your plot?")
+  }
+  if (!grepl("aes\\s*\\([^)]*x\\s*=\\s*age", code_text)) {
+    fail("Did you map age to the x-axis?")
+  }
+  if (!grepl("aes\\s*\\([^)]*y\\s*=\\s*recovery_days", code_text)) {
+    fail("Did you map recovery_days to the y-axis?")
+  }
+  if (!grepl("aes\\s*\\([^)]*col\\s*=\\s*severity", code_text)) {
+    fail("Did you map colour to severity?")
+  }
+  if (!grepl("geom_jitter", code_text)) {
+    fail("Did you use geom_jitter() to spread out the points?")
+  }
+  if (!grepl("stat_smooth", code_text)) {
+    fail("Did you add a regression line with stat_smooth()?")
+  }
+  pass("Great visualisation! This plot shows how recovery days relate to age and severity group.")
+})
+```
+
+### Step 2b | Visualising relationships
+
+```{r reg2a-age-plot-mcq, echo=FALSE}
+question("What does this plot tell us about the relationship between age, recovery days, and severity?",
+  answer("There is a positive relationship between age and recovery days in both severity groups.", correct = TRUE,
+         message = "Yes, in both mild and severe groups, older patients tend to have longer recovery."),
+  answer("The effect of age on recovery is stronger for the severe group than the mild group.", correct = TRUE,
+         message = "The severe group has a slightly steeper regression line, indicating age matters even more for these patients."),
+  answer("Mild and severe groups have similar recovery patterns with age.",
+         message = "Not quite. The lines show different slopes and intercepts."),
+  answer("Younger patients in the severe group always recover faster than older patients in the mild group.",
+         message = "No, some younger severe cases may still take longer to recover than mild cases."),
+  answer("Severity has no impact on recovery days.",
+         message = "Severity clearly makes a difference; the two groups have different regression lines."),
+  answer("The relationship between age and recovery days is negative in the mild group.",
+         message = "No, the relationship is positive (upward slope) for both groups."),
+  allow_retry = TRUE
+)
+```
+
+### Step 2c | Visualising relationships
+
+Given that the `mild` and `severe` group show different regression lines, we could quickly take a look at how `severity` affects `recovery_days`. Therefore, let's create a boxplot of recovery days by severity group. Plot `severity` onto the x-axis. It would be nice to show the differences in group also in colour by using `fill =`.
+
+```{r reg3b-severity-group, exercise=TRUE, exercise.setup="reg3-setup"}
+# Create a boxplot of recovery_days by severity group
+```
+
+```{r reg3b-severity-group-hint}
+# Here is a basic structure for the plot you can use as guidance.
+patients |> 
+  ggplot(aes(x = severity, y = , fill = )) +
+  geom_boxplot()
+```
+
+```{r reg3b-severity-group-solution}
+patients |> 
+  ggplot(aes(x = severity, y = recovery_days, fill = severity)) +
+  geom_boxplot()
+```
+
+```{r reg3b-severity-group-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("geom_boxplot", code_text)) {
+    fail("Did you use `geom_boxplot()` to visualise recovery days by severity group?")
+  }
+  if (!grepl("fill\\s*=\\s*severity", code_text)) {
+    fail("Did you colour the boxplots by severity group?")
+  }
+  pass("Great! Your boxplot shows how recovery varies with severity.")
+})
+```
+
+### Step 2d | Visualising relationships
+
+```{r reg3b-severity-box-mcq, echo=FALSE}
+question("What does the boxplot reveal about recovery days by severity group?",
+  answer("There is no difference between mild and severe groups.",
+         message = "Actually, the plot shows that severe cases tend to recover more slowly."),
+  answer("Mild cases have more outliers.",
+         message = "There is one mild outlier, but overall, the main pattern is group differences in median and spread."),
+  answer("Severe cases always recover faster.",
+         message = "No, severe cases have a higher median and upper quartile."),
+  answer("Patients with severe illness generally have longer recovery times than those with mild illness.", correct = TRUE,
+         message = "Exactly! The median and spread for severe cases are higher."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3 | Outlier Detection and Removal
+
+Before running our regression, we need to check for outliers in `recovery_days` using the IQR rule (we ignore in this case study possible other outliers). Remove the outliers and store the cleaned data as `patients_clean`.
+
+```{r reg3c-outliers, exercise=TRUE, exercise.setup="reg3-setup"}
+# Remove outliers using IQR on recovery_days
+```
+
+```{r reg3c-outliers-hint}
+# Use the quantile function to obtain the first and third quartile.
+# Then you can compute the IQR using the iqr() function.
+# Use this result to filter() your data.
+
+```
+
+```{r reg3c-outliers-solution}
+q1 <- quantile(patients$recovery_days, 0.25)
+q3 <- quantile(patients$recovery_days, 0.75)
+iqr <- IQR(patients$recovery_days)
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+patients_clean <- patients |> filter(recovery_days >= lower, recovery_days <= upper)
+```
+
+```{r reg3c-outliers-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  iqr_present <- grepl("IQR\\s*\\(", code_text)
+  lower_present <- grepl("lower", code_text)
+  upper_present <- grepl("upper", code_text)
+  filter_present <- grepl("filter", code_text)
+  recovery_present <- grepl("recovery_days", code_text)
+  if (!(iqr_present && lower_present && upper_present && filter_present && recovery_present)) {
+    fail("Did you remove outliers using the IQR rule on recovery_days?")
+  }
+  pass("Excellent! You removed outliers using the IQR rule.")
+})
+```
+
+### Step 4a | Hierarchical Regression: Model 1 (Control for Severity)
+
+```{r reg3b-setup, include=FALSE}
+set.seed(1315)
+patients <- tibble::tibble(
+  id = 1:160,
+  age = as.integer(rnorm(160, mean = 50, sd = 12)),
+  severity_score = round(rnorm(160, mean = 5, sd = 2), 1)
+) %>%
+  mutate(
+    severity = factor(
+      ifelse(severity_score <= 5, "mild", "severe"),
+      levels = c("mild", "severe")
+    ),
+    recovery_days = 10 + 0.25 * age + 4 * (severity == "severe") + rnorm(160, sd = 4)
+  )
+
+# Remove outliers
+q1 <- quantile(patients$recovery_days, 0.25)
+q3 <- quantile(patients$recovery_days, 0.75)
+iqr <- IQR(patients$recovery_days)
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+patients_clean <- patients |> filter(recovery_days >= lower, recovery_days <= upper)
+
+```
+
+With our data all clean and tidy, we can fit the **first regression model** using only `severity` as a predictor (the control variable).
+
+```{r reg3d-mod1, exercise=TRUE, exercise.setup="reg3b-setup"}
+# Fit a regression model
+```
+
+```{r reg3d-mod1-hint}
+# Fit the model using the following setup: recovery_days ~ severity
+
+```
+
+```{r reg3d-mod1-solution}
+model1 <- lm(recovery_days ~ severity, data = patients_clean)
+summary(model1)
+```
+
+```{r reg3d-mod1-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("lm\\s*\\(", code_text) || !grepl("recovery_days\\s*~\\s*severity", code_text)) {
+    fail("Did you fit the model recovery_days ~ severity?")
+  }
+  if (!grepl("summary", code_text)) {
+    fail("Did you output the regression summary?")
+  }
+  pass("Good! Model 1 includes only severity as a predictor.")
+})
+```
+
+### Step 4b | Hierarchical Regression: Model 1 (Control for Severity)
+
+```{r reg3a-severity-mcq, echo=FALSE}
+question("What does this regression output tell us about severity?",
+  answer("Severe cases recover faster than mild cases.",
+         message = "No, the coefficient for 'severitysevere' is positive, so severe cases take longer to recover."),
+  answer("There is no difference between mild and severe cases.",
+         message = "Actually, the p-value is very small, indicating a statistically significant difference."),
+  answer("The model explains almost 17.5% of the variance in our outcome variable", correct = TRUE,
+         message = "The control variable explains 17.5% of the variance, which is quite respectable."),
+  answer("Severity seems to have a significant positive effect on recovery days.", correct = TRUE,
+         message = "You are right! The positive and significant coefficient means patients with severe illness take longer to recover."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5a | Hierarchical Regression: Model 2 (Add Age)
+
+While the first model seems promising, it is time to add the main effect, i.e. `age`, to the model. Let's find out whether this changes the model in any way.
+
+```{r reg3e-mod2, exercise=TRUE, exercise.setup="reg3b-setup"}
+# Fit a regression model
+```
+
+```{r reg3e-mod2-hint}
+# Fit a regression model as follows: recovery_days ~ severity + age
+```
+
+```{r reg3e-mod2-solution}
+model2 <- lm(recovery_days ~ severity + age, data = patients_clean)
+summary(model2)
+```
+
+```{r reg3e-mod2-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("lm\\s*\\(", code_text) || !grepl("recovery_days\\s*~\\s*severity\\s*\\+\\s*age", code_text)) {
+    fail("Did you fit the model recovery_days ~ severity + age?")
+  }
+  if (!grepl("summary", code_text)) {
+    fail("Did you output the regression summary?")
+  }
+  pass("Excellent! Model 2 adds age as a second predictor.")
+})
+```
+
+### Step 5b | Hierarchical Regression: Model 2 (Add Age)
+
+```{r reg3b-hierarchical-mcq, echo=FALSE}
+question("What do these regression results tell us?",
+  answer("Both age and severity are statistically significant predictors of recovery days.", correct = TRUE,
+         message = "Spot on! Both predictors are significant at p < .001."),
+  answer("The adjusted R² has improved compared to the previous model.", correct = TRUE,
+         message = "Adjusted R² increased, showing the model explains more variance."),
+  answer("Severity is no longer significant and should be dropped from the model.",
+         message = "Severity remains significant and should be retained for a parsimonious model."),
+  answer("Adding age did not improve the model.",
+         message = "Actually, the model improved when age was added."),
+  answer("Both variables should be kept in the model for parsimony.", correct = TRUE,
+         message = "Both contribute meaningfully and the model remains interpretable."),
+  allow_retry = TRUE
+)
+```
+
+### Step 6a | Comparing Model Results
+
+While we seem to have obtained all the necessary answers, it would be good to formally test whether model 2 outperforms model 1. Use the `performance` package to compare results. 
+
+```{r reg3c-setup, include=FALSE}
+set.seed(1315)
+patients <- tibble::tibble(
+  id = 1:160,
+  age = as.integer(rnorm(160, mean = 50, sd = 12)),
+  severity_score = round(rnorm(160, mean = 5, sd = 2), 1)
+) %>%
+  mutate(
+    severity = factor(
+      ifelse(severity_score <= 5, "mild", "severe"),
+      levels = c("mild", "severe")
+    ),
+    recovery_days = 10 + 0.25 * age + 4 * (severity == "severe") + rnorm(160, sd = 4)
+  )
+
+# Remove outliers
+q1 <- quantile(patients$recovery_days, 0.25)
+q3 <- quantile(patients$recovery_days, 0.75)
+iqr <- IQR(patients$recovery_days)
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+patients_clean <- patients |> filter(recovery_days >= lower, recovery_days <= upper)
+
+# Compute model1 and model2
+model1 <- lm(recovery_days ~ severity, data = patients_clean)
+model2 <- lm(recovery_days ~ severity + age, data = patients_clean)
+```
+
+```{r reg3f-parameters, exercise=TRUE, exercise.setup="reg3c-setup"}
+# Compare both models using the performance package
+```
+
+```{r reg3f-parameters-hint}
+# Load the package called performance.
+# Then use the compare_performance() function 
+```
+
+```{r reg3f-parameters-solution}
+library(performance)
+compare_performance(model1, model2)
+```
+
+```{r reg3f-parameters-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Allow either order, and with or without performance::
+  pattern1 <- "compare_performance\\s*\\(\\s*model1\\s*,\\s*model2\\s*\\)"
+  pattern2 <- "compare_performance\\s*\\(\\s*model2\\s*,\\s*model1\\s*\\)"
+  pattern1b <- "performance::compare_performance\\s*\\(\\s*model1\\s*,\\s*model2\\s*\\)"
+  pattern2b <- "performance::compare_performance\\s*\\(\\s*model2\\s*,\\s*model1\\s*\\)"
+  
+  if (grepl(pattern1, code_text) || grepl(pattern2, code_text) ||
+      grepl(pattern1b, code_text) || grepl(pattern2b, code_text)) {
+    pass("Perfect! You compared the performance of both models.")
+  } else {
+    fail("Did you use `compare_performance()` with both model1 and model2 as arguments? The order does not matter.")
+  }
+})
+```
+
+### Step 6b | Comparing Model Results
+
+```{r reg3e-compare-mcq, echo=FALSE}
+question("Based on the model comparison table above, which statements are correct?",
+  answer("Model 2 is preferred because it has lower AIC, BIC, and RMSE values.", correct = TRUE,
+         message = "Absolutely right! Lower values on these metrics indicate better model fit."),
+  answer("The adjusted R² for Model 2 is much higher than for Model 1, indicating a better fit.", correct = TRUE,
+         message = "Model 2 explains more variance in recovery days."),
+  answer("Model 1 should be chosen because it is simpler, even though it fits the data worse.",
+         message = "Model 2 provides a clearly better fit, so parsimony alone is not enough here."),
+  answer("Adding age as a predictor improved the model’s performance.", correct = TRUE,
+         message = "Absolutely! Including age increased model fit across all statistics."),
+  allow_retry = TRUE
+)
+```
+
+### Congratulations, you completed all exercises for this chapter!

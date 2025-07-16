@@ -11,6 +11,7 @@ description: "Exercises section of R4NP: A Guide for Social Scientists"
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 library(r4np)
 library(tidyverse)
 knitr::opts_chunk$set(echo = FALSE)
@@ -18,26 +19,1353 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Plotting in R with `ggplot2`
 
-## Central tendency measures
+### Knowledge Check | 1
 
-## Spread of data
-
-## Packages for descriptive statistics
-
-
-```{r tempalte}
-# quiz(
-#   question(
-#     "Which of the following statements are correct?",
-#     answer("",
-#            ),
-#     answer("",
-#            ),
-#     answer("",
-#            ),
-#     answer("",
-#            ),
-#     allow_retry = TRUE
-#   )
-# )
+```{r ggplot2-q1, echo=FALSE}
+question("What is the purpose of using the `ggplot2` package in R?",
+  answer("To perform statistical hypothesis testing", message = "I am afraid, that's not the primary role of `ggplot2`."),
+  answer("To create and customise data visualisations", correct = TRUE),
+  answer("To tidy messy datasets", message = "`ggplot2` doesn’t tidy data. There are other packages that can help with that."),
+  answer("To write reports in Quarto", message = "`ggplot2` is focused on visualisations."),
+  allow_retry = TRUE
+)
 ```
+
+### Knowledge Check | 2
+
+```{r ggplot2-q2, echo=FALSE}
+question("What does `aes()` stand for in a `ggplot()` call?",
+  answer("Aesthetic mappings", correct = TRUE, message = "Correct, it often allows us to define where each variable sits in the plot, e.g. the x-axis of y-axis."),
+  answer("Alternative evaluation system", message = "Sounds fancy, but not quite."),
+  answer("Automatic encoding syntax", message = "Nope — think visual mappings."),
+  answer("Annotation editing strategy", message = "Clever guess! But incorrect."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r ggplot2-q3, echo=FALSE}
+question("Which of the following would produce a bar plot of a categorical variable?",
+  answer("ggplot(data, aes(x = category)) + geom_bar()", correct = TRUE, message = "Correct. `geom_bar()` is the right function to create bar plots."),
+  answer("ggplot(data, aes(x = category)) + geom_line()", message = "`geom_line()` is for continuous data."),
+  answer("ggplot(data, aes(y = category)) + geom_boxplot()", message = "Boxplots require numerical values."),
+  answer("ggplot(data, aes(x = category))", message = "You're missing a `geom_` layer."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r ggplot2-q4, echo=FALSE}
+question("Which of these statements about `ggplot2` syntax is true?",
+  answer("`ggplot2` creates plots automatically.", message = "Not quite. You need geoms to draw anything."),
+  answer("You must specify a dataset and a mapping inside `ggplot()`", correct = TRUE),
+  answer("You can only plot numeric data", message = "Not true — you can plot categorical data too."),
+  answer("You can only use `ggplot2` inside Quarto documents", message = "`ggplot2` works in any R session."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1
+
+Use the `wvs_nona` dataset to create a frequency table of `relationship_status`, and visualise the result using a bar chart.
+
+```{r ggplot2-relstatus, exercise=TRUE}
+# Plot the relationship status distribution
+wvs_nona |> 
+  count(relationship_status)
+```
+
+```{r ggplot2-relstatus-hint}
+# Use geom_col() to plot the result.
+```
+
+```{r ggplot2-relstatus-solution}
+wvs_nona |> 
+  count(relationship_status) |> 
+  ggplot(aes(x = relationship_status,
+             y = n)) +
+  geom_col()
+```
+
+```{r ggplot2-relstatus-check}
+grade_this_code()
+```
+
+### Coding Practice | 2.1
+
+A company offered intercultural training to their staff. As part of these training, participants completed pre- and post-training tests to find out whether the training had an impact on third intercultural compoetence.
+
+Let’s examine how participants rated their leadership competence in the `ic_training` dataset after completing it. The variable `leadership3` captures their responses on a three-point scale, i.e. low, medium, high, and measure their intercultural competence regarding leadership.
+
+Complete the code below to create the bar plot.
+
+```{r ggplot2-leadership, exercise=TRUE}
+ic_training |>
+
+  # We only want the results for the post-training test
+  filter(test == "post_training") |> 
+
+  # We count the frequency of categories 
+  count(leadership3)
+  
+  # Add your ggplot here
+  
+```
+
+```{r ggplot2-leadership-hint}
+# Use count() followed by ggplot() with geom_col().
+```
+
+```{r ggplot2-leadership-solution}
+ic_training |>
+  filter(test == "post_training") |> 
+  count(leadership3) |> 
+  ggplot(aes(x = leadership3, y = n)) +
+  geom_col()
+```
+
+```{r ggplot2-leadership-check}
+grade_this_code()
+```
+
+### Coding Practice | 2.2
+
+```{r ggplot2-leadership-mcq, echo=FALSE}
+question("What can we conclude from the bar plot of leadership competence levels?",
+  answer("Most people selected 'high' for their leadership competence.",
+         message = "That's not quite right — the 'medium' category was more common."),
+  answer("Most participants consider the level of intercultural competence in leadership as medium.", correct = TRUE,
+         message = "Yes, the 'medium' category had the highest bar."),
+  answer("The majority of responses were evenly distributed across all categories.",
+         message = "That's incorrect — responses were not evenly distributed."),
+  answer("Nobody considers their intercultural competence in leadership as low.", correct = TRUE,
+         message = "Correct! There were no counts in the 'low' category."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3
+
+In recent years, the conversation around remote and hybrid work has become increasingly relevant. Employers, researchers, and employees alike are curious about how preferences for working from home have shifted, especially in the wake of changing workplace norms.
+
+To better understand this, let's explore a small dataset (`wfh_data`) of responses from employees about their preferred work-from-home arrangements. Do most people want to work remotely all the time, or do they prefer a hybrid schedule?
+
+Create a bar plot that shows how common each preference is among the group.
+
+```{r ggplot2-wfh-prefs-data}
+# Create a tibble and plot WFH preferences
+wfh_data <- tibble(
+  preference = c("Always", "Mostly", "Mixed", "Rarely", "Never"),
+  count = c(10, 12, 9, 6, 3)
+)
+```
+
+```{r ggplot2-wfh-prefs, exercise=TRUE, exercise.setup="ggplot2-wfh-prefs-data"}
+# Create your bar plot
+
+```
+
+```{r ggplot2-wfh-prefs-hint}
+# Use tibble() to build a dataset manually. Then use ggplot() and geom_col() as usual.
+```
+
+```{r ggplot2-wfh-prefs-solution}
+wfh_data |> 
+  ggplot(aes(x = preference, y = count)) +
+  geom_col()
+```
+
+```{r ggplot2-wfh-prefs-check}
+grade_this_code()
+```
+
+### Coding Practice | 4
+
+Practicing mindfulness is often recommended as a strategy to reduce stress and improve focus. In many training programs, participants are asked to complete short mindfulness tasks over several weeks. But do people actually stick with it?
+
+The dataset `mindful` tracks how many participants completed a mindfulness task each week over a five-week period. Plot this data using a line chart to visualise how engagement changed over time.
+
+A line chart can be created using `geom_line()` instead of `geom_col()`, which is what we used so far.
+
+```{r ggplot2-mindfulness-data}
+# Plot participants over time
+mindful <- tibble(
+  week = 1:5,
+  completions = c(54, 52, 45, 50, 53)
+)
+```
+
+```{r ggplot2-mindfulness-line, exercise=TRUE, exercise.setup="ggplot2-mindfulness-data"}
+# Use geom_line() for line charts. Make sure to plot over time (x = week).
+```
+
+```{r ggplot2-mindfulness-line-hint}
+# Use geom_line() for line charts. Make sure to plot over time (x = week).
+```
+
+```{r ggplot2-mindfulness-line-solution}
+mindful |> 
+  ggplot(aes(x = week, y = completions)) +
+  geom_line()
+```
+
+```{r ggplot2-mindfulness-line-check}
+grade_this_code()
+```
+
+### Coding Practice | 5
+
+Trust in government is a fundamental indicator of political stability and democratic health. Over time, social scientists have observed fluctuations in public trust that often coincide with economic or political events.
+
+In this exercise, you’ll explore a time series showing average trust in government scores from 2015 to 2025. The dataset is called `gov_trust`.
+
+Create a line plot to visualise how trust levels have changed across the decade.
+
+```{r ggplot2-trust-data}
+# Plot trust levels over time
+gov_trust <- tibble(
+  year = lubridate::ymd(paste0(2015:2025, "-01-01")),
+  trust_score = c(6.2, 6.4, 6.1, 6.0, 5.8, 5.5, 5.3, 5.0, 4.9, 5.2, 5.4)
+)
+```
+
+```{r ggplot2-trust-line, exercise=TRUE, exercise.setup="ggplot2-trust-data"}
+# Visualise the data
+```
+
+
+```{r ggplot2-trust-line-hint}
+# Use geom_line() to plot the change in trust over years.
+```
+
+```{r ggplot2-trust-line-solution}
+gov_trust |> 
+  ggplot(aes(x = year,
+             y = trust_score)) +
+  geom_line()
+```
+
+```{r ggplot2-trust-line-check}
+grade_this_code()
+```
+
+## Frequencies and Categorical Data
+
+### Knowledge Check | 1
+
+```{r freq-q1, echo=FALSE}
+question("What does a frequency table typically show?",
+  answer("The total number of numerical variables in a dataset", message = "Not quite. That's not what frequency tables are for."),
+  answer("Relationships between continuous variables", message = "You're thinking of correlation matrices."),
+  answer("The spread of numerical variables", message = "Unfortunately not. That relates to variance or range."),
+  answer("How often each category appears in a variable", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r freq-q2, echo=FALSE}
+question("Which function can be used to summarise the counts of a categorical variable?",
+  answer("mean()", message = "This calculates an average, not a frequency."),
+  answer("summarise()", message = "Useful, but not specific to counting."),
+  answer("filter()", message = "`filter()` subsets — doesn’t count."),
+  answer("count()", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r freq-q3, echo=FALSE}
+question("Why might you use `ggplot()` to plot a categorical variable?",
+  answer("To see the distribution of categories visually", correct = TRUE),
+  answer("To calculate average scores", message = "Visualising isn’t the same as calculating."),
+  answer("To rename columns", message = "This is a data wrangling task."),
+  answer("To check for missing values", message = "It would be better to use something like `vis_miss()` from the `naniar` package, which does return a `ggplot`."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r freq-q4, echo=FALSE}
+question("Which kind of plot is commonly used to display frequencies of categorical variables?",
+  answer("Scatter plot", message = "Scatter plots are for numerical relationships."),
+  answer("Line plot", message = "Line plots are not ideal for categorical data."),
+  answer("Bar plot", correct = TRUE),
+  answer("Histogram", message = "Histograms are used for continuous numerical data."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1
+
+We want know how many students are `male` and `female` in our dataset, but somehow the code is not working properly. Can you fix it?
+
+```{r freq-fix-count, exercise=TRUE}
+# This code returns an error — can you fix it?
+gep |> 
+  count()
+```
+
+```{r freq-fix-count-hint}
+# count() needs a variable name. Try adding one!
+```
+
+```{r freq-fix-count-solution}
+gep |> 
+  count(gender)
+```
+
+```{r freq-fix-count-check}
+grade_this_code()
+```
+
+### Coding Practice | 2.1
+
+Create a bar plot of students' `level_of_study` using the `gep` dataset to show their distribution in the dataset
+
+```{r freq-barplot, exercise=TRUE}
+# Use ggplot to show counts by level of study
+
+```
+
+```{r freq-barplot-hint}
+# Bar charts of categorical data use geom_bar().
+```
+
+```{r freq-barplot-solution}
+ggplot(gep, aes(x = level_of_study)) +
+  geom_bar()
+```
+
+```{r freq-barplot-check}
+grade_this_code()
+```
+
+### Coding Practice | 2.1
+
+```{r freq-barplot-mcq, echo=FALSE}
+question("What does the bar plot of `level_of_study` reveal?",
+  answer("It shows how many students belong to each study level category.", correct = TRUE,
+         message = "Correct — bar plots are great for visualising category frequencies."),
+  answer("It shows the average age of students in each study level.",
+         message = "Not quite — the plot doesn't show age at all."),
+  answer("It displays the variation of socialising scores by study level.",
+         message = "That would require a different variable mapped to y, like in a boxplot."),
+  answer("It compares the median engagement level for each student group.",
+         message = "No engagement data is included in the plot — this option isn't correct."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3
+
+We collected data about well-being and work-life balance in the `eqls_2011` dataset. It contains information about education levels. It would be interesting to understand what kind of education levels are represented the most. Please compute the **absolute** and **relative frequency** of `education` in this dataset.
+
+```{r education-freq, exercise=TRUE}
+# Count how often each education level appears, and calculate the relative frequency
+```
+
+```{r education-freq-hint-1}
+# Use `count()` to compute absolute frequencies.
+```
+
+```{r education-freq-hint-2}
+# Use the `mutate()` function to create a new column which holds the relative frequencies.
+```
+
+```{r education-freq-solution}
+eqls_2011 |> 
+  count(education) |> 
+  mutate(prop = n / sum(n))
+```
+
+```{r education-freq-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("count\\s*\\(\\s*education\\s*\\)", code_text)) {
+    fail("Did you use `count(education)` to compute the absolute frequency?")
+  }
+  if (!grepl("mutate\\s*\\(.*n\\s*/\\s*sum\\s*\\(\\s*n\\s*\\)", code_text)) {
+    fail("To compute the relative frequency, use `mutate()` with `n / sum(n)`.")
+  }
+  pass("Excellent — you've correctly calculated absolute and relative frequencies using `count()` and `mutate()`.")
+})
+```
+
+### Coding Practice | 4
+
+In the previous exercise we created a frequency table with absolute and relative frequencies. However, we would like to know which education level ranks the highest, i.e. is the most frequently occurring one in our dataset. To achieve this easily, we can sort the table by `n`, i.e. the absolute frequency. Can you recreate the table from the previous exercise but arrange it as required?
+
+```{r freq-count-sort, exercise=TRUE}
+
+```
+
+```{r freq-count-sort-hint}
+# Try using sort = TRUE inside of count() as an additional argument.
+```
+
+```{r freq-count-sort-solution}
+eqls_2011 |> 
+  count(education, sort = TRUE)
+```
+
+```{r freq-count-sort-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  if (!grepl("count\\(.*education", code_text)) {
+    fail("Make sure you are counting the `education` variable using `count()`.")
+  }
+
+  if (grepl("count\\(.*sort *= *TRUE", code_text)) {
+    pass("Nice! You've used the `sort = TRUE` shortcut inside `count()` to rank by frequency.")
+  }
+
+  if (grepl("arrange\\(.*desc\\(n\\)", code_text)) {
+    pass("Great! You've used `arrange(desc(n))` to sort the table by frequency.")
+  }
+
+  fail("You're on the right track — try using `sort = TRUE` in `count()` or follow it with `arrange(desc(n))`.")
+})
+```
+### Coding Practice | 5.1
+
+Spending time in nature has been linked to greater wellbeing. We're curious to know: **how much time do people report spending in green spaces**?
+
+Start by creating a frequency table of the `time_in_green` variable from the `pplnat` dataset. Then, visualise this table as a bar chart using `ggplot2`.
+
+```{r pplnat-green-barplot, exercise=TRUE}
+# Count how often each level appears, then plot using geom_bar()
+```
+
+```{r pplnat-green-barplot-hint-1}
+# First use `count(time_in_green)` to summarise.
+```
+
+```{r pplnat-green-barplot-hint-2}
+# Then pipe it into `ggplot()` and use `geom_bar(stat = "identity")` to plot the frequencies.
+```
+
+```{r pplnat-green-barplot-solution}
+pplnat |> 
+  count(time_in_green) |> 
+  ggplot(aes(x = time_in_green, y = n)) +
+  geom_col()
+```
+
+```{r pplnat-green-barplot-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  if (!grepl("count\\(.*time_in_green", code_text)) {
+    fail("Start by counting how often each response level of `time_in_green` occurs.")
+  }
+
+  if (!grepl("geom_col\\(", code_text)) {
+    fail("You should use `geom_col()` to plot pre-summarised data.")
+  }
+
+  pass("Excellent — you've correctly visualised how much time people spend in green spaces using `geom_col()`.")
+})
+```
+
+### Coding Practice | 5.2
+The plot from the previous exercise worked well, but it is tough to read the axis labels. How could we modify the coding to create a nicer look plot where the labels can be read, properly?
+
+Feel free to copy the solution from the previous example to get started.
+
+```{r pplnat-green-barplot-flipped, exercise=TRUE}
+# Add the code from the previous plot here and add another layer to your ggplot.
+```
+
+```{r pplnat-green-barplot-flipped-hint-1}
+# You can rotate your plot so that the x-axis is vertical and the y-axis is horizontal.
+```
+
+```{r pplnat-green-barplot-flipped-hint-2}
+# coord_flip(), can help swap the axis in your plots.
+```
+
+```{r pplnat-green-barplot-flipped-solution}
+pplnat |> 
+  count(time_in_green) |> 
+  ggplot(aes(x = time_in_green, y = n)) +
+  geom_col() +
+  coord_flip()
+```
+
+```{r pplnat-green-barplot-flipped-check}
+grade_this({
+  code_text <- paste(deparse(.user_code), collapse = " ")
+
+  if (!grepl("count\\s*\\(\\s*time_in_green", code_text)) {
+    fail("Start by counting how often each response level of `time_in_green` occurs.")
+  }
+
+  if (!grepl("geom_col\\s*\\(", code_text)) {
+    fail("You should use `geom_col()` to plot pre-summarised data.")
+  }
+
+  if (!grepl("coord_flip\\s*\\(", code_text)) {
+    fail("Don't forget to flip the axes using `coord_flip()` to improve readability.")
+  }
+
+  pass("Excellent — you've correctly visualised the data and flipped the axes for better readability!")
+})
+```
+
+### Coding Practice | 5.3
+
+```{r pplnat-green-barplot-understanding}
+
+question("What does the bar plot reveal about people's time spent in green spaces?",
+  answer("Very few people reported spending time in green spaces every day.",
+         message = "I am afraid that's not true — 'Every day' had one of the taller bars."),
+  answer("Spending time in green spaces once a week is the least common pattern.",
+         message = "That’s incorrect — 'Once a week' had a higher count than several other options."),
+  answer("The most common response was 'Less often'.",
+         message = "Nope — 'Less often' had a very short bar, meaning few people chose this option."),
+  answer("Most people spend time in green spaces more than twice a week, but not every day.", correct = TRUE,
+         message = "Correct! That category had the highest frequency in the chart."),
+  allow_retry = TRUE
+)
+```
+
+## Measures of Central Tendency
+
+### Knowledge Check | 1
+
+```{r central-tendency-q1, echo=FALSE}
+question("What does the mean represent in a dataset?",
+  answer("The most frequently occurring value.", message = "That's the mode, not the mean."),
+  answer("The middle value when data are ordered.", message = "That’s the median."),
+  answer("The arithmetic average of all values.", correct = TRUE),
+  answer("The range between the lowest and highest values.", message = "That's the range."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r central-tendency-q2, echo=FALSE}
+question("Which of the following statements is TRUE about the median?",
+  answer("It is affected by extreme values (outliers).", message = "The mean is sensitive to outliers, not the median."),
+  answer("It is always the same as the mean in skewed data.", message = "Not necessarily — in skewed data, the mean and median differ."),
+  answer("It represents the middle value of a sorted dataset.", correct = TRUE),
+  answer("It is the sum of all values divided by the number of values.", message = "That's the mean."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r central-tendency-q3, echo=FALSE}
+question("When might the mode be more useful than the mean?",
+  answer("When we want to calculate the average height of a group.", message = "Mean or median would be more suitable."),
+  answer("When data are categorical and we want to find the most common category.", correct = TRUE),
+  answer("When we have an even number of numerical values.", message = "That’s a situation where median handling might differ."),
+  answer("When we are computing standard deviation.", message = "That's a measure of spread, not central tendency."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r central-tendency-q4, echo=FALSE}
+question("What can you conclude when the mean is higher than the median in a dataset?",
+  answer("The data is negatively skewed.", message = "In negatively skewed data, the mean is typically lower than the median."),
+  answer("The data is symmetric.", message = "Symmetric data generally has mean and median close to each other."),
+  answer("The data is positively skewed.", correct = TRUE, message = "This could be possible. Correct."),
+  answer("There could be outliers in the dataset.", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1
+
+Calculate the mean age of individuals in the `gep` dataset.
+
+```{r gep-mean-age, exercise=TRUE}
+# Compute the mean of the age column
+```
+
+```{r gep-mean-age-hint-1}
+# Use the mean() function
+```
+```{r gep-mean-age-hint-2}
+# Example: mean(dataset$column, na.rm = TRUE)
+```
+```{r gep-mean-age-solution}
+mean(gep$age, na.rm = TRUE)
+```
+```{r gep-mean-age-check}
+grade_this_code()
+```
+
+### Coding Practice | 2
+
+Calculate the median age in the `gep` dataset.
+
+```{r gep-median-age, exercise=TRUE}
+# Compute the median of age
+```
+
+```{r gep-median-age-hint-1}
+# Use the median() function
+```
+```{r gep-median-age-hint-2}
+# Don't forget to handle missing values
+```
+```{r gep-median-age-solution}
+median(gep$age, na.rm = TRUE)
+```
+```{r gep-median-age-check}
+grade_this_code()
+```
+
+### Coding Practice | 3
+
+What is the most common `level_of_study` in the `gep` dataset?
+
+```{r gep-mode-study, exercise=TRUE}
+# Find the mode of level_of_study
+```
+
+```{r gep-mode-study-hint-1}
+# Use count()
+```
+
+```{r gep-mode-study-hint-2}
+# Example: count(level_of_study)
+```
+
+```{r gep-mode-study-solution}
+gep |> count(level_of_study)
+```
+
+```{r gep-mode-study-check}
+grade_this({
+  user_result <- try(.result, silent = TRUE)
+
+  if (inherits(user_result, "try-error")) {
+    fail("Hmm, something went wrong when executing your code.")
+  }
+
+  # Check it's a data frame or tibble
+  if (!inherits(user_result, "data.frame")) {
+    fail("Your result should be a data frame.")
+  }
+
+  # Check for the necessary columns
+  if (!all(c("level_of_study", "n") %in% names(user_result))) {
+    fail("Your result should contain the columns `level_of_study` and `n`.")
+  }
+
+  # Check if there's a row where level_of_study is UG and count is 190
+  correct_row <- user_result |>
+    dplyr::filter(level_of_study == "UG", n == 190)
+
+  if (nrow(correct_row) == 0) {
+    fail("Make sure you're counting `level_of_study` correctly — did you include the most frequent value `UG` with the correct count of 190?")
+  }
+
+  pass("Nice job! You've correctly used `count()` to find the most frequent study level.")
+})
+```
+
+### Coding Practice | 4
+
+Report the mean and median for `consumption` in the `alcohol_2019` dataset. Achieve this by writing one chain of code so that the result is a dataframe that shows both at the same time. Compute the mean (`mean`) first and then the median (`median`).
+
+```{r gep-mean-median, exercise=TRUE}
+# Use summarise() with mean() and median()
+```
+
+```{r gep-mean-median-hint-1}
+# Use summarise() with both functions and handle missing values
+```
+```{r gep-mean-median-hint-2}
+# Use mean(consumption, na.rm = TRUE)
+```
+```{r gep-mean-median-solution}
+alcohol_2019 |>
+  summarise(
+    mean = mean(consumption, na.rm = TRUE),
+    media = median(consumption, na.rm = TRUE)
+  )
+```
+```{r gep-mean-median-check}
+grade_this_code()
+```
+
+### Coding Practice | 5
+
+Create a data visualisation which shows the alcohol consumption in different countries. Where do people consume alcohol the most? Create a bar chart which is sorted by mean of the `consumption` variable. Call the computed mean `mean_consumption`. For the plot, only return the top 10 countries.
+
+```{r alcohol-mean-median, exercise=TRUE}
+# Use summarise() with mean() and median()
+```
+
+```{r alcohol-mean-median-hint-1}
+# Use group_by() to group your databy country
+```
+
+```{r alcohol-mean-median-hint-2}
+# Use summarise(to compute the mean() of consumption
+```
+
+```{r alcohol-mean-median-hint-3}
+# Use slice_max() to pick the top 10 countries only
+```
+
+```{r alcohol-mean-median-hint-4}
+# Your code should have the following structure
+# data |>
+#   group_by() |>
+#   summarise() |>
+#   slice_max(order_by = ...,
+#             n = ...)
+#   -> add your ggplot() here
+```
+
+```{r alcohol-mean-median-hint-5}
+# To visualise the mean use geom_col()
+```
+
+```{r alcohol-mean-median-hint-6}
+# Remember to use reorder() for your x axis so that the countries are sorted by consumption.
+```
+
+```{r alcohol-mean-median-solution}
+alcohol_2019 |>
+  
+  # Group data by country
+  group_by(country) |>
+  
+  # Compute the mean for each group (remove NAs via na.rm = TRUE)
+  summarise(mean_consumption = mean(consumption, na.rm = TRUE)) |>
+  
+  slice_max(order_by = mean_consumption,
+            n = 10) |> 
+  
+  # Create the plot
+  ggplot(aes(x = reorder(country, mean_consumption), y = mean_consumption)) +
+  geom_col() +
+  coord_flip()
+```
+
+```{r alcohol-mean-median-check}
+grade_this({
+  # Check if the result is a ggplot object
+  user_plot <- try(.result, silent = TRUE)
+
+  if (inherits(user_plot, "try-error") || !inherits(user_plot, "gg")) {
+    fail("Make sure your code creates a valid `ggplot` object.")
+  }
+
+  # Extract the dataset behind the ggplot
+  df <- try(user_plot$data, silent = TRUE)
+  if (inherits(df, "try-error") || is.null(df)) {
+    fail("It looks like your `ggplot` does not include any data. Did you pass your data into `ggplot()`?")
+  }
+
+  # Check that the data is grouped and summarised correctly
+  if (!"mean_consumption" %in% names(df)) {
+    fail("You need to compute the mean alcohol consumption for each country. Did you use `summarise(mean_consumption = mean(...))`?")
+  }
+
+  # Check for top 10 filtering
+  if (nrow(df) != 10) {
+    fail("Make sure your plot only shows the **top 10** countries by mean consumption. Did you use `slice_max()`?")
+  }
+
+  # Check if grouping was likely used
+  grouped <- any(duplicated(df$country)) == FALSE && nrow(unique(df["country"])) == nrow(df)
+  if (!grouped) {
+    fail("Check if you remembered to group by `country` before computing the mean.")
+  }
+
+ # Check for reorder() usage in user's original code as a string
+  user_code_text <- paste(deparse(.user_code), collapse = " ")
+  if (!grepl("reorder", user_code_text)) {
+    fail("Consider using `reorder()` in your plot to sort countries by their mean consumption.")
+  }
+
+  pass("Great job! You’ve correctly created a plot showing the top 10 countries sorted by mean alcohol consumption.")
+})
+```
+
+## Measures of Spread
+
+### Knowledge Check | 1
+
+```{r spread-q1, echo=FALSE}
+question("What does the range of a dataset measure?",
+  answer("The average value of all observations.", message = "That’s the mean."),
+  answer("The difference between the highest and lowest values.", correct = TRUE),
+  answer("The middle value when data are sorted.", message = "That’s the median."),
+  answer("How far each value is from the mean.", message = "That describes standard deviation."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 2
+
+```{r spread-q2, echo=FALSE}
+question("Which statement is TRUE about standard deviation?",
+  answer("It is the difference between the highest and lowest values.", message = "That’s the range."),
+  answer("It measures how spread out the values are around the mean.", correct = TRUE),
+  answer("It is always larger than the mean.", message = "Not necessarily — the values are independent."),
+  answer("It’s the same as the median.", message = "These are completely different measures."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 3
+
+```{r spread-q3, echo=FALSE}
+question("What does a small standard deviation indicate?",
+  answer("The data points are clustered close to the mean.", correct = TRUE),
+  answer("The data points are spread widely.", message = "That would result in a large standard deviation."),
+  answer("There are few outliers.", correct = TRUE, message = "Correct. Many outliers would tend to increase standard deviation."),
+  answer("The data is likely skewed.", message = "Skewness is not directly reflected by standard deviation alone."),
+  allow_retry = TRUE
+)
+```
+
+### Knowledge Check | 4
+
+```{r spread-q4, echo=FALSE}
+question("Which of the following correctly pairs a concept with its purpose?",
+  answer("Mean — measures variability.", message = "Mean measures central tendency."),
+  answer("Median — measures average deviation.", message = "Median is a measure of central tendency."),
+  answer("Standard deviation — measures spread of data around the mean.", correct = TRUE),
+  answer("Mode — calculates skewness.", message = "Mode reflects frequency, not skewness."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 1.1
+
+Let's explore variation in alcohol consumption across countries.
+
+Create a histogram of the `consumption` variable using the `alcohol_2019` dataset.
+
+```{r alcohol-histogram, exercise=TRUE}
+# Complete the code to create a histogram of alcohol consumption
+alcohol_2019 |> 
+  ggplot(aes(x = ___)) +
+  geom_h___(bins = 30)
+```
+
+```{r alcohol-histogram-hint}
+# Use geom_histogram() to create a histogram.
+# Remember to specify `aes(x = consumption)`.
+```
+
+```{r alcohol-histogram-solution}
+alcohol_2019 |> 
+  ggplot(aes(x = consumption)) +
+  geom_histogram(bins = 30)
+```
+
+```{r alcohol-histogram-check}
+grade_this_code()
+```
+
+### Coding Practice | 1.2
+
+```{r alcohol-histogram-mcq, echo=FALSE}
+question("What does the histogram of alcohol consumption show?",
+  answer("Alcohol consumption is evenly distributed."),
+  answer("Most participants report low levels of alcohol consumption.", correct = TRUE),
+  answer("There are no participants with low alcohol consumption, i.e. 2 or lower."),
+  answer("The data shows a uniform distribution."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 2.1
+
+In the `gep` dataset, let's look at how students report their ability to explain ideas to others. Create a boxplot for `cs_explain_ideas_exp`. Scores above `3` count as being highly able to explain ideas. Map the variable onto the y-axis.
+
+```{r gep-boxplot, exercise=TRUE}
+
+```
+
+```{r gep-boxplot-hint}
+# Use ggplot() and geom_boxplot() to show distribution.
+# You only need to map the variable to the y-axis.
+```
+
+```{r gep-boxplot-solution}
+gep |> 
+  ggplot(aes(y = cs_explain_ideas_exp)) +
+  geom_boxplot()
+```
+
+```{r gep-boxplot-check}
+grade_this_code()
+```
+
+### Coding Practice | 2.2
+
+```{r gep-boxplot-mcq, echo=FALSE}
+question("What does the boxplot of communication experience suggest?",
+  answer("All students have identical scores for explaining ideas."),
+  answer("The distribution is perfectly symmetrical."),
+  answer("There are no outliers in the data."),
+  answer("Most students report high ability to explain ideas, but there are some lower outliers.", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 3.1
+
+Let’s compare social integration across levels of study. Create boxplots of `si_time_socialising_exp` by `level_of_study`. Mapy `level_of_study` onto the x axis.
+
+```{r gep-si-boxplot, exercise=TRUE}
+# Boxplot by level of study
+
+```
+
+```{r gep-si-boxplot-hint}
+# To compare across categories, map level_of_study to x and the measure to y.
+# Use geom_boxplot() for the visualisation.
+```
+
+```{r gep-si-boxplot-solution}
+gep |> 
+  ggplot(aes(x = level_of_study, y = si_time_socialising_exp)) +
+  geom_boxplot()
+```
+
+```{r gep-si-boxplot-check}
+grade_this_code()
+```
+
+### Coding Practice | 3.2
+
+```{r gep-si-boxplot-mcq, echo=FALSE}
+question("What does the boxplot of socialising experience by level of study show?",
+  answer("There are differences in socialising experience across levels of study, but medians appear identical", correct = TRUE),
+  answer("All levels of study have identical socialising experience."),
+  answer("There are only minor differences between groups.", correct = TRUE),
+  answer("The data is not grouped by level of study."),
+  allow_retry = TRUE
+)
+```
+
+### Coding Practice | 4.1
+
+Create a density plot of `life_expectancy` using the `hie_2021` dataset to inspect the distribution of this health indicator across areas.
+
+```{r hie-density, exercise=TRUE}
+# Density plot of life expectancy
+
+```
+
+```{r hie-density-hint}
+# Use ggplot() and geom_density() to show the shape of the distribution.
+# Map the variable to the x-axis in aes().
+```
+
+```{r hie-density-solution}
+hie_2021 |> 
+  ggplot(aes(x = life_expectancy)) +
+  geom_density()
+```
+
+```{r hie-density-check}
+grade_this_code()
+```
+
+### Coding Practice | 4.2
+
+```{r hie-density-mcq, echo=FALSE}
+question("What does the density plot of life expectancy show?",
+         answer("Most areas have life expectancy clustered around a central value.", correct = TRUE,
+                message = "Correct — the density plot shows a clear peak, meaning many areas report similar life expectancy values."),
+         answer("Life expectancy is evenly distributed across all areas.",
+                message = "Not quite — an even (uniform) distribution would appear flat, but the plot likely shows a central peak."),
+         answer("There are no areas with high life expectancy.",
+                message = "That's not accurate — density plots reflect the full range of values, including high life expectancy if present."),
+         answer("The distribution is uniform.",
+                message = "Uniform distributions are flat and rare in real-world data — the plot likely shows clustering instead."),
+         allow_retry = TRUE
+)
+```
+
+### Coding Practice | 5.1
+
+Let's compare how much socialising time varies between student groups. Calculate the **standard deviation** (name it `sd`) of `si_time_socialising_exp` for each `level_of_study`. What does this tell us about differences in variability?
+
+```{r gep-stddev-socialising, exercise=TRUE}
+# Group by level of study and compute the standard deviation of socialising
+
+```
+
+```{r gep-stddev-socialising-hint}
+# Use `group_by()` with `summarise()`, and don’t forget `na.rm = TRUE` inside `sd()`.
+```
+
+```{r gep-stddev-socialising-solution}
+gep |> 
+  group_by(level_of_study) |> 
+  summarise(sd = sd(si_time_socialising_exp, na.rm = TRUE))
+```
+
+```{r gep-stddev-socialising-check}
+grade_this_code()
+```
+
+### Coding Practice | 5.2
+
+```{r gep-stddev-socialising-mcq, echo=FALSE}
+question("What does a higher standard deviation in a group indicate?",
+  answer("That socialising time varies more widely among students in that group.", correct = TRUE,
+         message = "Correct — a larger standard deviation means values are more spread out from the mean."),
+  answer("That all students in that group socialise the same amount.",
+         message = "That would be true only if the standard deviation were zero."),
+  answer("That the group has the highest average socialising time.",
+         message = "Not necessarily — standard deviation is about spread, not average."),
+  answer("That socialising is normally distributed in that group.",
+         message = "Unfortunately, the standard deviation doesn’t tell you the shape of the distribution on its own."),
+  allow_retry = TRUE
+)
+```
+
+## Case Study | Digital Device Usage and Sleep Quality
+
+In recent years, there’s been growing concern about the impact of digital device use before bedtime on sleep quality. You’re part of a research team that has collected survey data from adults across various age groups. Your goal is to summarise and visualise patterns in device use, sleep quality, and age, and to prepare figures for a public health factsheet.
+
+The dataset you’ll use is called `digital_sleep` and includes the following variables:
+
+- `age_group`: Categorical ("18–25", "26–40", "41–60", "60+")
+- `device_time`: Numeric (hours spent on devices before bed)
+- `sleep_quality`: Categorical ("Poor", "Average", "Good")
+- `caffeine`: Categorical ("Yes", "No")
+
+```{r cs8-digital-sleep-setup, include=FALSE}
+set.seed(42)
+n <- 200
+digital_sleep <- tibble::tibble(
+  age_group = as_factor(sample(c("18–25", "26–40", "41–60", "60+"), n, replace = TRUE, prob = c(0.3, 0.3, 0.25, 0.15))),
+  sleep_quality = as_factor(sample(c("Poor", "Average", "Good"), n, replace = TRUE, prob = c(0.3, 0.4, 0.3))),
+  caffeine = as_factor(sample(c("Yes", "No"), n, replace = TRUE, prob = c(0.5, 0.5)))
+) |>
+  mutate(
+    # Set group-specific means for device_time
+    device_time = case_when(
+      sleep_quality == "Poor" ~ rnorm(n(), mean = 3.5, sd = 0.7),
+      sleep_quality == "Average" ~ rnorm(n(), mean = 2.2, sd = 0.7),
+      sleep_quality == "Good" ~ rnorm(n(), mean = 1.0, sd = 0.7)
+    ),
+    device_time = round(pmax(0, device_time), 1) # ensure no negative values
+  )
+```
+
+### Step 1.1 | Familiarise yourself with the dataset
+
+Before we begin any anaylsis it is useful toinspecting the structure of the dataset carefully. Feel free to explore `digital_sleep` to your hearts content until you feel ready to move on to the next step.
+
+```{r cs8-glimpse, exercise=TRUE, exercise.setup="cs8-digital-sleep-setup"}
+# Glimpse the data
+```
+
+```{r cs8-glimpse-hint}
+# Use glimpse() to inspect the structure.
+```
+
+```{r cs8-glimpse-solution}
+glimpse(digital_sleep)
+```
+
+```{r cs8-glimpse-check}
+grade_this_code()
+```
+
+### Step 1.2 | What’s Next?
+
+```{r cs8-glimpse-mcq, echo=FALSE}
+question("After reviewing your dataset, what would be a sensible next step?",
+  answer("Delete all rows with missing values.",
+         message = "Not yet—you need to understand your data first."),
+  answer("Immediately investigate relationships between variables.",
+         message = "It’s good practice to explore descriptive stats first."),
+  answer("Drop all categorical variables.",
+         message = "Well, categorical variables are actually quite important. No reason to delete them."),
+  answer("Summarise the frequencies of your categorical variables.", correct = TRUE,
+         message = "Correct! Exploring frequencies is an essential descriptive step."),
+  allow_retry = TRUE
+)
+```
+
+### Step 2.1 | Frequency Table for Sleep Quality
+
+Let’s compute the **absolute and relative frequency** of each `sleep_quality` level. Call your relative frequency `prop`.
+
+```{r cs8-freq, exercise=TRUE, exercise.setup="cs8-digital-sleep-setup"}
+# Frequency table for sleep_quality
+```
+
+```{r cs8-freq-hint}
+# Use count() and mutate() to calculate proportions.
+```
+
+```{r cs8-freq-solution}
+digital_sleep |>
+  count(sleep_quality) |>
+  mutate(prop = n / sum(n))
+```
+
+```{r cs8-freq-check}
+grade_this_code()
+```
+
+### Step 2.2 | Frequency Table for Sleep Quality
+
+```{r cs8-freq-mcq, echo=FALSE}
+question("Which sleep quality category was most common in this sample?",
+  answer("Poor",
+         message = "'Poor' is less common."),
+  answer("Average", correct = TRUE,
+         message = "That is right! 'Average' is the most frequent."),
+  answer("Good",
+         message = "'Good' is important, but not the most common."),
+  answer("All were equally common.",
+         message = "Not quite right. Frequencies do differ in this sample."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3.1 | Boxplot: Device Use by Sleep Quality
+
+Now let's visualise the distribution of `device_time` for each `sleep_quality` level with a boxplot. This type of plot is especially helpful for seeing how the spread and central tendency of device use might differ between people who report poor, average, or good sleep quality. Boxplots can quickly show differences, reveal potential outliers, and highlight patterns that might be missed by just looking at means or tables.
+
+Map `sleep_quality` on to the x-axis.
+
+```{r cs8-boxplot, exercise=TRUE, exercise.setup="cs8-digital-sleep-setup"}
+# Boxplot for device_time by sleep_quality
+```
+
+```{r cs8-boxplot-hint}
+# Use ggplot() with aes(x = sleep_quality, y = device_time) and geom_boxplot().
+```
+
+```{r cs8-boxplot-solution}
+digital_sleep |>
+  ggplot(aes(x = sleep_quality, y = device_time)) +
+  geom_boxplot()
+```
+
+```{r cs8-boxplot-check}
+grade_this_code()
+```
+
+### Step 3.2 | Interpreting the Boxplot
+
+```{r cs8-boxplot-mcq-01, echo=FALSE}
+question("Which group appears to use devices the most before bed?",
+  answer("Poor", correct = TRUE,
+         message = "Correct! Poor sleepers report the most device use before bed."),
+  answer("Average",
+         message = "Average sleepers use devices less, on average."),
+  answer("Good",
+         message = "Good sleepers have the lowest device time before bed."),
+  allow_retry = TRUE
+)
+```
+
+### Step 3.3 | Interpreting the Boxplot 
+
+```{r cs8-boxplot-mcq-02, echo=FALSE}
+question("What else can we say about these boxplots?",
+  answer("There seems to be at least one outlier in the average group.", correct = TRUE,
+         message = "At least one person in the average group reported significantly usage of their digital device than anyone else."),
+  answer("The boxplots show different spreads of data across groups, but similar medians.",
+         message = "I am afraid, the medians are very different for each group."),
+  answer("The spread of data for each group seems similar, but not the medians.", correct = TRUE,
+         message = "Median are not very similar at all."),
+  answer("It seems sleep quality and the amount of time spent on one's device are related to each other.", correct = TRUE,
+         message = "It might be worth investigating this further."),
+  allow_retry = TRUE
+)
+```
+
+### Step 4.1 | Mean Device Time by Age Group
+
+With this newly gained insights, we can dig deeper and look at each age group. Does it matter how old people are when it comes to time spent on their device?
+
+Create a barplot that shows the means of `device_time` for each age group. Call this new variable `mean_time`. Also, map `age_group` onto the x-axis of your plot.
+
+```{r cs8-mean-bar, exercise=TRUE, exercise.setup="cs8-digital-sleep-setup"}
+# Compute the mean device time for each age group and then create a bar plot.
+```
+
+```{r cs8-mean-bar-hint}
+# Use group_by() and summarise() for the computation of the mean, then use ggplot() + geom_col() to plot the data.
+```
+
+```{r cs8-mean-bar-solution}
+digital_sleep |>
+  group_by(age_group) |>
+  summarise(mean_time = mean(device_time)) |>
+  ggplot(aes(x = age_group, y = mean_time)) +
+  geom_col()
+```
+
+```{r cs8-mean-bar-check}
+grade_this_code()
+```
+
+### Step 4.2 | Interpreting Means
+
+```{r cs8-mean-bar-mcq, echo=FALSE}
+question("Which age group uses devices most before bed, on average?",
+  answer("18–25", correct = TRUE,
+         message = "That is right! Younger participants report the highest device use."),
+  answer("26–40",
+         message = "This group uses devices slightly less."),
+  answer("41–60",
+         message = "Device use declines in older groups."),
+  answer("60+",
+         message = "The oldest group uses devices least before bed."),
+  allow_retry = TRUE
+)
+```
+
+### Step 5.1 | Table of Mean and Median Device Time by Age Group
+
+Create a summary table showing both mean (`mean_time`) and median (`median_time`) device time for each age group.
+
+```{r cs8-mean-median-table, exercise=TRUE, exercise.setup="cs8-digital-sleep-setup"}
+# Table of mean and median device time by age group
+```
+
+```{r cs8-mean-median-table-hint}
+# Use group_by() and summarise() for both mean() and median().
+```
+
+```{r cs8-mean-median-table-solution}
+digital_sleep |>
+  group_by(age_group) |>
+  summarise(
+    mean_time = mean(device_time),
+    median_time = median(device_time)
+  )
+```
+
+```{r cs8-mean-median-table-check}
+grade_this_code()
+```
+
+### Step 5.2 | Interpreting Mean vs Median
+
+```{r cs8-mean-median-mcq, echo=FALSE}
+question("If the mean device time is higher than the median in a group, what does this suggest?",
+  answer("Everyone uses devices equally.",
+         message = "Mean > median usually means a few high values pull up the average."),
+  answer("The data are perfectly symmetric.",
+         message = "In a symmetric distribution, mean and median are about equal."),
+  answer("There are some individuals with much higher device usage (right-skewed distribution).", correct = TRUE,
+         message = "Correct! This suggests a skew in the data."),
+  answer("Sample size is small.",
+         message = "Mean/median differences don't reflect sample size directly."),
+  allow_retry = TRUE
+)
+```
+
+### Step 6.1 | Create a presentation-ready plot
+
+With all the information available, we are ready to create our final plot. Form our analysis so far, it seems the most important insight is that sleep quality is affected by device usage. Let's recreate the boxplot from before, but this time make it ready to share with an audience.
+
+Here is what we have to do:
+- Compute the mean `device_time` for each `sleep_quality` level
+- Sort bars by mean `device_time` value (descending)
+- Flip coordinates for readability
+- Add axis labels and a title
+
+```{r cs8-barplot-formatted, exercise=TRUE, exercise.setup="cs8-digital-sleep-setup"}
+# Format the mean device time bar plot for presentation
+```
+
+```{r cs8-barplot-formatted-hint}
+# Use arrange(), reorder(), coord_flip(), and labs() for a clear plot.
+```
+
+```{r cs8-barplot-formatted-solution}
+digital_sleep |>
+  group_by(sleep_quality) |>
+  summarise(mean_time = mean(device_time)) |>
+  ggplot(aes(x = reorder(sleep_quality, mean_time), y = mean_time)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Mean Device Usage vs. Sleep Quality",
+    x = "Sleep Quality",
+    y = "Mean Device Time Before Bed (hrs)"
+  )
+```
+
+```{r cs8-barplot-formatted-check}
+grade_this({
+  
+  code_text <- paste(deparse(.user_code), collapse = " ")
+  
+  # Check 1: group_by(sleep_quality)
+  if (!grepl("group_by\\s*\\(\\s*sleep_quality\\s*\\)", code_text)) {
+    fail("Did you remember to group by `sleep_quality` before summarising?")
+  }
+  
+  # Check 2: summarise(mean_time = mean(device_time))
+  if (!grepl("summarise\\s*\\(.*mean_time\\s*=\\s*mean\\s*\\(\\s*device_time\\s*\\)", code_text)) {
+    fail("Are you calculating the mean of `device_time` for each sleep quality level?")
+  }
+  
+  # Check 3: reorder() in ggplot aes
+  if (!grepl("reorder\\s*\\(", code_text)) {
+    fail("To sort the bars by mean device time, use `reorder()` inside your `aes()`.")
+  }
+  
+  # Check 4: coord_flip()
+  if (!grepl("coord_flip\\s*\\(", code_text)) {
+    fail("Flipping the coordinates with `coord_flip()` improves readability!")
+  }
+  
+  # Check 5: axis labels and a title (don't check exact text, just that they're present)
+  if (!grepl("labs\\s*\\(", code_text) || 
+      !grepl("title\\s*=", code_text) || 
+      !grepl("x\\s*=", code_text) || 
+      !grepl("y\\s*=", code_text)) {
+    fail("Did you add a plot title and clear axis labels using `labs()`?")
+  }
+
+  pass("Fantastic! You created a clean, audience-ready plot that clearly communicates the main message.")
+  
+})
+```
+
+### Step 6.2 | Why Format?
+
+```{r cs8-barplot-formatted-mcq, echo=FALSE}
+question("Why is it important to sort and format your plots for presentation?",
+  answer("It changes the underlying data.",
+         message = "Formatting improves clarity, not the data itself."),
+  answer("It’s just for aesthetics.",
+         message = "Visual clarity is vital for communication, not just appearance."),
+  answer("It makes results clearer and easier to interpret.", correct = TRUE,
+         message = "Exactly! Good formatting helps others understand your findings."),
+  answer("It confuses the audience.",
+         message = "The goal is the opposite—clarity and communication!"),
+  allow_retry = TRUE
+)
+```
+
+### Congratulations, you completed all exercises for this chapter!
+
