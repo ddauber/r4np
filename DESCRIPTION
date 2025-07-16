@@ -52,6 +52,7 @@ Suggests:
     pwr,
     rcompanion,
     rmarkdown,
+    rsconnect,
     rstatix,
     scales,
     see,
