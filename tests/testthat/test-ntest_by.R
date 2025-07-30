@@ -41,7 +41,7 @@ test_that("ntest_by rejects to handle groups with less than 3 observations", {
   expect_error(ntest_by(small_df, c(col1, col2, col3), group), "Sample size of all groups needs to be >= 3.")
 })
 
-test_that("ntest_by rejects to handle groups with less than 3 observations", {
+test_that("ntest_by rejects to handle groups with greater than 5000 observations", {
   big_df <- data.frame(
     group = rep(c("A", "B", "C", "D", "E"), each = 5001),
     col1 = rnorm(25005),
