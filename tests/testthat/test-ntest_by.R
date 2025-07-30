@@ -21,6 +21,17 @@ test_that("ntest_by rejects incorrect input types", {
                         cols = 1:2))
 })
 
+test_that("ntest_by aborts when selected columns are not numeric", {
+  non_num_df <- data.frame(
+    group = rep(c("A", "B"), each = 5),
+    col1 = rnorm(10),
+    col2 = letters[1:10]
+  )
+
+  expect_error(ntest_by(non_num_df, c(col1, col2), group),
+               "All selected columns must be numeric")
+})
+
 test_that("ntest_by returns the correct number of rows", {
   result <- ntest_by(df, c(col1, col2, col3), group)
   expect_equal(nrow(result), 12) # 4 groups * 3 columns

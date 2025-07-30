@@ -10,11 +10,12 @@
 #'
 #' @details The function first creates subsets of the data for each group. It
 #'   then performs a Shapiro-Wilk normality test (`shapiro.test()`) on each
-#'   group and returns the results in a tidy format. the function also checks
+#'   group and returns the results in a tidy format. The function also checks
 #'   whether the number of observations for each variable and group lies within
-#'   the permissible range of the `shapiro.test()`. If not, the function will
-#'   provide diagnostics on why a test could not be performed base on which
-#'   groups are affected.
+#'   the permissible range of the `shapiro.test()` and verifies that all
+#'   selected columns are numeric. If any of these conditions are violated, the
+#'   function will provide diagnostics on why a test could not be performed and
+#'   which groups or variables are affected.
 #'
 #' @return A data frame with the results of the Shapiro-Wilk test for each group
 #'   and variable.
@@ -42,6 +43,17 @@
 #'
 #' @export
 ntest_by <- function(df, cols, group){
+
+  # Check that selected columns are numeric
+  selected <- df |> select({{ cols }})
+  are_numeric <- purrr::map_lgl(selected, is.numeric)
+  if (any(!are_numeric)) {
+    invalid <- paste(names(selected)[!are_numeric], collapse = ", ")
+    cli::cli_abort(c(
+      "All selected columns must be numeric.",
+      i = "Non-numeric columns: {.strong {invalid}}."
+    ))
+  }
 
 # Create subsets of data as nested dfs
 nested_group_data <-

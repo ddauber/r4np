@@ -11,8 +11,10 @@
 #'  calculates the sample size for each variable. It then checks if the sample
 #'  size for any variable is less than 3 or greater than 5000, and if so, aborts
 #'  the function with an error message because the `shapiro.test()` only expects
-#'  this range of observations. The function then performs the Shapiro-Wilk test
-#'  on each variable and returns a formatted dataframe with the test results.
+#'  this range of observations. The function also verifies that all selected
+#'  columns are numeric and aborts otherwise. The function then performs the
+#'  Shapiro-Wilk test on each variable and returns a formatted dataframe with the
+#'  test results.
 #'
 #' @return A dataframe with the test results. Each row corresponds to a variable,
 #'  and the columns contain the test statistics and p-values.
@@ -62,11 +64,23 @@ ntest <- function(df, cols) {
     )
   }
 
+
   if (any(sample_sizes$n > 5000)) {
     cli::cli_abort(c(
       "Sample size of all groups needs to be <= 5000.",
       i = "Groups with n < 3: {.strong {big_sample_names}}.")
     )
+  }
+
+  # Check that selected columns are numeric
+  selected <- df |> select({{ cols }})
+  are_numeric <- purrr::map_lgl(selected, is.numeric)
+  if (any(!are_numeric)) {
+    invalid <- paste(names(selected)[!are_numeric], collapse = ", ")
+    cli::cli_abort(c(
+      "All selected columns must be numeric.",
+      i = "Non-numeric columns: {.strong {invalid}}."
+    ))
   }
 
   # Performing normality test

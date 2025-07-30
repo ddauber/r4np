@@ -11,6 +11,13 @@ test_that("ntest rejects incorrect input types", {
   expect_error(ntest(df, cols = 1:2))
 })
 
+test_that("ntest aborts when selected columns are not numeric", {
+  df <- data.frame(a = rnorm(10),
+                   b = letters[1:10])
+
+  expect_error(ntest(df, cols = c(a, b)), "All selected columns must be numeric")
+})
+
 test_that("ntest aborts when n < 3", {
   df <- data.frame(a = rnorm(2),
                    b = rnorm(2))
