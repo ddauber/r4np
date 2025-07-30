@@ -65,7 +65,7 @@ ntest <- function(df, cols) {
   if (any(sample_sizes$n > 5000)) {
     cli::cli_abort(c(
       "Sample size of all groups needs to be <= 5000.",
-      i = "Groups with n < 3: {.strong {big_sample_names}}.")
+      i = "Groups with n > 5000: {.strong {big_sample_names}}.")
     )
   }
 
