@@ -1800,7 +1800,7 @@ grade_this_code()
 
 ### Step 5.1 | Testing internal consistency
 
-```{r brightmind-case-reversed-setup}
+```{r brightmind-case-reversed-setup, message=FALSE}
 # Load required packages
 library(psych)
 library(lavaan)
