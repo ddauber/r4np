@@ -1,3 +1,6 @@
+skip_on_cran()
+skip_if_offline()
+
 test_that("install_r4np installs packages", {
   # Run the function
   install_r4np()
