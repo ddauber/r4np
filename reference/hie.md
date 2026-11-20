@@ -1,0 +1,131 @@
+# The Health Index for England (2015-2021)
+
+A selected range of variables from the the Health Index for England
+dataset, which is a comprehensive measure of national health,
+considering outcomes, behaviors, personal circumstances, and
+environmental factors. It provides a single health score and allows
+detailed breakdowns by location and topic, facilitating comparisons over
+time.
+
+## Usage
+
+``` r
+hie
+```
+
+## Format
+
+A data frame with 2149 rows and 21 variables:
+
+- area_name:
+
+  The area the data was collected from.
+
+- region:
+
+  Regional categorisation of areas.
+
+- year:
+
+  The year data was collected.
+
+- activities_in_life_are_worthwhile:
+
+  The average score of respondents (16+) on how meaningful they find
+  their life's activities.
+
+- early_years_development:
+
+  The percentage of 5-year-olds meeting the expected early learning
+  goals in personal, social, emotional, physical, communication,
+  language, mathematics, and literacy at the end of the Early Years
+  Foundation Stage (EYFS).
+
+- feelings_of_anxiety:
+
+  The average anxiety score of respondents (16+) when asked how they
+  felt the day before.
+
+- happiness:
+
+  The average happiness score of respondents (16+) when asked how they
+  felt the day before.
+
+- healthy_eating:
+
+  The percentage of adults (16+) who report eating five or more portions
+  of fruit and vegetables on a 'usual day'.
+
+- high_blood_pressure:
+
+  The percentage of people reporting high blood pressure
+  (hypertension) - not based on GP records but survey responses.
+
+- household_overcrowding:
+
+  The percentage of households considered overcrowded, based on a
+  standard calculation comparing the number of required rooms to the
+  actual number of rooms.
+
+- life_expectancy:
+
+  Period life expectancy at birth is the average number of years a
+  person born in a specific year and area would live if they experienced
+  that area's current age-specific mortality rates throughout their
+  life.
+
+- life_satisfaction:
+
+  The average life satisfaction score of respondents aged 16 and over.
+
+- low_level_crime:
+
+  The number of police-recorded low-level crimes per 1,000 people, with
+  bicycle theft and shoplifting used as indicators of overall rates.
+
+- mental_health_conditions:
+
+  The percentage of people reporting a mental health condition, such as
+  depression or anxiety- not based on GP records but survey responses.
+
+- overweight_and_obesity_in_adults:
+
+  The percentage of adults (18+) who are overweight or obese, based on
+  self-reported height and weight in a survey.
+
+- overweight_and_obesity_in_children:
+
+  The percentage of children in Reception (aged 4-5) and Year 6 (aged
+  10-11) who are overweight or obese.
+
+- physical_activity:
+
+  The percentage of adults (19+) reporting physical activity of 150
+  minutes or more per week.
+
+- rough_sleeping:
+
+  The number of people sleeping outdoors on a single night in October or
+  November, per 100,000 residents.
+
+- smoking:
+
+  The percentage of adults (18+) who currently smoke cigarettes.
+
+- unemployment:
+
+  The percentage of adults (16+) actively seeking work in the past four
+  weeks and available to start within two weeks, relative to the
+  economically active population.
+
+- young_ppl_edu_empl_appren:
+
+  The percentage of 16 and 17-year-olds in sustained education,
+  employment, or apprenticeships one year after key stage 4 (after
+  school Year 11).
+
+## Source
+
+Office for National Statistics (ONS), released 16 June 2023, ONS
+website, Health Index Scores, England, Url:
+<https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/healthandwellbeing/datasets/healthindexscoresengland>.

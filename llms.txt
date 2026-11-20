@@ -1,0 +1,99 @@
+# r4np
+
+The `r4np` package is the companion for the book [R For Non-Programmers
+(R4NP)](https://r4np.com "R For Non-Programmers")
+
+## Installation
+
+Install this package straight from [GitHub](https://github.com/) with:
+
+``` r
+
+# install.packages("devtools")
+devtools::install_github("ddauber/r4np")
+```
+
+# Package index
+
+## Functions
+
+- [`install_r4np()`](https://ddauber.github.io/r4np/reference/install_r4np.md)
+  : Install R packages relevant for the book 'R for Non-Programmers: A
+  Guide for Social Scientists'.
+- [`create_project_folder()`](https://ddauber.github.io/r4np/reference/create_project_folder.md)
+  : Automatically create folders for a project
+- [`ntest()`](https://ddauber.github.io/r4np/reference/ntest.md) :
+  Perform normality test for multiple variables at once
+- [`ntest_by()`](https://ddauber.github.io/r4np/reference/ntest_by.md) :
+  Perform normality test for multiple variables by groups
+
+## Datasets
+
+- [`alcohol_2019`](https://ddauber.github.io/r4np/reference/alcohol_2019.md)
+  : Alcohol consumption around the world (2019)
+
+- [`alcohol`](https://ddauber.github.io/r4np/reference/alcohol.md) :
+  Alcohol consumption around the world (2000-2019)
+
+- [`comments`](https://ddauber.github.io/r4np/reference/comments.md) :
+  Student Life (Open comments)
+
+- [`covid`](https://ddauber.github.io/r4np/reference/covid.md) :
+  COVID-19 DATA
+
+- [`eqls_2011`](https://ddauber.github.io/r4np/reference/eqls_2011.md) :
+  European Quality of Life Survey Time Series (2011 only)
+
+- [`eqls_country_2011`](https://ddauber.github.io/r4np/reference/eqls_country_2011.md)
+  : European Quality of Life Survey Time Series (2011 only, country
+  aggregates)
+
+- [`eqls`](https://ddauber.github.io/r4np/reference/eqls.md) : European
+  Quality of Life Survey Time Series, 2007 and 2011
+
+- [`gep`](https://ddauber.github.io/r4np/reference/gep.md) :
+
+  Global Education Profiler *(random sample)*
+
+- [`halloween`](https://ddauber.github.io/r4np/reference/halloween.md) :
+  Halloween
+
+- [`hie_15_21`](https://ddauber.github.io/r4np/reference/hie_15_21.md) :
+  The Health Index for England (2015 and 2021)
+
+- [`hie_2021`](https://ddauber.github.io/r4np/reference/hie_2021.md) :
+  The Health Index for England (2021)
+
+- [`hie`](https://ddauber.github.io/r4np/reference/hie.md) : The Health
+  Index for England (2015-2021)
+
+- [`ic_training`](https://ddauber.github.io/r4np/reference/ic_training.md)
+  : IC Training Data
+
+- [`pplnat`](https://ddauber.github.io/r4np/reference/pplnat.md) :
+  People and Nature Survey for England, 2020-2023
+
+- [`quest_time`](https://ddauber.github.io/r4np/reference/quest_time.md)
+  : Start and end dates/times of a questionnaire
+
+- [`reading_time`](https://ddauber.github.io/r4np/reference/reading_time.md)
+  : Student Reading Time
+
+- [`simpson`](https://ddauber.github.io/r4np/reference/simpson.md) :
+
+  Simpson's Paradox: A demonstration dataset *(random sample)*
+
+- [`swm`](https://ddauber.github.io/r4np/reference/swm.md) : Salary,
+  Work experience, and Mindfulness (SWM)
+
+- [`wvs_nona`](https://ddauber.github.io/r4np/reference/wvs_nona.md) :
+
+  World Value Survey *(Extract)*
+
+- [`wvs_waves`](https://ddauber.github.io/r4np/reference/wvs_waves.md) :
+  World Value Survey (Waves)
+
+- [`wvs`](https://ddauber.github.io/r4np/reference/wvs.md) :
+
+  World Value Survey *(Extract)*
+

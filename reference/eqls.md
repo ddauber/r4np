@@ -1,0 +1,243 @@
+# European Quality of Life Survey Time Series, 2007 and 2011
+
+The EQLS dataset is a pan-European survey that captures both the
+objective conditions of citizens' lives (e.g., employment, income,
+health) and their subjective perceptions, including life satisfaction
+and happiness.
+
+## Usage
+
+``` r
+eqls
+```
+
+## Format
+
+A data frame with 79270 rows and 45 variables:
+
+- id:
+
+  Participant unique ID
+
+- wave:
+
+  Data was collected in several waves, 2007 and 2011. This allows
+  comparing countries over time.
+
+- country_name:
+
+  Name of country participants resides in.
+
+- iso_code:
+
+  Country ISO code
+
+- marital_status:
+
+  Marital status
+
+- num_of_children:
+
+  Item: *Number of children of your own*
+
+- rural_urban_living:
+
+  Item: *The area in which you live is...?*
+
+- age_category:
+
+  Age of respondent
+
+- education:
+
+  Highest level of education completed
+
+- gender:
+
+  Gender of participant
+
+- employment:
+
+  Employment status
+
+- trust_people:
+
+  Item: *Would you say that most people can be trusted?* \| 1 ("You
+  cannot be too careful") to 10 = ("Most people can be trusted").
+
+- freq_rel_service_use:
+
+  Item: *How frequently do you: Attend religious services, apart from
+  weddings, funerals or christenings?* \| 1 ("Every day or almost every
+  day") to 5 = ("Never").
+
+- freq_internet_personal:
+
+  Item: *How frequently do you: Use the Internet other than for work?*
+  \| 1 ("Every day or almost every day") to 5 = ("Never").
+
+- freq_sports:
+
+  Item: *How frequently do you: Take part in sports or physical
+  exercise?* \| 1 ("Every day or almost every day") to 5 = ("Never").
+
+- freq_social_activities:
+
+  Item: *How frequently do you: Participate in social activities of a
+  club, society, or an association?* \| 1 ("Every day or almost every
+  day") to 5 = ("Never").
+
+- vol_community_service:
+
+  Item: *How often unpaid voluntary work in the last 12 months:
+  Community and social services?* \| 1 ("Every week") to 5 = ("Not at
+  all").
+
+- vol_education_cult_org:
+
+  Item: *How often unpaid voluntary work in the last 12 months:
+  Education, cultural, sports or professional organisation?* \| 1
+  ("Every week") to 5 = ("Not at all").
+
+- vol_social_charities:
+
+  Item: *How often unpaid voluntary work in the last 12 months: Social
+  movements or charities?* \| 1 ("Every week") to 5 = ("Not at all").
+
+- vol_political_parties:
+
+  Item: *How often unpaid voluntary work in the last 12 months:
+  Political parties, trade unions?* \| 1 ("Every week") to 5 = ("Not at
+  all").
+
+- vol_other_organisation:
+
+  Item: *How often unpaid voluntary work in the last 12 months: Other
+  voluntary organisations? \| 1 ("Every week") to 5 = ("Not at all").*
+
+- volunteering_frequency:
+
+  Volunteering frequency \| 1 ("Every week") to 5 = ("Not at all").
+
+- sei_left_out_soc:
+
+  Item: *I feel left out of society*.
+
+- sei_life_is_complicated:
+
+  Item: *Life has become so complicated today that I almost can’t find
+  my way* \| 1 ("Strongly agree") to 5 = ("Strongly disagree").
+
+- sei_not_recognised:
+
+  Item: *I feel that the value of what I do is not recognised by others*
+  \| 1 ("Strongly agree") to 5 = ("Strongly disagree").
+
+- sei_looked_down:
+
+  Item: *Some people look down on me because of my job situation or
+  income* \| 1 ("Strongly agree") to 5 = ("Strongly disagree").
+
+- sei_feel_close_to_people:
+
+  Item: *I feel close to people in the area where I live* \| 1
+  ("Strongly agree") to 5 = ("Strongly disagree").
+
+- sei:
+
+  Social Exclusion Index
+
+- mwbi_felt_cheerful:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - I have felt cheerful and in good spirits* \| 1 ("All of the
+  time") to 6 = ("At no time").
+
+- mwbi_felt_calm:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - I have felt calm and relaxed* \| 1 ("All of the time") to 6 =
+  ("At no time").
+
+- mwbi_felt_active:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - I have felt active and vigorous* \| 1 ("All of the time") to
+  6 = ("At no time").
+
+- mwbi_felt_fresh:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - I woke up feeling fresh and rested* \| 1 ("All of the time")
+  to 6 = ("At no time").
+
+- mwbi_life_is_interesting:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - My daily life has been filled with things that interest me*
+  \| 1 ("All of the time") to 6 = ("At no time").
+
+- mwbi_felt_tense:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - I have felt particularly tense* \| 1 ("All of the time") to 6
+  = ("At no time").
+
+- mwbi_felt_lonely:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - I have felt lonely* \| 1 ("All of the time") to 6 = ("At no
+  time").
+
+- mwbi_felt_downhearted:
+
+  Item: *Which is closest to how you have been feeling over the last 2
+  weeks? - I have felt downhearted and depressed* \| 1 ("All of the
+  time") to 6 = ("At no time").
+
+- mwbi:
+
+  WHO-5 mental wellbeing index
+
+- wlbc_too_tired_household:
+
+  Item: *I have come home from work too tired to do some of the
+  household jobs which need to be done* \| 1 ("Several times a week") to
+  6 = ("Less often/rarely").
+
+- wlbc_fam_responsibilities:
+
+  Item: *It has been difficult for me to fulfil my family
+  responsibilities because of the amount of time I spend on the job* \|
+  1 ("Several times a week") to 6 = ("Less often/rarely").
+
+- wlbc_cannot_focus_on_work:
+
+  Item: *I have found it difficult to concentrate at work because of my
+  family responsibilities* \| 1 ("Several times a week") to 6 = ("Less
+  often/rarely").
+
+- wlbc:
+
+  Work-life balance conflict
+
+- hrs_work_first_job:
+
+  Item: *How many hours do you normally work per week in your main job?*
+  \| (80hrs or more).
+
+- hrs_work_additional_job:
+
+  Item: *About how many hours per week did you work in this additional
+  job?* \| (60hrs or more).
+
+- work_hrs:
+
+  The total number of working hours.
+
+## Source
+
+European Foundation for the Improvement of Living and Working
+Conditions. (2015). European Quality of Life Time Series, 2007 and 2011:
+Open Access. UK Data Service. SN: 7724,
+[doi:10.5255/UKDA-SN-7724-1](https://doi.org/10.5255/UKDA-SN-7724-1) .
