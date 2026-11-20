@@ -15,7 +15,6 @@
 ##'  \item{exact2x2: }{Provides a function to compute the exact McNemar Test.}
 ##'  \item{ggdist: }{ggplot2 extension to plot uncertainty and frequencies.}
 ##'  \item{ggforce: }{ggplot2 extension to plot even more geoms.}
-##'  \item{ggmosaic: }{Creates mosiac plots with ggplot2. Useful when visualising contingency tables}
 ##'  \item{ggraph: }{Used to build network graphs}
 ##'  \item{ggridges: }{ggplot2 extension to build ridge plots}
 ##'  \item{janitor: }{The main janitor functions can: perfectly f
@@ -71,7 +70,6 @@ install_r4np <- function() {
     "exact2x2",
     "ggdist",
     "ggforce",
-    "ggmosaic",
     "ggraph",
     "ggridges",
     "janitor",
@@ -112,7 +110,6 @@ install_r4np <- function() {
           "\n- exact2x2",
           "\n- ggdist",
           "\n- ggforce",
-          "\n- ggmosaic",
           "\n- ggraph",
           "\n- ggridges",
           "\n- janitor",

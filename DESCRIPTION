@@ -1,7 +1,7 @@
 Package: r4np
 Type: Package
 Title: R for Non-Programmers Companion
-Version: 1.1.0
+Version: 1.1.0.9000
 Authors@R: person("Daniel", "Dauber", email = "d.dauber@warwick.ac.uk",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0003-4324-4796"))
 Description: The official companion to the book 'R For Non-Programmers (R4NP)'.
@@ -31,7 +31,6 @@ Suggests:
     exact2x2,
     ggdist,
     ggforce,
-    ggmosaic,
     gradethis,
     ggraph,
     ggridges,
@@ -63,8 +62,7 @@ Suggests:
     tidyverse,
     wesanderson,
     wordcloud
-Remotes:
-    rstudio/gradethis
+Additional_repositories: https://rstudio.r-universe.dev
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.1.0

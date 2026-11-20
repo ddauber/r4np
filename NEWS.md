@@ -1,3 +1,15 @@
+# r4np (development version)
+
+* Removed `ggmosaic` from `install_r4np()` and Suggests, as it was archived on
+  CRAN (2025-11-10) and broke `R CMD check`.
+* `gradethis` (used in the tutorials) is now found via
+  `Additional_repositories` (r-universe) instead of the non-CRAN `Remotes`
+  field.
+* Updated `CITATION` to use `bibentry()` and dataset sources to use `\doi{}`.
+* Updated the GitHub Actions R-CMD-check workflow to the current r-lib
+  standard (the retired `ubuntu-20.04` runner left Linux checks queued
+  forever).
+
 # r4np 1.1.0
 
 ## Breaking changes

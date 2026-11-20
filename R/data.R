@@ -270,7 +270,7 @@
 #' }
 #'
 #' @source Natural England. (2023). People and Nature Survey for England, 2020-2023: Open Access. 3rd Edition. UK Data Service. SN: 9092.
-#'         DOI: \url{http://doi.org/10.5255/UKDA-SN-9092-3}
+#'         \doi{10.5255/UKDA-SN-9092-3}
 "pplnat"
 
 # ------------------------------------------------------------------------------
@@ -356,7 +356,7 @@
 #'
 #' @source European Foundation for the Improvement of Living and Working Conditions. (2015).
 #'         European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
-#'         SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
+#'         SN: 7724, \doi{10.5255/UKDA-SN-7724-1}.
 "eqls"
 
 # ------------------------------------------------------------------------------
@@ -442,7 +442,7 @@
 #'
 #' @source European Foundation for the Improvement of Living and Working Conditions. (2015).
 #'         European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
-#'         SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
+#'         SN: 7724, \doi{10.5255/UKDA-SN-7724-1}.
 "eqls_2011"
 
 # ------------------------------------------------------------------------------
@@ -465,7 +465,7 @@
 #'
 #' @source European Foundation for the Improvement of Living and Working Conditions. (2015).
 #'         European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
-#'         SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
+#'         SN: 7724, \doi{10.5255/UKDA-SN-7724-1}.
 "eqls_country_2011"
 
 # ------------------------------------------------------------------------------

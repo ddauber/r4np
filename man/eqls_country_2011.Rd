@@ -18,7 +18,7 @@ A data frame with 32 rows and 5 variables:
 \source{
 European Foundation for the Improvement of Living and Working Conditions. (2015).
 European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
-SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
+SN: 7724, \doi{10.5255/UKDA-SN-7724-1}.
 }
 \usage{
 eqls_country_2011
