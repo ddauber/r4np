@@ -1,5 +1,11 @@
 # r4np (development version)
 
+* `install_r4np()` now also installs `learnr` and `gradethis`, which the
+  interactive exercises need. `gradethis` is installed from r-universe; if
+  that fails, the other packages stay installed and a message shows how to
+  install it manually. The function now uses `cli` messages and returns the
+  installed package names invisibly.
+
 * Removed `ggmosaic` from `install_r4np()` and Suggests, as it was archived on
   CRAN (2025-11-10) and broke `R CMD check`.
 * `gradethis` (used in the tutorials) is now found via

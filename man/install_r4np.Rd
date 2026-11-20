@@ -27,8 +27,14 @@ r, odds, etc.}
 \item{ggforce: }{ggplot2 extension to plot even more geoms.}
 \item{ggraph: }{Used to build network graphs}
 \item{ggridges: }{ggplot2 extension to build ridge plots}
-\item{janitor: }{The main janitor functions can: perfectly f
-ormat data.frame column names; provide quick
+\item{gradethis: }{Checks answers in the interactive exercises (tutorials)
+that come with this package. It is not on CRAN and is
+installed from \url{https://rstudio.r-universe.dev}.}
+\item{igraph: }{Used in combination with ggraph to create network plots}
+\item{infer: }{Performs statistical inference using a tidy, pipe-friendly
+workflow.}
+\item{janitor: }{The main janitor functions can: perfectly
+format data.frame column names; provide quick
 counts of variable combinations (i.e., frequency
 tables and crosstabs); and isolate duplicate records.}
 \item{jtools: }{This is a collection of tools that the author (Jacob) has written for
@@ -36,8 +42,9 @@ the purpose of more efficiently understanding and sharing the results
 of (primarily) regression analyses.}
 \item{lavaan: }{Fit a variety of latent variable models, including confirmatory factor analysis,
 structural equation modeling and latent growth curve models.}
+\item{learnr: }{Runs the interactive exercises (tutorials) that come with
+this package.}
 \item{lubridate: }{Helps manipulate/convert date and time data}
-\item{igraph: }{Used in combination with ggraph to create network plots}
 \item{mice: }{Multiple imputation using Fully Conditional Specification (FCS)
 implemented by the MICE algorithm as described in Van Buuren and
 Groothuis-Oudshoorn (2011).}
@@ -61,10 +68,16 @@ and experimental psychology.}
 \item{simputation: }{Offer imputation methods for missing data.}
 \item{skimr: }{A simple to use summary function that can be used with pipes
 and displays nicely in the console.}
+\item{tidytext: }{Text mining using tidy data principles.}
 \item{tidyverse: }{Install the core tidyverse packages.}
 \item{wesanderson: }{Colour palettes inspired by Wes Anderson movies for ggplot2}
 \item{wordcloud: }{Generates word clouds from text data.}
 }
+
+All packages except \code{gradethis} are installed from CRAN. \code{gradethis} is
+installed afterwards from r-universe. If that step fails, the other
+packages remain installed and a message explains how to install
+\code{gradethis} manually.
 }
 \examples{
 \dontrun{
