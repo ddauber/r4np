@@ -54,9 +54,23 @@ Installs the following R packages at once:
 
   ggplot2 extension to build ridge plots
 
+- gradethis: :
+
+  Checks answers in the interactive exercises (tutorials) that come with
+  this package. It is not on CRAN and is installed from
+  <https://rstudio.r-universe.dev>.
+
+- igraph: :
+
+  Used in combination with ggraph to create network plots
+
+- infer: :
+
+  Performs statistical inference using a tidy, pipe-friendly workflow.
+
 - janitor: :
 
-  The main janitor functions can: perfectly f ormat data.frame column
+  The main janitor functions can: perfectly format data.frame column
   names; provide quick counts of variable combinations (i.e., frequency
   tables and crosstabs); and isolate duplicate records.
 
@@ -71,13 +85,14 @@ Installs the following R packages at once:
   Fit a variety of latent variable models, including confirmatory factor
   analysis, structural equation modeling and latent growth curve models.
 
+- learnr: :
+
+  Runs the interactive exercises (tutorials) that come with this
+  package.
+
 - lubridate: :
 
   Helps manipulate/convert date and time data
-
-- igraph: :
-
-  Used in combination with ggraph to create network plots
 
 - mice: :
 
@@ -146,6 +161,10 @@ Installs the following R packages at once:
   A simple to use summary function that can be used with pipes and
   displays nicely in the console.
 
+- tidytext: :
+
+  Text mining using tidy data principles.
+
 - tidyverse: :
 
   Install the core tidyverse packages.
@@ -157,6 +176,11 @@ Installs the following R packages at once:
 - wordcloud: :
 
   Generates word clouds from text data.
+
+All packages except `gradethis` are installed from CRAN. `gradethis` is
+installed afterwards from r-universe. If that step fails, the other
+packages remain installed and a message explains how to install
+`gradethis` manually.
 
 ## Examples
 

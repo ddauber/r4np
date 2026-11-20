@@ -2,16 +2,26 @@
 
 ## r4np (development version)
 
+- [`install_r4np()`](https://ddauber.github.io/r4np/reference/install_r4np.md)
+  now also installs `learnr` and `gradethis`, which the interactive
+  exercises need. `gradethis` is installed from r-universe; if that
+  fails, the other packages stay installed and a message shows how to
+  install it manually. The function now uses `cli` messages and returns
+  the installed package names invisibly.
+
 - Removed `ggmosaic` from
   [`install_r4np()`](https://ddauber.github.io/r4np/reference/install_r4np.md)
   and Suggests, as it was archived on CRAN (2025-11-10) and broke
   `R CMD check`.
+
 - `gradethis` (used in the tutorials) is now found via
   `Additional_repositories` (r-universe) instead of the non-CRAN
   `Remotes` field.
+
 - Updated `CITATION` to use
   [`bibentry()`](https://rdrr.io/r/utils/bibentry.html) and dataset
   sources to use `\doi{}`.
+
 - Updated the GitHub Actions R-CMD-check workflow to the current r-lib
   standard (the retired `ubuntu-20.04` runner left Linux checks queued
   forever).

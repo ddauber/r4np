@@ -33,11 +33,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="r4np-development-version">r4np (development version)<a class="anchor" aria-label="anchor" href="#r4np-development-version"></a></h2>
-<ul><li>Removed <code>ggmosaic</code> from <code><a href="../reference/install_r4np.html">install_r4np()</a></code> and Suggests, as it was archived on CRAN (2025-11-10) and broke <code>R CMD check</code>.</li>
-<li>
-<code>gradethis</code> (used in the tutorials) is now found via <code>Additional_repositories</code> (r-universe) instead of the non-CRAN <code>Remotes</code> field.</li>
-<li>Updated <code>CITATION</code> to use <code><a href="https://rdrr.io/r/utils/bibentry.html" class="external-link">bibentry()</a></code> and dataset sources to use <code>\doi{}</code>.</li>
-<li>Updated the GitHub Actions R-CMD-check workflow to the current r-lib standard (the retired <code>ubuntu-20.04</code> runner left Linux checks queued forever).</li>
+<ul><li><p><code><a href="../reference/install_r4np.html">install_r4np()</a></code> now also installs <code>learnr</code> and <code>gradethis</code>, which the interactive exercises need. <code>gradethis</code> is installed from r-universe; if that fails, the other packages stay installed and a message shows how to install it manually. The function now uses <code>cli</code> messages and returns the installed package names invisibly.</p></li>
+<li><p>Removed <code>ggmosaic</code> from <code><a href="../reference/install_r4np.html">install_r4np()</a></code> and Suggests, as it was archived on CRAN (2025-11-10) and broke <code>R CMD check</code>.</p></li>
+<li><p><code>gradethis</code> (used in the tutorials) is now found via <code>Additional_repositories</code> (r-universe) instead of the non-CRAN <code>Remotes</code> field.</p></li>
+<li><p>Updated <code>CITATION</code> to use <code><a href="https://rdrr.io/r/utils/bibentry.html" class="external-link">bibentry()</a></code> and dataset sources to use <code>\doi{}</code>.</p></li>
+<li><p>Updated the GitHub Actions R-CMD-check workflow to the current r-lib standard (the retired <code>ubuntu-20.04</code> runner left Linux checks queued forever).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="r4np-110">r4np 1.1.0<a class="anchor" aria-label="anchor" href="#r4np-110"></a></h2>
