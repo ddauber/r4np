@@ -3,88 +3,112 @@
 #' @description This function performs a Shapiro-Wilk normality test on multiple
 #'  variables in a dataframe. It returns the results in a tidy format.
 #' @family normality tests
-#' @param df A dataframe containing the data to be tested.
-#' @param cols A vector of column names in the dataframe to be tested for
-#'  normality.
+#' @param df A dataframe containing the data to be tested. It can be supplied
+#'  directly (`ntest(df = mtcars, ...)`) or piped into the function
+#'  (`mtcars |> ntest(...)`).
+#' @param cols <[`tidy-select`][dplyr::dplyr_tidy_select]> The numeric
+#'  variables to test for normality, written as unquoted column names, e.g.
+#'  `mpg` or `c(mpg, disp)`. Selection helpers such as `starts_with()` or
+#'  `where(is.numeric)` also work.
 #'
-#' @details The function first reshapes the dataframe to a long format and
-#'  calculates the sample size for each variable. It then checks if the sample
-#'  size for any variable is less than 3 or greater than 5000, and if so, aborts
-#'  the function with an error message because the `shapiro.test()` only expects
-#'  this range of observations. The function then performs the Shapiro-Wilk test
-#'  on each variable and returns a formatted dataframe with the test results.
+#' @details Before running any tests, the function checks that `df` is a
+#'  dataframe, that all selected columns are numeric, and that each variable
+#'  has between 3 and 5000 non-missing observations (the range `shapiro.test()`
+#'  accepts) and is not constant. If any check fails, the function stops with
+#'  an error message explaining which variables are affected. It then performs
+#'  the Shapiro-Wilk test on each variable and returns a formatted dataframe
+#'  with the test results.
 #'
-#' @return A dataframe with the test results. Each row corresponds to a variable,
-#'  and the columns contain the test statistics and p-values.
+#'  If `df` is a grouped dataframe, the grouping is ignored and all
+#'  observations are tested together. Use [ntest_by()] to test each group
+#'  separately.
+#'
+#' @return A tibble with one row per variable and the columns `variable`,
+#'  `statistic`, `p.value` and `method`.
 #' @seealso [ntest_by()] to run normality tests for grouped data
 #' @examples
-#' \dontrun{
-#' # Perform multiple normality tests at once
-#' ntest(df   = mtcars,
-#'       cols = mpg)
-#' }
+#' # Test a single variable
+#' ntest(df = mtcars, cols = mpg)
 #'
-#' @importFrom tidyr pivot_longer unnest
-#' @importFrom dplyr group_by summarise filter select mutate everything
-#' @importFrom purrr map
+#' # Test several variables, piping the data into the function
+#' mtcars |> ntest(c(mpg, disp, hp))
+#'
+#' @importFrom tidyr unnest
+#' @importFrom dplyr select mutate
+#' @importFrom purrr map map_int map_lgl
 #' @importFrom tibble enframe
 #' @importFrom broom tidy
-#' @importFrom cli cli_abort
+#' @importFrom cli cli_abort cli_inform
+#' @importFrom stats shapiro.test
 #'
 #' @export
 ntest <- function(df, cols) {
 
-  # Check for sample sizes
-  sample_sizes <-
-    df |>
-    pivot_longer(cols = {{ cols }},
-                 names_to = "variable",
-                 values_to = "value") |>
-    group_by(.data$variable) |>
-    summarise(n = sum(!is.na(.data$value)), .groups = "drop")
+  # Check inputs
+  check_ntest_df(df)
 
-  small_sample <-
-    sample_sizes |>
-    filter(.data$n < 3)
-
-  big_sample <-
-    sample_sizes |>
-    filter(.data$n > 5000)
-
-  small_sample_names <- paste(small_sample[[1]], collapse = ", ")
-  big_sample_names <- paste(big_sample[[1]], collapse = ", ")
-
-
-  if (any(sample_sizes$n < 3)) {
+  if (missing(cols)) {
     cli::cli_abort(c(
-      "Sample size of all groups needs to be >= 3.",
-      i = "Groups with n < 3: {.strong {small_sample_names}}.")
-    )
+      "Please tell {.fn ntest} which variables to test using {.arg cols}.",
+      "i" = "For example: {.code ntest(mtcars, cols = c(mpg, disp))}."
+    ))
   }
 
-  if (any(sample_sizes$n > 5000)) {
+  # Grouped data: test all observations together, but hint at ntest_by()
+  if (dplyr::is_grouped_df(df)) {
+    group_names <- dplyr::group_vars(df)
+    cli::cli_inform(c(
+      "i" = "{.arg df} is grouped by {.field {group_names}}, but {.fn ntest} ignores groups and tests all observations together.",
+      ">" = "To test normality for each group, use {.fn ntest_by}."
+    ))
+    df <- dplyr::ungroup(df)
+  }
+
+  # Select variables to test (only numeric variables can be tested)
+  data <- select_ntest_vars(df, {{ cols }}, arg = "cols")
+  check_ntest_numeric(data, fn = "ntest")
+
+  # Check for sample sizes (shapiro.test() accepts 3 to 5000 observations)
+  sample_sizes <- count_non_missing(data)
+
+  small_sample <- names(sample_sizes)[sample_sizes < 3]
+  big_sample <- names(sample_sizes)[sample_sizes > 5000]
+
+  if (length(small_sample) > 0) {
     cli::cli_abort(c(
-      "Sample size of all groups needs to be <= 5000.",
-      i = "Groups with n > 5000: {.strong {big_sample_names}}.")
-    )
+      "Sample size of all variables needs to be >= 3.",
+      "x" = "Variable{?s} with n < 3: {.field {small_sample}}."
+    ))
+  }
+
+  if (length(big_sample) > 0) {
+    cli::cli_abort(c(
+      "Sample size of all variables needs to be <= 5000.",
+      "x" = "Variable{?s} with n > 5000: {.field {big_sample}}."
+    ))
+  }
+
+  # Constant variables cannot be tested
+  constant <- names(data)[is_constant(data)]
+
+  if (length(constant) > 0) {
+    cli::cli_abort(c(
+      "Cannot test variables where all values are identical.",
+      "x" = "Constant variable{?s}: {.field {constant}}."
+    ))
   }
 
   # Performing normality test
-  test <-
-    df |>
-    select({{cols}}) |>
-    map(~ shapiro.test(.))
+  test <- map(data, ~ shapiro.test(.x))
 
-  result <- enframe(test, name = "row_name", value = "subitems")
+  result <- enframe(test, name = "variable", value = "subitems")
 
   # Formatting the results
   result_formatted <-
     result |>
     mutate(tidy_htest = map(.data$subitems, tidy)) |>
-    unnest(cols = .data$tidy_htest) |>
-    select(-.data$subitems)
+    unnest(cols = "tidy_htest") |>
+    select(-"subitems")
 
   return(result_formatted)
 }
-
-utils::globalVariables(".data")

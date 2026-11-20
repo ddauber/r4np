@@ -7,17 +7,17 @@
 \format{
 A data frame with 2100 rows and 5 variables:
 \describe{
-  \item{id}{Unique ID for each participant}
-  \item{wave}{Random names created with `randomName` package}
-  \item{country}{Defines whether a test was performed before or after training}
-  \item{satisfaction}{Item: \emph{All things considered, how satisfied
-        are you with your life as a whole these days? | 1 (“completely dissatisfied”)
-        to 10 (“completely satisfied”)}}
-  \item{freedom_of_choice}{Item: \emph{Some people feel they have completely
-        free choice and control over their lives, while other people feel that
-        what they do has no real effect on what happens to them. Indicate how much
-        freedom of choice and control you feel you have over the way your life
-        turns out | 1 ("no choice at all") to 10 ("a great deal of choice").}}
+\item{id}{Unique ID for each participant}
+\item{wave}{Random names created with \code{randomName} package}
+\item{country}{Defines whether a test was performed before or after training}
+\item{satisfaction}{Item: \emph{All things considered, how satisfied
+are you with your life as a whole these days? | 1 (“completely dissatisfied”)
+to 10 (“completely satisfied”)}}
+\item{freedom_of_choice}{Item: \emph{Some people feel they have completely
+free choice and control over their lives, while other people feel that
+what they do has no real effect on what happens to them. Indicate how much
+freedom of choice and control you feel you have over the way your life
+turns out | 1 ("no choice at all") to 10 ("a great deal of choice").}}
 }
 }
 \source{

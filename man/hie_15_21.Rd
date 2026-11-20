@@ -7,15 +7,15 @@
 \format{
 A data frame with 614 rows and 6 variables:
 \describe{
-  \item{area_name}{The area the data was collected from.}
-  \item{year}{The year data was collected.}
-  \item{feelings_of_anxiety}{The average anxiety score of respondents (16+) when asked
-                             how they felt the day before.}
-  \item{happiness}{The average happiness score of respondents (16+) when asked
-                             how they felt the day before.}
-  \item{healthy_eating}{The percentage of adults (16+) who report eating five or more
-                         portions of fruit and vegetables on a 'usual day'.}
-  \item{life_satisfaction}{The average life satisfaction score of respondents aged 16 and over.}
+\item{area_name}{The area the data was collected from.}
+\item{year}{The year data was collected.}
+\item{feelings_of_anxiety}{The average anxiety score of respondents (16+) when asked
+how they felt the day before.}
+\item{happiness}{The average happiness score of respondents (16+) when asked
+how they felt the day before.}
+\item{healthy_eating}{The percentage of adults (16+) who report eating five or more
+portions of fruit and vegetables on a 'usual day'.}
+\item{life_satisfaction}{The average life satisfaction score of respondents aged 16 and over.}
 }
 }
 \source{

@@ -7,9 +7,9 @@
 \format{
 A data frame with 300 rows and 3 variables:
 \describe{
-  \item{performance}{\emph{Student's change in performance at school.}}
-  \item{happiness}{\emph{Participant's change in happiness}}
-  \item{group}{\emph{Group a participant belongs to, i.e. Teacher, Student, or Parent}}
+\item{performance}{\emph{Student's change in performance at school.}}
+\item{happiness}{\emph{Participant's change in happiness}}
+\item{group}{\emph{Group a participant belongs to, i.e. Teacher, Student, or Parent}}
 }
 }
 \source{

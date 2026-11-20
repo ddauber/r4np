@@ -7,17 +7,17 @@
 \format{
 A data frame with 96 rows and 11 variables:
 \describe{
-  \item{name}{Random names created with `randomName` package}
-  \item{test}{Defines whether a test was performed before or after training}
-  \item{communication}{Level of confidence in communication with people from diverse cultural backgrounds}
-  \item{teamwork}{Level of confidence in working with people from diverse cultural backgrounds}
-  \item{leadership}{Level of confidence in leading people from diverse cultural backgrounds}
-  \item{communication2}{Factorised 'communication' with levels "yes and "no"}
-  \item{teamwork2}{Factorised 'teamwork' with levels "yes and "no"}
-  \item{leadership2}{Factorised 'leadership' with levels "yes and "no"}
-  \item{communication3}{Factorised 'communication' with levels "high", "medium", and "low"}
-  \item{teamwork3}{Factorised 'teamwork' with levels "high", "medium", and "low"}
-  \item{leadership3}{Factorised 'leadership' with levels "high", "medium", and "low"}
+\item{name}{Random names created with \code{randomName} package}
+\item{test}{Defines whether a test was performed before or after training}
+\item{communication}{Level of confidence in communication with people from diverse cultural backgrounds}
+\item{teamwork}{Level of confidence in working with people from diverse cultural backgrounds}
+\item{leadership}{Level of confidence in leading people from diverse cultural backgrounds}
+\item{communication2}{Factorised 'communication' with levels "yes and "no"}
+\item{teamwork2}{Factorised 'teamwork' with levels "yes and "no"}
+\item{leadership2}{Factorised 'leadership' with levels "yes and "no"}
+\item{communication3}{Factorised 'communication' with levels "high", "medium", and "low"}
+\item{teamwork3}{Factorised 'teamwork' with levels "high", "medium", and "low"}
+\item{leadership3}{Factorised 'leadership' with levels "high", "medium", and "low"}
 }
 }
 \source{

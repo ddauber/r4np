@@ -7,9 +7,9 @@
 \format{
 A data frame with 5982 rows and 3 variables:
 \describe{
-  \item{expenses}{Expenses related to Halloween candies}
-  \item{distance}{Distance covered while 'Trick-or-treating'}
-  \item{country}{Participants country of residence}
+\item{expenses}{Expenses related to Halloween candies}
+\item{distance}{Distance covered while 'Trick-or-treating'}
+\item{country}{Participants country of residence}
 }
 }
 \source{

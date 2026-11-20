@@ -7,36 +7,48 @@
 ntest(df, cols)
 }
 \arguments{
-\item{df}{A dataframe containing the data to be tested.}
+\item{df}{A dataframe containing the data to be tested. It can be supplied
+directly (\code{ntest(df = mtcars, ...)}) or piped into the function
+(\code{mtcars |> ntest(...)}).}
 
-\item{cols}{A vector of column names in the dataframe to be tested for
-normality.}
+\item{cols}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> The numeric
+variables to test for normality, written as unquoted column names, e.g.
+\code{mpg} or \code{c(mpg, disp)}. Selection helpers such as \code{starts_with()} or
+\code{where(is.numeric)} also work.}
 }
 \value{
-A dataframe with the test results. Each row corresponds to a variable,
- and the columns contain the test statistics and p-values.
+A tibble with one row per variable and the columns \code{variable},
+\code{statistic}, \code{p.value} and \code{method}.
 }
 \description{
 This function performs a Shapiro-Wilk normality test on multiple
- variables in a dataframe. It returns the results in a tidy format.
+variables in a dataframe. It returns the results in a tidy format.
 }
 \details{
-The function first reshapes the dataframe to a long format and
- calculates the sample size for each variable. It then checks if the sample
- size for any variable is less than 3 or greater than 5000, and if so, aborts
- the function with an error message because the `shapiro.test()` only expects
- this range of observations. The function then performs the Shapiro-Wilk test
- on each variable and returns a formatted dataframe with the test results.
+Before running any tests, the function checks that \code{df} is a
+dataframe, that all selected columns are numeric, and that each variable
+has between 3 and 5000 non-missing observations (the range \code{shapiro.test()}
+accepts) and is not constant. If any check fails, the function stops with
+an error message explaining which variables are affected. It then performs
+the Shapiro-Wilk test on each variable and returns a formatted dataframe
+with the test results.
+
+If \code{df} is a grouped dataframe, the grouping is ignored and all
+observations are tested together. Use \code{\link[=ntest_by]{ntest_by()}} to test each group
+separately.
 }
 \examples{
-\dontrun{
-# Perform multiple normality tests at once
-ntest(df   = mtcars,
-      cols = mpg)
-}
+# Test a single variable
+ntest(df = mtcars, cols = mpg)
+
+# Test several variables, piping the data into the function
+mtcars |> ntest(c(mpg, disp, hp))
 
 }
 \seealso{
-[ntest_by()] to run normality tests for grouped data
+\code{\link[=ntest_by]{ntest_by()}} to run normality tests for grouped data
+
+Other normality tests:
+\code{\link[=ntest_by]{ntest_by()}}
 }
 \concept{normality tests}

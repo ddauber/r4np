@@ -8,3 +8,4 @@
 ^docs$
 ^pkgdown$
 ^visual_assets
+^CLAUDE\.md$

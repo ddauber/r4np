@@ -7,23 +7,23 @@
 \format{
 A data frame with 142674 rows and 17 variables:
 \describe{
-  \item{date_reported}{Date when cases, deaths, PHSM, etc. were reported}
-  \item{iso3}{ISO three-digit country identifier}
-  \item{country}{Name of country}
-  \item{new_cases}{# of new COVID cases}
-  \item{cumulative_cases}{Total number of COVID cases}
-  \item{cumulative_deaths}{Total number of deaths due to COVID}
-  \item{fully_vaccinated}{Total number of fully vaccinated people}
-  \item{masks}{Index of mask measures implemented (0-100)}
-  \item{travel}{Index of travel measures implemented (0-100)}
-  \item{gatherings}{Index of gathering measures implemented (0-100)}
-  \item{schools}{Index of school measures implemented (0-100)}
-  \item{businesses}{Index of business measures implemented (0-100)}
-  \item{movements}{Index of movement measures implemented (0-100)}
-  \item{global_index}{Global index of overall measures implemented (0-100)}
-  \item{measures_in_place}{Lists all measures in place according to WHO taxanomy}
-  \item{region}{Region a country is located in (WHO classification)}
-  \item{population}{Population of a country as of 2016}
+\item{date_reported}{Date when cases, deaths, PHSM, etc. were reported}
+\item{iso3}{ISO three-digit country identifier}
+\item{country}{Name of country}
+\item{new_cases}{# of new COVID cases}
+\item{cumulative_cases}{Total number of COVID cases}
+\item{cumulative_deaths}{Total number of deaths due to COVID}
+\item{fully_vaccinated}{Total number of fully vaccinated people}
+\item{masks}{Index of mask measures implemented (0-100)}
+\item{travel}{Index of travel measures implemented (0-100)}
+\item{gatherings}{Index of gathering measures implemented (0-100)}
+\item{schools}{Index of school measures implemented (0-100)}
+\item{businesses}{Index of business measures implemented (0-100)}
+\item{movements}{Index of movement measures implemented (0-100)}
+\item{global_index}{Global index of overall measures implemented (0-100)}
+\item{measures_in_place}{Lists all measures in place according to WHO taxanomy}
+\item{region}{Region a country is located in (WHO classification)}
+\item{population}{Population of a country as of 2016}
 }
 }
 \source{

@@ -7,18 +7,18 @@
 \format{
 A data frame with 32 rows and 5 variables:
 \describe{
-  \item{country_name}{Name of country participants resides in.}
-  \item{trust_people}{Item: \emph{Would you say that most people can be trusted?}
-                                   | 1 ("You cannot be too careful") to 10 = ("Most people can be trusted").}
-  \item{sei}{Social Exclusion Index}
-  \item{mwbi}{WHO-5 mental wellbeing index}
-  \item{wlbc}{Work-life balance conflict}
+\item{country_name}{Name of country participants resides in.}
+\item{trust_people}{Item: \emph{Would you say that most people can be trusted?}
+| 1 ("You cannot be too careful") to 10 = ("Most people can be trusted").}
+\item{sei}{Social Exclusion Index}
+\item{mwbi}{WHO-5 mental wellbeing index}
+\item{wlbc}{Work-life balance conflict}
 }
 }
 \source{
 European Foundation for the Improvement of Living and Working Conditions. (2015).
-        European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
-        SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
+European Quality of Life Time Series, 2007 and 2011: Open Access. UK Data Service.
+SN: 7724, DOI: \url{http://doi.org/10.5255/UKDA-SN-7724-1}.
 }
 \usage{
 eqls_country_2011

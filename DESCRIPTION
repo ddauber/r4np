@@ -1,7 +1,7 @@
 Package: r4np
 Type: Package
 Title: R for Non-Programmers Companion
-Version: 1.0.1
+Version: 1.1.0
 Authors@R: person("Daniel", "Dauber", email = "d.dauber@warwick.ac.uk",
   role = c("aut", "cre"), comment = c(ORCID = "0000-0003-4324-4796"))
 Description: The official companion to the book 'R For Non-Programmers (R4NP)'.
@@ -13,13 +13,13 @@ URL: https://ddauber.github.io/r4np/
 BugReports: https://github.com/ddauber/r4np/issues
 Depends: 
     R (>= 4.2.0)
-RoxygenNote: 7.3.2
 Imports:
     base,
     broom,
     cli,
     dplyr,
     purrr,
+    stats,
     tibble,
     tidyr,
     utils
@@ -66,3 +66,5 @@ Suggests:
 Remotes:
     rstudio/gradethis
 Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.1.0

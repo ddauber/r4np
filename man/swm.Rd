@@ -7,9 +7,9 @@
 \format{
 A data frame with 100 rows and 3 variables:
 \describe{
-  \item{salary}{Salary earned (in USD 1000)}
-  \item{work_experience}{Years of working experience}
-  \item{mindfulness}{Minutes spent on mindfulness practices in a 5-day working week.}
+\item{salary}{Salary earned (in USD 1000)}
+\item{work_experience}{Years of working experience}
+\item{mindfulness}{Minutes spent on mindfulness practices in a 5-day working week.}
 }
 }
 \source{

@@ -7,44 +7,53 @@
 ntest_by(df, cols, group)
 }
 \arguments{
-\item{df}{A dataframe containing the data to be tested.}
+\item{df}{A dataframe containing the data to be tested. It can be supplied
+directly (\code{ntest_by(df = mtcars, ...)}) or piped into the function
+(\code{mtcars |> ntest_by(...)}).}
 
-\item{cols}{A vector of column names in the dataframe to be tested for
-normality.}
+\item{cols}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> The numeric
+variables to test for normality, written as unquoted column names, e.g.
+\code{mpg} or \code{c(mpg, disp)}. Selection helpers such as \code{starts_with()} or
+\code{where(is.numeric)} also work. Grouping variables are never tested.}
 
-\item{group}{A column name in the dataframe that defines the groups.}
+\item{group}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> The variable that
+defines the groups, written as an unquoted column name, e.g. \code{cyl}.}
 }
 \value{
-A data frame with the results of the Shapiro-Wilk test for each group
-  and variable.
+A tibble with one row per group and variable, containing the
+grouping variable(s) and the columns \code{variable}, \code{statistic}, \code{p.value}
+and \code{method}.
 }
 \description{
 This function performs a Shapiro-Wilk normality test on multiple
-  variables in a dataframe by groups.
+variables in a dataframe by groups.
 }
 \details{
-The function first creates subsets of the data for each group. It
-  then performs a Shapiro-Wilk normality test (`shapiro.test()`) on each
-  group and returns the results in a tidy format. the function also checks
-  whether the number of observations for each variable and group lies within
-  the permissible range of the `shapiro.test()`. If not, the function will
-  provide diagnostics on why a test could not be performed base on which
-  groups are affected.
+Before running any tests, the function checks that \code{df} is a
+dataframe, that all variables in \code{cols} are numeric, and that each
+variable has between 3 and 5000 non-missing observations (the range
+\code{shapiro.test()} accepts) and is not constant within every group. If any
+check fails, the function stops with an error message explaining which
+groups or variables are affected. It then performs the Shapiro-Wilk test
+for each variable within each group and returns the results in a tidy
+format.
+
+Groups are defined only by \code{group}. If \code{df} is already a grouped
+dataframe, that grouping is ignored and a short message says so (unless
+it matches \code{group}).
 }
 \examples{
-\dontrun{
-# Perform a normality test for groups
-ntest_by(df    = mtcars,
-         cols  = mpg,
-         group = cyl)
+# Perform a normality test for each group
+ntest_by(df = mtcars, cols = mpg, group = cyl)
 
-# Perform a normality test for multiple variables by groups
-ntest_by(df    = starwars,
-         cols  = c(mass, birth_year),
-         group = species)
-}
+# Test several variables by group, piping the data into the function
+iris |> ntest_by(c(Sepal.Length, Sepal.Width), Species)
 
 }
 \seealso{
-[ntest()] to run normality tests for ungrouped data
+\code{\link[=ntest]{ntest()}} to run normality tests for ungrouped data
+
+Other normality tests:
+\code{\link[=ntest]{ntest()}}
 }
+\concept{normality tests}

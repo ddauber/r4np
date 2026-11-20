@@ -11,5 +11,5 @@ Automatically create folders for a project
 }
 \details{
 Automatically generate a project
-    folder structure in the working directory of your R session.
+folder structure in the working directory of your R session.
 }
