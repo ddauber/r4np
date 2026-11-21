@@ -50,7 +50,7 @@
 ntest_by <- function(df, cols, group) {
 
   # Check inputs
-  check_ntest_df(df)
+  check_df(df)
 
   if (missing(cols) || missing(group)) {
     cli::cli_abort(c(
@@ -64,7 +64,7 @@ ntest_by <- function(df, cols, group) {
   df <- dplyr::ungroup(df)
 
   # Select grouping and test variables (grouping variables are never tested)
-  group_data <- select_ntest_vars(df, {{ group }}, arg = "group")
+  group_data <- select_vars(df, {{ group }}, arg = "group")
   group_names <- names(group_data)
 
   # Hint only if the existing grouping differs from `group`
@@ -76,7 +76,7 @@ ntest_by <- function(df, cols, group) {
   }
 
   test_names <- setdiff(
-    names(select_ntest_vars(df, {{ cols }}, arg = "cols")),
+    names(select_vars(df, {{ cols }}, arg = "cols")),
     group_names
   )
 
@@ -87,16 +87,13 @@ ntest_by <- function(df, cols, group) {
     ))
   }
 
-  check_ntest_numeric(df[test_names], fn = "ntest_by")
+  check_numeric(df[test_names], fn = "ntest_by")
 
   # Create subsets of data as nested dfs
   nested_group_data <- nest(df[c(group_names, test_names)],
                             .by = all_of(group_names))
 
-  group_labels <- do.call(
-    paste,
-    c(lapply(nested_group_data[group_names], as.character), sep = " / ")
-  )
+  group_labels <- make_group_labels(nested_group_data, group_names)
 
   # Check that groups are: 3 <= size <= 5000 (per variable, ignoring NAs)
   sample_sizes <- map(nested_group_data$data, count_non_missing)

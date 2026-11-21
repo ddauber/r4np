@@ -45,7 +45,7 @@
 ntest <- function(df, cols) {
 
   # Check inputs
-  check_ntest_df(df)
+  check_df(df)
 
   if (missing(cols)) {
     cli::cli_abort(c(
@@ -65,8 +65,8 @@ ntest <- function(df, cols) {
   }
 
   # Select variables to test (only numeric variables can be tested)
-  data <- select_ntest_vars(df, {{ cols }}, arg = "cols")
-  check_ntest_numeric(data, fn = "ntest")
+  data <- select_vars(df, {{ cols }}, arg = "cols")
+  check_numeric(data, fn = "ntest")
 
   # Check for sample sizes (shapiro.test() accepts 3 to 5000 observations)
   sample_sizes <- count_non_missing(data)

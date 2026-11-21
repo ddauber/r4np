@@ -1,11 +1,11 @@
-# Internal input checks shared by ntest() and ntest_by()
+# Internal input checks shared by ntest(), ntest_by() and vtest()
 
-# `.data` is the dplyr pronoun used inside mutate() in ntest() and ntest_by()
+# `.data` is the dplyr pronoun used inside mutate()
 utils::globalVariables(".data")
 
 #' Abort if `df` is not a dataframe
 #' @noRd
-check_ntest_df <- function(df, call = parent.frame()) {
+check_df <- function(df, call = parent.frame()) {
   if (!is.data.frame(df)) {
     cli::cli_abort(c(
       "{.arg df} must be a dataframe.",
@@ -16,7 +16,7 @@ check_ntest_df <- function(df, call = parent.frame()) {
 
 #' Select columns with a readable error if the selection fails or is empty
 #' @noRd
-select_ntest_vars <- function(df, vars, arg, call = parent.frame()) {
+select_vars <- function(df, vars, arg, call = parent.frame()) {
   data <- tryCatch(
     select(df, {{ vars }}),
     error = function(cnd) {
@@ -40,7 +40,7 @@ select_ntest_vars <- function(df, vars, arg, call = parent.frame()) {
 
 #' Abort if any selected variable is not numeric
 #' @noRd
-check_ntest_numeric <- function(data, fn, call = parent.frame()) {
+check_numeric <- function(data, fn, call = parent.frame()) {
   not_numeric <- names(data)[!map_lgl(data, is.numeric)]
 
   if (length(not_numeric) > 0) {
@@ -61,4 +61,14 @@ count_non_missing <- function(data) {
 #' @noRd
 is_constant <- function(data) {
   map_lgl(data, ~ diff(range(.x, na.rm = TRUE)) < 1e-10)
+}
+
+#' Build one readable label per row from one or more grouping columns,
+#' e.g. "4 / 0" for `cyl = 4, am = 0`
+#' @noRd
+make_group_labels <- function(data, group_names) {
+  do.call(
+    paste,
+    c(lapply(data[group_names], as.character), sep = " / ")
+  )
 }
