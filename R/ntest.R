@@ -2,7 +2,7 @@
 #'
 #' @description This function performs a Shapiro-Wilk normality test on multiple
 #'  variables in a dataframe. It returns the results in a tidy format.
-#' @family normality tests
+#' @family assumption tests
 #' @param df A dataframe containing the data to be tested. It can be supplied
 #'  directly (`ntest(df = mtcars, ...)`) or piped into the function
 #'  (`mtcars |> ntest(...)`).

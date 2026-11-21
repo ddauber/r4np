@@ -48,7 +48,8 @@ mtcars |> ntest(c(mpg, disp, hp))
 \seealso{
 \code{\link[=ntest_by]{ntest_by()}} to run normality tests for grouped data
 
-Other normality tests:
-\code{\link[=ntest_by]{ntest_by()}}
+Other assumption tests:
+\code{\link[=ntest_by]{ntest_by()}},
+\code{\link[=vtest]{vtest()}}
 }
-\concept{normality tests}
+\concept{assumption tests}

@@ -53,7 +53,8 @@ iris |> ntest_by(c(Sepal.Length, Sepal.Width), Species)
 \seealso{
 \code{\link[=ntest]{ntest()}} to run normality tests for ungrouped data
 
-Other normality tests:
-\code{\link[=ntest]{ntest()}}
+Other assumption tests:
+\code{\link[=ntest]{ntest()}},
+\code{\link[=vtest]{vtest()}}
 }
-\concept{normality tests}
+\concept{assumption tests}

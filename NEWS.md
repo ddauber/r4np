@@ -1,5 +1,13 @@
 # r4np (development version)
 
+* New `vtest()` runs Levene's test for homogeneity of variance on several
+  variables at once and returns the results as a tidy tibble. It mirrors
+  `ntest()`: variables are chosen with `cols`, groups with `group` (several
+  grouping variables are combined, e.g. for a two-way ANOVA), and inputs are
+  checked with clear error messages. The default `center = "median"` matches
+  `car::leveneTest()`; `center = "mean"` gives the original Levene's test.
+  The computation uses only `stats`, so `car` is not required.
+
 * `install_r4np()` now also installs `learnr` and `gradethis`, which the
   interactive exercises need. `gradethis` is installed from r-universe; if
   that fails, the other packages stay installed and a message shows how to
