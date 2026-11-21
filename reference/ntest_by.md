@@ -57,8 +57,9 @@ it matches `group`).
 [`ntest()`](https://ddauber.github.io/r4np/reference/ntest.md) to run
 normality tests for ungrouped data
 
-Other normality tests:
-[`ntest()`](https://ddauber.github.io/r4np/reference/ntest.md)
+Other assumption tests:
+[`ntest()`](https://ddauber.github.io/r4np/reference/ntest.md),
+[`vtest()`](https://ddauber.github.io/r4np/reference/vtest.md)
 
 ## Examples
 

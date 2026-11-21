@@ -11,6 +11,8 @@
   Perform normality test for multiple variables at once
 - [`ntest_by()`](https://ddauber.github.io/r4np/reference/ntest_by.md) :
   Perform normality test for multiple variables by groups
+- [`vtest()`](https://ddauber.github.io/r4np/reference/vtest.md) : Test
+  homogeneity of variance for multiple variables at once
 
 ## Datasets
 

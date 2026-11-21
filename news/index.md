@@ -1,6 +1,18 @@
 # Changelog
 
-## r4np (development version)
+## r4np 1.2.0
+
+- New [`vtest()`](https://ddauber.github.io/r4np/reference/vtest.md)
+  runs Levene’s test for homogeneity of variance on several variables at
+  once and returns the results as a tidy tibble. It mirrors
+  [`ntest()`](https://ddauber.github.io/r4np/reference/ntest.md):
+  variables are chosen with `cols`, groups with `group` (several
+  grouping variables are combined, e.g. for a two-way ANOVA), and inputs
+  are checked with clear error messages. The default `center = "median"`
+  matches
+  [`car::leveneTest()`](https://rdrr.io/pkg/car/man/leveneTest.html);
+  `center = "mean"` gives the original Levene’s test. The computation
+  uses only `stats`, so `car` is not required.
 
 - [`install_r4np()`](https://ddauber.github.io/r4np/reference/install_r4np.md)
   now also installs `learnr` and `gradethis`, which the interactive

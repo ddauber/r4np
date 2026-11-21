@@ -50,8 +50,9 @@ test each group separately.
 [`ntest_by()`](https://ddauber.github.io/r4np/reference/ntest_by.md) to
 run normality tests for grouped data
 
-Other normality tests:
-[`ntest_by()`](https://ddauber.github.io/r4np/reference/ntest_by.md)
+Other assumption tests:
+[`ntest_by()`](https://ddauber.github.io/r4np/reference/ntest_by.md),
+[`vtest()`](https://ddauber.github.io/r4np/reference/vtest.md)
 
 ## Examples
 
