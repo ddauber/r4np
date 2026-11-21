@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">r4np</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,12 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/ddauber/r4np/blob/v1.2.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/ddauber/r4np/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="r4np-development-version">r4np (development version)<a class="anchor" aria-label="anchor" href="#r4np-development-version"></a></h2>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="r4np-120">r4np 1.2.0<a class="anchor" aria-label="anchor" href="#r4np-120"></a></h2>
 <ul><li><p>New <code><a href="../reference/vtest.html">vtest()</a></code> runs Levene’s test for homogeneity of variance on several variables at once and returns the results as a tidy tibble. It mirrors <code><a href="../reference/ntest.html">ntest()</a></code>: variables are chosen with <code>cols</code>, groups with <code>group</code> (several grouping variables are combined, e.g. for a two-way ANOVA), and inputs are checked with clear error messages. The default <code>center = "median"</code> matches <code><a href="https://rdrr.io/pkg/car/man/leveneTest.html" class="external-link">car::leveneTest()</a></code>; <code>center = "mean"</code> gives the original Levene’s test. The computation uses only <code>stats</code>, so <code>car</code> is not required.</p></li>
