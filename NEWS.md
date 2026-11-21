@@ -1,4 +1,4 @@
-# r4np (development version)
+# r4np 1.2.0
 
 * New `vtest()` runs Levene's test for homogeneity of variance on several
   variables at once and returns the results as a tidy tibble. It mirrors
