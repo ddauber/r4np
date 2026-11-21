@@ -29,7 +29,9 @@ ntest_by(df, cols, group)
 
   \<[`tidy-select`](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)\>
   The variable that defines the groups, written as an unquoted column
-  name, e.g. `cyl`.
+  name, e.g. `cyl`. If you select several variables, e.g.
+  `c(gender, country)`, every combination of their values is treated as
+  a separate group, so you get one test for each gender in each country.
 
 ## Value
 
@@ -40,13 +42,14 @@ variable(s) and the columns `variable`, `statistic`, `p.value` and
 ## Details
 
 Before running any tests, the function checks that `df` is a dataframe,
-that all variables in `cols` are numeric, and that each variable has
-between 3 and 5000 non-missing observations (the range
-[`shapiro.test()`](https://rdrr.io/r/stats/shapiro.test.html) accepts)
-and is not constant within every group. If any check fails, the function
-stops with an error message explaining which groups or variables are
-affected. It then performs the Shapiro-Wilk test for each variable
-within each group and returns the results in a tidy format.
+that all variables in `cols` are numeric, and that within each group
+every variable has between 3 and 5000 non-missing observations (the
+range [`shapiro.test()`](https://rdrr.io/r/stats/shapiro.test.html)
+accepts) and is not constant. With several grouping variables, these
+checks apply to every combination of their values. If any check fails,
+the function stops with an error message explaining which groups or
+variables are affected. It then performs the Shapiro-Wilk test for each
+variable within each group and returns the results in a tidy format.
 
 Groups are defined only by `group`. If `df` is already a grouped
 dataframe, that grouping is ignored and a short message says so (unless
@@ -84,4 +87,15 @@ iris |> ntest_by(c(Sepal.Length, Sepal.Width), Species)
 #> 4 versicolor Sepal.Width      0.974   0.338 Shapiro-Wilk normality test
 #> 5 virginica  Sepal.Length     0.971   0.258 Shapiro-Wilk normality test
 #> 6 virginica  Sepal.Width      0.967   0.181 Shapiro-Wilk normality test
+
+# Test each combination of two grouping variables (engine shape and
+# transmission)
+ntest_by(mtcars, mpg, group = c(vs, am))
+#> # A tibble: 4 × 6
+#>      vs    am variable statistic p.value method                     
+#>   <dbl> <dbl> <chr>        <dbl>   <dbl> <chr>                      
+#> 1     0     1 mpg          0.931   0.584 Shapiro-Wilk normality test
+#> 2     1     1 mpg          0.913   0.417 Shapiro-Wilk normality test
+#> 3     1     0 mpg          0.938   0.618 Shapiro-Wilk normality test
+#> 4     0     0 mpg          0.940   0.504 Shapiro-Wilk normality test
 ```

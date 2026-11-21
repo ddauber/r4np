@@ -63,7 +63,10 @@ variables to test for normality, written as unquoted column names, e.g.
 
 <dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
 <dd><p>&lt;<code><a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html" class="external-link">tidy-select</a></code>&gt; The variable that
-defines the groups, written as an unquoted column name, e.g. <code>cyl</code>.</p></dd>
+defines the groups, written as an unquoted column name, e.g. <code>cyl</code>. If
+you select several variables, e.g. <code>c(gender, country)</code>, every
+combination of their values is treated as a separate group, so you get
+one test for each gender in each country.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -75,13 +78,14 @@ and <code>method</code>.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Before running any tests, the function checks that <code>df</code> is a
-dataframe, that all variables in <code>cols</code> are numeric, and that each
-variable has between 3 and 5000 non-missing observations (the range
-<code><a href="https://rdrr.io/r/stats/shapiro.test.html" class="external-link">shapiro.test()</a></code> accepts) and is not constant within every group. If any
-check fails, the function stops with an error message explaining which
-groups or variables are affected. It then performs the Shapiro-Wilk test
-for each variable within each group and returns the results in a tidy
-format.</p>
+dataframe, that all variables in <code>cols</code> are numeric, and that within
+each group every variable has between 3 and 5000 non-missing
+observations (the range <code><a href="https://rdrr.io/r/stats/shapiro.test.html" class="external-link">shapiro.test()</a></code> accepts) and is not constant.
+With several grouping variables, these checks apply to every
+combination of their values. If any check fails, the function stops
+with an error message explaining which groups or variables are affected.
+It then performs the Shapiro-Wilk test for each variable within each
+group and returns the results in a tidy format.</p>
 <p>Groups are defined only by <code>group</code>. If <code>df</code> is already a grouped
 dataframe, that grouping is ignored and a short message says so (unless
 it matches <code>group</code>).</p>
@@ -116,6 +120,17 @@ it matches <code>group</code>).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> versicolor Sepal.Width      0.974   0.338 Shapiro-Wilk normality test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> virginica  Sepal.Length     0.971   0.258 Shapiro-Wilk normality test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> virginica  Sepal.Width      0.967   0.181 Shapiro-Wilk normality test</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Test each combination of two grouping variables (engine shape and</span></span></span>
+<span class="r-in"><span><span class="co"># transmission)</span></span></span>
+<span class="r-in"><span><span class="fu">ntest_by</span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mpg</span>, group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">vs</span>, <span class="va">am</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      vs    am variable statistic p.value method                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     0     1 mpg          0.931   0.584 Shapiro-Wilk normality test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     1     1 mpg          0.913   0.417 Shapiro-Wilk normality test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     1     0 mpg          0.938   0.618 Shapiro-Wilk normality test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     0     0 mpg          0.940   0.504 Shapiro-Wilk normality test</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
