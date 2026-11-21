@@ -9,3 +9,4 @@
 ^pkgdown$
 ^visual_assets
 ^CLAUDE\.md$
+^codecov\.yml$

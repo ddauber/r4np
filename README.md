@@ -5,7 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/ddauber/r4np/workflows/R-CMD-check/badge.svg)](https://github.com/ddauber/r4np/actions)
+[![R-CMD-check](https://github.com/ddauber/r4np/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ddauber/r4np/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/ddauber/r4np/graph/badge.svg)](https://app.codecov.io/gh/ddauber/r4np)
 [![R4NP-Book](https://img.shields.io/badge/R4NP-lightgrey)](https://r4np.com)
 [![RStudio
 community](https://img.shields.io/badge/community-teaching-blue?style=social&logo=rstudio&logoColor=75AADB)](https://community.rstudio.com/c/teaching)
