@@ -22,6 +22,6 @@ The `r4np` package is the companion for the book [R For Non-Programmers
 Install this package straight from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ddauber/r4np")
+# install.packages("pak")
+pak::pak("ddauber/r4np")
 ```
