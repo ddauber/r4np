@@ -9,6 +9,6 @@ Install this package straight from [GitHub](https://github.com/) with:
 
 ``` r
 
-# install.packages("devtools")
-devtools::install_github("ddauber/r4np")
+# install.packages("pak")
+pak::pak("ddauber/r4np")
 ```
