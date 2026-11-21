@@ -12,16 +12,20 @@
 #'   `mpg` or `c(mpg, disp)`. Selection helpers such as `starts_with()` or
 #'   `where(is.numeric)` also work. Grouping variables are never tested.
 #' @param group <[`tidy-select`][dplyr::dplyr_tidy_select]> The variable that
-#'   defines the groups, written as an unquoted column name, e.g. `cyl`.
+#'   defines the groups, written as an unquoted column name, e.g. `cyl`. If
+#'   you select several variables, e.g. `c(gender, country)`, every
+#'   combination of their values is treated as a separate group, so you get
+#'   one test for each gender in each country.
 #'
 #' @details Before running any tests, the function checks that `df` is a
-#'   dataframe, that all variables in `cols` are numeric, and that each
-#'   variable has between 3 and 5000 non-missing observations (the range
-#'   `shapiro.test()` accepts) and is not constant within every group. If any
-#'   check fails, the function stops with an error message explaining which
-#'   groups or variables are affected. It then performs the Shapiro-Wilk test
-#'   for each variable within each group and returns the results in a tidy
-#'   format.
+#'   dataframe, that all variables in `cols` are numeric, and that within
+#'   each group every variable has between 3 and 5000 non-missing
+#'   observations (the range `shapiro.test()` accepts) and is not constant.
+#'   With several grouping variables, these checks apply to every
+#'   combination of their values. If any check fails, the function stops
+#'   with an error message explaining which groups or variables are affected.
+#'   It then performs the Shapiro-Wilk test for each variable within each
+#'   group and returns the results in a tidy format.
 #'
 #'   Groups are defined only by `group`. If `df` is already a grouped
 #'   dataframe, that grouping is ignored and a short message says so (unless
@@ -37,6 +41,10 @@
 #'
 #' # Test several variables by group, piping the data into the function
 #' iris |> ntest_by(c(Sepal.Length, Sepal.Width), Species)
+#'
+#' # Test each combination of two grouping variables (engine shape and
+#' # transmission)
+#' ntest_by(mtcars, mpg, group = c(vs, am))
 #'
 #' @importFrom tidyr nest unnest
 #' @importFrom tibble tibble
