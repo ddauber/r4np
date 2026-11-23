@@ -1,6 +1,6 @@
 # Changelog
 
-## r4np (development version)
+## r4np 1.2.1
 
 - [`install_r4np()`](https://ddauber.github.io/r4np/reference/install_r4np.md)
   has been redesigned:
