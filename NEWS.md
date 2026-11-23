@@ -1,4 +1,4 @@
-# r4np (development version)
+# r4np 1.2.1
 
 * `install_r4np()` has been redesigned:
   * It now installs only packages that are missing and updates those that
