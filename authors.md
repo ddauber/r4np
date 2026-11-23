@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/ddauber/r4np/blob/master/inst/CITATION)
+[`inst/CITATION`](https://github.com/ddauber/r4np/blob/v1.2.1/inst/CITATION)
 
 Dauber, D. (2021). R For Non-Programmers: A Guide for Social Scientists.
 Bookdown.org, https://link.danieldauber.com/r4np-book
