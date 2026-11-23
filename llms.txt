@@ -18,8 +18,7 @@ pak::pak("ddauber/r4np")
 ## Functions
 
 - [`install_r4np()`](https://ddauber.github.io/r4np/reference/install_r4np.md)
-  : Install R packages relevant for the book 'R for Non-Programmers: A
-  Guide for Social Scientists'.
+  : Install and update all R packages used in the book
 - [`create_project_folder()`](https://ddauber.github.io/r4np/reference/create_project_folder.md)
   : Automatically create folders for a project
 - [`ntest()`](https://ddauber.github.io/r4np/reference/ntest.md) :

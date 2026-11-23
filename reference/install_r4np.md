@@ -1,7 +1,10 @@
-# Install R packages relevant for the book 'R for Non-Programmers: A Guide for Social Scientists'.
+# Install and update all R packages used in the book
 
-Install R packages relevant for the book 'R for Non-Programmers: A Guide
-for Social Scientists'.
+Installs every R package used in the book *R For Non-Programmers: A
+Guide for Social Scientists* in one go. Packages that are missing are
+installed, packages that are out of date are updated, and packages that
+are already up to date are left alone. You can run this function again
+at any time to bring all packages up to date.
 
 ## Usage
 
@@ -9,184 +12,126 @@ for Social Scientists'.
 install_r4np()
 ```
 
+## Value
+
+Invisibly, a character vector with the names of all packages that are
+installed after the function has run.
+
 ## Details
 
-Installs the following R packages at once:
+`install_r4np()` uses the [pak](https://pak.r-lib.org) package to
+install packages, because it is fast, prefers ready-built (binary)
+packages and, on Linux, can install the system libraries some packages
+need. If `pak` is not installed yet, it is installed first. If `pak`
+cannot be installed or fails, the function falls back to
+[`utils::install.packages()`](https://rdrr.io/r/utils/install.packages.html).
 
-- broom: :
+Packages are installed from the CRAN repository set in your R options
+(or <https://cloud.r-project.org> if none is set). `gradethis` is not on
+CRAN and is installed from <https://rstudio.r-universe.dev>.
 
-  Turns output from functions into tibbles.
+Updating packages that are already loaded can fail, especially on
+Windows. It is best to run `install_r4np()` in a fresh R session (in
+RStudio: *Session \> Restart R*).
 
-- car: :
+The following packages are installed:
 
-  Interpret regression results
+- **broom**: Turns the output of statistical tests and models into
+  tibbles.
 
-- correlation: :
+- **car**: Companion to applied regression, e.g. for Levene's test and
+  VIFs.
 
-  Lightweight package for computing different kinds of correlations,
-  such as partial correlations, Bayesian correlations, multilevel
-  correlations, polychoric correlations, biweight correlations, distance
-  correlations and more.
+- **correlation**: Computes many kinds of correlations, such as partial,
+  polychoric or Bayesian correlations.
 
-- effectsize: :
+- **effectsize**: Computes and converts effect sizes, such as Cohen's d,
+  r or odds ratios.
 
-  Provide utilities to work with indices of effect size and standardized
-  parameters for a wide variety of models, allowing computation of and
-  conversion between indices such as Cohen's d, r, odds, etc.
+- **exact2x2**: Computes the exact McNemar test.
 
-- exact2x2: :
+- **ggdist**: ggplot2 extension to plot distributions and uncertainty.
 
-  Provides a function to compute the exact McNemar Test.
+- **ggforce**: ggplot2 extension with additional geoms.
 
-- ggdist: :
+- **ggmosaic2**: ggplot2 extension to build mosaic plots.
 
-  ggplot2 extension to plot uncertainty and frequencies.
+- **ggraph**: Builds network graphs with ggplot2.
 
-- ggforce: :
+- **ggridges**: ggplot2 extension to build ridge plots.
 
-  ggplot2 extension to plot even more geoms.
+- **gradethis**: Checks answers in the interactive exercises (tutorials)
+  that come with this package.
 
-- ggraph: :
+- **igraph**: Creates and analyses networks; used together with ggraph.
 
-  Used to build network graphs
+- **infer**: Performs statistical inference using a tidy, pipe-friendly
+  workflow.
 
-- ggridges: :
+- **janitor**: Cleans column names, builds frequency tables and
+  crosstabs, and finds duplicates.
 
-  ggplot2 extension to build ridge plots
+- **jtools**: Summarises and presents the results of regression
+  analyses.
 
-- gradethis: :
+- **lavaan**: Fits latent variable models, such as confirmatory factor
+  analysis and structural equation models.
 
-  Checks answers in the interactive exercises (tutorials) that come with
-  this package. It is not on CRAN and is installed from
-  <https://rstudio.r-universe.dev>.
+- **learnr**: Runs the interactive exercises (tutorials) that come with
+  this package.
 
-- igraph: :
+- **lubridate**: Works with dates and times.
 
-  Used in combination with ggraph to create network plots
+- **mi**: Imputes missing values in a Bayesian framework.
 
-- infer: :
+- **mice**: Imputes missing values with multivariate imputation by
+  chained equations (MICE).
 
-  Performs statistical inference using a tidy, pipe-friendly workflow.
+- **modelr**: Pipe-friendly functions for modelling data.
 
-- janitor: :
+- **naniar**: Explores and visualises missing values.
 
-  The main janitor functions can: perfectly format data.frame column
-  names; provide quick counts of variable combinations (i.e., frequency
-  tables and crosstabs); and isolate duplicate records.
+- **parameters**: Extracts parameters from regression models.
 
-- jtools: :
+- **patchwork**: Combines several ggplots into one plot.
 
-  This is a collection of tools that the author (Jacob) has written for
-  the purpose of more efficiently understanding and sharing the results
-  of (primarily) regression analyses.
+- **performance**: Computes performance indices and checks assumptions
+  of regression models.
 
-- lavaan: :
+- **psych**: Toolbox for personality, psychometric and experimental
+  psychology research.
 
-  Fit a variety of latent variable models, including confirmatory factor
-  analysis, structural equation modeling and latent growth curve models.
+- **pwr**: Computes statistical power for common tests.
 
-- learnr: :
+- **rcompanion**: Additional statistical functions, such as effect
+  sizes.
 
-  Runs the interactive exercises (tutorials) that come with this
-  package.
+- **rstatix**: Pipe-friendly functions for common statistical tests.
 
-- lubridate: :
+- **scales**: Formats ggplot2 axes and labels.
 
-  Helps manipulate/convert date and time data
+- **see**: Visualises output from easystats packages.
 
-- mice: :
+- **simputation**: Simple imputation methods for missing data.
 
-  Multiple imputation using Fully Conditional Specification (FCS)
-  implemented by the MICE algorithm as described in Van Buuren and
-  Groothuis-Oudshoorn (2011).
+- **skimr**: Pipe-friendly summary statistics that display nicely in the
+  console.
 
-- mi: :
+- **tidytext**: Text mining using tidy data principles.
 
-  Provides functions for data manipulation, imputing missing values in
-  an approximate Bayesian framework, diagnostics of the models used to
-  generate the imputations, etc.
+- **tidyverse**: Installs the core tidyverse packages, such as dplyr,
+  ggplot2 and tidyr.
 
-- modelr: :
+- **wesanderson**: Colour palettes inspired by Wes Anderson films for
+  ggplot2.
 
-  Build pipefriendly operations to model data.
-
-- naniar: :
-
-  Provides data structures and functions that facilitate the plotting of
-  missing values and examination of imputations.
-
-- parameters: :
-
-  Returns parameters from regression models.
-
-- patchwork: :
-
-  Combine different ggplots into one plot.
-
-- performance: :
-
-  Returns performance indices for regression models
-
-- psych: :
-
-  A general purpose toolbox for personality, psychometric theory and
-  experimental psychology.
-
-- pwr: :
-
-  Compute the statistical power of different analytical approaches
-
-- rcompanion: :
-
-  Additional functions, such as for effect sizes.
-
-- rstatix: :
-
-  A pipe-friendly way of computing various common statistics.
-
-- scales: :
-
-  Useful functions to format ggplot axes.
-
-- see: :
-
-  Enables visualising output from easystats packages.
-
-- simputation: :
-
-  Offer imputation methods for missing data.
-
-- skimr: :
-
-  A simple to use summary function that can be used with pipes and
-  displays nicely in the console.
-
-- tidytext: :
-
-  Text mining using tidy data principles.
-
-- tidyverse: :
-
-  Install the core tidyverse packages.
-
-- wesanderson: :
-
-  Colour palettes inspired by Wes Anderson movies for ggplot2
-
-- wordcloud: :
-
-  Generates word clouds from text data.
-
-All packages except `gradethis` are installed from CRAN. `gradethis` is
-installed afterwards from r-universe. If that step fails, the other
-packages remain installed and a message explains how to install
-`gradethis` manually.
+- **wordcloud**: Generates word clouds from text data.
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# Run this line of code to install all relevant packages
+# Run this line of code to install or update all relevant packages
 install_r4np()
 } # }
 ```
