@@ -1,5 +1,22 @@
 # r4np (development version)
 
+* `install_r4np()` has been redesigned:
+  * It now installs only packages that are missing and updates those that
+    are out of date; packages that are already up to date are skipped. Running
+    it again is quick and brings all packages up to date.
+  * It uses `pak` to install packages, installing `pak` first if needed, and
+    falls back to `install.packages()` if `pak` is unavailable or fails.
+  * It no longer fails on Linux (it previously always used
+    `type = "both"`, which only works on Windows and macOS).
+  * It no longer installs the suggested packages of every package
+    (`dependencies = TRUE`), which added hundreds of unneeded packages.
+  * It respects the CRAN repository set in your R options instead of always
+    using `cloud.r-project.org`.
+  * It reports which packages were installed, updated, already up to date or
+    could not be installed, instead of always reporting success.
+  * The help page now lists all packages from the same source as the code,
+    so the two cannot get out of sync.
+
 # r4np 1.2.0
 
 * New `vtest()` runs Levene's test for homogeneity of variance on several

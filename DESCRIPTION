@@ -44,6 +44,7 @@ Suggests:
     mi,
     modelr,
     naniar,
+    pak,
     parameters,
     patchwork,
     performance,
@@ -61,6 +62,7 @@ Suggests:
     tidytext,
     tidyverse,
     wesanderson,
+    withr,
     wordcloud
 Additional_repositories: https://rstudio.r-universe.dev
 Config/testthat/edition: 3

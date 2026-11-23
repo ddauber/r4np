@@ -2,86 +2,80 @@
 % Please edit documentation in R/install_r4np.R
 \name{install_r4np}
 \alias{install_r4np}
-\title{Install R packages relevant for the book 'R for Non-Programmers: A Guide for Social Scientists'.}
+\title{Install and update all R packages used in the book}
 \usage{
 install_r4np()
 }
+\value{
+Invisibly, a character vector with the names of all packages that
+are installed after the function has run.
+}
 \description{
-Install R packages relevant for the book 'R for Non-Programmers: A Guide for Social Scientists'.
+Installs every R package used in the book \emph{R For
+Non-Programmers: A Guide for Social Scientists} in one go. Packages that
+are missing are installed, packages that are out of date are updated, and
+packages that are already up to date are left alone. You can run this
+function again at any time to bring all packages up to date.
 }
 \details{
-Installs the following R packages at once:
-\describe{
-\item{broom: }{Turns output from functions into tibbles.}
-\item{car: }{Interpret regression results}
-\item{correlation: }{Lightweight package for computing different kinds of
-correlations, such as partial correlations, Bayesian
-correlations, multilevel correlations, polychoric correlations,
-biweight correlations, distance correlations and more.}
-\item{effectsize: }{Provide utilities to work with indices of effect size and
-standardized parameters for a wide variety of models,
-allowing computation of and conversion between indices such as Cohen's d,
-r, odds, etc.}
-\item{exact2x2: }{Provides a function to compute the exact McNemar Test.}
-\item{ggdist: }{ggplot2 extension to plot uncertainty and frequencies.}
-\item{ggforce: }{ggplot2 extension to plot even more geoms.}
-\item{ggraph: }{Used to build network graphs}
-\item{ggridges: }{ggplot2 extension to build ridge plots}
-\item{gradethis: }{Checks answers in the interactive exercises (tutorials)
-that come with this package. It is not on CRAN and is
-installed from \url{https://rstudio.r-universe.dev}.}
-\item{igraph: }{Used in combination with ggraph to create network plots}
-\item{infer: }{Performs statistical inference using a tidy, pipe-friendly
-workflow.}
-\item{janitor: }{The main janitor functions can: perfectly
-format data.frame column names; provide quick
-counts of variable combinations (i.e., frequency
-tables and crosstabs); and isolate duplicate records.}
-\item{jtools: }{This is a collection of tools that the author (Jacob) has written for
-the purpose of more efficiently understanding and sharing the results
-of (primarily) regression analyses.}
-\item{lavaan: }{Fit a variety of latent variable models, including confirmatory factor analysis,
-structural equation modeling and latent growth curve models.}
-\item{learnr: }{Runs the interactive exercises (tutorials) that come with
-this package.}
-\item{lubridate: }{Helps manipulate/convert date and time data}
-\item{mice: }{Multiple imputation using Fully Conditional Specification (FCS)
-implemented by the MICE algorithm as described in Van Buuren and
-Groothuis-Oudshoorn (2011).}
-\item{mi: }{Provides functions for data manipulation, imputing missing values
-in an approximate Bayesian framework, diagnostics of the models used
-to generate the imputations, etc.}
-\item{modelr: }{Build pipefriendly operations to model data.}
-\item{naniar: }{Provides data structures and functions that
-facilitate the plotting of missing values and examination
-of imputations.}
-\item{parameters: }{Returns parameters from regression models.}
-\item{patchwork: }{Combine different ggplots into one plot.}
-\item{performance: }{Returns performance indices for regression models}
-\item{psych: }{A general purpose toolbox for personality, psychometric theory
-and experimental psychology.}
-\item{pwr: }{Compute the statistical power of different analytical approaches}
-\item{rcompanion: }{Additional functions, such as for effect sizes.}
-\item{rstatix: }{A pipe-friendly way of computing various common statistics.}
-\item{scales: }{Useful functions to format ggplot axes.}
-\item{see: }{Enables visualising output from easystats packages.}
-\item{simputation: }{Offer imputation methods for missing data.}
-\item{skimr: }{A simple to use summary function that can be used with pipes
-and displays nicely in the console.}
-\item{tidytext: }{Text mining using tidy data principles.}
-\item{tidyverse: }{Install the core tidyverse packages.}
-\item{wesanderson: }{Colour palettes inspired by Wes Anderson movies for ggplot2}
-\item{wordcloud: }{Generates word clouds from text data.}
-}
+\code{install_r4np()} uses the \href{https://pak.r-lib.org}{pak} package to
+install packages, because it is fast, prefers ready-built (binary)
+packages and, on Linux, can install the system libraries some packages
+need. If \code{pak} is not installed yet, it is installed first. If \code{pak}
+cannot be installed or fails, the function falls back to
+\code{\link[utils:install.packages]{utils::install.packages()}}.
 
-All packages except \code{gradethis} are installed from CRAN. \code{gradethis} is
-installed afterwards from r-universe. If that step fails, the other
-packages remain installed and a message explains how to install
-\code{gradethis} manually.
+Packages are installed from the CRAN repository set in your R options
+(or \url{https://cloud.r-project.org} if none is set). \code{gradethis} is not on
+CRAN and is installed from \url{https://rstudio.r-universe.dev}.
+
+Updating packages that are already loaded can fail, especially on
+Windows. It is best to run \code{install_r4np()} in a fresh R session (in
+RStudio: \emph{Session > Restart R}).
+
+The following packages are installed:
+\itemize{
+\item \strong{broom}: Turns the output of statistical tests and models into tibbles.
+\item \strong{car}: Companion to applied regression, e.g. for Levene's test and VIFs.
+\item \strong{correlation}: Computes many kinds of correlations, such as partial, polychoric or Bayesian correlations.
+\item \strong{effectsize}: Computes and converts effect sizes, such as Cohen's d, r or odds ratios.
+\item \strong{exact2x2}: Computes the exact McNemar test.
+\item \strong{ggdist}: ggplot2 extension to plot distributions and uncertainty.
+\item \strong{ggforce}: ggplot2 extension with additional geoms.
+\item \strong{ggraph}: Builds network graphs with ggplot2.
+\item \strong{ggridges}: ggplot2 extension to build ridge plots.
+\item \strong{gradethis}: Checks answers in the interactive exercises (tutorials) that come with this package.
+\item \strong{igraph}: Creates and analyses networks; used together with ggraph.
+\item \strong{infer}: Performs statistical inference using a tidy, pipe-friendly workflow.
+\item \strong{janitor}: Cleans column names, builds frequency tables and crosstabs, and finds duplicates.
+\item \strong{jtools}: Summarises and presents the results of regression analyses.
+\item \strong{lavaan}: Fits latent variable models, such as confirmatory factor analysis and structural equation models.
+\item \strong{learnr}: Runs the interactive exercises (tutorials) that come with this package.
+\item \strong{lubridate}: Works with dates and times.
+\item \strong{mi}: Imputes missing values in a Bayesian framework.
+\item \strong{mice}: Imputes missing values with multivariate imputation by chained equations (MICE).
+\item \strong{modelr}: Pipe-friendly functions for modelling data.
+\item \strong{naniar}: Explores and visualises missing values.
+\item \strong{parameters}: Extracts parameters from regression models.
+\item \strong{patchwork}: Combines several ggplots into one plot.
+\item \strong{performance}: Computes performance indices and checks assumptions of regression models.
+\item \strong{psych}: Toolbox for personality, psychometric and experimental psychology research.
+\item \strong{pwr}: Computes statistical power for common tests.
+\item \strong{rcompanion}: Additional statistical functions, such as effect sizes.
+\item \strong{rstatix}: Pipe-friendly functions for common statistical tests.
+\item \strong{scales}: Formats ggplot2 axes and labels.
+\item \strong{see}: Visualises output from easystats packages.
+\item \strong{simputation}: Simple imputation methods for missing data.
+\item \strong{skimr}: Pipe-friendly summary statistics that display nicely in the console.
+\item \strong{tidytext}: Text mining using tidy data principles.
+\item \strong{tidyverse}: Installs the core tidyverse packages, such as dplyr, ggplot2 and tidyr.
+\item \strong{wesanderson}: Colour palettes inspired by Wes Anderson films for ggplot2.
+\item \strong{wordcloud}: Generates word clouds from text data.
+}
 }
 \examples{
 \dontrun{
-# Run this line of code to install all relevant packages
+# Run this line of code to install or update all relevant packages
 install_r4np()
 }
 }
