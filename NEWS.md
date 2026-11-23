@@ -17,6 +17,9 @@
   * The help page now lists all packages from the same source as the code,
     so the two cannot get out of sync.
 
+* `install_r4np()` now installs `ggmosaic2` for mosaic plots, matching the
+  book. It replaces `ggmosaic`, which was archived on CRAN.
+
 # r4np 1.2.0
 
 * New `vtest()` runs Levene's test for homogeneity of variance on several

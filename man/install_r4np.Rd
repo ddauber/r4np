@@ -42,6 +42,7 @@ The following packages are installed:
 \item \strong{exact2x2}: Computes the exact McNemar test.
 \item \strong{ggdist}: ggplot2 extension to plot distributions and uncertainty.
 \item \strong{ggforce}: ggplot2 extension with additional geoms.
+\item \strong{ggmosaic2}: ggplot2 extension to build mosaic plots.
 \item \strong{ggraph}: Builds network graphs with ggplot2.
 \item \strong{ggridges}: ggplot2 extension to build ridge plots.
 \item \strong{gradethis}: Checks answers in the interactive exercises (tutorials) that come with this package.
